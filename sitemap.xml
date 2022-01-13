@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.slks.xyz/about/index.html</loc>
+    
+    <lastmod>2022-01-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/about/index.html</loc>
+    
+    <lastmod>2022-01-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.slks.xyz/2021/12/16/pytorch8/</loc>
     
     <lastmod>2022-01-13</lastmod>
@@ -84,15 +102,6 @@
   
   <url>
     <loc>https://blog.slks.xyz/2022/01/13/paper1/</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/about/index.html</loc>
     
     <lastmod>2022-01-13</lastmod>
     
