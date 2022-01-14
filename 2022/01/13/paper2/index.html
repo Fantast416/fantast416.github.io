@@ -168,18 +168,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -240,7 +240,6 @@
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/13/paper2/">
-
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
       <meta itemprop="name" content="ShenLvkesheng">
@@ -288,7 +287,10 @@
 </div>
 
             <div class="post-description">论文旨在在多尺度分辨率下，去恢复更多的图像细节。Uformer基于UNet，只不过将所有的卷积层替换为了Encoder-Decoder结构，同时保留了整体的Encoder-Decoder架构以及skip-connections。总体来说就是使用TransformerBlock 构建了一个层次化的Encoder-Decoder网络。</div>
+            <div class="post-remind">Google Chrome is recommended, otherwise the image size may be wrong</div>
+            <div class="post-remind">FireFox is not recommended,Because it does not support the image zoom property</div>
         </div>
+        
       </header>
 
     
@@ -1057,6 +1059,20 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
 
 
     <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="ShenLvkesheng WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
           <div class="post-tags">
               <a href="/tags/Swin-Transformer/" rel="tag"># Swin Transformer</a>
               <a href="/tags/Image-Restoration/" rel="tag"># Image Restoration</a>
@@ -1072,6 +1088,9 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/01/14/paper3/" rel="next" title="《Deep Residual Fourier Transformation for Single Image Deblurring》论文笔记">
+                  《Deep Residual Fourier Transformation for Single Image Deblurring》论文笔记 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
