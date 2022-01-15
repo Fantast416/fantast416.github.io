@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.slks.xyz/baidu_verify_code-4aCW8oyIIb.html</loc>
-    
-    <lastmod>2022-01-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.slks.xyz/2021/12/09/transformer4/</loc>
     
     <lastmod>2022-01-15</lastmod>
@@ -39,6 +30,132 @@
   
   <url>
     <loc>https://blog.slks.xyz/2021/12/06/transformer1/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/16/pytorch8/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/15/pytorch7/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/14/pytorch6/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/13/pytorch5/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/13/pytorch4/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/13/pytorch3/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/13/pytorch2/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/13/pytorch1/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/14/paper3/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/13/paper2/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/13/paper1/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/20/ml_course3/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/19/ml_course2/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/17/ml_course1/</loc>
     
     <lastmod>2022-01-15</lastmod>
     
@@ -101,18 +218,9 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/2022/01/04/basic3/</loc>
-    
-    <lastmod>2022-01-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.slks.xyz/2022/01/12/basic6/</loc>
     
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -121,7 +229,7 @@
   <url>
     <loc>https://blog.slks.xyz/2022/01/07/basic5/</loc>
     
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -130,25 +238,16 @@
   <url>
     <loc>https://blog.slks.xyz/2022/01/05/basic4/</loc>
     
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/2021/11/22/basic0/</loc>
+    <loc>https://blog.slks.xyz/2022/01/04/basic3/</loc>
     
-    <lastmod>2022-01-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/11/23/basic1/</loc>
-    
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -157,52 +256,34 @@
   <url>
     <loc>https://blog.slks.xyz/2021/11/24/basic2/</loc>
     
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/2022/01/13/paper2/</loc>
+    <loc>https://blog.slks.xyz/2021/11/23/basic1/</loc>
     
-    <lastmod>2022-01-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/17/ml_course1/</loc>
-    
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/2021/12/19/ml_course2/</loc>
+    <loc>https://blog.slks.xyz/2021/11/22/basic0/</loc>
     
-    <lastmod>2022-01-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/20/ml_course3/</loc>
-    
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/2022/01/14/paper3/</loc>
+    <loc>https://blog.slks.xyz/baidu_verify_code-4aCW8oyIIb.html</loc>
     
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -219,87 +300,6 @@
   
   <url>
     <loc>https://blog.slks.xyz/about/index.html</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/16/pytorch8/</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/15/pytorch7/</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/14/pytorch6/</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/13/pytorch5/</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/13/pytorch4/</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/13/pytorch3/</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/13/pytorch2/</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/13/pytorch1/</loc>
-    
-    <lastmod>2022-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2022/01/13/paper1/</loc>
     
     <lastmod>2022-01-13</lastmod>
     
@@ -584,42 +584,42 @@
 
   
   <url>
-    <loc>https://blog.slks.xyz/categories/ML-Basic-Notes/</loc>
+    <loc>https://blog.slks.xyz/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/categories/GAN-Notes/</loc>
+    <loc>https://blog.slks.xyz/categories/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/categories/Transformer-Basic-Notes/</loc>
+    <loc>https://blog.slks.xyz/categories/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/categories/Pytorch-Notes/</loc>
+    <loc>https://blog.slks.xyz/categories/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/categories/ML2021-Course-Notes/</loc>
+    <loc>https://blog.slks.xyz/categories/ML2021%E8%AF%BE%E7%A8%8B%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/categories/Paper-Notes/</loc>
+    <loc>https://blog.slks.xyz/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
