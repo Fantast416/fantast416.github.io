@@ -157,18 +157,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -497,7 +497,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/11/24/basic2/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/09/transformer4/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
       <meta itemprop="name" content="ShenLvkesheng">
@@ -509,7 +509,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/11/24/basic2/" class="post-title-link" itemprop="url">机器学习基础系列笔记2——数据表征与自动编码器</a>
+          <a href="/2021/12/09/transformer4/" class="post-title-link" itemprop="url">Transformer系列笔记4——Swin Transformer</a>
         </h2>
 
         <div class="post-meta-container">
@@ -521,14 +521,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2021-11-24 19:27:19" itemprop="dateCreated datePublished" datetime="2021-11-24T19:27:19+08:00">2021-11-24</time>
+      <time title="Created: 2021-12-09 20:31:19" itemprop="dateCreated datePublished" datetime="2021-12-09T20:31:19+08:00">2021-12-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-14 21:41:05" itemprop="dateModified" datetime="2022-01-14T21:41:05+08:00">2022-01-14</time>
+      <time title="Modified: 2022-01-15 12:22:45" itemprop="dateModified" datetime="2022-01-15T12:22:45+08:00">2022-01-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -536,7 +536,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ML-Basic-Notes/" itemprop="url" rel="index"><span itemprop="name">ML_Basic_Notes</span></a>
+          <a href="/categories/Transformer-Basic-Notes/" itemprop="url" rel="index"><span itemprop="name">Transformer_Basic_Notes</span></a>
         </span>
     </span>
 
@@ -551,10 +551,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>本文介绍了机器学习中的数据表征以及常见的自动编码器，例如堆叠式自动编码器、卷积自动编码器、变分自动编码器等</p>
+          <p>Transformer在视觉领域应用与NLP领域有一些较大的差别，首先就是在视觉领域，视觉实体的规模尺度会存在较大的变化，举例而言，想要识别同一张图像中的同一距离的果实和汽车，两者的规模尺度大小可能会存在较大的不同。第二点就是相比于文字而言，图像像素的分辨率更高，信息量更多，计算更为复杂，需要消耗更多的计算资源与训练时间。相比于先前的Vision Transformer的架构，Swin Transformer使用Shifted Windows这样一个技巧，不仅大大加速了计算速度，和图像的尺度呈线性计算复杂度，并且其也仍然能够考虑到不同窗口之间的信息交互，在识别质量上也提高了2-3个百分点。故而成为了应用性非常广泛的一个架构。那么具体而言，如何加速计算，并且仍然能够考虑不同窗口的信息交互，后面会详细讲解。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/11/24/basic2/">
+              <a class="btn" href="/2021/12/09/transformer4/">
                 Read more &raquo;
               </a>
             </div>
@@ -587,7 +587,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/11/23/basic1/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/07/transformer2/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
       <meta itemprop="name" content="ShenLvkesheng">
@@ -599,7 +599,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/11/23/basic1/" class="post-title-link" itemprop="url">机器学习基础系列笔记1——One-Hot编码与Word Embedding</a>
+          <a href="/2021/12/07/transformer2/" class="post-title-link" itemprop="url">Transformer系列笔记2——原始Transformer架构与Seq2Seq问题</a>
         </h2>
 
         <div class="post-meta-container">
@@ -611,14 +611,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2021-11-23 19:27:19" itemprop="dateCreated datePublished" datetime="2021-11-23T19:27:19+08:00">2021-11-23</time>
+      <time title="Created: 2021-12-07 21:31:19" itemprop="dateCreated datePublished" datetime="2021-12-07T21:31:19+08:00">2021-12-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-14 21:41:10" itemprop="dateModified" datetime="2022-01-14T21:41:10+08:00">2022-01-14</time>
+      <time title="Modified: 2022-01-15 12:22:00" itemprop="dateModified" datetime="2022-01-15T12:22:00+08:00">2022-01-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -626,7 +626,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ML-Basic-Notes/" itemprop="url" rel="index"><span itemprop="name">ML_Basic_Notes</span></a>
+          <a href="/categories/Transformer-Basic-Notes/" itemprop="url" rel="index"><span itemprop="name">Transformer_Basic_Notes</span></a>
         </span>
     </span>
 
@@ -641,10 +641,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>本文介绍了机器学习中常用的两种编码形式，One-Hot独热向量编码与Word Embedding词嵌入。</p>
+          <p>Transformer架构最广泛用在Seq2Seq问题上，也就是Sequence-to-Sequence。区别于GAN所对应的Pix2Pix的问题，Seq2Seq的问题也会有非常多的应用和变式，其应用场景也是非常的广。Seq2Seq问题是指输入一个序列，输出一个序列，同时输出序列的长度由训练好的模型进行决定。比较经典的问题就是语音识别、机器翻译、语音翻译等领域。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/11/23/basic1/">
+              <a class="btn" href="/2021/12/07/transformer2/">
                 Read more &raquo;
               </a>
             </div>
@@ -670,7 +670,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 </div>

@@ -2,6 +2,96 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.slks.xyz/2021/12/09/transformer4/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/07/transformer2/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/06/transformer1/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/05/gan6/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/04/gan5/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/03/gan4/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/02/gan3/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/01/gan2/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/11/30/gan1/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/04/basic3/</loc>
+    
+    <lastmod>2022-01-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.slks.xyz/2022/01/12/basic6/</loc>
     
     <lastmod>2022-01-14</lastmod>
@@ -21,15 +111,6 @@
   
   <url>
     <loc>https://blog.slks.xyz/2022/01/05/basic4/</loc>
-    
-    <lastmod>2022-01-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2022/01/04/basic3/</loc>
     
     <lastmod>2022-01-14</lastmod>
     
@@ -238,7 +319,7 @@
 
   <url>
     <loc>https://blog.slks.xyz/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -246,112 +327,231 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/Machine-Learning/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/tags/Basic-Concepts/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/tags/Info-Encoding/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/tags/Deconvolution/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/tags/Convolution/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/tags/FCN/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/tags/UNet/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/GAN/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/GAN-Evaluation/</loc>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/tags/Auto-Encoder/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Deep-Learning/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/InfoGAN/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/VAEGAN/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/BiGAN/</loc>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/tags/Pytorch/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/CNN/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <loc>https://blog.slks.xyz/tags/Transformer/</loc>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Training-Tricks/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <loc>https://blog.slks.xyz/tags/Self-Attention/</loc>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/FFT/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <loc>https://blog.slks.xyz/tags/Seq2Seq/</loc>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Image-Deblurring/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <loc>https://blog.slks.xyz/tags/ConditionalGAN/</loc>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Residual-Block/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <loc>https://blog.slks.xyz/tags/PatchGAN/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/CycleGAN/</loc>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/tags/Swin-Transformer/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Computer-Vision/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/CNN/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/LSGAN/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/WGAN/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/EBGAN/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Training-Tricks/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Theoretical-Basis/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/FFT/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Image-Deblurring/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Residual-Block/</loc>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/tags/Image-Restoration/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -360,28 +560,42 @@
   
   <url>
     <loc>https://blog.slks.xyz/categories/ML-Basic-Notes/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/categories/GAN-Notes/</loc>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/categories/Pytorch-Notes/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/categories/Transformer-Basic-Notes/</loc>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/categories/ML2021-Course-Notes/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.slks.xyz/categories/Paper-Notes/</loc>
-    <lastmod>2022-01-14</lastmod>
+    <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

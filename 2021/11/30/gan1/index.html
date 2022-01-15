@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文按照李宏毅老师讲课的逻辑进行记录，先从GAN的基本理论概念讲起，中间提及了Structure Learning的问题，然后回答了GAN中的两个经典的问题，然后对VAE和GAN的结果做了简单的比较，最后做了总结，看完以后应该会对GAN有一个完整的概念与理解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GAN系列笔记1——GAN的基本理念与思想">
+<meta property="og:url" content="https://blog.slks.xyz/2021/11/30/gan1/index.html">
+<meta property="og:site_name" content="Fantast&#39;s Blog">
+<meta property="og:description" content="本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文按照李宏毅老师讲课的逻辑进行记录，先从GAN的基本理论概念讲起，中间提及了Structure Learning的问题，然后回答了GAN中的两个经典的问题，然后对VAE和GAN的结果做了简单的比较，最后做了总结，看完以后应该会对GAN有一个完整的概念与理解。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214941737.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214945273.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214948402.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214959500.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215010569.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215031820.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215049291.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215052840.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215114053.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215147446.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215201515.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215238651.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215309664.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215320786.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215331213.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215356504.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215423815.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215433669.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215447872.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215456226.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215508501.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215517660.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215528542.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215538491.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215546546.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215603961.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215739478.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215749015.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215808954.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215815222.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/2222sdsa.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215842339.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114222543440.png">
+<meta property="article:published_time" content="2021-11-30T09:31:19.000Z">
+<meta property="article:modified_time" content="2022-01-15T04:16:39.675Z">
+<meta property="article:author" content="ShenLvkesheng">
+<meta property="article:tag" content="GAN">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214941737.png">
+
+
+<link rel="canonical" href="https://blog.slks.xyz/2021/11/30/gan1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.slks.xyz/2021/11/30/gan1/","path":"2021/11/30/gan1/","title":"GAN系列笔记1——GAN的基本理念与思想"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GAN系列笔记1——GAN的基本理念与思想 | Fantast's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Fantast's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Fantast's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80basic-idea-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">一、Basic Idea 基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cstructure-learning"><span class="nav-number">3.</span> <span class="nav-text">二、Structure Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89structure-learning%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">三、Structure Learning的一些解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E4%B8%BA%E4%BB%80%E4%B9%88generator%E4%B8%8D%E8%83%BD%E8%87%AA%E5%B7%B1%E5%AD%A6%E4%B8%BA%E4%BB%80%E4%B9%88discriminator%E4%B8%8D%E8%83%BD%E8%87%AA%E5%B7%B1%E7%94%9F%E6%88%90"><span class="nav-number">5.</span> <span class="nav-text">四、为什么Generator不能自己学？为什么Discriminator不能自己生成？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1generator%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E8%87%AA%E5%B7%B1%E5%AD%A6"><span class="nav-number">5.1.</span> <span class="nav-text">1、Generator为什么不能自己学？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2discriminator%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E8%87%AA%E5%B7%B1%E4%BA%A7%E7%94%9Fimage"><span class="nav-number">5.2.</span> <span class="nav-text">2、Discriminator为什么不能自己产生Image？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E6%AF%94%E8%BE%83vae%E5%92%8Cgan%E7%9A%84%E7%BB%93%E6%9E%9C"><span class="nav-number">6.</span> <span class="nav-text">五、比较VAE和GAN的结果：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">六、总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShenLvkesheng"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">ShenLvkesheng</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fantast416" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fantast416" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fantast416@gmail.com" title="E-Mail → mailto:fantast416@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.zhihu.com/people/shuo-shuo-3-41" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;shuo-shuo-3-41" rel="noopener" target="_blank">ZhiHu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.next.zju.edu.cn/" title="http:&#x2F;&#x2F;www.next.zju.edu.cn&#x2F;" rel="noopener" target="_blank">NextLab</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/11/30/gan1/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ShenLvkesheng">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fantast's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GAN系列笔记1——GAN的基本理念与思想
+        </h1>
+
+        <div class="post-meta-container">
+          
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-11-30 17:31:19" itemprop="dateCreated datePublished" datetime="2021-11-30T17:31:19+08:00">2021-11-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-01-15 12:16:39" itemprop="dateModified" datetime="2022-01-15T12:16:39+08:00">2022-01-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GAN-Notes/" itemprop="url" rel="index"><span itemprop="name">GAN_Notes</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文按照李宏毅老师讲课的逻辑进行记录，先从GAN的基本理论概念讲起，中间提及了Structure Learning的问题，然后回答了GAN中的两个经典的问题，然后对VAE和GAN的结果做了简单的比较，最后做了总结，看完以后应该会对GAN有一个完整的概念与理解。</div>
+            <div class="post-remind">Google Chrome is recommended, otherwise the image size may be wrong</div>
+            <div class="post-remind">FireFox is not recommended,Because it does not support the image zoom property</div>
+        </div>
+        
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex:2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
+}
+
+
+
+</style><title>GAN系列笔记1—原始GAN的基本理念与思想</title>
+</head>
+<body class='typora-export os-windows'><div class='typora-export-content'>
+<div id='write'  class=''><h3 id='前言'><span>前言：</span></h3><p><span>	</span><span>本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文按照李宏毅老师讲课的逻辑进行记录，先从GAN的基本理论概念讲起，中间提及了Structure Learning的问题，然后回答了GAN中的两个经典的问题，然后对VAE和GAN的结果做了简单的比较，最后做了总结，看完以后应该会对GAN有一个完整的概念与理解。全文共4800字左右。</span></p><h3 id='一basic-idea-基本概念'><span>一、Basic Idea 基本概念</span></h3><p><span>	</span><span>GAN是完成了一个Generation的任务，从目标上而言，其实就是我们要训练一个NN的generator，这个generator可以完成下述任务：你给机器一个随机的向量，机器就可以给你输出你想要的物体（可以是图像也可以是其他）。（当然，这种类型的generator看上去是没什么用的，因为你不知道随机向量到底会生成什么样子的东西，但通常向量的每个维度可能就是用于控制输出图像的一个特征部分，现在暂时我们只专注于完成这样一个随机的任务部分）。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214941737.png" referrerpolicy="no-referrer" alt="image-20220114214941737"></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214945273.png" referrerpolicy="no-referrer" alt="image-20220114214945273"></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214948402.png" referrerpolicy="no-referrer" alt="image-20220114214948402"></p><p><span>	</span><span>GAN比较神奇的点在于其还会同时训练一个Discriminator，即判别器。从目标上而言，其要完成如下任务:输入一个图像，输出一个值，这个值越大，代表图像越真实。值越小，代表图像越虚假。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214959500.png" referrerpolicy="no-referrer" alt="image-20220114214959500"></p><p><span>	</span><span>那么在GAN中，Generator和Discriminator的关系其实就是对抗竞争，或者说互相帮助互相进步的关系。如下图所示：第一代的生成器生成的东西，交给第一代判别器。第一代生成器在第一代判别器的反馈下，进化为第二代的生成器，然后判别器也随之进化为第二代，循环往复下去（有一种道高一尺，魔高一丈的感觉）</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215010569.png" referrerpolicy="no-referrer" alt="image-20220114215010569"></p><p><span>	</span><span>一个更好的比方，下图中，Generator和Discriminator就像是学生和老师在对话一样，在这个过程中，学生逐渐进步。老师的要求标准也越来越高。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215031820.png" referrerpolicy="no-referrer" alt="image-20220114215031820"></p><p><span>	</span><span>在这样一个过程中，留下两个疑问：Generator做生成为什么不自己学提高水平呢？Discriminator这么会批评，为什么不自己做生成呢？【解释与回答见第四章】</span></p><p><span>	</span><span>现在我们先来讨论一下整个训练的算法伪代码过程，如下所示：</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215049291.png" referrerpolicy="no-referrer" alt="image-20220114215049291"></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215052840.png" referrerpolicy="no-referrer" alt="image-20220114215052840"></p><p><span>	</span><span>首先我们初始化生成器和判别器，然后在每一个训练迭代阶段，进行两件事：</span></p><p><span>	</span><span>1、我们将Generator固定住，训练Discriminator的参数。具体而言，我们首先随机的输入一些向量，通过G生成一些随机的generated objects，然后再从真实数据库中取出一些objects，将这两部分图片作为D的输入，来训练D。目的是要让D看到generated objects 就给出尽可能接近0的分数，让D看到真实的objects就给出尽可能接近1的分数。(其实就是给两部分图片打个标，然后训练一个分类器，如上图所示)</span></p><p><span>	</span><span>2、固定住Discriminator的参数，调整生成器的参数。具体而言就是：将一个随机的vector丢入生成器里，生成一张图片，将图片放入判别器中，得到一个分数，我们训练此步的目标是要使最后输出的那个分数越接近1越好。从代码上，这个要怎么进行操作呢？我们往往会将生成器的NN和判别器的NN合并成一个大的网络，锁住判别器部分层的参数，这相当于这个大的网络中间有一层很宽的隐藏层（就是输出图片那一层），然后我们要使得最后生成的结果越大越好，就是Gradient Ascent，其实就是在Objective Function上加一个负号，就可以完成这个任务。</span></p><p><span>	</span><span>下述是更为正式的算法伪代码：</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215114053.png" referrerpolicy="no-referrer" alt="image-20220114215114053"></p><p><span>要注意，在这个算法中，有一些超参数是需要手工去调整以找到最佳效果的：</span></p><p><span>	</span><span>1、输入的向量的维度，5维、10维、……</span></p><p><span>	</span><span>2、在每一个迭代过程中：更新判别器的次数，可以是1-n次。</span></p><p><strong><span>算法中的一些解释：</span></strong></p><p><span>	</span><span>1、更新判别器参数的时候的Objective Function：</span></p><p><span>	</span><span>第一项：</span><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215147446.png" referrerpolicy="no-referrer" alt="image-20220114215147446"><span>代表真实数据集的图像进到判别器中的分数均值。</span></p><p><span>	</span><span>第二项：</span><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215201515.png" referrerpolicy="no-referrer" alt="image-20220114215201515"><span>代表生成的图像进到判别器中的分数被1减去后的均值。</span></p><p><span>	</span><span>我们要让这个目标函数最大，其实就是完成了最开始说的，真是数据集图像进到判别器中，分数越接近1越好，生成图像进入，分数越接近0越好。</span></p><p><span>	</span><span>2、更新生成器参数的时候的Objective Function：</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215238651.png" referrerpolicy="no-referrer" alt="image-20220114215238651"></p><p><span>	</span><span>其实就是随机向量通过生成器，再通过判别器后，得到的均值越大越好。然后用梯度上升方法，去最大化这个目标函数。</span></p><p>&nbsp;</p><h3 id='二structure-learning'><span>二、Structure Learning</span></h3><p><span>	</span><span>首先，什么是Structure Learning？机器学习本身其实就是找到一个函数f，去完成X-&gt;Y这样一件事情。回归问题，其实就是输出一个分数。分类问题就是输出一个类别，结构化学习其实就是输出一个更复杂的比如说一个序列，一个矩阵，一个图，一个树等等这样的问题。往往这种复杂的结构是由很多个组件组成，并且这些组件之间是有关联关系的。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215309664.png" referrerpolicy="no-referrer" alt="image-20220114215309664"></p><p><span>	</span><span>为什么Structure Learning是很Challenging的呢？其实就是如下图所说的，一个的话是它可以被视为One-shot Learning或者是Zero-shot Learning。那什么是One-Shot Learning 或者说Zero-shot Learning呢？例如，在分类作业中，我们如果需要训练，每个类别都需要给出一系列的数据范例。而One-Shot Learning 或者Zero-shot Learning就是指，可能有些类别完全没有范例，或者说只有很少的范例。</span></p><p><span>	</span><span>Structure Learning里面，输出的是一个结构体，也就是说很有可能训练的句子里面是完全不会有重复的东西的。如果我们把所有的可能输出都视为一个类的话，输出的空间是很巨大的。并且大多数的类都是没有任何训练数据的。所以机器需要一定的创造性。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215320786.png" referrerpolicy="no-referrer" alt="image-20220114215320786"></p><p><span>	</span><span>第二点的话，在Structure Learning中，机器必须学会规划。机器可以一个个组件的去产生，但是它一定要学会组件和组件之间的关系与限制。需要全局的去进行考虑。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215331213.png" referrerpolicy="no-referrer" alt="image-20220114215331213"></p><h3 id='三structure-learning的一些解决方案'><span>三、Structure Learning的一些解决方案</span></h3><p><span>	</span><span>在传统的方法分类中，其实有两类：一类是Bottom Up的方法，一类是Top Down的方法。自底而上的方法主要是学习怎么去生成Component，然后再进行合并，这个很像Generator做的事情，但是这样很容易失去大局观。自上而下的方法是学会评估一个物体，然后找到最好的那个，这个很像Discriminator做的事情，但是这样做的问题是很难做生成。【为什么这么说见第四章】其实GAN就是解决Structure Learning的一个解决方案，他就像是把两种方法做了结合。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215356504.png" referrerpolicy="no-referrer" alt="image-20220114215356504"></p><h3 id='四为什么generator不能自己学为什么discriminator不能自己生成'><span>四、为什么Generator不能自己学？为什么Discriminator不能自己生成？</span></h3><h4 id='1generator为什么不能自己学'><span>1、Generator为什么不能自己学？</span></h4><p><span>	</span><span>在传统的有监督学习中，我们只要有大量的真实图片数据，以及他们对应的标签，我就可以完成生成图片这样子一个任务。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215423815.png" referrerpolicy="no-referrer" alt="image-20220114215423815"></p><p><span>	</span><span>但是问题就来了，我们怎么给这些真实图片数据打标签呢？如果是随机赋给他们一些向量标签，那最后的训练是会很困难的。因为比如说我们看两个1的图片比较相似，当然希望向量中有一部分的标签内容是类似的，而不是说这两个1的图片对应的向量标签完全不一致。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215433669.png" referrerpolicy="no-referrer" alt="image-20220114215433669"></p><p><span>	</span><span>也就是说，我们总是希望这个input和output的内容是存在一些联系的，而不是毫无联系。说到这里，其实问题还是可以解决的，怎么去解决这个编码问题呢？</span></p><p><span>	</span><span>正巧，我的上一篇文章中讲了各种自动编码器的相关知识，这个编码问题，我们可以训练一个NN编码器来进行解决。这个编码器完成一件什么事呢？给它一个图片，它输出一个向量，来表示这个图片的相关特征。具体而言，自动编码器怎么进行训练，详见自动编码器的文章，如下：这里的话也给一张李宏毅老师课程的截图示意：</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215447872.png" referrerpolicy="no-referrer" alt="image-20220114215447872"></p><p><span>	</span><span>仔细想来，其实这个Decoder干的是不是就是Generator的事情？是的！因为它也是接收一个Vector向量，输出一张图片，如下图所示：</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215456226.png" referrerpolicy="no-referrer" alt="image-20220114215456226"></p><p><span>	</span><span>这样看来，其实理论上来讲，只要我们训练好了一个自动编码器，把Decoder部分拿出来，就是一个生成器。然后我们随便给一个向量，他就会输出一个对应的图像。</span></p><p><span>	</span><span>但是Auto-Encoder存在什么样的问题呢？如下图所示：比如说，我们已知a向量可以产生一个图片，b向量可以产生一个图片，那么0.5</span><em><span>a+0.5</span></em><span>b会产生什么呢？很有可能会产生Noise，因为这样的生成器本身是一个神经网络，不是线性的。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215508501.png" referrerpolicy="no-referrer" alt="image-20220114215508501"></p><p><span>	</span><span>说到这里，其实还没有正面回答Generator为什么不能自己学这个问题，但大家不要着急。我们继续说，这个问题其实我们可以用VAE来解决，也就是上篇文章末尾重点讲过的变分自动编码器。</span></p><p><span>	</span><span>如下图所示：有了变分编码器，因为变分自动编码器是对一个概率分布进行了编码，而不是固定的。所以我们能够将这个decoder训练的更为稳定。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215517660.png" referrerpolicy="no-referrer" alt="image-20220114215517660"></p><p><span>	</span><span>那么，现在看来，好像Auto-Encoder就能解决Structure Learning这样一个任务了，那为什么我们还需要GAN这个技术呢？接下去要说的就是Auto-Encoder这套技术所缺少的内容。</span></p><p><span>	</span><span>在Auto-Encoder的技术中，我们实现的目标是：让生成的图片和目标图像越像越好。那么问题来了，什么叫越像越好？正常来说，我们就是把这个图像展开成一个vector，然后逐像素的计算距离差。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215528542.png" referrerpolicy="no-referrer" alt="image-20220114215528542"></p><p><span>	</span><span>我们先前说过，自动编码器是不能让它完整的保留所有的信息的，不然就失去了编码的意义，机器只要学习复制就可以了。所以自动编码器的生成器部分，生成的目标总是和源图像会有一些差距，会有一些取舍。这个时候，取舍在哪里就很重要！如下图所示：右上角是目标图像，下面四个是生成的图像。生成图像第一排，只偏差了1个像素，第二排，偏差了6个像素。从计算相似度而言，第一排优于第二排，但是从人的感知而言，第二排优于第一排。所以我们如果只是单纯的计算距离差，让两者越像越好，就有可能会产生第一排的结果。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215538491.png" referrerpolicy="no-referrer" alt="image-20220114215538491"></p><p><span>	</span><span>在做Structure Learning的过程中，我们说过组件和组件之间的关系是很重要的，许哟啊考虑全局观念。这个偏差出来的多的像素本身没有错误，有错的是它如果是有像素值的，那么它周边的组件，也应当是有填充的，而不是空白的。这个像素要和周围的像素一致，这个其实就是组件和组件的一种关联。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215546546.png" referrerpolicy="no-referrer" alt="image-20220114215546546"></p><p><span>	</span><span>但是我们训练一个生成器的时候，当我们训练一个网络的时候，是很难把组件和组件的关系放进去的。因为在NN网络这个架构里面，如果前一层的权重都已经确定了，最后的输出之间是独立的。每个输出神经元之间没法互相进行配合。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215603961.png" referrerpolicy="no-referrer" alt="image-20220114215603961"></p><p><span>	</span><span>其实像这种也可以解决，只不过需要更深的网络结构。更深的网络结构能够帮助你把这种组件与组件之间的相关性考虑进去。所以，如果有一个GAN网络，一个Auto-Encoder网络，要完成一个目标，往往Auto-Encoder的网络需要更深，才能达到和GAN类似的效果。</span></p><p><span>	</span><span>其实讲到这里，都没有明确的回答Generator为什么不能自己学这个问题，但是其实已经回答掉了。因为我们刚才讲的，Auto-Encoder就是训练了一个单的Generator，是抛弃了Discriminator的一个架构。如果这样子让Generator自己学，当然可以，只不过会存在上述所说的种种问题和难处。</span></p><h4 id='2discriminator为什么不能自己产生image'><span>2、Discriminator为什么不能自己产生Image？</span></h4><p><span>	</span><span>Discriminator总的来说干了一件什么事呢？它其实就是输入一个对象，输出一个分数，表示这个对象多好或多差，进行评估。对于Discriminator来说，它要考虑组件和组件之间的关系就很容易了，因为他是看到整个图片的。</span></p><p><span>	</span><span>那么我们其实是可以用Discriminator来产生Image的，只不过会非常的卡，非常的慢，为什么这么说呢，我们先看，如果硬要用Discriminator来产生Image，步骤应该是怎样的：</span></p><p><span>	</span><span>假设我们已经训练好了一个好的判别器，那么我们只需要执行如下公式即可：</span></p><p><span>	</span><span>穷举所有的x，然后一个个丢到判别器里，让它看是不是高分。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215739478.png" referrerpolicy="no-referrer" alt="image-20220114215739478"></p><p><span>	</span><span>虽然这看上去不是很合理，对于穷举而言。但是这其实并不是关键所在。我们现在先假设这个方法确实可行，那难道就可以了吗？别忘了，我们先前的假设：“假设我们已经训练好了一个好的判别器”，那么我们怎么训练这个判别器呢？这才是问题的关键！</span></p><p><span>	</span><span>理论上讲很简单，我给他好的样例，让他输出高分，烂的样例，让他输出低分。但是实际上呢，我们手上只有好的样例。如果只有这样的训练实例，会导致网络看到啥都给高分。所以，怎么去产生不好的样例，产生怎样不好的样例，就是一个很关键的问题：</span></p><p><span>	</span><span>如果不好的样例就只是一些噪音，那其实机器很容易会给一些尚可的模糊的图片打高分，这并不是我们希望看到的。如下图所示。所以只有差的样例足够的好，才能让机器真正的学会评判好的图片和坏的图片，</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215749015.png" referrerpolicy="no-referrer" alt="image-20220114215749015"></p><p><span>	</span><span>所以现在如何生成足够ok的差的样例就很重要，那么我们就需要一个来生成差的样例的过程，在没有Generator的前提下，这就是一个鸡生蛋蛋生鸡的循环问题了。所以如果真的想要完成这件事情，只能通过一个迭代的形式去完成：</span></p><p><span>	</span><span>我先学一个最差的Discriminator出来，然后用这个去做生成，生成出来的样例用来训练更好的Discriminator，循环往复。你会发现这个过程好像跟GAN差不多，但是如果没有generator，要比GAN累好多，慢很多。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215808954.png" referrerpolicy="no-referrer" alt="image-20220114215808954"></p><p><span>	</span><span>这时候再来看如果我们把Generator加上，GAN不就是利用Generator来求解这个argmax的问题，用于生成一些负面的样例。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215815222.png" referrerpolicy="no-referrer" alt="image-20220114215815222"></p><h3 id='五比较vae和gan的结果'><span>五、比较VAE和GAN的结果：</span></h3><p><span>	</span><span>下图是各个GAN和VAE在不同参数下，所表现出来的性能分数的值的区间。还附带了一个VAE和GAN生成人物头像的直观结果。</span></p><p><span>1、VAE比较稳定，给它不同的参数，所表现出来的性能相差不大。</span></p><p><span>2、GAN相对而言比较吃参数，但是只要参数正确，所生成的最好结果也是远远优于VAE产生的结果的。</span><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/2222sdsa.png" referrerpolicy="no-referrer" alt="2222sdsa"></p><p>&nbsp;</p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215842339.png" referrerpolicy="no-referrer" alt="image-20220114215842339"></p><p>&nbsp;</p><h3 id='六总结'><span>六、总结</span></h3><p><span>1）生成器：</span></p><p><span>	</span><span>优势：很快就能生成一个东西</span></p><p><span>	</span><span>劣势：很难察觉组件和组件之间的关系，只是模仿一个表象</span></p><p><span>2）判别器：</span></p><p><span>	</span><span>优势：可以考虑大局观</span></p><p><span>	</span><span>劣势：生成一个东西非常的困难</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114222543440.png" referrerpolicy="no-referrer" alt="image-20220114222543440"></p><p><span>3）GAN的优势：</span></p><p><span>1、从判别器的角度而言，使用Generator来进行negative example的生成，更为高效。</span></p><p><span>2、从生成器的角度而言，它虽然仍然是一个组件一个组件的生成对象，但是相比传统的计算L1,L2的损失而言，它会从Discriminator那边得到全局视野的反馈，更能理解组件与组件之间的关系。</span></p></div></div>
+</body>
+</html>
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2021\12\05\gan6\" rel="bookmark">GAN系列笔记6——评估GAN的相关方法指标</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2021\12\04\gan5\" rel="bookmark">GAN系列笔记5——GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2021\12\03\gan4\" rel="bookmark">GAN系列笔记4——GAN训练过程中的一些Tips与改进的GAN网络（含LSGAN、WGAN、EBGAN）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2021\12\02\gan3\" rel="bookmark">GAN系列笔记3——GAN的数学理论支撑</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2021\12\01\gan2\" rel="bookmark">GAN系列笔记2——常见GAN变种（ConditionalGAN，PatchGAN，CycleGAN等）</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="ShenLvkesheng WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/GAN/" rel="tag"># GAN</a>
+              <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/24/basic2/" rel="prev" title="机器学习基础系列笔记2——数据表征与自动编码器">
+                  <i class="fa fa-chevron-left"></i> 机器学习基础系列笔记2——数据表征与自动编码器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/01/gan2/" rel="next" title="GAN系列笔记2——常见GAN变种（ConditionalGAN，PatchGAN，CycleGAN等）">
+                  GAN系列笔记2——常见GAN变种（ConditionalGAN，PatchGAN，CycleGAN等） <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShenLvkesheng</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"c7c8faa96a6165bfe03de266f4175057"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
