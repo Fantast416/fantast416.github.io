@@ -20,55 +20,39 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="本篇笔记讲解了Self Attention的基本机制，Self Attention是Transformer的核心机制之一。">
+<meta name="description" content="自从Transfomer机制出现以后，已经成为了NLP领域的业界标准流程，但是在CV领域的应用较少。CV领域中往往都是会将其和CNN结合使用，或是代替CNN架构中的一部分。这篇论文就提出了其实在CV领域中，Transformer并不需要依赖于CNN来进行使用，其提出的Vision Transformer架构，在基于一些大体量数据的预训练的网络参数时，能够取得非常好的效果，并且也能节省训练的计算资源">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Transformer系列笔记1——Self Attention机制">
-<meta property="og:url" content="https://blog.slks.xyz/2021/12/06/transformer1/index.html">
+<meta property="og:title" content="Transformer系列笔记3——Vision Transformer架构">
+<meta property="og:url" content="https://blog.slks.xyz/2021/12/08/transformer3/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
-<meta property="og:description" content="本篇笔记讲解了Self Attention的基本机制，Self Attention是Transformer的核心机制之一。">
+<meta property="og:description" content="自从Transfomer机制出现以后，已经成为了NLP领域的业界标准流程，但是在CV领域的应用较少。CV领域中往往都是会将其和CNN结合使用，或是代替CNN架构中的一部分。这篇论文就提出了其实在CV领域中，Transformer并不需要依赖于CNN来进行使用，其提出的Vision Transformer架构，在基于一些大体量数据的预训练的网络参数时，能够取得非常好的效果，并且也能节省训练的计算资源">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115111555364.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115111649129.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112432503.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112440152.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112458834.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112507468.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112528529.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112544934.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112553361.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112601252.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112614866.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112623695.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112631291.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112638932.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112647706.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112657080.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112728011.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112737330.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112754051.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112802708.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112819190.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112827842.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112836400.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112848232.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112858420.png">
-<meta property="article:published_time" content="2021-12-06T13:31:19.000Z">
-<meta property="article:modified_time" content="2022-01-15T04:20:08.113Z">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115115915557.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115115949427.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120001864.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120004895.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120029921.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120118127.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120147916.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120211640.png">
+<meta property="article:published_time" content="2021-12-08T10:31:19.000Z">
+<meta property="article:modified_time" content="2022-01-15T04:23:18.363Z">
 <meta property="article:author" content="ShenLvkesheng">
 <meta property="article:tag" content="Transformer">
-<meta property="article:tag" content="Self Attention">
+<meta property="article:tag" content="Vision Transformer">
+<meta property="article:tag" content="Computer Vision">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115111555364.png">
+<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115115915557.png">
 
 
-<link rel="canonical" href="https://blog.slks.xyz/2021/12/06/transformer1/">
+<link rel="canonical" href="https://blog.slks.xyz/2021/12/08/transformer3/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.slks.xyz/2021/12/06/transformer1/","path":"2021/12/06/transformer1/","title":"Transformer系列笔记1——Self Attention机制"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.slks.xyz/2021/12/08/transformer3/","path":"2021/12/08/transformer3/","title":"Transformer系列笔记3——Vision Transformer架构"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Transformer系列笔记1——Self Attention机制 | Fantast's Blog</title>
+<title>Transformer系列笔记3——Vision Transformer架构 | Fantast's Blog</title>
   
 
 
@@ -175,7 +159,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D%E9%97%AE%E9%A2%98%E5%BC%95%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">一、背景介绍问题引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cself-attention%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E5%BC%95%E5%85%A5"><span class="nav-number">2.</span> <span class="nav-text">二、Self-Attention解决方案引入：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89self-attention%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">三、Self-Attention架构介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9Bself-attention%E6%9E%B6%E6%9E%84%E6%89%A9%E5%B1%95%E6%94%B9%E8%BF%9B"><span class="nav-number">4.</span> <span class="nav-text">四、Self-Attention架构扩展改进</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1multi-head-self-attention-%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">4.1.</span> <span class="nav-text">1、Multi-head Self-Attention 多头注意力机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2positional-encoding"><span class="nav-number">4.2.</span> <span class="nav-text">2、Positional Encoding</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94self-attention%E5%BA%94%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">五、Self-Attention应用</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E5%9C%B0%E5%9D%80httpsarxivorgabs201011929"><span class="nav-number">1.</span> <span class="nav-text">论文地址：https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2010.11929</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8Bvision-transformer-vit"><span class="nav-number">2.</span> <span class="nav-text">模型：Vision Transformer (ViT)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81%E4%B8%8Evision-transformer%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"><span class="nav-number"></span> <span class="nav-text">一、论文摘要与Vision Transformer背景介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cvision-transformer%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number"></span> <span class="nav-text">二、Vision Transformer网络架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1linear-projection-of-flattened-patchesembedding%E5%B1%82%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">1、Linear Projection of Flattened Patches（Embedding层）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2transformer-encoder%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">2、Transformer Encoder层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3mlp-head%E5%B1%82"><span class="nav-number">3.</span> <span class="nav-text">3、MLP Head层</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E4%BB%A5vit-b16-%E4%B8%BA%E4%BE%8B%E7%9A%84vision-transformer%E6%9E%B6%E6%9E%84"><span class="nav-number"></span> <span class="nav-text">三、以ViT-B&#x2F;16 为例的Vision Transformer架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E4%B8%8D%E5%90%8Cvit%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number"></span> <span class="nav-text">四、不同ViT模型的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94hybrid%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B"><span class="nav-number"></span> <span class="nav-text">五、Hybrid混合模型</span></a></div>
         </div>
         <!--/noindex-->
 
@@ -261,7 +245,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/06/transformer1/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/08/transformer3/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
       <meta itemprop="name" content="ShenLvkesheng">
@@ -273,7 +257,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Transformer系列笔记1——Self Attention机制
+          Transformer系列笔记3——Vision Transformer架构
         </h1>
 
         <div class="post-meta-container">
@@ -285,14 +269,14 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2021-12-06 21:31:19" itemprop="dateCreated datePublished" datetime="2021-12-06T21:31:19+08:00">2021-12-06</time>
+      <time title="Created: 2021-12-08 18:31:19" itemprop="dateCreated datePublished" datetime="2021-12-08T18:31:19+08:00">2021-12-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-15 12:20:08" itemprop="dateModified" datetime="2022-01-15T12:20:08+08:00">2022-01-15</time>
+      <time title="Modified: 2022-01-15 12:23:18" itemprop="dateModified" datetime="2022-01-15T12:23:18+08:00">2022-01-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -314,7 +298,7 @@
     </span>
 </div>
 
-            <div class="post-description">本篇笔记讲解了Self Attention的基本机制，Self Attention是Transformer的核心机制之一。</div>
+            <div class="post-description">自从Transfomer机制出现以后，已经成为了NLP领域的业界标准流程，但是在CV领域的应用较少。CV领域中往往都是会将其和CNN结合使用，或是代替CNN架构中的一部分。这篇论文就提出了其实在CV领域中，Transformer并不需要依赖于CNN来进行使用，其提出的Vision Transformer架构，在基于一些大体量数据的预训练的网络参数时，能够取得非常好的效果，并且也能节省训练的计算资源。所以Vision Transformer是应用于CV领域的，不简单依托于CNN架构的一类Transformer架构的衍生内容。在此论文中，其应用于了CV领域的图象识别任务。</div>
             <div class="post-remind">Google Chrome is recommended, otherwise the image size may be wrong</div>
             <div class="post-remind">FireFox is not recommended,Because it does not support the image zoom property</div>
         </div>
@@ -917,10 +901,10 @@ header, .context-menu, .megamenu-content, footer{
 
 
 
-</style><title>Transformer系列笔记1—SelfAttention机制</title>
+</style><title>Transformer系列笔记3—Vision Transformer架构</title>
 </head>
 <body class='typora-export os-windows'><div class='typora-export-content'>
-<div id='write'  class=''><h3 id='一背景介绍问题引入'><span>一、背景介绍问题引入</span></h3><p><span>	</span><span>在先前的网络架构中，我们一般输入的都是一个向量，但是有的时候我们需要考虑更为复杂的输入，如下图所示，比如说一个向量的集合，并且向量集合的长度还会发生变化。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115111555364.png" referrerpolicy="no-referrer" alt="image-20220115111555364"></p><p><span>	</span><span>一般按来说对于输入是向量集合的话，我们先要对其进行编码处理，一种编码方案为One-hot Encoding,称为独热向量编码，另一种编码方案为Word Embedding方法，称为词嵌入方式。</span></p><p><span>为了更好的理解，输入为一个向量的集合，下面有一些相关的例子：</span></p><p><span>	</span><strong><span>示例1：</span></strong><span>比如说，输入是一段语音，我们可以将一段1s中的语音视为一个向量的集合输入，每25ms视为一个window窗口，称为1帧，将里面的信息提取出来以后，就成为一个向量。我们将这个窗口每次向后移动10ms，每移动10ms就重新取一次样，也就是多输出一个向量。这样预处理的话，其实就是一段1s的语音我们可以把它视作为100个向量的一个集合输入。 （在上述处理的过程中，至于为什么25ms视为一个window，每次要向后移动10ms，这些都需要视具体的语音任务而定，有兴趣可以进一步看语音处理方面相关的文章）</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115111649129.png" referrerpolicy="no-referrer" alt="image-20220115111649129"></p><p><span>	</span><strong><span>示例2</span></strong><span>：比如说一个图，也可以被视作一个向量的集合，每个节点都被当作一个向量，这个向量中编码了关于这个节点所有的相关信息。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112432503.png" referrerpolicy="no-referrer" alt="image-20220115112432503"></p><p><span>	</span><span>那么对于这样复杂的输入而言，输出可能是什么呢？如下图所示，有三种可能，第一个是对于每个输入的向量，都输出一个label结果，比如说POS tagging任务。第二个是整体就输出一个label结果，比如说Sentiment analysis任务。又或者是第三个所示的seq2seq的任务，比如说语句翻译，或者是语音识别的任务。此篇文章聚焦于第一种情况探讨Self-Attention机制与整体的架构。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112440152.png" referrerpolicy="no-referrer" alt="image-20220115112440152"></p><p>&nbsp;</p><h3 id='二self-attention解决方案引入'><span>二、Self-Attention解决方案引入：</span></h3><p><span>	</span><span>为了解决上面我们说的对于每个输入的vector都输出一个label结果的事情，最简单也最为直观的方法就是如下图所示，假设输入的向量集合长度为4，那么我们将每个输入的向量单独考虑，然后进行结果的输出。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112458834.png" referrerpolicy="no-referrer" alt="image-20220115112458834"></p><p><span>	</span><span>但是这样一来，我们相当于没有考虑向量与向量之间的关系，那么这种架构下我们可能考虑上下文吗？答案是可以的，如下图所示：我们可以将前后的向量也输入到当前的全连接层中，这就考虑到了上下文信息。但是这样一来问题又发生了，如果我们想要考虑整个序列的上下文呢？那么这个窗口的长度到底应该选多少呢？要知道我们输入的向量的个数是会变化的。同时，如果将每个向量都要连接到每个FC中的话，需要训练的参数就会大大增加，随之而来的就是非常容易过拟合。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112507468.png" referrerpolicy="no-referrer" alt="image-20220115112507468"></p><p><span>	</span><span>在这样一个问题背景下，Self-Attention机制应运而生。如下面两张图片所示，我们可以理解为，每一个单独的向量经过Self-Attention机制计算后，得到一个新的向量，这个新的向量中是含有所有的上下文信息的。同时Self-Attention也可以做好多层，也就是说我们可以像第二张图一样，先走一次Self-Attention然后过FC层，然后再走一次Self-Attention层，然后再过全连接层，然后输出。使得Self-Attention发扬光大的是一篇叫做《Attention is All you Need》的论文，那么Self-Attention内部，到底是如何考虑进上下文之间的关系的呢？</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112528529.png" referrerpolicy="no-referrer" alt="image-20220115112528529"></p><p>&nbsp;</p><h3 id='三self-attention架构介绍'><span>三、Self-Attention架构介绍</span></h3><p><span>	</span><span>我们首先从结果来看Self-Attention做了一件什么事情，它的输入可以是原始input，也可以是隐藏层。然后经过该结构后，就可以将向量a1变成一个带着上下文信息的向量b1。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112544934.png" referrerpolicy="no-referrer" alt="image-20220115112544934"></p><p><span>	</span><span>首先，我们以生成向量b1为例，记录整一个过程。如下图所示，首先我们需要考虑a1和另外三个向量的相关性，然后用一个变量α去进行衡量。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112553361.png" referrerpolicy="no-referrer" alt="image-20220115112553361"></p><p><span>	</span><span>那么如何计算得到这个α的值呢，我们就需要一个如下所示的模块，这个模块输入两个向量，一个向量乘以矩阵Wq得到向量q，一个乘以矩阵Wk得到向量k，然后我们再把q和k做点积，就得到了α，这个α就代表输入的两个向量之间的相关性。至于Wq和Wk内部是什么我们先不用管，因为其内部的参数是我们需要用训练集训练网络得到的。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112601252.png" referrerpolicy="no-referrer" alt="image-20220115112601252"></p><p><span>	</span><span>所以，我们就能够依据上述这个框架计算出a1分别和a1,a2,a3,a4的相关性α(1,1),α(1,2),α(1,3),α(1,4)，我们将之称为Attention Score。具体写成公式的形式就是下图下面的半部分。然后的话呢我们需要将之通过Soft-max函数，做一个归约化，使得他们的和为1，得到α’(1,1),α’(1,2),α’(1,3),α’(1,4)。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112614866.png" referrerpolicy="no-referrer" alt="image-20220115112614866"></p><p><span>	</span><span>有了α’(1,1),α’(1,2),α’(1,3),α’(1,4)之后，我们先将a1,a2,a3,a4乘上矩阵Wv得到v1,v2,v3,v4，然后用对应的α’和v做叉积，从v中提取信息，最终将所有对应的叉积相加，就得到了最终的结果b1。形式化的公式写在下图的右上方。然后b2,b3,b4也是同样的过程去进行计算。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112623695.png" referrerpolicy="no-referrer" alt="image-20220115112623695"></p><p><span>	</span><span>按照我们介绍的顺序b1,b2,b3,b4我们需要一一算出，其实这一计算过程是可以通过矩阵乘法并行执行的。首先，我们将a1,a2,a3,a4拼接组合成一个大的矩阵，称为I。将I分别乘上矩阵Wq，Wk，Wv之后，就会得到大的矩阵Q,K,V。从结果上而言，大的矩阵Q,K,V就是先前一个个向量计算时候得到的结果向量q1,q2,q3,q4拼接组合而成。     </span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112631291.png" referrerpolicy="no-referrer" alt="image-20220115112631291"></p><p><span>	</span><span>我们现在拥有Q,K,V三个矩阵，我们可以用矩阵K的转置乘上矩阵Q就会得到一个α的矩阵，其从结果上而言等价于一个个α计算得到的结果组成的矩阵。具体的推导过程见下图，还是比较好理解的，只是把一些重复的矩阵运算进行了合并而已。得到对应的矩阵A以后，我们对每一列做SoftMax归一化操作，得到矩阵A’。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112638932.png" referrerpolicy="no-referrer" alt="image-20220115112638932"></p><p><span>	</span><span>最后我们将矩阵A’和矩阵V相乘，就能生成结果矩阵O。O就是b1,b2,b3,b4向量的拼接。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112647706.png" referrerpolicy="no-referrer" alt="image-20220115112647706"></p><p><span>	</span><span>最后，我们可以将整个过程表示如下图：Wq,Wk,Wv三个矩阵内部的参数就是我们需要训练的参数，A’就是我们常说的Attention Matrix. </span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112657080.png" referrerpolicy="no-referrer" alt="image-20220115112657080"></p><p>&nbsp;</p><h3 id='四self-attention架构扩展改进'><span>四、Self-Attention架构扩展改进</span></h3><h4 id='1multi-head-self-attention-多头注意力机制'><span>1、Multi-head Self-Attention 多头注意力机制</span></h4><p><span>	</span><span>在上述的计算过程中，我们就是用qi去找相关的ki，但是相关可能会存在很多种，所以我们应该需要有不同的q，然后不同的q去负责不同的相关性，于是乎出现了Multi-head Self-Attention架构。如下所示，相比于Self-Attention，其只是将计算得到的qi和ki进行拆分。我们先从a乘上矩阵Wq变成q，然后再将q乘上两个不同的矩阵W(q,1)，W(q,2)，分别变成两个不同的向量q1和q2。k和v也是同样的进行操作。然后的话用q1,k1,v1去按照之前的方法计算出一个b1出来，再用q2,k2,v2去计算出一个b2出来</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112728011.png" referrerpolicy="no-referrer" alt="image-20220115112728011"></p><p><span>最后再将b1和b2组合起来，乘上一个权重矩阵，得到最终的结果向量b.</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112737330.png" referrerpolicy="no-referrer" alt="image-20220115112737330"></p><p>&nbsp;</p><h4 id='2positional-encoding'><span>2、Positional Encoding</span></h4><p><span>	</span><span>我们会发现，在先前的Self-Attention架构中，其并没有考虑输入向量组之间向量的远近对于其相关性的影响。就比如a1如果和a2换了位置，也不会影响a1和a4的相关性度量。所以我们会想要有如下的想法：对于输入向量集合中的每个向量来说，都先加上一个不同的向量e，然后再去进行先前的操作。这个e可以是人工指定的，也可以是机器学到的规律。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112754051.png" referrerpolicy="no-referrer" alt="image-20220115112754051"></p><p><span>	</span><span>关于e究竟需要是怎么样的东西效果才会好，有许许多多的文章研究。此处只是讲解一个基本的做法，具体感兴趣可以查看下面的论文。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112802708.png" referrerpolicy="no-referrer" alt="image-20220115112802708"></p><p>&nbsp;</p><h3 id='五self-attention应用'><span>五、Self-Attention应用</span></h3><p><span>	</span><span>Self-Attention机制应用广泛，最多的就是应用在Transformer架构和BERT架构中，广泛的用于NLP领域。但除了NLP领域，其实其在很多领域也适用。</span></p><p><span>	</span><span>比如说下图所示的语音处理领域，我们最开始就说过如何将一段语音看作是一个向量集合作为输入，然后就可以采用Self-Attention的机制，进行相关的任务。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112819190.png" referrerpolicy="no-referrer" alt="image-20220115112819190"></p><p><span>	</span><span>或者在图像处理的领域，我们可以将一张RGB图的每一个像素点的RGB三个值，视为一个向量输入，然后一张Image就可以被视为一个ImageWidth*ImageHeight长度的向量的集合。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112827842.png" referrerpolicy="no-referrer" alt="image-20220115112827842"></p><p><span>	</span><span>以下两篇是使用了Self-Attention架构的有关与图像生成和图像检测的论文，后续可能会出相关的论文阅读笔记。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112836400.png" referrerpolicy="no-referrer" alt="image-20220115112836400"></p><p><span>	</span><span>那么Self-Attention和CNN到底有啥区别呢？其实按照我们上面对图像的理解，CNN可以看作是一个只有一小部分感知域的Self-Attention。因为CNN的其中一个特征，就是它有独特的感知域，只感知某像素周围一部分和该像素的关联，而Self-Attetion则是会考虑整个序列，也就是该像素和所有像素之间的关联。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112848232.png" referrerpolicy="no-referrer" alt="image-20220115112848232"></p><p><span>	</span><span>有人做过研究，在《On the Relationship between Self-Attention and Convolutional Layers》这篇论文中，以严格的数学证明了CNN是Self-Attention的子集。也就是说在一定条件下，Self-Attention可以和CNN实现完全相同的效果。</span></p><p><span>	</span><span>同时，在《An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale》这篇文章中，作者也比较了两者的差别。训练数据越多，Self-Attention最后拟合的效果越好，而CNN在训练数据较少时，效果较好。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112858420.png" referrerpolicy="no-referrer" alt="image-20220115112858420"></p><p><span>	</span><span>此处还有一些Self-Attention用于RNN和Graph领域的内容，由于与我所学习的领域相关性不大，所以就暂且忽略了，感兴趣可以去李宏毅老师的Attention的课程最后找到对应的论文内容。</span></p></div></div>
+<div id='write'  class=''><p><span>论文名称：《An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale》</span></p><h4 id='论文地址httpsarxivorgabs201011929'><span>论文地址：</span><a href='https://arxiv.org/abs/2010.11929' target='_blank' class='url'>https://arxiv.org/abs/2010.11929</a></h4><h4 id='模型vision-transformer-vit'><span>模型：Vision Transformer (ViT)</span></h4><p>&nbsp;</p><h3 id='一论文摘要与vision-transformer背景介绍'><span>一、论文摘要与Vision Transformer背景介绍</span></h3><p><span>	</span><span>自从Transfomer机制出现以后，已经成为了NLP领域的业界标准流程，但是在CV领域的应用较少。CV领域中往往都是会将其和CNN结合使用，或是代替CNN架构中的一部分。这篇论文就提出了其实在CV领域中，Transformer并不需要依赖于CNN来进行使用，其提出的Vision Transformer架构，在基于一些大体量数据的预训练的网络参数然后再迁移学习到一些训练任务时，能够取得非常好的效果，并且也能节省训练的计算资源。所以Vision Transformer是应用于CV领域的，不简单依托于CNN架构的一类Transformer架构的衍生内容。在此论文中，其应用于了CV领域的图象识别任务。</span></p><h3 id='二vision-transformer网络架构'><span>二、Vision Transformer网络架构</span></h3><p><span>	</span><span>如下图所示，左侧为ViT网络的概览，可以看到，该网络将图片分为一小块一小块的，将每一个小块视为一个向量(被称为Flattened Patches),然后图中的Linear Projection of 这层可以被视为是一个Embedding层，将每一块图像Embedding成为一个对应的向量，然后再在这一系列向量前面，新增一个用于分类的向量，叫做Class Token,再给每一个向量加上一个表示位置信息的向量。随后将这些向量输入进Transformer Encoder中，我们知道，Encoder对于一个输入序列中的每一个向量，都会输出一个对应的向量，我们仅取Class Token输入对应的输出向量，将其放入MLP Head模块（这是一个最终用于分类的层结构）中，然后再由MLP Head模块输出分类类别。Transformer Encoder内部的块结构与Transformer的结构类似，其中MLP是新的模块，后续会详细再讲。到此为止就是整个ViT网络基本的架构。接下来会按照顺序，一个一个模块的进行详细的介绍。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115115915557.png" referrerpolicy="no-referrer" alt="image-20220115115915557"></p><h4 id='1linear-projection-of-flattened-patchesembedding层）'><span>1、Linear Projection of Flattened Patches（Embedding层）</span></h4><p><span>	</span><span>对于标准的Transformer的Encoder模块，一般要求输入的是向量序列，也就是应该是一个二维矩阵[num_token,token_dim]。在该网络架构的代码实现中，可以直接通过一个卷积层来实现，比如说ViT-B/16，B代表Base，16代表分割以16</span><em><span>16为单位分割源图像。在这个网络中，使用卷积核大小为16</span></em><span>16，步长为16。</span></p><p><span>	</span><span>如果我们使用的图片是[224,224,3]的大小，那么经过卷积以后就会变成[14,14,768]的大小，然后展平就会最终变成[196,768]的二维矩阵。</span></p><p><span>	</span><span>在输入到Encoder之前，还需要加上 用于分类的向量class token和position embedding，这两者都是可训练参数。</span></p><p><span>		</span><span>拼接[class]token:Cat([1,768],[196,768]) -&gt;[197,768]</span></p><p><span>		</span><span>叠加Position Embedding: [197,768] -&gt; [197,768]</span></p><p><span>	</span><span>Position Embedding在此处是通过直接叠加相加的方法完成的，所以矩阵的维度不会发生变化，同时，原论文中给出了不同维度的Position Embedding的效果，我们发现1维和2维的效果差不多，但是都比没有Position Embedding的结果要好，所以在实现过程中就可以实现一维的Pisition Embedding进行叠加。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115115949427.png" referrerpolicy="no-referrer" alt="image-20220115115949427"></p><p><span>	</span><span>那么，具体叠加的一维的Position Embedding应该是什么呢？如下图所示，我们对于每个位置计算其和其他位置的余弦相似度。即可得到叠加的具体数值。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120001864.png" referrerpolicy="no-referrer" alt="image-20220115120001864"></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120004895.png" referrerpolicy="no-referrer" alt="image-20220115120004895"></p><h4 id='2transformer-encoder层'><span>2、Transformer Encoder层</span></h4><p><span>	</span><span>其和Transformer中Encoder类似，由许多个Block组成</span></p><p><span>	</span><span>我们先看Encoder Block的结构，其中基本结构与原始的Transformer的Encoder Block类似，但是其中有一个不太一样的MLP Block结构。MLP Block的结构显示如右侧，其中是几个Linear层，然后配合一些Dropout和激活函数。MLP Block的第一个Linear层，会将原始的输入扩大4倍，就例如如果Linear层的输入是197 * 768的，那么该层的输出是197 * 3072，然后第二个Linear层又会将输出变回197*768的大小。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120029921.png" referrerpolicy="no-referrer" alt="image-20220115120029921"></p><h4 id='3mlp-head层'><span>3、MLP Head层</span></h4><p><span>	</span><span>此层在训练不同的数据集时，组成模块不太一样。如果训练ImageNet21K或一些更大的数据集的时候，该层由Linear+tanh激活函数+Linear层组成。但是如果迁移到ImageNet1K或者一些小规模的数据集上，那其实只需要一个Linear层即可。具体的内容可以查看论文的源码部分。</span></p><p>&nbsp;</p><h3 id='三以vit-b16-为例的vision-transformer架构'><span>三、以ViT-B/16 为例的Vision Transformer架构</span></h3><p><span>	</span><span>我们可以看到先前所讲的各个模块组合在一起以后，整个网络的一个架构。图中的Pre-Logits部分其实就是一个全连接层+激活函数，视情况可以舍弃。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120118127.png" referrerpolicy="no-referrer" alt="image-20220115120118127"></p><h3 id='四不同vit模型的参数'><span>四、不同ViT模型的参数</span></h3><p><span>	</span><span>在论文的Table1中有给出三个模型（Base/ Large/ Huge）的参数</span></p><ul><li><p><span>Layers 是Transformer Encoder中重复堆叠Encoder Block的次数。</span></p></li><li><p><span>Hidden Size是通过Embedding层后每个向量的长度（token 的 dim）。</span></p></li><li><p><span>MLP Size 是Transformer Encoder中MLP Block第一个全连接的节点个数，一般来说是HiddenSize的4倍。</span></p></li><li><p><span>Heads 代表Transformer中Multi-Head Attention的heads数。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120147916.png" referrerpolicy="no-referrer" alt="image-20220115120147916"></p></li></ul><h3 id='五hybrid混合模型'><span>五、Hybrid混合模型</span></h3><p><span>	</span><span>引用：</span><a href='https://blog.csdn.net/qq_37541097/article/details/118242600' target='_blank' class='url'>https://blog.csdn.net/qq_37541097/article/details/118242600</a></p><p><span>在论文中其也提及了Hybrid混合模型，其就是先前摘要中提到的将传统CNN特征提取和Transformer进行结合的做法。</span></p><p><span>	</span><span>其首先用传统的CNN提取特征，然后再用Vit模型进一步得到最终的结果。</span></p><p><span>	</span><span>整体的网络架构如下：以ResNet50作为特征提取器的混合模型，但这里的Resnet有些不同。首先这里的R50的卷积层采用的StdConv2d不是传统的Conv2d，然后将所有的BatchNorm层替换成GroupNorm层。同时在原Resnet50网络中，stage1重复堆叠3次，stage2重复堆叠4次，stage3重复堆叠6次，stage4重复堆叠3次，但在这里的R50中，把stage4中的3个Block移至stage3中，所以stage3中共重复堆叠9次。</span></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120211640.png" referrerpolicy="no-referrer" alt="image-20220115120211640"></p></div></div>
 </body>
 </html>
     </div>
@@ -932,13 +916,13 @@ header, .context-menu, .megamenu-content, footer{
   <div class="popular-posts-header">Related Posts</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2021\12\07\transformer2\" rel="bookmark">Transformer系列笔记2——原始Transformer架构与Seq2Seq问题</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2021\12\09\transformer4\" rel="bookmark">Transformer系列笔记4——Swin Transformer</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2021\12\08\transformer3\" rel="bookmark">Transformer系列笔记3——Vision Transformer架构</a></div>
+      <div class="popular-posts-title"><a href="\2021\12\07\transformer2\" rel="bookmark">Transformer系列笔记2——原始Transformer架构与Seq2Seq问题</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2021\12\06\transformer1\" rel="bookmark">Transformer系列笔记1——Self Attention机制</a></div>
     </li>
   </ul>
 
@@ -960,20 +944,21 @@ header, .context-menu, .megamenu-content, footer{
 
           <div class="post-tags">
               <a href="/tags/Transformer/" rel="tag"># Transformer</a>
-              <a href="/tags/Self-Attention/" rel="tag"># Self Attention</a>
+              <a href="/tags/Vision-Transformer/" rel="tag"># Vision Transformer</a>
+              <a href="/tags/Computer-Vision/" rel="tag"># Computer Vision</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/12/05/gan6/" rel="prev" title="GAN系列笔记6——评估GAN的相关方法指标">
-                  <i class="fa fa-chevron-left"></i> GAN系列笔记6——评估GAN的相关方法指标
+                <a href="/2021/12/07/transformer2/" rel="prev" title="Transformer系列笔记2——原始Transformer架构与Seq2Seq问题">
+                  <i class="fa fa-chevron-left"></i> Transformer系列笔记2——原始Transformer架构与Seq2Seq问题
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/12/07/transformer2/" rel="next" title="Transformer系列笔记2——原始Transformer架构与Seq2Seq问题">
-                  Transformer系列笔记2——原始Transformer架构与Seq2Seq问题 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/12/09/transformer4/" rel="next" title="Transformer系列笔记4——Swin Transformer">
+                  Transformer系列笔记4——Swin Transformer <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -1044,7 +1029,7 @@ header, .context-menu, .megamenu-content, footer{
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"c5139a555058493a9933b1e4424ec4e2"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"32220f77db43fa29763fff7ee0fd7e17"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>

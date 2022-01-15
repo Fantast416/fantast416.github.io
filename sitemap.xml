@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.slks.xyz/2021/12/08/transformer3/</loc>
+    
+    <lastmod>2022-01-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.slks.xyz/2021/12/09/transformer4/</loc>
     
     <lastmod>2022-01-15</lastmod>
@@ -389,6 +398,27 @@
   </url>
   
   <url>
+    <loc>https://blog.slks.xyz/tags/Transformer/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Vision-Transformer/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Computer-Vision/</loc>
+    <lastmod>2022-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.slks.xyz/tags/Auto-Encoder/</loc>
     <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -431,13 +461,6 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Transformer/</loc>
-    <lastmod>2022-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.slks.xyz/tags/Self-Attention/</loc>
     <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -474,13 +497,6 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/Swin-Transformer/</loc>
-    <lastmod>2022-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/Computer-Vision/</loc>
     <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -573,14 +589,14 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/categories/Pytorch-Notes/</loc>
+    <loc>https://blog.slks.xyz/categories/Transformer-Basic-Notes/</loc>
     <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/categories/Transformer-Basic-Notes/</loc>
+    <loc>https://blog.slks.xyz/categories/Pytorch-Notes/</loc>
     <lastmod>2022-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
