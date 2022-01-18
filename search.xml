@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>归一化方法FRN(Filter Response Normalization)</title>
+    <title>机器学习基础系列笔记9——归一化方法FRN(Filter Response Normalization)</title>
     <url>/2022/01/18/basic9/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -922,7 +922,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
       </tags>
   </entry>
   <entry>
-    <title>图像风格迁移方法AdaIN</title>
+    <title>机器学习基础系列笔记8——图像风格迁移方法AdaIN</title>
     <url>/2022/01/17/basic8/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -1531,7 +1531,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>各种归一化Normalization方法（含BN、LN、IN、CIN、GN）</title>
+    <title>机器学习基础系列笔记7——各种归一化Normalization方法（含BN、LN、IN、CIN、GN）</title>
     <url>/2022/01/16/basic7/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -4562,7 +4562,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
       </tags>
   </entry>
   <entry>
-    <title>全卷积网络FCN &amp; U-Net结构</title>
+    <title>机器学习基础系列笔记6——全卷积网络FCN &amp; U-Net结构</title>
     <url>/2022/01/12/basic6/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -5172,7 +5172,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>1x1卷积 &amp; 部分卷积 &amp; 空洞卷积 &amp; 可变形卷积</title>
+    <title>机器学习基础系列笔记5——1x1卷积 &amp; 部分卷积 &amp; 空洞卷积 &amp; 可变形卷积</title>
     <url>/2022/01/07/basic5/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -5781,7 +5781,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>Depth-wise卷积 &amp; Point-wise卷积</title>
+    <title>机器学习基础系列笔记4——Depth-wise卷积 &amp; Point-wise卷积</title>
     <url>/2022/01/05/basic4/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -6390,7 +6390,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>反卷积Deconvolution</title>
+    <title>机器学习基础系列笔记3——反卷积Deconvolution</title>
     <url>/2022/01/04/basic3/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -6999,7 +6999,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>卷积神经网络CNN</title>
+    <title>ML2021课程系列笔记3——卷积神经网络CNN</title>
     <url>/2021/12/20/ml_course3/</url>
     <content><![CDATA[<!doctype html>
 <html style='font-size:14px !important'>
@@ -7756,7 +7756,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
       </tags>
   </entry>
   <entry>
-    <title>机器学习训练任务攻略</title>
+    <title>ML2021课程系列笔记2——机器学习训练任务攻略</title>
     <url>/2021/12/19/ml_course2/</url>
     <content><![CDATA[<!doctype html>
 <html style='font-size:14px !important'>
@@ -8513,7 +8513,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
       </tags>
   </entry>
   <entry>
-    <title>DeepLearning基本介绍</title>
+    <title>ML2021课程系列笔记1——DeepLearning基本介绍</title>
     <url>/2021/12/17/ml_course1/</url>
     <content><![CDATA[<!doctype html>
 <html style='font-size:14px !important'>
@@ -15015,7 +15015,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>Swin Transformer思想与架构</title>
+    <title>Transformer系列笔记4——Swin Transformer思想与架构</title>
     <url>/2021/12/09/transformer4/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -15773,7 +15773,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
       </tags>
   </entry>
   <entry>
-    <title>Vision Transformer思想与架构</title>
+    <title>Transformer系列笔记3——Vision Transformer思想与架构</title>
     <url>/2021/12/08/transformer3/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -16383,7 +16383,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>原始Transformer架构与Seq2Seq问题</title>
+    <title>Transformer系列笔记2——原始Transformer架构与Seq2Seq问题</title>
     <url>/2021/12/07/transformer2/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -16993,7 +16993,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>Self Attention机制</title>
+    <title>Transformer系列笔记1——Self Attention机制</title>
     <url>/2021/12/06/transformer1/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -17602,7 +17602,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>评估GAN的相关方法指标</title>
+    <title>GAN系列笔记6——评估GAN的相关方法指标</title>
     <url>/2021/12/05/gan6/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -18211,7 +18211,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）</title>
+    <title>GAN系列笔记5——GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）</title>
     <url>/2021/12/04/gan5/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -18903,7 +18903,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>GAN训练过程中的一些Tips与改进的GAN网络（含LSGAN、WGAN、EBGAN）</title>
+    <title>GAN系列笔记4——GAN训练过程中的一些Tips与改进的GAN网络（含LSGAN、WGAN、EBGAN）</title>
     <url>/2021/12/03/gan4/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -19662,7 +19662,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
       </tags>
   </entry>
   <entry>
-    <title>GAN的数学理论支撑</title>
+    <title>GAN系列笔记3——GAN的数学理论支撑</title>
     <url>/2021/12/02/gan3/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -20419,7 +20419,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
       </tags>
   </entry>
   <entry>
-    <title>常见GAN变种（ConditionalGAN，PatchGAN，CycleGAN等）</title>
+    <title>GAN系列笔记2——常见GAN变种（ConditionalGAN，PatchGAN，CycleGAN等）</title>
     <url>/2021/12/01/gan2/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -21111,7 +21111,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>GAN的基本理念与思想</title>
+    <title>GAN系列笔记1——GAN的基本理念与思想</title>
     <url>/2021/11/30/gan1/</url>
     <content><![CDATA[<!doctype html>
 <html>
@@ -21720,7 +21720,7 @@ header, .context-menu, .megamenu-content, footer{
       </tags>
   </entry>
   <entry>
-    <title>数据表征与自动编码器</title>
+    <title>机器学习基础系列笔记2——数据表征与自动编码器</title>
     <url>/2021/11/24/basic2/</url>
     <content><![CDATA[<!doctype html>
 <html>

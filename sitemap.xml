@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.slks.xyz/2022/01/18/basic9/</loc>
-    
-    <lastmod>2022-01-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.slks.xyz/2021/12/09/transformer4/</loc>
     
     <lastmod>2022-01-18</lastmod>
@@ -47,7 +38,7 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/2022/01/18/python0/</loc>
+    <loc>https://blog.slks.xyz/2021/12/20/ml_course3/</loc>
     
     <lastmod>2022-01-18</lastmod>
     
@@ -57,15 +48,6 @@
   
   <url>
     <loc>https://blog.slks.xyz/2021/12/19/ml_course2/</loc>
-    
-    <lastmod>2022-01-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/20/ml_course3/</loc>
     
     <lastmod>2022-01-18</lastmod>
     
@@ -137,7 +119,7 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/2021/11/23/basic1/</loc>
+    <loc>https://blog.slks.xyz/2022/01/18/basic9/</loc>
     
     <lastmod>2022-01-18</lastmod>
     
@@ -146,43 +128,7 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/2021/11/24/basic2/</loc>
-    
-    <lastmod>2022-01-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2022/01/04/basic3/</loc>
-    
-    <lastmod>2022-01-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2022/01/05/basic4/</loc>
-    
-    <lastmod>2022-01-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2022/01/07/basic5/</loc>
-    
-    <lastmod>2022-01-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2022/01/12/basic6/</loc>
+    <loc>https://blog.slks.xyz/2022/01/17/basic8/</loc>
     
     <lastmod>2022-01-18</lastmod>
     
@@ -200,7 +146,61 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/2022/01/17/basic8/</loc>
+    <loc>https://blog.slks.xyz/2022/01/12/basic6/</loc>
+    
+    <lastmod>2022-01-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/07/basic5/</loc>
+    
+    <lastmod>2022-01-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/05/basic4/</loc>
+    
+    <lastmod>2022-01-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/04/basic3/</loc>
+    
+    <lastmod>2022-01-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/11/24/basic2/</loc>
+    
+    <lastmod>2022-01-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/18/python0/</loc>
+    
+    <lastmod>2022-01-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/11/23/basic1/</loc>
     
     <lastmod>2022-01-18</lastmod>
     

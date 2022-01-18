@@ -22,7 +22,7 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 <meta name="description" content="本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了如何对GAN生成的图像结果进行一个更为客观的评估的相关方法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="评估GAN的相关方法指标">
+<meta property="og:title" content="GAN系列笔记6——评估GAN的相关方法指标">
 <meta property="og:url" content="https://blog.slks.xyz/2021/12/05/gan6/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了如何对GAN生成的图像结果进行一个更为客观的评估的相关方法。">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105839124.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105847271.png">
 <meta property="article:published_time" content="2021-12-05T10:31:19.000Z">
-<meta property="article:modified_time" content="2022-01-18T05:47:28.505Z">
+<meta property="article:modified_time" content="2022-01-18T05:52:12.299Z">
 <meta property="article:author" content="ShenLvkesheng">
 <meta property="article:tag" content="GAN">
 <meta property="article:tag" content="GAN Evaluation">
@@ -45,10 +45,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.slks.xyz/2021/12/05/gan6/","path":"2021/12/05/gan6/","title":"评估GAN的相关方法指标"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.slks.xyz/2021/12/05/gan6/","path":"2021/12/05/gan6/","title":"GAN系列笔记6——评估GAN的相关方法指标"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>评估GAN的相关方法指标 | Fantast's Blog</title>
+<title>GAN系列笔记6——评估GAN的相关方法指标 | Fantast's Blog</title>
   
 
 
@@ -253,7 +253,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          评估GAN的相关方法指标
+          GAN系列笔记6——评估GAN的相关方法指标
         </h1>
 
         <div class="post-meta-container">
@@ -272,7 +272,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-18 13:47:28" itemprop="dateModified" datetime="2022-01-18T13:47:28+08:00">2022-01-18</time>
+      <time title="Modified: 2022-01-18 13:52:12" itemprop="dateModified" datetime="2022-01-18T13:52:12+08:00">2022-01-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -912,19 +912,19 @@ header, .context-menu, .megamenu-content, footer{
   <div class="popular-posts-header">Related Posts</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2021\12\04\gan5\" rel="bookmark">GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）</a></div>
+      <div class="popular-posts-title"><a href="\2021\12\04\gan5\" rel="bookmark">GAN系列笔记5——GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2021\12\03\gan4\" rel="bookmark">GAN训练过程中的一些Tips与改进的GAN网络（含LSGAN、WGAN、EBGAN）</a></div>
+      <div class="popular-posts-title"><a href="\2021\12\03\gan4\" rel="bookmark">GAN系列笔记4——GAN训练过程中的一些Tips与改进的GAN网络（含LSGAN、WGAN、EBGAN）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2021\12\02\gan3\" rel="bookmark">GAN的数学理论支撑</a></div>
+      <div class="popular-posts-title"><a href="\2021\12\02\gan3\" rel="bookmark">GAN系列笔记3——GAN的数学理论支撑</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2021\12\01\gan2\" rel="bookmark">常见GAN变种（ConditionalGAN，PatchGAN，CycleGAN等）</a></div>
+      <div class="popular-posts-title"><a href="\2021\12\01\gan2\" rel="bookmark">GAN系列笔记2——常见GAN变种（ConditionalGAN，PatchGAN，CycleGAN等）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2021\11\30\gan1\" rel="bookmark">GAN的基本理念与思想</a></div>
+      <div class="popular-posts-title"><a href="\2021\11\30\gan1\" rel="bookmark">GAN系列笔记1——GAN的基本理念与思想</a></div>
     </li>
   </ul>
 
@@ -953,13 +953,13 @@ header, .context-menu, .megamenu-content, footer{
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/12/04/gan5/" rel="prev" title="GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）">
-                  <i class="fa fa-chevron-left"></i> GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）
+                <a href="/2021/12/04/gan5/" rel="prev" title="GAN系列笔记5——GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）">
+                  <i class="fa fa-chevron-left"></i> GAN系列笔记5——GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/12/06/transformer1/" rel="next" title="Self Attention机制">
-                  Self Attention机制 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/12/06/transformer1/" rel="next" title="Transformer系列笔记1——Self Attention机制">
+                  Transformer系列笔记1——Self Attention机制 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
