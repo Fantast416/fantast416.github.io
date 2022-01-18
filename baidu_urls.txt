@@ -1,3 +1,4 @@
+https://blog.slks.xyz/2022/01/18/pytorch10/
 https://blog.slks.xyz/2022/01/18/basic9/
 https://blog.slks.xyz/2022/01/18/python1/
 https://blog.slks.xyz/2022/01/18/python0/
@@ -7,4 +8,3 @@ https://blog.slks.xyz/2022/01/14/paper3/
 https://blog.slks.xyz/2022/01/13/paper2/
 https://blog.slks.xyz/2022/01/13/paper1/
 https://blog.slks.xyz/2022/01/12/basic6/
-https://blog.slks.xyz/2022/01/07/basic5/
