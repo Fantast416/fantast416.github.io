@@ -22,7 +22,7 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 <meta name="description" content="本文介绍了常见的几种Normalization方式，如BatchNorm、LayerNorm、InstanceNorm、Conditional Instance Norm、Group Norm。 各种Normalization在理论上都能够起到平滑损失函数平面的效果，加速函数的收敛效果，但是它们在机器学习的各个领域上，各有偏重与优势。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习基础系列笔记7—各种Normalization方法（含BN、LN、IN、CIN、GN）">
+<meta property="og:title" content="各种归一化Normalization方法（含BN、LN、IN、CIN、GN）">
 <meta property="og:url" content="https://blog.slks.xyz/2022/01/16/basic7/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="本文介绍了常见的几种Normalization方式，如BatchNorm、LayerNorm、InstanceNorm、Conditional Instance Norm、Group Norm。 各种Normalization在理论上都能够起到平滑损失函数平面的效果，加速函数的收敛效果，但是它们在机器学习的各个领域上，各有偏重与优势。">
@@ -41,13 +41,9 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/1496926-9e0fd762d02d26c1.webp">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220117102111791.png">
 <meta property="article:published_time" content="2022-01-16T04:33:19.000Z">
-<meta property="article:modified_time" content="2022-01-17T05:18:09.204Z">
+<meta property="article:modified_time" content="2022-01-18T05:46:45.269Z">
 <meta property="article:author" content="ShenLvkesheng">
-<meta property="article:tag" content="Batch Normalization">
-<meta property="article:tag" content="Layer Normalization">
-<meta property="article:tag" content="Instance Normalization">
-<meta property="article:tag" content="Conditional Instance Normalization">
-<meta property="article:tag" content="Group Normalization">
+<meta property="article:tag" content="Normalization">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116184553370.png">
 
@@ -56,10 +52,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.slks.xyz/2022/01/16/basic7/","path":"2022/01/16/basic7/","title":"机器学习基础系列笔记7—各种Normalization方法（含BN、LN、IN、CIN、GN）"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.slks.xyz/2022/01/16/basic7/","path":"2022/01/16/basic7/","title":"各种归一化Normalization方法（含BN、LN、IN、CIN、GN）"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>机器学习基础系列笔记7—各种Normalization方法（含BN、LN、IN、CIN、GN） | Fantast's Blog</title>
+<title>各种归一化Normalization方法（含BN、LN、IN、CIN、GN） | Fantast's Blog</title>
   
 
 
@@ -181,18 +177,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -264,7 +260,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          机器学习基础系列笔记7—各种Normalization方法（含BN、LN、IN、CIN、GN）
+          各种归一化Normalization方法（含BN、LN、IN、CIN、GN）
         </h1>
 
         <div class="post-meta-container">
@@ -283,7 +279,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-01-17 13:18:09" itemprop="dateModified" datetime="2022-01-17T13:18:09+08:00">2022-01-17</time>
+      <time title="Modified: 2022-01-18 13:46:45" itemprop="dateModified" datetime="2022-01-18T13:46:45+08:00">2022-01-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1068,6 +1064,12 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
     
     
       
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\01\18\basic9\" rel="bookmark">归一化方法FRN(Filter Response Normalization)</a></div>
+    </li>
+  </ul>
 
 
     <footer class="post-footer">
@@ -1086,11 +1088,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
 </div>
 
           <div class="post-tags">
-              <a href="/tags/Batch-Normalization/" rel="tag"># Batch Normalization</a>
-              <a href="/tags/Layer-Normalization/" rel="tag"># Layer Normalization</a>
-              <a href="/tags/Instance-Normalization/" rel="tag"># Instance Normalization</a>
-              <a href="/tags/Conditional-Instance-Normalization/" rel="tag"># Conditional Instance Normalization</a>
-              <a href="/tags/Group-Normalization/" rel="tag"># Group Normalization</a>
+              <a href="/tags/Normalization/" rel="tag"># Normalization</a>
           </div>
 
         
@@ -1102,8 +1100,8 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/01/17/basic8/" rel="next" title="机器学习基础系列笔记8——图像风格迁移方法AdaIN">
-                  机器学习基础系列笔记8——图像风格迁移方法AdaIN <i class="fa fa-chevron-right"></i>
+                <a href="/2022/01/17/basic8/" rel="next" title="图像风格迁移方法AdaIN">
+                  图像风格迁移方法AdaIN <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

@@ -1,3 +1,6 @@
+https://blog.slks.xyz/2022/01/18/basic9/
+https://blog.slks.xyz/2022/01/18/python1/
+https://blog.slks.xyz/2022/01/18/python0/
 https://blog.slks.xyz/2022/01/17/basic8/
 https://blog.slks.xyz/2022/01/16/basic7/
 https://blog.slks.xyz/2022/01/14/paper3/
@@ -5,6 +8,3 @@ https://blog.slks.xyz/2022/01/13/paper2/
 https://blog.slks.xyz/2022/01/13/paper1/
 https://blog.slks.xyz/2022/01/12/basic6/
 https://blog.slks.xyz/2022/01/07/basic5/
-https://blog.slks.xyz/2022/01/05/basic4/
-https://blog.slks.xyz/2022/01/04/basic3/
-https://blog.slks.xyz/2021/12/20/ml_course3/
