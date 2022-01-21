@@ -23,14 +23,14 @@
 <meta name="description" content="BatchNorm是一种能够加速深度神经网络收敛，避免过拟合的方法，那么为什么呢？首先我们需要探讨一下这个问题，为什么深度神经网络随着网络深度加深，训练起来越困难，收敛越来越慢？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习基础系列笔记12——BatchNorm详解及为什么能防止过拟合">
-<meta property="og:url" content="https://blog.slks.xyz/2022/01/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B012%E2%80%94BatchNorm%E8%AF%A6%E8%A7%A3%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E9%98%B2%E6%AD%A2%E8%BF%87%E6%8B%9F%E5%90%88/index.html">
+<meta property="og:url" content="https://blog.slks.xyz/2022/01/21/basic12/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="BatchNorm是一种能够加速深度神经网络收敛，避免过拟合的方法，那么为什么呢？首先我们需要探讨一下这个问题，为什么深度神经网络随着网络深度加深，训练起来越困难，收敛越来越慢？">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/aHR0cDovL3FsLm1hZ2ljLXNldmVuLnRvcC91cGxvYWQvMjAyMC8zL2ltYWdlLTVkMjU4MDQxNGI0YTRkNjhiODEzMDMxMDZlMzY5YzNiLnBuZw.png">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=y%3D\frac{x-\mathrm{E}[x]}{\sqrt{\operatorname{Var}[x]%2B\epsilon}}+*+\gamma%2B\beta+">
 <meta property="article:published_time" content="2022-01-21T14:01:19.000Z">
-<meta property="article:modified_time" content="2022-01-21T15:25:20.605Z">
+<meta property="article:modified_time" content="2022-01-21T15:26:36.861Z">
 <meta property="article:author" content="ShenLvkesheng">
 <meta property="article:tag" content="OverFitting">
 <meta property="article:tag" content="Batch Normalization">
@@ -38,11 +38,11 @@
 <meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/aHR0cDovL3FsLm1hZ2ljLXNldmVuLnRvcC91cGxvYWQvMjAyMC8zL2ltYWdlLTVkMjU4MDQxNGI0YTRkNjhiODEzMDMxMDZlMzY5YzNiLnBuZw.png">
 
 
-<link rel="canonical" href="https://blog.slks.xyz/2022/01/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B012%E2%80%94BatchNorm%E8%AF%A6%E8%A7%A3%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E9%98%B2%E6%AD%A2%E8%BF%87%E6%8B%9F%E5%90%88/">
+<link rel="canonical" href="https://blog.slks.xyz/2022/01/21/basic12/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.slks.xyz/2022/01/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B012%E2%80%94BatchNorm%E8%AF%A6%E8%A7%A3%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E9%98%B2%E6%AD%A2%E8%BF%87%E6%8B%9F%E5%90%88/","path":"2022/01/21/机器学习基础系列笔记12—BatchNorm详解及为什么能防止过拟合/","title":"机器学习基础系列笔记12——BatchNorm详解及为什么能防止过拟合"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.slks.xyz/2022/01/21/basic12/","path":"2022/01/21/basic12/","title":"机器学习基础系列笔记12——BatchNorm详解及为什么能防止过拟合"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>机器学习基础系列笔记12——BatchNorm详解及为什么能防止过拟合 | Fantast's Blog</title>
@@ -238,7 +238,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B012%E2%80%94BatchNorm%E8%AF%A6%E8%A7%A3%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E9%98%B2%E6%AD%A2%E8%BF%87%E6%8B%9F%E5%90%88/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/21/basic12/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="ShenLvkesheng">
@@ -263,7 +263,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2022-01-21 22:01:19 / Modified: 23:25:20" itemprop="dateCreated datePublished" datetime="2022-01-21T22:01:19+08:00">2022-01-21</time>
+      <time title="Created: 2022-01-21 22:01:19 / Modified: 23:26:36" itemprop="dateCreated datePublished" datetime="2022-01-21T22:01:19+08:00">2022-01-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1051,7 +1051,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   <div class="popular-posts-header">Related Posts</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\01\21\机器学习基础系列笔记13—DropOut详解及为什么能够防止过拟合\" rel="bookmark">机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合</a></div>
+      <div class="popular-posts-title"><a href="\2022\01\21\basic13\" rel="bookmark">机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2022\01\21\basic10\" rel="bookmark">机器学习基础系列笔记10——L1、L2正则化以及为什么正则化能够防止过拟合</a></div>
@@ -1088,7 +1088,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/01/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B013%E2%80%94DropOut%E8%AF%A6%E8%A7%A3%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E5%A4%9F%E9%98%B2%E6%AD%A2%E8%BF%87%E6%8B%9F%E5%90%88/" rel="next" title="机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合">
+                <a href="/2022/01/21/basic13/" rel="next" title="机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合">
                   机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -1160,7 +1160,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"97c8721e76d112a8afe58abbe9671106"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"99ac25eacb5f8166638fefdff31c3f95"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
