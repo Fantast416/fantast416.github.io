@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.slks.xyz/2021/12/19/ml_course2/</loc>
+    
+    <lastmod>2022-01-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/2021/12/17/ml_course1/</loc>
+    
+    <lastmod>2022-01-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.slks.xyz/2022/01/21/basic11/</loc>
     
     <lastmod>2022-01-21</lastmod>
@@ -93,24 +111,6 @@
   
   <url>
     <loc>https://blog.slks.xyz/2021/12/20/ml_course3/</loc>
-    
-    <lastmod>2022-01-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/19/ml_course2/</loc>
-    
-    <lastmod>2022-01-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2021/12/17/ml_course1/</loc>
     
     <lastmod>2022-01-18</lastmod>
     
@@ -467,13 +467,6 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Info-Encoding/</loc>
-    <lastmod>2022-01-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.slks.xyz/tags/Training-Set/</loc>
     <lastmod>2022-01-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -495,7 +488,7 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Convolution/</loc>
+    <loc>https://blog.slks.xyz/tags/Info-Encoding/</loc>
     <lastmod>2022-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -503,6 +496,13 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/Deconvolution/</loc>
+    <lastmod>2022-01-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Convolution/</loc>
     <lastmod>2022-01-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
