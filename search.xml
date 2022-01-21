@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合</title>
-    <url>/2022/01/21/basic13/</url>
+    <url>/2022/01/21/basic/basic13/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -759,7 +759,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>机器学习基础系列笔记12——BatchNorm详解及为什么能防止过拟合</title>
-    <url>/2022/01/21/basic12/</url>
+    <url>/2022/01/21/basic/basic12/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -1516,7 +1516,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>机器学习基础系列笔记11——Training Data、Validation Data、Testing Data含义及作用</title>
-    <url>/2022/01/21/basic11/</url>
+    <url>/2022/01/21/basic/basic11/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -2126,7 +2126,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>机器学习基础系列笔记10——L1、L2正则化以及为什么正则化能够防止过拟合</title>
-    <url>/2022/01/21/basic10/</url>
+    <url>/2022/01/21/basic/basic10/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -2883,7 +2883,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>《DG-Font Deformable Generative Networks for Unsupervised Font Generation》</title>
-    <url>/2022/01/20/paper4/</url>
+    <url>/2022/01/20/paper/paper4/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -3727,7 +3727,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>Pytorch学习笔记10——PyTorch 中，nn与nn.functional有什么区别？（搬运）</title>
-    <url>/2022/01/18/pytorch10/</url>
+    <url>/2022/01/18/pytorch/pytorch10/</url>
     <content><![CDATA[<h1 id="PyTorch-中，nn-与-nn-functional-有什么区别？"><a href="#PyTorch-中，nn-与-nn-functional-有什么区别？" class="headerlink" title="PyTorch 中，nn 与 nn.functional 有什么区别？"></a>PyTorch 中，nn 与 nn.functional 有什么区别？</h1><p>​    注：在阅读代码以及Pytorch文档的时候发现，nn和nn.functional有很多相同的函数，文档中也有许多引用，故而搜索了一下有何区别，该文为搬运文，以下为引用说明，避免产生误会。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">作者：肥波喇齐</span><br><span class="line">链接：https://www.zhihu.com/question/66782101/answer/579393790</span><br><span class="line">来源：知乎</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
 
@@ -3767,7 +3767,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>机器学习基础系列笔记9——归一化方法FRN(Filter Response Normalization)</title>
-    <url>/2022/01/18/basic9/</url>
+    <url>/2022/01/18/basic/basic9/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -4606,7 +4606,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>Torch/Numpy的广播机制介绍</title>
-    <url>/2022/01/18/python1/</url>
+    <url>/2022/01/18/python/python1/</url>
     <content><![CDATA[<p>Numpy以及Tensor的广播机制介绍（以Torch为例，两者一致）</p>
 <h3 id="1、广播机制在何处会出现？"><a href="#1、广播机制在何处会出现？" class="headerlink" title="1、广播机制在何处会出现？"></a>1、广播机制在何处会出现？</h3><p>​    广播针对的运算是element wise类型的运算，即元素对元素类型的运算</p>
 <p>​    <strong>Element-wise的计算符号包括如下：</strong></p>
@@ -4638,7 +4638,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>Python导入自定义模块（同目录、子目录、跨目录）</title>
-    <url>/2022/01/18/python0/</url>
+    <url>/2022/01/18/python/python0/</url>
     <content><![CDATA[<h3 id="1、基本格式："><a href="#1、基本格式：" class="headerlink" title="1、基本格式："></a>1、基本格式：</h3><p>​    <strong>from 文件名 import 类名</strong></p>
 <h3 id="2、分情形讨论引入方式："><a href="#2、分情形讨论引入方式：" class="headerlink" title="2、分情形讨论引入方式："></a>2、分情形讨论引入方式：</h3><p>​    假设现有如下目录结构：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">├── model0.py</span><br><span class="line">├── main.py</span><br><span class="line">├── model1/</span><br><span class="line">│   └── model1_main.py</span><br><span class="line">└── model2/</span><br><span class="line">    └── model2_main.py</span><br></pre></td></tr></table></figure>
@@ -4688,7 +4688,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>机器学习基础系列笔记8——图像风格迁移方法AdaIN</title>
-    <url>/2022/01/17/basic8/</url>
+    <url>/2022/01/17/basic/basic8/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -5297,7 +5297,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>机器学习基础系列笔记7——各种归一化Normalization方法（含BN、LN、IN、CIN、GN）</title>
-    <url>/2022/01/16/basic7/</url>
+    <url>/2022/01/16/basic/basic7/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -6053,7 +6053,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>《Deep Residual Fourier Transformation for Single Image Deblurring》论文笔记</title>
-    <url>/2022/01/14/paper3/</url>
+    <url>/2022/01/14/paper/paper3/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -6811,7 +6811,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>《Uformer A General U-Shaped Transformer for Image Restoration》论文笔记</title>
-    <url>/2022/01/13/paper2/</url>
+    <url>/2022/01/13/paper/paper2/</url>
     <content><![CDATA[
 <!doctype html>
 <html>
@@ -7570,7 +7570,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>《SwinIR- Image Restoration Using Swin Transformer》论文笔记</title>
-    <url>/2022/01/13/paper1/</url>
+    <url>/2022/01/13/paper/paper1/</url>
     <content><![CDATA[
 <!doctype html>
 <html>
@@ -8328,7 +8328,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>机器学习基础系列笔记6——全卷积网络FCN &amp; U-Net结构</title>
-    <url>/2022/01/12/basic6/</url>
+    <url>/2022/01/12/basic/basic6/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -8938,7 +8938,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>机器学习基础系列笔记5——1x1卷积 &amp; 部分卷积 &amp; 空洞卷积 &amp; 可变形卷积</title>
-    <url>/2022/01/07/basic5/</url>
+    <url>/2022/01/07/basic/basic5/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -9547,7 +9547,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>机器学习基础系列笔记4——Depth-wise卷积 &amp; Point-wise卷积</title>
-    <url>/2022/01/05/basic4/</url>
+    <url>/2022/01/05/basic/basic4/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -10156,7 +10156,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>机器学习基础系列笔记3——反卷积Deconvolution</title>
-    <url>/2022/01/04/basic3/</url>
+    <url>/2022/01/04/basic/basic3/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -10765,7 +10765,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>ML2021课程系列笔记3——卷积神经网络CNN</title>
-    <url>/2021/12/20/ml_course3/</url>
+    <url>/2021/12/20/ml_course/ml_course3/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -11522,7 +11522,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>ML2021课程系列笔记2——机器学习训练任务攻略</title>
-    <url>/2021/12/19/ml_course2/</url>
+    <url>/2021/12/19/ml_course/ml_course2/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -12279,7 +12279,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>ML2021课程系列笔记1——DeepLearning基本介绍</title>
-    <url>/2021/12/17/ml_course1/</url>
+    <url>/2021/12/17/ml_course/ml_course1/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -13117,7 +13117,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>Pytorch学习笔记8——常用函数整理（更新中）</title>
-    <url>/2021/12/16/pytorch8/</url>
+    <url>/2021/12/16/pytorch/pytorch8/</url>
     <content><![CDATA[<h3 id="1、SoftMax-—-dim应当如何填？"><a href="#1、SoftMax-—-dim应当如何填？" class="headerlink" title="1、SoftMax — dim应当如何填？"></a>1、SoftMax — dim应当如何填？</h3><p>官方文档：<a href="https://pytorch.org/docs/stable/generated/torch.nn.functional.softmax.html?highlight=softmax#torch.nn.functional.softmax">https://pytorch.org/docs/stable/generated/torch.nn.functional.softmax.html?highlight=softmax#torch.nn.functional.softmax</a></p>
 <p>1）标准用法：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">torch.nn.functional.softmax(<span class="built_in">input</span>, dim)</span><br><span class="line">（Applies a softmax function.）</span><br></pre></td></tr></table></figure>
@@ -13333,7 +13333,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>Pytorch学习笔记7——一个深度学习程序的通用框架</title>
-    <url>/2021/12/15/pytorch7/</url>
+    <url>/2021/12/15/pytorch/pytorch7/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -14047,7 +14047,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>Pytorch学习笔记6——优化模型参数</title>
-    <url>/2021/12/14/pytorch6/</url>
+    <url>/2021/12/14/pytorch/pytorch6/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -14785,7 +14785,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>Pytorch学习笔记5——使用AutoGrad自动微分</title>
-    <url>/2021/12/13/pytorch5/</url>
+    <url>/2021/12/13/pytorch/pytorch5/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -15477,7 +15477,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>Pytorch学习笔记4——Building NeuralNetwork</title>
-    <url>/2021/12/13/pytorch4/</url>
+    <url>/2021/12/13/pytorch/pytorch4/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -16174,7 +16174,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>Pytorch学习笔记3——Transform数据变换</title>
-    <url>/2021/12/13/pytorch3/</url>
+    <url>/2021/12/13/pytorch/pytorch3/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -16864,7 +16864,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>Pytorch学习笔记2——Dataset介绍</title>
-    <url>/2021/12/13/pytorch2/</url>
+    <url>/2021/12/13/pytorch/pytorch2/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -17563,7 +17563,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>Pytorch学习笔记1——Tensor介绍</title>
-    <url>/2021/12/13/pytorch1/</url>
+    <url>/2021/12/13/pytorch/pytorch1/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -18269,7 +18269,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>Transformer系列笔记4——Swin Transformer思想与架构</title>
-    <url>/2021/12/09/transformer4/</url>
+    <url>/2021/12/09/transformer/transformer4/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -19027,7 +19027,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>Transformer系列笔记3——Vision Transformer思想与架构</title>
-    <url>/2021/12/08/transformer3/</url>
+    <url>/2021/12/08/transformer/transformer3/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -19637,7 +19637,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>Transformer系列笔记2——原始Transformer架构与Seq2Seq问题</title>
-    <url>/2021/12/07/transformer2/</url>
+    <url>/2021/12/07/transformer/transformer2/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -20247,7 +20247,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>Transformer系列笔记1——Self Attention机制</title>
-    <url>/2021/12/06/transformer1/</url>
+    <url>/2021/12/06/transformer/transformer1/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -20856,7 +20856,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>GAN系列笔记6——评估GAN的相关方法指标</title>
-    <url>/2021/12/05/gan6/</url>
+    <url>/2021/12/05/gan/gan6/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -21465,7 +21465,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>GAN系列笔记5——GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）</title>
-    <url>/2021/12/04/gan5/</url>
+    <url>/2021/12/04/gan/gan5/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -22157,7 +22157,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>GAN系列笔记4——GAN训练过程中的一些Tips与改进的GAN网络（含LSGAN、WGAN、EBGAN）</title>
-    <url>/2021/12/03/gan4/</url>
+    <url>/2021/12/03/gan/gan4/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -22916,7 +22916,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>GAN系列笔记3——GAN的数学理论支撑</title>
-    <url>/2021/12/02/gan3/</url>
+    <url>/2021/12/02/gan/gan3/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -23673,7 +23673,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
   </entry>
   <entry>
     <title>GAN系列笔记2——常见GAN变种（ConditionalGAN，PatchGAN，CycleGAN等）</title>
-    <url>/2021/12/01/gan2/</url>
+    <url>/2021/12/01/gan/gan2/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -24365,7 +24365,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>GAN系列笔记1——GAN的基本理念与思想</title>
-    <url>/2021/11/30/gan1/</url>
+    <url>/2021/11/30/gan/gan1/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -24974,7 +24974,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>机器学习基础系列笔记2——数据表征与自动编码器</title>
-    <url>/2021/11/24/basic2/</url>
+    <url>/2021/11/24/basic/basic2/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -25584,7 +25584,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>机器学习基础系列笔记1——One-Hot编码与Word Embedding</title>
-    <url>/2021/11/23/basic1/</url>
+    <url>/2021/11/23/basic/basic1/</url>
     <content><![CDATA[<!doctype html>
 <html>
 <head>
@@ -26194,7 +26194,7 @@ header, .context-menu, .megamenu-content, footer{
   </entry>
   <entry>
     <title>机器学习基础系列笔记0——常见概念与函数（更新中）</title>
-    <url>/2021/11/22/basic0/</url>
+    <url>/2021/11/22/basic/basic0/</url>
     <content><![CDATA[<h3 id="1、SoftMax和Cross-Entropy交叉熵函数"><a href="#1、SoftMax和Cross-Entropy交叉熵函数" class="headerlink" title="1、SoftMax和Cross-Entropy交叉熵函数"></a>1、SoftMax和Cross-Entropy交叉熵函数</h3><p>​    我们常常使用交叉熵（cross entropy）来进行判别分布的相似性，交叉熵公式如下图所示：公式中pi和qi<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/wpsCF9D.tmp.jpg" alt="img">为真实的样本分布和生成器的生成分布。</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201037115.png" alt="image-20220114201037115"></p>
 <p>​    ****Soft-Max****内部对输入进行的处理如下图所示，我们假设输入y1,y2,y3，我们先将三个输入计算exp(y1),exp(y2),exp(y3),然后求和，然后计算输出。</p>

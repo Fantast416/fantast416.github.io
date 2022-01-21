@@ -18,8 +18,8 @@
   
   <entry>
     <title>机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合</title>
-    <link href="https://blog.slks.xyz/2022/01/21/basic13/"/>
-    <id>https://blog.slks.xyz/2022/01/21/basic13/</id>
+    <link href="https://blog.slks.xyz/2022/01/21/basic/basic13/"/>
+    <id>https://blog.slks.xyz/2022/01/21/basic/basic13/</id>
     <published>2022-01-21T15:25:19.000Z</published>
     <updated>2022-01-21T15:26:40.876Z</updated>
     
@@ -41,8 +41,8 @@
   
   <entry>
     <title>机器学习基础系列笔记12——BatchNorm详解及为什么能防止过拟合</title>
-    <link href="https://blog.slks.xyz/2022/01/21/basic12/"/>
-    <id>https://blog.slks.xyz/2022/01/21/basic12/</id>
+    <link href="https://blog.slks.xyz/2022/01/21/basic/basic12/"/>
+    <id>https://blog.slks.xyz/2022/01/21/basic/basic12/</id>
     <published>2022-01-21T14:01:19.000Z</published>
     <updated>2022-01-21T15:26:36.861Z</updated>
     
@@ -64,8 +64,8 @@
   
   <entry>
     <title>机器学习基础系列笔记11——Training Data、Validation Data、Testing Data含义及作用</title>
-    <link href="https://blog.slks.xyz/2022/01/21/basic11/"/>
-    <id>https://blog.slks.xyz/2022/01/21/basic11/</id>
+    <link href="https://blog.slks.xyz/2022/01/21/basic/basic11/"/>
+    <id>https://blog.slks.xyz/2022/01/21/basic/basic11/</id>
     <published>2022-01-21T08:01:19.000Z</published>
     <updated>2022-01-21T07:22:37.050Z</updated>
     
@@ -89,8 +89,8 @@
   
   <entry>
     <title>机器学习基础系列笔记10——L1、L2正则化以及为什么正则化能够防止过拟合</title>
-    <link href="https://blog.slks.xyz/2022/01/21/basic10/"/>
-    <id>https://blog.slks.xyz/2022/01/21/basic10/</id>
+    <link href="https://blog.slks.xyz/2022/01/21/basic/basic10/"/>
+    <id>https://blog.slks.xyz/2022/01/21/basic/basic10/</id>
     <published>2022-01-21T07:01:19.000Z</published>
     <updated>2022-01-21T07:22:33.456Z</updated>
     
@@ -112,8 +112,8 @@
   
   <entry>
     <title>《DG-Font Deformable Generative Networks for Unsupervised Font Generation》</title>
-    <link href="https://blog.slks.xyz/2022/01/20/paper4/"/>
-    <id>https://blog.slks.xyz/2022/01/20/paper4/</id>
+    <link href="https://blog.slks.xyz/2022/01/20/paper/paper4/"/>
+    <id>https://blog.slks.xyz/2022/01/20/paper/paper4/</id>
     <published>2022-01-20T10:12:19.000Z</published>
     <updated>2022-01-20T09:57:25.213Z</updated>
     
@@ -137,8 +137,8 @@
   
   <entry>
     <title>Pytorch学习笔记10——PyTorch 中，nn与nn.functional有什么区别？（搬运）</title>
-    <link href="https://blog.slks.xyz/2022/01/18/pytorch10/"/>
-    <id>https://blog.slks.xyz/2022/01/18/pytorch10/</id>
+    <link href="https://blog.slks.xyz/2022/01/18/pytorch/pytorch10/"/>
+    <id>https://blog.slks.xyz/2022/01/18/pytorch/pytorch10/</id>
     <published>2022-01-18T07:51:19.000Z</published>
     <updated>2022-01-18T07:25:50.997Z</updated>
     
@@ -158,8 +158,8 @@
   
   <entry>
     <title>机器学习基础系列笔记9——归一化方法FRN(Filter Response Normalization)</title>
-    <link href="https://blog.slks.xyz/2022/01/18/basic9/"/>
-    <id>https://blog.slks.xyz/2022/01/18/basic9/</id>
+    <link href="https://blog.slks.xyz/2022/01/18/basic/basic9/"/>
+    <id>https://blog.slks.xyz/2022/01/18/basic/basic9/</id>
     <published>2022-01-18T05:46:19.000Z</published>
     <updated>2022-01-18T05:51:44.659Z</updated>
     
@@ -179,8 +179,8 @@
   
   <entry>
     <title>Torch/Numpy的广播机制介绍</title>
-    <link href="https://blog.slks.xyz/2022/01/18/python1/"/>
-    <id>https://blog.slks.xyz/2022/01/18/python1/</id>
+    <link href="https://blog.slks.xyz/2022/01/18/python/python1/"/>
+    <id>https://blog.slks.xyz/2022/01/18/python/python1/</id>
     <published>2022-01-18T05:39:19.000Z</published>
     <updated>2022-01-18T05:41:33.411Z</updated>
     
@@ -202,8 +202,8 @@
   
   <entry>
     <title>Python导入自定义模块（同目录、子目录、跨目录）</title>
-    <link href="https://blog.slks.xyz/2022/01/18/python0/"/>
-    <id>https://blog.slks.xyz/2022/01/18/python0/</id>
+    <link href="https://blog.slks.xyz/2022/01/18/python/python0/"/>
+    <id>https://blog.slks.xyz/2022/01/18/python/python0/</id>
     <published>2022-01-18T03:33:19.000Z</published>
     <updated>2022-01-18T05:48:16.549Z</updated>
     
@@ -225,8 +225,8 @@
   
   <entry>
     <title>机器学习基础系列笔记8——图像风格迁移方法AdaIN</title>
-    <link href="https://blog.slks.xyz/2022/01/17/basic8/"/>
-    <id>https://blog.slks.xyz/2022/01/17/basic8/</id>
+    <link href="https://blog.slks.xyz/2022/01/17/basic/basic8/"/>
+    <id>https://blog.slks.xyz/2022/01/17/basic/basic8/</id>
     <published>2022-01-17T04:33:19.000Z</published>
     <updated>2022-01-18T05:51:39.959Z</updated>
     
@@ -248,8 +248,8 @@
   
   <entry>
     <title>机器学习基础系列笔记7——各种归一化Normalization方法（含BN、LN、IN、CIN、GN）</title>
-    <link href="https://blog.slks.xyz/2022/01/16/basic7/"/>
-    <id>https://blog.slks.xyz/2022/01/16/basic7/</id>
+    <link href="https://blog.slks.xyz/2022/01/16/basic/basic7/"/>
+    <id>https://blog.slks.xyz/2022/01/16/basic/basic7/</id>
     <published>2022-01-16T04:33:19.000Z</published>
     <updated>2022-01-18T05:51:36.938Z</updated>
     
@@ -269,8 +269,8 @@
   
   <entry>
     <title>《Deep Residual Fourier Transformation for Single Image Deblurring》论文笔记</title>
-    <link href="https://blog.slks.xyz/2022/01/14/paper3/"/>
-    <id>https://blog.slks.xyz/2022/01/14/paper3/</id>
+    <link href="https://blog.slks.xyz/2022/01/14/paper/paper3/"/>
+    <id>https://blog.slks.xyz/2022/01/14/paper/paper3/</id>
     <published>2022-01-14T10:32:19.000Z</published>
     <updated>2022-01-15T14:46:28.867Z</updated>
     
@@ -294,8 +294,8 @@
   
   <entry>
     <title>《Uformer A General U-Shaped Transformer for Image Restoration》论文笔记</title>
-    <link href="https://blog.slks.xyz/2022/01/13/paper2/"/>
-    <id>https://blog.slks.xyz/2022/01/13/paper2/</id>
+    <link href="https://blog.slks.xyz/2022/01/13/paper/paper2/"/>
+    <id>https://blog.slks.xyz/2022/01/13/paper/paper2/</id>
     <published>2022-01-13T05:19:19.000Z</published>
     <updated>2022-01-15T14:46:26.471Z</updated>
     
@@ -319,8 +319,8 @@
   
   <entry>
     <title>《SwinIR- Image Restoration Using Swin Transformer》论文笔记</title>
-    <link href="https://blog.slks.xyz/2022/01/13/paper1/"/>
-    <id>https://blog.slks.xyz/2022/01/13/paper1/</id>
+    <link href="https://blog.slks.xyz/2022/01/13/paper/paper1/"/>
+    <id>https://blog.slks.xyz/2022/01/13/paper/paper1/</id>
     <published>2022-01-13T05:19:19.000Z</published>
     <updated>2022-01-15T14:46:22.979Z</updated>
     
@@ -342,8 +342,8 @@
   
   <entry>
     <title>机器学习基础系列笔记6——全卷积网络FCN &amp; U-Net结构</title>
-    <link href="https://blog.slks.xyz/2022/01/12/basic6/"/>
-    <id>https://blog.slks.xyz/2022/01/12/basic6/</id>
+    <link href="https://blog.slks.xyz/2022/01/12/basic/basic6/"/>
+    <id>https://blog.slks.xyz/2022/01/12/basic/basic6/</id>
     <published>2022-01-12T02:18:19.000Z</published>
     <updated>2022-01-18T05:51:33.945Z</updated>
     
@@ -367,8 +367,8 @@
   
   <entry>
     <title>机器学习基础系列笔记5——1x1卷积 &amp; 部分卷积 &amp; 空洞卷积 &amp; 可变形卷积</title>
-    <link href="https://blog.slks.xyz/2022/01/07/basic5/"/>
-    <id>https://blog.slks.xyz/2022/01/07/basic5/</id>
+    <link href="https://blog.slks.xyz/2022/01/07/basic/basic5/"/>
+    <id>https://blog.slks.xyz/2022/01/07/basic/basic5/</id>
     <published>2022-01-07T13:17:19.000Z</published>
     <updated>2022-01-18T05:51:30.750Z</updated>
     
@@ -390,8 +390,8 @@
   
   <entry>
     <title>机器学习基础系列笔记4——Depth-wise卷积 &amp; Point-wise卷积</title>
-    <link href="https://blog.slks.xyz/2022/01/05/basic4/"/>
-    <id>https://blog.slks.xyz/2022/01/05/basic4/</id>
+    <link href="https://blog.slks.xyz/2022/01/05/basic/basic4/"/>
+    <id>https://blog.slks.xyz/2022/01/05/basic/basic4/</id>
     <published>2022-01-05T01:48:19.000Z</published>
     <updated>2022-01-18T05:51:27.125Z</updated>
     
@@ -413,8 +413,8 @@
   
   <entry>
     <title>机器学习基础系列笔记3——反卷积Deconvolution</title>
-    <link href="https://blog.slks.xyz/2022/01/04/basic3/"/>
-    <id>https://blog.slks.xyz/2022/01/04/basic3/</id>
+    <link href="https://blog.slks.xyz/2022/01/04/basic/basic3/"/>
+    <id>https://blog.slks.xyz/2022/01/04/basic/basic3/</id>
     <published>2022-01-04T01:31:19.000Z</published>
     <updated>2022-01-18T05:51:23.837Z</updated>
     
@@ -436,8 +436,8 @@
   
   <entry>
     <title>ML2021课程系列笔记3——卷积神经网络CNN</title>
-    <link href="https://blog.slks.xyz/2021/12/20/ml_course3/"/>
-    <id>https://blog.slks.xyz/2021/12/20/ml_course3/</id>
+    <link href="https://blog.slks.xyz/2021/12/20/ml_course/ml_course3/"/>
+    <id>https://blog.slks.xyz/2021/12/20/ml_course/ml_course3/</id>
     <published>2021-12-20T02:29:19.000Z</published>
     <updated>2022-01-21T09:41:25.963Z</updated>
     
@@ -459,8 +459,8 @@
   
   <entry>
     <title>ML2021课程系列笔记2——机器学习训练任务攻略</title>
-    <link href="https://blog.slks.xyz/2021/12/19/ml_course2/"/>
-    <id>https://blog.slks.xyz/2021/12/19/ml_course2/</id>
+    <link href="https://blog.slks.xyz/2021/12/19/ml_course/ml_course2/"/>
+    <id>https://blog.slks.xyz/2021/12/19/ml_course/ml_course2/</id>
     <published>2021-12-19T02:29:19.000Z</published>
     <updated>2022-01-21T09:09:57.982Z</updated>
     
