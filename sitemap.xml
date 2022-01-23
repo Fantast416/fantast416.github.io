@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.slks.xyz/2022/01/23/basic/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B014%E2%80%94ResNet%E8%AF%A6%E8%A7%A3%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E8%A7%A3%E5%86%B3%E6%B7%B1%E5%BA%A6%E7%BD%91%E7%BB%9C%E9%80%80%E5%8C%96%E9%97%AE%E9%A2%98/</loc>
+    <loc>https://blog.slks.xyz/2022/01/23/basic/basic14/</loc>
     
     <lastmod>2022-01-23</lastmod>
     
@@ -494,6 +494,13 @@
   </url>
   
   <url>
+    <loc>https://blog.slks.xyz/tags/Info-Encoding/</loc>
+    <lastmod>2022-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.slks.xyz/tags/Training-Set/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -515,35 +522,7 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Info-Encoding/</loc>
-    <lastmod>2022-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/FCN/</loc>
-    <lastmod>2022-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/UNet/</loc>
-    <lastmod>2022-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.slks.xyz/tags/Deconvolution/</loc>
-    <lastmod>2022-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/Convolution/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -558,6 +537,27 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/Degradation/</loc>
+    <lastmod>2022-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Convolution/</loc>
+    <lastmod>2022-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/FCN/</loc>
+    <lastmod>2022-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/UNet/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -613,6 +613,13 @@
   </url>
   
   <url>
+    <loc>https://blog.slks.xyz/tags/Batch-Normalization/</loc>
+    <lastmod>2022-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.slks.xyz/tags/OverFitting/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -628,13 +635,6 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/DropOut/</loc>
-    <lastmod>2022-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/Batch-Normalization/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -690,6 +690,13 @@
   </url>
   
   <url>
+    <loc>https://blog.slks.xyz/tags/Normalization/</loc>
+    <lastmod>2022-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.slks.xyz/tags/ConditionalGAN/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -705,13 +712,6 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/CycleGAN/</loc>
-    <lastmod>2022-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/Normalization/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
