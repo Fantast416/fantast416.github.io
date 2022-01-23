@@ -494,6 +494,13 @@
   </url>
   
   <url>
+    <loc>https://blog.slks.xyz/tags/Info-Encoding/</loc>
+    <lastmod>2022-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.slks.xyz/tags/Training-Set/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -509,13 +516,6 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/Testing-Set/</loc>
-    <lastmod>2022-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/Info-Encoding/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -627,14 +627,14 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Batch-Normalization/</loc>
+    <loc>https://blog.slks.xyz/tags/DropOut/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/DropOut/</loc>
+    <loc>https://blog.slks.xyz/tags/Batch-Normalization/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
