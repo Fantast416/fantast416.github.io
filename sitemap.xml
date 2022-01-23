@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.slks.xyz/2022/01/05/basic/basic4/</loc>
+    
+    <lastmod>2022-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.slks.xyz/2022/01/23/basic/basic14/</loc>
     
     <lastmod>2022-01-23</lastmod>
@@ -237,15 +246,6 @@
   
   <url>
     <loc>https://blog.slks.xyz/2022/01/07/basic/basic5/</loc>
-    
-    <lastmod>2022-01-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/2022/01/05/basic/basic4/</loc>
     
     <lastmod>2022-01-18</lastmod>
     
@@ -522,13 +522,6 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Deconvolution/</loc>
-    <lastmod>2022-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.slks.xyz/tags/ResNet/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -537,6 +530,13 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/Degradation/</loc>
+    <lastmod>2022-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Deconvolution/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -613,13 +613,6 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Batch-Normalization/</loc>
-    <lastmod>2022-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.slks.xyz/tags/OverFitting/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -628,6 +621,13 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/Regularization/</loc>
+    <lastmod>2022-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Batch-Normalization/</loc>
     <lastmod>2022-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
