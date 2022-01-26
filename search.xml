@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Tmux常用命令</title>
+    <url>/2022/01/26/tools/tmux_command/</url>
+    <content><![CDATA[<h3 id="Tmux常用命令"><a href="#Tmux常用命令" class="headerlink" title="Tmux常用命令"></a>Tmux常用命令</h3><ul>
+<li><p>创建并指定session名字<br> tmux new -s $session_name</p>
+</li>
+<li><p>删除session<br> Ctrl+b :kill-session</p>
+</li>
+<li><p>临时退出session<br> Ctrl+b d</p>
+</li>
+<li><p>列出session<br> tmux ls</p>
+</li>
+<li><p>进入已存在的session<br> tmux a -t $session_name</p>
+</li>
+<li><p>删除所有session<br> Ctrl+b :kill-server</p>
+</li>
+<li><p>删除指定session<br> tmux kill-session -t $session_name</p>
+</li>
+<li><p>开启光标</p>
+</li>
+</ul>
+<p>​        ctrl + b 按下后松开 再立马按 [</p>
+<ul>
+<li>关闭光标</li>
+</ul>
+<p>​        ctrl + q 按下后松开 再立马按 [</p>
+]]></content>
+      <categories>
+        <category>工具类使用笔记</category>
+      </categories>
+      <tags>
+        <tag>Tmux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习基础系列笔记14——ResNet详解及为什么能解决深度网络退化问题</title>
     <url>/2022/01/23/basic/basic14/</url>
     <content><![CDATA[<!doctype html>

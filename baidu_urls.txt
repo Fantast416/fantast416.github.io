@@ -1,3 +1,4 @@
+https://blog.slks.xyz/2022/01/26/tools/tmux_command/
 https://blog.slks.xyz/2022/01/23/basic/basic14/
 https://blog.slks.xyz/2022/01/21/basic/basic13/
 https://blog.slks.xyz/2022/01/21/basic/basic12/
@@ -7,4 +8,3 @@ https://blog.slks.xyz/2022/01/20/paper/paper4/
 https://blog.slks.xyz/2022/01/18/pytorch/pytorch10/
 https://blog.slks.xyz/2022/01/18/basic/basic9/
 https://blog.slks.xyz/2022/01/18/python/python1/
-https://blog.slks.xyz/2022/01/18/python/python0/
