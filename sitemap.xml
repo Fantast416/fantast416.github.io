@@ -475,20 +475,6 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Python/</loc>
-    <lastmod>2022-01-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/Module-Import/</loc>
-    <lastmod>2022-01-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.slks.xyz/tags/Pytorch/</loc>
     <lastmod>2022-01-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -497,6 +483,20 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/Auto-BroadCasting/</loc>
+    <lastmod>2022-01-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Python/</loc>
+    <lastmod>2022-01-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Module-Import/</loc>
     <lastmod>2022-01-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -552,14 +552,14 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Deconvolution/</loc>
+    <loc>https://blog.slks.xyz/tags/Convolution/</loc>
     <lastmod>2022-01-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Convolution/</loc>
+    <loc>https://blog.slks.xyz/tags/Deconvolution/</loc>
     <lastmod>2022-01-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -848,14 +848,14 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/categories/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://blog.slks.xyz/categories/%E5%B7%A5%E5%85%B7%E7%B1%BB%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-01-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/categories/%E5%B7%A5%E5%85%B7%E7%B1%BB%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://blog.slks.xyz/categories/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-01-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
