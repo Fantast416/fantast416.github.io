@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105653272.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105700505.png">
 <meta property="article:published_time" content="2021-12-04T10:31:19.000Z">
-<meta property="article:modified_time" content="2022-01-28T11:51:20.626Z">
+<meta property="article:modified_time" content="2022-01-29T07:24:56.895Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="GAN">
 <meta property="article:tag" content="InfoGAN">
@@ -278,7 +278,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-28 19:51:20" itemprop="dateModified" datetime="2022-01-28T19:51:20+08:00">2022-01-28</time>
+      <time title="修改时间：2022-01-29 15:24:56" itemprop="dateModified" datetime="2022-01-29T15:24:56+08:00">2022-01-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -304,7 +304,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.9k</span>
+      <span>2.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -330,53 +330,35 @@
 <p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了InfoGAN、VAEGAN、BiGAN，以及GAN在特征提取领域相关的应用。</p>
 <h3 id="一infogan">一、InfoGAN</h3>
 <p>​ 我们在先前的GAN的介绍中说到过，对于一个训练好的GAN，我们是希望输入一个向量，然后GAN会给我们生成一个Object（图像或者是序列等）。然后我们期望，我们输入的向量，每一个维度可能就会代表输出的图像的某一个特征。这其实是非常理想的情况，但实际上，可能当你改变输入向量某一个维度的值的时候，输出的内容并没有按照某个特征进行变化。如果用图示意的话，如下图所示：两幅图是在低维空间中高维特征的分布示意图，我们本身期望其应该是左图的分布，这样当某个纵轴不变，横轴的数值变化时，高维某个相对应特征也会随之变化，但实际上分布可能像右图一样。InfoGAN就是想要解决这样一个问题。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105527683.png" alt="image-20220115105527683" /><figcaption aria-hidden="true">image-20220115105527683</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105527683.png" /></p>
 <p>​ InfoGAN的框架如下图所示：</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105540261.png" alt="image-20220115105540261" /><figcaption aria-hidden="true">image-20220115105540261</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105540261.png" /></p>
 <p>​ 首先会将输入向量z，拆成两部分，一部分是向量c，一部分是向量z’，然后输入G后产生图像x，同时，我们需要训练一个分类器，这个分类器要能从x中识别出，产生这个x所使用的向量c的部分的编码，原本需要训练的判别器也是需要训练的缺一不可。然后我们宏观的看一下这一个架构，Generator和Classifier这一套就像是一个类AutoEncoder的东西，只不过其和正常的AutoEncoder刚好相反。正常的AutoEncoder的编码器是输入图片，输出特征编码向量，然后解码器是再反解回图片。而此处的编码器部分是GAN的Generator部分，输入向量，生成图片，然后decoder部分需要从图片中识别出code。在这个架构中，Discriminator是必须的，不然的话训练Generator的结果很有可能就是会把向量c直接附在图片x的信息中间，这样的话Classifier必定能够反解出c，但是这样的话生成的x是不是一张真实的图片就尚未可知了。有了Discriminator就可以保证生成的x是真实。</p>
 <p>​ 同时，Discriminator和Classifier在实际训练时往往共享参数，因为它们的输入都是x，只是最后一层输出层不一样而已。</p>
 <p>​ 那么，加上这样一个Classifier以后，为什么先前的原先GAN的输入对输出的影响不明确这个问题就能解决了呢？如下图所示：</p>
 <p>​ 因为我们需要分类器能从x中恢复出编码c，所以向量c这一部分必定需要对x的图像的某些维度有明确的影响。也就是说，完成GAN训练以后，c部分的每一个维度，都会对x的图像的某一个特征有明确的影响对应，那么z'部分相对应的可能就是那些较为随机的维度。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105550729.png" alt="image-20220115105550729" /><figcaption aria-hidden="true">image-20220115105550729</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105550729.png" /></p>
 <p>​ 在这里可能会存在一个疑问，我们怎么划分向量z到c和z’呢？哪些维度应该被划分为c？哪些应该被划分为z’？此处要注意：我们并不是先对z进行手动划分的，是在训练完成之后，那部分能被恢复的向量编码维度，才会被称为c。</p>
 <h3 id="二vae-gan">二、VAE GAN</h3>
 <p>​ VAE GAN可以看作用GAN强化VAE AutoEncoder。网络架构如下图所示：这样的网络架构完成了两件事，一个是原本的希望重构损失越小越好，另一个是Discriminator会保证Generator生成的图片越真实越好。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105607065.png" alt="image-20220115105607065" /><figcaption aria-hidden="true">image-20220115105607065</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105607065.png" /></p>
 <p>​ 从VAE角度，因为我们如果只考虑VAE的重建损失，往往产生的图片是不真实的，是会很模糊的。新增了Discriminator可以让输出图像更加真实。</p>
 <p>​ 从GAN角度，其不只考虑判别器的反馈，因为其知道真实图片长什么样，需要最小化生成图像和原图的误差，所以VAE GAN训练起来会更加稳定。</p>
 <p>​ 如下所示是VAE GAN训练的算法：整体的算法如下所示，在每一轮迭代中，首先是图像的生成：有三类x需要生成：1、第一类x是从数据库中直接采样出来的图片。2、第二类是由数据库中采样出的图片经过Encoder再经过Decoder后重建的图片3、第三类图片是，由随机的概率分布生成的编码z通过Encoder以后产生的图像。（注意图中第10行公式En应为De，图片有误）</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105620194.png" alt="image-20220115105620194" /><figcaption aria-hidden="true">image-20220115105620194</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105620194.png" /></p>
 <p>​ 然后我们先更新训练EN的参数，希望重建误差越小越好，同时也希望x经过Encoder产生出来的z跟P(z)产生出来的z越接近越好，也就是两者KL散度越小越好。</p>
 <p>​ 然后更新训练De的参数，希望重建误差越小越好，同时也希望将第2类和第3类图片，丢入判别器以后，得到的值越大越好。</p>
 <p>​ 最后更新训练Discriminator的参数，希望第1类图像进入判别器以后值越大越好，同时也希望将第2类和第3类图片，丢入判别器以后，得到的值越小越好。</p>
 <h3 id="三bigan">三、BiGAN</h3>
 <p>​ BiGAN的架构如下所示：它修改了传统AutoEncoder的部分，然后新增了判别器。在这个网络中有一个Encoder，输入一张图片x，输出code z。有一个Decoder，输入一个code z，输出一张图片。但是这个输入的code z并不是先前Encoder输出的z，而是从一个事先准备好的分布中取样得到的z。然后我们有一个判别器，输入 向量z和 图像x，要让判别器判断，这一对 （向量z，图像x）是来自于编码器的输入输出，还是来自于解码器的输入输出。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105637394.png" alt="image-20220115105637394" /><figcaption aria-hidden="true">image-20220115105637394</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105637394.png" /></p>
 <p>​ 训练算法如下所示，整体而言描述和其他的描述语言比较一致，比较好理解，此处就不多赘述，</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105645100.png" alt="image-20220115105645100" /><figcaption aria-hidden="true">image-20220115105645100</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105645100.png" /></p>
 <p>​ 那么为什么BiGAN能够这样子去进行训练呢？其实BiGAN就是干了一件这样的事情：如果我们把Encoder的输入输出看作是一个Join起来的分布，Decoder的输入输出看作是一个Join起来的分布，那么判别器所干的事情就是区分P和Q之间的分布的差距。想要尽可能的去优化Encoder和Decoder，使得P和Q逐渐变得接近。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105653272.png" alt="image-20220115105653272" /><figcaption aria-hidden="true">image-20220115105653272</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105653272.png" /></p>
 <p>​ 如果这个模型训练到最优，就应当是Encoder和Decoder可以互相解。那其实你会发现就是做了如下这么一件事情：训练一个AutoEncoder和一个Inverse的AutoEncoder。确实没错，如果如下所示的这样一个网络训练到最优，其和使用BiGAN训练到最优的结果是一样的，但是实际上BiGAN和AutoEncoder都没法训练到最优。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105700505.png" alt="image-20220115105700505" /><figcaption aria-hidden="true">image-20220115105700505</figcaption>
-</figure>
-<pre><code>所以在不是收敛到最优的情况下，BiGAN会比下面这个架构训练好很多。生成的图片会真实很多，会比AutoEncoder架构生成的图像清晰很多。两者的特性不太一样。举个例子，比如可能用BiGAN，你输入一个鸟的图片，经过Encoder，Decoder后生成的图像也会是一只清晰的真实的鸟，但可能跟输入的鸟不一样，而如果用AutoEncoder架构，输入一个鸟的图片，经过Encoder，Decoder后生成的图像会和原图像比较像，但是会比较模糊，是一个不是很清晰真实的图像。</code></pre>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105700505.png" /></p>
+<p>​ 所以在不是收敛到最优的情况下，BiGAN会比下面这个架构训练好很多。生成的图片会真实很多，会比AutoEncoder架构生成的图像清晰很多。两者的特性不太一样。举个例子，比如可能用BiGAN，你输入一个鸟的图片，经过Encoder，Decoder后生成的图像也会是一只清晰的真实的鸟，但可能跟输入的鸟不一样，而如果用AutoEncoder架构，输入一个鸟的图片，经过Encoder，Decoder后生成的图像会和原图像比较像，但是会比较模糊，是一个不是很清晰真实的图像。</p>
 
     </div>
 
@@ -470,13 +452,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">185k</span>
+    <span title="站点总字数">182k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:35</span>
+    <span title="站点阅读时长">8:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

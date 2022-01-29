@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220118102128474.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_01_18_10_32_35_986.png">
 <meta property="article:published_time" content="2022-01-18T05:46:19.000Z">
-<meta property="article:modified_time" content="2022-01-28T12:20:35.062Z">
+<meta property="article:modified_time" content="2022-01-29T07:32:12.138Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Normalization">
 <meta name="twitter:card" content="summary">
@@ -268,7 +268,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-28 20:20:35" itemprop="dateModified" datetime="2022-01-28T20:20:35+08:00">2022-01-28</time>
+      <time title="修改时间：2022-01-29 15:32:12" itemprop="dateModified" datetime="2022-01-29T15:32:12+08:00">2022-01-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -323,18 +323,14 @@
 <p>​ <strong>原论文地址：</strong>https://arxiv.org/abs/1911.09737</p>
 <h4 id="二结构">二、结构：</h4>
 <p>​ 如下所示，FRN层整体结构包括归一化层FRN（Filter Response Normalization）和激活层TLU（Thresholded Linear Unit）。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220118102128474.png" alt="image-20220118102128474" /><figcaption aria-hidden="true">image-20220118102128474</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220118102128474.png" /></p>
 <p>​ 整个结构并不复杂，就是通过一个公式计算，最后经过一个阈值限制输出</p>
 <p>​ 其中FRN的操作是对每个样例的每个channel单独进行归一化的，这里<span class="math inline">\(x\)</span>就是一个N（=HxW）维度的向量，所以FRN没有BN层对batch依赖的问题。BN层采用归一化方法是减去均值然后除以标准差，而FRN却不同，这里没有减去均值操作，公式中的<span class="math inline">\(v^2\)</span>是<span class="math inline">\({x}\)</span>的二次范数的平均值。这种归一化方式类似BN可以用来消除中间操作（卷积和非线性激活）带来的尺度问题，有助于模型训练。 公式里的<span class="math inline">\({\epsilon}\)</span>是一个很小的正常量，一般为<span class="math inline">\(1^{-6}\)</span>以防止除0。</p>
 <p>​ 一般情况下网络的特征图大小N(=HxW)较大，但是有时候可能会出现1x1的特征图的情况，比如InceptionV3和VGG网络，此时就<span class="math inline">\({\epsilon}\)</span>比较关键，</p>
 <p>​ 归一化之后同样需要进行缩放和平移变换，这里的<span class="math inline">\(\gamma\)</span>和<span class="math inline">\(\beta\)</span>也是可学习的参数（参数为长度是C的向量, 即为特征数目，也就是通道数):</p>
 <p>​ <span class="math display">\[{y = \gamma \hat{x} + \beta}\]</span></p>
 <p>​ FRN缺少去均值的操作，这可能使得归一化的结果任意地偏移0，如果FRN之后是ReLU激活层，可能产生很多0值，这对于模型训练和性能是不利的。为了解决这个问题，FRN之后采用的阈值化的ReLU，即TLU：</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_01_18_10_32_35_986.png" alt="屏幕捕获_2022_01_18_10_32_35_986" /><figcaption aria-hidden="true">屏幕捕获_2022_01_18_10_32_35_986</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_01_18_10_32_35_986.png" /></p>
 <p>​ 这里的<span class="math inline">\(\tau\)</span>是一个可学习的参数。原论文中发现FRN之后采用TLU对于提升性能是至关重要的。</p>
 <h4 id="三代码实现coding">三、代码实现Coding</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FRN</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_features, eps=<span class="number">1e-6</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>(FRN, self).__init__()</span><br><span class="line">        self.tau = nn.Parameter(torch.zeros(<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.gamma = nn.Parameter(torch.ones(<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.beta = nn.Parameter(torch.zeros(<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.eps = eps</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        <span class="comment">## input x  shape [B,C,H,W] (batch_size , channel , height , width)</span></span><br><span class="line">        x1 = torch.mean(x**<span class="number">2</span>, dim=[<span class="number">2</span>, <span class="number">3</span>], keepdim=<span class="literal">True</span>)</span><br><span class="line">        <span class="comment">## x1       shape [B,C,1,1] (batch_size , channel , 1 , 1)</span></span><br><span class="line">        x2 = x1 + self.eps</span><br><span class="line">        <span class="comment">## x2 	    shape [B,C,1,1] (batch_size , channel , 1 , 1),  【+ 为逐元素相加，不改变维度】</span></span><br><span class="line">        x3 = torch.rsqrt(x2)</span><br><span class="line">        <span class="comment">## x3       shape [B,C,1,1] (batch_size , channel , 1 , 1),  【sqrt 为逐元素操作，不改变为维度】</span></span><br><span class="line">        x4 = x * x3</span><br><span class="line">        <span class="comment">## x4       shape [B,C,H,W] (batch_size , channel , height , width)  </span></span><br><span class="line">        <span class="comment">##          广播机制,逐元素相乘  [B,C,H,W] * [B,C,1,1] = [B,C,H,W]</span></span><br><span class="line">        output = torch.<span class="built_in">max</span>(self.gamma * x4 + self.beta, self.tau)</span><br><span class="line">        <span class="comment">## output   shape [B,C,H,W] (batch_size , channel , height , width)  torch.max 逐元素操作</span></span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line"><span class="comment">## 相关注解：</span></span><br><span class="line"><span class="comment">## 输入的 x.shape = [B,C,H,W] ( Batch_Size \ Channel \ Height \ Width )</span></span><br><span class="line"><span class="comment">## torch.rsqrt()  对每个元素取平方根后再取倒数，并不会影响如维度等因素。</span></span><br><span class="line"><span class="comment">## torch.mean() 其中dim=[2,3] 代表按第2、3维求平均值, 即在单个实例、单个Channel上求平均</span></span><br></pre></td></tr></table></figure>
@@ -416,13 +412,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">185k</span>
+    <span title="站点总字数">182k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:35</span>
+    <span title="站点阅读时长">8:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

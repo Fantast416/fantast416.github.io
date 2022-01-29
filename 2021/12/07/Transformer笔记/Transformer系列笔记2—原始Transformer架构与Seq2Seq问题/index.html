@@ -57,7 +57,7 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113543303.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113600427.png">
 <meta property="article:published_time" content="2021-12-07T13:31:19.000Z">
-<meta property="article:modified_time" content="2022-01-28T12:18:59.473Z">
+<meta property="article:modified_time" content="2022-01-29T07:29:41.254Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Transformer">
 <meta property="article:tag" content="Self Attention">
@@ -180,7 +180,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%9B%B8%E5%85%B3%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">一、相关背景介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cseq2seq2%E7%BB%93%E5%B1%80%E6%96%B9%E6%A1%88origin-transformer"><span class="nav-number">2.</span> <span class="nav-text">二、Seq2Seq2结局方案——Origin Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#encoder"><span class="nav-number">2.1.</span> <span class="nav-text">1、Encoder</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83transformer"><span class="nav-number">3.</span> <span class="nav-text">三、如何训练Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E5%85%B3%E4%BA%8E%E8%AE%AD%E7%BB%83seq2seq%E7%B1%BB%E4%BC%BC%E6%A8%A1%E5%9E%8B%E7%9A%84tips"><span class="nav-number">4.</span> <span class="nav-text">四、关于训练Seq2Seq类似模型的Tips：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#copy-mechanism"><span class="nav-number">4.1.</span> <span class="nav-text">1、Copy Mechanism</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#guided-attention"><span class="nav-number">4.2.</span> <span class="nav-text">2、Guided Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#beam-search"><span class="nav-number">4.3.</span> <span class="nav-text">3、Beam Search</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#optimizing-evaluation-metric"><span class="nav-number">4.4.</span> <span class="nav-text">4、Optimizing Evaluation Metric</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scheduled-sampling"><span class="nav-number">4.5.</span> <span class="nav-text">5、Scheduled Sampling</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%9B%B8%E5%85%B3%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">一、相关背景介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cseq2seq2%E7%BB%93%E5%B1%80%E6%96%B9%E6%A1%88origin-transformer"><span class="nav-number">2.</span> <span class="nav-text">二、Seq2Seq2结局方案——Origin Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#encoder"><span class="nav-number">2.1.</span> <span class="nav-text">1、Encoder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#decoder"><span class="nav-number">2.2.</span> <span class="nav-text">2、Decoder</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83transformer"><span class="nav-number">3.</span> <span class="nav-text">三、如何训练Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E5%85%B3%E4%BA%8E%E8%AE%AD%E7%BB%83seq2seq%E7%B1%BB%E4%BC%BC%E6%A8%A1%E5%9E%8B%E7%9A%84tips"><span class="nav-number">4.</span> <span class="nav-text">四、关于训练Seq2Seq类似模型的Tips：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#copy-mechanism"><span class="nav-number">4.1.</span> <span class="nav-text">1、Copy Mechanism</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#guided-attention"><span class="nav-number">4.2.</span> <span class="nav-text">2、Guided Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#beam-search"><span class="nav-number">4.3.</span> <span class="nav-text">3、Beam Search</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#optimizing-evaluation-metric"><span class="nav-number">4.4.</span> <span class="nav-text">4、Optimizing Evaluation Metric</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scheduled-sampling"><span class="nav-number">4.5.</span> <span class="nav-text">5、Scheduled Sampling</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -297,7 +297,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-28 20:18:59" itemprop="dateModified" datetime="2022-01-28T20:18:59+08:00">2022-01-28</time>
+      <time title="修改时间：2022-01-29 15:29:41" itemprop="dateModified" datetime="2022-01-29T15:29:41+08:00">2022-01-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -323,14 +323,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6.4k</span>
+      <span>6.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>18 分钟</span>
+      <span>17 分钟</span>
     </span>
 </div>
 
@@ -348,65 +348,39 @@
         <h3 id="一相关背景介绍">一、相关背景介绍</h3>
 <p>​ Transformer架构最广泛用在Seq2Seq问题上，也就是Sequence-to-Sequence。区别于GAN所对应的Pix2Pix的问题，Seq2Seq的问题也会有非常多的应用和变式，其应用场景也是非常的广。</p>
 <p>​ Seq2Seq问题是指输入一个序列，输出一个序列，同时输出序列的长度由训练好的模型进行决定。比较经典的问题就是语音识别、机器翻译、语音翻译等领域。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112932803.png" alt="image-20220115112932803" /><figcaption aria-hidden="true">image-20220115112932803</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112932803.png" /></p>
 <p>​ 同时，Seq2Seq也可以用于Chatbot聊天机器人，比如说如下所示：我们可以将Person1和Person2的一组对话视为一个input和一个对应的response，两者都是序列。或者一些其他的Question&amp;Answering问题都可以广泛的应用Seq2Seq的模型解决思想。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112939154.png" alt="image-20220115112939154" /><figcaption aria-hidden="true">image-20220115112939154</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112939154.png" /></p>
 <p>​ 具体的一些相关论文可以参照下图所示的网址进一步了解。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112946229.png" alt="image-20220115112946229" /><figcaption aria-hidden="true">image-20220115112946229</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112946229.png" /></p>
 <p>​ 同时，还有更多的可以应用Seq2Seq的例子，比如说对于一个Syntactic Parsing问题，也就是语法解析，我们也可以将其视为Seq2Seq的形式，来对其进行思考。输入是一句话，毫无疑问是一个Seq序列。但是，我们所需要的输出结果看上去像是一个树形结构【deep learning组成名词短语，very powerful 组成形容词短语，is 和 very powerful又组成动词短语，最后deep learning和 is very powerful组成一个句子】，但其实，如下图所示，我们可以将图最上方的这个句子作为输出结果，这样就将一个类似图结构的内容转换成了Seq的形式，同时也包含了所有我们需要的结果信息，然后用Seq2Seq的思想去训练模型即可。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112954818.png" alt="image-20220115112954818" /><figcaption aria-hidden="true">image-20220115112954818</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115112954818.png" /></p>
 <p>​ 再比如，Seq2Seq应用于图像领域的目标检测，感兴趣可以查看以下这篇论文。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113003795.png" alt="image-20220115113003795" /><figcaption aria-hidden="true">image-20220115113003795</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113003795.png" /></p>
 <h3 id="二seq2seq2结局方案origin-transformer">二、Seq2Seq2结局方案——Origin Transformer</h3>
 <p>​ 对于一般的Seq2Seq问题，笼统而言，我们一般就是将输入序列经过一个Encoder然后再通过一个Decoder就得到我们的输出序列。但是这个Encoder和Decoder内部的结构就大有讲究，最经典的架构就是Transformer。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113028194.png" alt="image-20220115113028194" /><figcaption aria-hidden="true">image-20220115113028194</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113028194.png" /></p>
 <h4 id="encoder">1、Encoder</h4>
 <p>​ 首先我们关注Transformer的Encoder部分。下面是从输入输出的结果来看，Encoder的输入是一个序列，输出是一个编码过后的序列。（其实只从输入输出来看，像RNN、CNN都可以做到输入一个序列，输出一个序列，但是此篇讲的是Transformer）</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113035456.png" alt="image-20220115113035456" /><figcaption aria-hidden="true">image-20220115113035456</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113035456.png" /></p>
 <p>​ Transfomer中的Encoder现在一般都由这样的架构组成，如下图所示，由非常多的Block组成，每一个Block并不是指一层网络，可能是有许多曾网络组成。那么输入经过许多个Block的处理，然后输出。那么在Transformer中，每一个Block内部的架构如右侧所示：输入一排向量，先经过Self-attention的机制，输出一排向量，然后这一排向量再经过全连接层，输出一排向量，这一排带红色框的向量就是Block的输出。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113045808.png" alt="image-20220115113045808" /><figcaption aria-hidden="true">image-20220115113045808</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113045808.png" /></p>
 <p>​ 但实际上，在原来的Transformer中，Block内的结构稍微更复杂一些，其还增加了一个residual的过程，如下所示：</p>
 <p>​ 输入的某个向量b经过Self-attention以后，得到向量a,此向量a还要与向量b相加，得到一个新的向量a+b，然后再做Layer Norm,得到一个深蓝色的向量c。（左上角的那个框框代表的就是，接下去接右侧的过程）</p>
 <p>​ 然后这个Norm输出的深蓝色的向量c，经过FC层，得到新的向量d，此处还有一个residual的架构，c和d相加，得到新的向量e，然后e再做一次Layer Norm才会得到最终这个Block输出的结果向量。</p>
 <p>（LayerNorm本身的过程如图中央所示，先计算向量数据的均值和标准差，然后依据公式xi’ = (xi-m)/σ即可完成归一化。）</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113058827.png" alt="image-20220115113058827" /><figcaption aria-hidden="true">image-20220115113058827</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113058827.png" /></p>
 <p>​ 讲完每一个Block内完成的事情，我们就可以看Transfomer中给出的这个完整的带细节的架构示意图，其实两者中有部分过程是重叠的，只是表示形式不一样。</p>
 <p>​ 首先将输入经过嵌入层，完成编码。如果对嵌入层没有印象，可以查看如下的文章。然后通过Positional Encoding向输入中增加序列不同地方的位置信息。然后经过多次结构的核心部分Nx。这个Nx其实就是我们刚才提到的一个Block。其中，Multi-Head Attention就是Self-Attention的一种扩展的架构，然后Add&amp;Norm就是上述的Residual + LayerNorm的过程。Feed Forward就是上图中通过FC层的过程。所以这张图中Nx内部的这个框框就是一个Block的过程，然后整个Transformer Encoder就由许多个这样的Block组成。【像先前所讲的】</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113109977.png" alt="image-20220115113109977" /><figcaption aria-hidden="true">image-20220115113109977</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113109977.png" /></p>
 <p>​ 其实Transformer Encoder的架构也是可以灵活改变的，此处只是讲了最初提出的Transformer时候文章中Encoder的架构。</p>
-<p>#### 2、Decoder</p>
+<h4 id="decoder">2、Decoder</h4>
 <p>​ 然后的话我们关注Transformer的Decoder部分。Decoder分为两种，一种是Autoregressive（AT）的Decoder,还有一种是Non-Autoregressive（NAT）的Decoder。首先是Autoregressive的Decoder的介绍：</p>
 <p>​ Decoder的输入，有两个内容，一个是Encoder输出的序列，还有一个是START标识符号所对应的One-hot编码，这两样东西经过Decoder后，输出一个各种字的概率分布，其中概率最大的那个字就会被作为最后的输出字符。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113200035.png" alt="image-20220115113200035" /><figcaption aria-hidden="true">image-20220115113200035</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113200035.png" /></p>
 <p>​ 然后我们将START 和 机 组成的one-hot向量的序列输入，再经过Decoder，得到一个概率分布，然后选出概率分布中最高的那个字“机”。以此类推，直到完成所有的输出。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113209026.png" alt="image-20220115113209026" /><figcaption aria-hidden="true">image-20220115113209026</figcaption>
-</figure>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113211451.png" alt="image-20220115113211451" /><figcaption aria-hidden="true">image-20220115113211451</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113209026.png" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115113211451.png" /></p>
 <p>​ 在此处其实存在两个问题 ，一个问题是按照上述的过程，其实Decoder后面每一步的输入都来自于自己前一步的输出，就比如说，中间某一步输入是“机器”，输出了“学”，然后下一步输入是“机器学”，输出是“习”。那么，我们要如何避免一步错步步错的情况发生呢？也就是说，如果其中有一步发生了问题，我们应当怎么让机器在后面的步骤中仍然输出正确的结果。第二个问题是，如果按照上述的步骤生成下去，生成出来的序列是无穷无尽的，它永远不会停止，那么机器怎么去决定输出序列的长度呢？这两个问题，后文会有提及，我们先继续讲述Decoder内部到底经历了什么。</p>
 <p>​ 我们先来看一张Encoder和Decoder的对比图：从此图而言，我们发现Decoder除了中间那一块被盖住的，以及最后输出层的一些内容以外，Block内部的内容其实和Encoder是类似的。一个比较重要的差别点就是其使用的是Masked Multi-Head Attention。</p>
 <figure>
@@ -499,7 +473,7 @@
       <div class="popular-posts-title"><a href="\2021\12\06\Transformer笔记\Transformer系列笔记1—SelfAttention机制\" rel="bookmark">Transformer系列笔记1——Self Attention机制</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\01\27\Paper笔记\论文阅读系列笔记6——《UniFormer Unifying Convolution and Self Attention for Visual Recognition》\" rel="bookmark">《UniFormer:Unifying Convolution and Self-attention for Visual Recognition》(更新中)</a></div>
+      <div class="popular-posts-title"><a href="\2022\01\27\Paper笔记\论文阅读系列笔记6——《UniFormer Unifying Convolution and Self Attention for Visual Recognition》\" rel="bookmark">《UniFormer:Unifying Convolution and Self-attention for Visual Recognition》</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2022\01\26\Paper笔记\论文阅读系列笔记5——《HandWrittng Transformers》\" rel="bookmark">《HandWritting Transformers》(更新中)</a></div>
@@ -578,13 +552,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">185k</span>
+    <span title="站点总字数">182k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:35</span>
+    <span title="站点阅读时长">8:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

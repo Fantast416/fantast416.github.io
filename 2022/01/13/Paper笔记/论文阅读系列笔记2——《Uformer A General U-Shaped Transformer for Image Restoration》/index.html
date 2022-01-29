@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220112112308268.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/截屏2022-01-12%20下午3.31.12.png">
 <meta property="article:published_time" content="2022-01-13T05:19:19.000Z">
-<meta property="article:modified_time" content="2022-01-28T12:14:00.226Z">
+<meta property="article:modified_time" content="2022-01-29T07:27:37.327Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Swin Transformer">
 <meta property="article:tag" content="Image Restoration">
@@ -270,7 +270,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-28 20:14:00" itemprop="dateModified" datetime="2022-01-28T20:14:00+08:00">2022-01-28</time>
+      <time title="修改时间：2022-01-29 15:27:37" itemprop="dateModified" datetime="2022-01-29T15:27:37+08:00">2022-01-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -296,7 +296,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.9k</span>
+      <span>3.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -332,9 +332,7 @@
 <p>​ 1、<strong>LeWin Transformer Block</strong>( locally-enhanced window Transformer block ),使用分块的self-attetiond代替全局的self-attention，在捕获高分辨率图像的局部特征时，减少了计算量。</p>
 <p>​ 2、提出了<strong>可学习的多尺度恢复调制器</strong>，以多尺度 <strong>spatial bias</strong> 的形式去在decoder的不同层上调节特征。来处理不同的图像退化问题（比如说虚焦、运动模糊等。这个模块本身由一个多尺度的spatial bias组成，用来在decoder的不同层级上调整特征。更具体一点的话，就是一个可学习的基于窗口的tensor张量，和特征直接相加，从而来调整特征能够恢复更多的细节。整体而言，这个调制器对于恢复图像细节而言有非常强的能力，同时只带来了一点点额外的参数和计算代价。</p>
 <h2 id="具体方法与网络架构">5、具体方法与网络架构：</h2>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220112112308268.png" alt="image-20220112112308268" /><figcaption aria-hidden="true">image-20220112112308268</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220112112308268.png" /></p>
 <h3 id="整体架构overall-pipeline">1) 整体架构（Overall Pipeline）</h3>
 <ul>
 <li><strong>概述</strong>：U型带Skip-Connection的Encoder-Decoder网络，基于UNet结构，但是将UNet中的所有卷积层都替换成了LeWinBlocks。</li>
@@ -352,7 +350,7 @@
 <li><strong>输出</strong>：low-level 特征图 <span class="math inline">\(X_0\)</span></li>
 <li><strong>网络结构</strong>：
 <ul>
-<li><span class="math inline">\(3\times 3\)</span> 卷积层 + LeakyReLU激活函数</li>
+<li><span class="math inline">\(3\times 3\)</span>卷积层 + LeakyReLU激活函数</li>
 </ul></li>
 </ul>
 <h3 id="encoder---one-stage-encoder中总共k个stage">3) Encoder - One Stage （ Encoder中总共K个Stage ）</h3>
@@ -362,7 +360,7 @@
 <li><strong>输出</strong>：第<span class="math inline">\(l\)</span>个阶段的输出特征图 <span class="math inline">\(X_l \in R^{2^lC \times \frac{H}{2^l} \times \frac{W}{2^l}}\)</span></li>
 <li><strong>网络结构</strong>：
 <ul>
-<li><span class="math inline">\({N_l}\)</span> 个 LeWinBlocks的叠加，以及一个下采样层（$4  $ 卷积 <span class="math inline">\(stride\)</span> 2）</li>
+<li><span class="math inline">\({N_l}\)</span>个 LeWinBlocks的叠加，以及一个下采样层（$4  $卷积 $stride$2）</li>
 </ul></li>
 <li><strong>实现细节（官方代码）</strong>
 <ul>
@@ -372,7 +370,7 @@
 </ul></li>
 <li>Down Sampling：（channel 翻倍，特征图宽高 减半）
 <ul>
-<li>Reshape 展平的特征 至 2D的空间特征图，然后使用 $4  $ 卷积 <span class="math inline">\(stride\)</span> 2，对其进行卷积</li>
+<li>Reshape 展平的特征 至 2D的空间特征图，然后使用 <span class="math inline">\(4 \times 4\)</span>卷积 $stride$2，对其进行卷积</li>
 </ul></li>
 </ul></li>
 <li><strong>意义</strong>：在一遍遍的下采样与Lewin Transformer Blocks中提取特征信息，Lewin Transformer Block可以更好的提取远距离的相关性依赖信息，并且有效的降低计算复杂度</li>
@@ -384,7 +382,7 @@
 <li><strong>输出</strong>：序列向量 V</li>
 <li><strong>网络结构</strong>：
 <ul>
-<li><span class="math inline">\({N_?}\)</span> 个 LeWinBlocks的叠加</li>
+<li><span class="math inline">\({N_?}\)</span>个 LeWinBlocks的叠加</li>
 </ul></li>
 <li><strong>实现细节（官方代码）</strong>
 <ul>
@@ -403,7 +401,7 @@
 <li><strong>输出</strong>：1维特征输出序列 <span class="math inline">\(V_{out}\)</span></li>
 <li><strong>网络结构</strong>：
 <ul>
-<li>一个上采样层（$2  $ 反卷积 <span class="math inline">\(stride\)</span> 2）以及 <span class="math inline">\({N_l}\)</span> 个 LeWinBlocks的叠加</li>
+<li>一个上采样层（$2  $反卷积 $stride$2）以及 <span class="math inline">\({N_l}\)</span>个 LeWinBlocks的叠加</li>
 </ul></li>
 <li><strong>实现细节（官方代码）</strong>
 <ul>
@@ -429,17 +427,17 @@
 <li><strong>输出</strong>：残差图像 <span class="math inline">\(Residual \in R^{3\times H\times W }\)</span></li>
 <li><strong>网络结构</strong>：
 <ul>
-<li><span class="math inline">\(3\times 3\)</span> 卷积层</li>
+<li><span class="math inline">\(3\times 3\)</span>卷积层</li>
 </ul></li>
 <li><strong>实现细节（官方代码）</strong>：
 <ul>
-<li>先将 最后一个Decoder Stage输出的 序列 <span class="math inline">\(V_{out}\)</span> Reshape成2D的特征图，然后应用<span class="math inline">\(3 \times 3\)</span>的卷积层，来获得一个残差图像</li>
+<li>先将 最后一个Decoder Stage输出的 序列 <span class="math inline">\(V_{out}\)</span>Reshape成2D的特征图，然后应用<span class="math inline">\(3 \times 3\)</span>的卷积层，来获得一个残差图像</li>
 </ul></li>
 </ul>
 <h3 id="最终输出-loss函数">7）最终输出 &amp; Loss函数</h3>
 <ul>
 <li><strong>概述</strong>：将OutPut Projection 得到的Residual Image 和 原来的输入图像相加，得到 最终的修复图像。</li>
-<li><strong>Loss</strong>：使用 <strong>Charbonnier Loss</strong>，<span class="math inline">\(I^{&#39;}\)</span> 是 ground-truth 图像
+<li><strong>Loss</strong>：使用 <strong>Charbonnier Loss</strong>，<span class="math inline">\(I^{&#39;}\)</span>是 ground-truth 图像
 <ul>
 <li><span class="math display">\[l(I^{&#39;},\hat I) = \sqrt{||I^{&#39;} - \hat I||^2 + \varepsilon^2}\]</span></li>
 </ul></li>
@@ -451,20 +449,18 @@
 <li><p><strong>输出</strong>：2D特征图</p></li>
 <li><p><strong>网络结构</strong>：公式表达：</p>
 <ul>
-<li><span class="math inline">\(X_{l}^{&#39;} = W-MSA(LN(X_{l-1})) + X_{l-1}\)</span> <strong>W-MSA 模块的输出</strong></li>
-<li><span class="math inline">\(X_l = LeFF(LN(X_l^{&#39;})) + X_l^{&#39;}\)</span> **LeFF模块的输出*</li>
+<li><span class="math inline">\(X_{l}^{&#39;} = W-MSA(LN(X_{l-1})) + X_{l-1}\)</span><strong>W-MSA 模块的输出</strong></li>
+<li><span class="math inline">\(X_l = LeFF(LN(X_l^{&#39;})) + X_l^{&#39;}\)</span>**LeFF模块的输出*</li>
 </ul></li>
 <li><p><strong>实现细节（官方代码）</strong>：</p>
 <ul>
 <li><p>W-MSA 与 Vision Transformer中一致</p></li>
 <li><p>作者论文中说尝试了移动窗口，但是带来的结果好坏增长微乎其微，说明：在图像修复领域，窗口与窗口之间的信息交互并不是很重要。图像修复领域比较注重局部的信息交互？</p></li>
 <li><p>LeFF模块结构：</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/截屏2022-01-12%20下午3.31.12.png" alt="截屏2022-01-12 下午3.31.12" /><figcaption aria-hidden="true">截屏2022-01-12 下午3.31.12</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/截屏2022-01-12%20下午3.31.12.png" /></p>
 <ul>
 <li>1、对于每个Token，应用一个Linear Projection，增加特征channel</li>
-<li>2、将tokens Reshape 成 2D 特征图，用 <span class="math inline">\(3 \times 3\)</span> depth-wise convolutional 捕获局部信息</li>
+<li>2、将tokens Reshape 成 2D 特征图，用 <span class="math inline">\(3 \times 3\)</span>depth-wise convolutional 捕获局部信息</li>
 <li>3、再将2D特征图展平回tokens，再应用一个Linear Projection，缩减特征channel</li>
 <li>在每一个Linear Projection / Convolution 后都会应用 GELU激活函数。</li>
 </ul></li>
@@ -569,13 +565,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">185k</span>
+    <span title="站点总字数">182k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:35</span>
+    <span title="站点阅读时长">8:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

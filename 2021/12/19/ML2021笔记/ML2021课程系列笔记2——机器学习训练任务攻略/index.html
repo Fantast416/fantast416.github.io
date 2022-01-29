@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114110835052.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114110905969.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114110925311.png">
-<meta property="og:image" content="https://blog.slks.xyz/Users/fantast/Library/Application%20Support/typora-user-images/image-20220114111156643.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220129151628264.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114111434996.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114111512628.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114111606224.png">
@@ -81,7 +81,7 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114114421588.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114114447990.png">
 <meta property="article:published_time" content="2021-12-19T02:29:19.000Z">
-<meta property="article:modified_time" content="2022-01-28T12:12:20.386Z">
+<meta property="article:modified_time" content="2022-01-29T07:26:58.771Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Machine Learning">
 <meta property="article:tag" content="Training Tricks">
@@ -320,7 +320,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-28 20:12:20" itemprop="dateModified" datetime="2022-01-28T20:12:20+08:00">2022-01-28</time>
+      <time title="修改时间：2022-01-29 15:26:58" itemprop="dateModified" datetime="2022-01-29T15:26:58+08:00">2022-01-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -379,7 +379,7 @@
 <p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114110925311.png" alt="image-20220114110925311" style="zoom:25%;" /></p>
 <h2 id="一model-bias问题">一、Model Bias问题</h2>
 <p>​ 当在训练数据上得到的Loss函数值较大的话，其中一种可能就是Model Bias.Model Bias一般指模型不够复杂，无法很好的拟合数据。从形式化的角度来讲就是，能够拟合数据的函数，不在你所寻找的函数空间中。举个例子来说：你在第一步中设定的拟合函数为Y = a + bx，然后使用梯度下降想要寻找使得Loss最低的一组a和b，但是你会发现，即使你找到了使得Loss最低的一组a和b，这组a和b计算得到的Loss还是很高。原因可能是，你需要拟合的数据其实是一个二次函数，或是更复杂的函数，而你却想要使用线性函数去进行拟合。</p>
-<p>​ <img src="/Users/fantast/Library/Application Support/typora-user-images/image-20220114111156643.png" alt="image-20220114111156643" style="zoom:25%;" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220129151628264.png" /></p>
 <h2 id="二optimization">二、Optimization</h2>
 <p>​ 当在训练数据上得到的Loss函数值较大的话，另外一种可能就是Optimization导致的。此种情况与第一种不同，其模型是有能力拟合数据的，但是由于优化方法的限制，我们没法找到能够使得Loss函数值最小的那一组未知参数。我们先前使用的Gradient Descent用于求解优化的方法，还是存在比较多的限制的。如下图为例，假设Loss函数的图像如下图所示，我们设定的θ的起点在左侧，那么经过一段时间的梯度下降后，其会到达图中蓝线所示的Local Minimum，也就是局部最优，但是其永远也无法找到右侧的全局最优。往往优化算法无法很好的执行是由于模型过于复杂，或不同的特征数据的尺度相差过大等原因导致。</p>
 <p>​ 此处仅先简单的介绍Optimization是怎样一种问题，后续第八章中会继续探讨这类问题的产生原因以及在第九章中讲如何解决优化这一问题（如何逃出Shaddle Point）。</p>
@@ -438,12 +438,12 @@
 <p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114112259806.png" alt="image-20220114112259806" style="zoom: 25%;" /></p>
 <p>​ 为了后续的数学表示,我们先将<span class="math inline">\((\theta - \theta^{&#39;})\)</span>表示为符号<span class="math inline">\(v\)</span>,那么如下图所示: 上述近似式子中的红色方框的那项,值有如下三种情况:</p>
 <p>​ 如果对于所有的<span class="math inline">\(v\)</span>来说,该项恒大于0,那就代表在<span class="math inline">\(\theta^{&#39;}\)</span>周围,所有的值都比该点大,该点即为局部最小值.但是问题在于我们没法验证所有的<span class="math inline">\(v\)</span>,那应该如何呢?</p>
-<p>​ 已经有人为我们证明了, 对于所有<span class="math inline">\(v\)</span>,<span class="math inline">\(v^THv\)</span> 恒大于0这件事情,和海森矩阵H是一个正定矩阵 是等价的, 也等价于 H矩阵的所有特征值都是正的这件事情.</p>
-<p>​ 所以理论上我们如果想要知道<span class="math inline">\(v^THv\)</span> 的情况,知道θ’周围的分布,那么其实只要计算出H矩阵的所有特征值,看一下分布即可.</p>
+<p>​ 已经有人为我们证明了, 对于所有<span class="math inline">\(v\)</span>,<span class="math inline">\(v^THv\)</span>恒大于0这件事情,和海森矩阵H是一个正定矩阵 是等价的, 也等价于 H矩阵的所有特征值都是正的这件事情.</p>
+<p>​ 所以理论上我们如果想要知道<span class="math inline">\(v^THv\)</span>的情况,知道θ’周围的分布,那么其实只要计算出H矩阵的所有特征值,看一下分布即可.</p>
 <p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114112443208.png" alt="image-20220114112443208" style="zoom:25%;" /></p>
-<p>​ 那么如果我们发现这个点是一个Saddle Point的话, 应当如何去继续优化呢? 我们可以利用H进行优化, 我们找到一个矩阵H的特征向量u, 其对应的特征值为λ, λ&lt;0 ,那么如下图所示: <span class="math inline">\(u^THu\)</span> 这一项就应当为 &lt; 0 的值.</p>
+<p>​ 那么如果我们发现这个点是一个Saddle Point的话, 应当如何去继续优化呢? 我们可以利用H进行优化, 我们找到一个矩阵H的特征向量u, 其对应的特征值为λ, λ&lt;0 ,那么如下图所示: <span class="math inline">\(u^THu\)</span>这一项就应当为 &lt; 0 的值.</p>
 <p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114112505138.png" alt="image-20220114112505138" style="zoom:15%;" /></p>
-<p>​ 故而: 我们令<span class="math inline">\((\theta - \theta^{&#39;}) = u\)</span> 即可得到一个比<span class="math inline">\(L(\theta^{&#39;})\)</span>小的值,完成了L值的优化.</p>
+<p>​ 故而: 我们令<span class="math inline">\((\theta - \theta^{&#39;}) = u\)</span>即可得到一个比<span class="math inline">\(L(\theta^{&#39;})\)</span>小的值,完成了L值的优化.</p>
 <p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114112600293.png" alt="image-20220114112600293" style="zoom: 25%;" /></p>
 <p>​ 从执行上来讲,其实就是找一个H矩阵的特征值为负的特征向量u,这个向量u就指明了梯度下降的方向,沿着该方向走一小步,就可以完成Loss函数的值的优化.</p>
 <p>​ 到此为止,已经记录了Saddle Point和Local Minimum怎么去区分, 并且也发现Saddle Point并不可怕,可以通过计算H矩阵来进行求解.</p>
@@ -468,7 +468,7 @@
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114112915300.png" alt="image-20220114112915300" style="zoom:25%;" /></p>
 <p>​ 如下图所示是我们普通梯度下降的算法示意图：从<span class="math inline">\(\theta_0\)</span>开始计算梯度，然后沿着梯度反方向移动下降，一步步进行优化。</p>
 <p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114112942271.png" alt="image-20220114112942271" style="zoom:25%;" /></p>
-<p>​ 那么在Gradient Descent + Momentum的算法如下：最开始第一步和原来的一样，从<span class="math inline">\(\theta^0\)</span>开始计算梯度，然后沿着梯度反方向移动下降，达到<span class="math inline">\(\theta^1\)</span>时，此时和原先就会发生不同了，其现在的移动会结合前一步的movement（即<span class="math inline">\(m^1\)</span>）以及当前点的梯度<span class="math inline">\(g^1\)</span>，计算出一个新的下降方向<span class="math inline">\(m^2\)</span>，然后进行更新。如图所示：<span class="math inline">\(m^2\)</span> 是由 <span class="math inline">\(m^1\)</span> 和 <span class="math inline">\(-g^1\)</span> 两个向量相加所得到的。从公式上来讲就是$m^1 - g^1 $，两者都有自己的参数，来控制影响整个梯度下降方向的比例。</p>
+<p>​ 那么在Gradient Descent + Momentum的算法如下：最开始第一步和原来的一样，从<span class="math inline">\(\theta^0\)</span>开始计算梯度，然后沿着梯度反方向移动下降，达到<span class="math inline">\(\theta^1\)</span>时，此时和原先就会发生不同了，其现在的移动会结合前一步的movement（即<span class="math inline">\(m^1\)</span>）以及当前点的梯度<span class="math inline">\(g^1\)</span>，计算出一个新的下降方向<span class="math inline">\(m^2\)</span>，然后进行更新。如图所示：<span class="math inline">\(m^2\)</span>是由 <span class="math inline">\(m^1\)</span>和 <span class="math inline">\(-g^1\)</span>两个向量相加所得到的。从公式上来讲就是$m^1 - g^1 $，两者都有自己的参数，来控制影响整个梯度下降方向的比例。</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114113022761.png" alt="image-20220114113022761" style="zoom:25%;" /></p>
 <p>​ 其实从另一个角度来看，mi其实是先前所有的梯度的和，也就是g0 - gi-1的和。所以我们可以说Momentum是考虑了上一步的movement，也可以说Momentum是考虑了先前所有更新点的梯度值。</p>
 <p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114113348655.png" alt="image-20220114113348655" style="zoom:15%;" /></p>
@@ -476,14 +476,10 @@
 <p>​ 其实，当我们训练卡住的时候，并不一定是碰到了梯度较低的地方，很有可能是在某个山谷的两侧由于学习率过大的问题来回震荡。那么这种现象是怎么产生的呢？</p>
 <p>​ 在Week1的HW1笔记中，曾经记录数据预处理归一化的重要性，否则很有可能因为不同特征的数据尺度相差太大导致震荡，从而导致训练不出结果，如下图所示：</p>
 <p>​ 下图是一个Error Surface,就是Loss函数的平面，我们使用两种不同大小的学习率去进行梯度下降，黄色的叉叉代表训练终点。我们发现整个Error Surface中，上下维度的梯度比较陡，左右维度的梯度比较缓。如果我们采用较大的学习率，就会产生左图这样子的黑色训练线，在竖直方向疯狂震荡。但是如果我们使用如右图所示的较小的学习率，一开始是可以沿着竖直方向的梯度慢慢更新，但是当要开始沿水平方向更新的时候，会发现学习率太小了，以至于更新了10w次，还距离我们的训练重点遥遥无期。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121170751170.png" alt="image-20220121170751170" /><figcaption aria-hidden="true">image-20220121170751170</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121170751170.png" /></p>
 <p>​ 所以，我们发现，一个固定的学习率在训练中是不太合适的，最好的话是如图所示，要对不同的参数有不同的学习率，学习率要随着梯度的变化以及参数的变化而进行变化。</p>
 <p>​ 于是我们首先提出了如下想法，将原来的学习率η修改成 η/(σit), 这个σit既跟参数相关又跟训练步骤（不同点所在的梯度）相关。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121170754841.png" alt="image-20220121170754841" /><figcaption aria-hidden="true">image-20220121170754841</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121170754841.png" /></p>
 <p>​ 以下就是一种最为简单的σ的计算方式，通过计算每次更新得到的参数空间所在点的梯度的Norm值的平方的平均，即RMS来计算每步中σ。</p>
 <p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114113547513.png" alt="image-20220114113547513" style="zoom:25%;" /></p>
 <p>​ 这种方法被用在Adagrad中，主要思想就是，如果Loss函数在某个方向上比较平坦,梯度比较小，那么我们希望Learning Rate比较大，快速的走过这一片平坦的区域。如果在某个方向上比较陡峭，我们希望Learning Rate比较小.</p>
@@ -627,13 +623,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">185k</span>
+    <span title="站点总字数">182k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:35</span>
+    <span title="站点阅读时长">8:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

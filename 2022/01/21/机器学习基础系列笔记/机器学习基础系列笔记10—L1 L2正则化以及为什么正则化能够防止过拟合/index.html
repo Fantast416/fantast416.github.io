@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/RsR5cOK.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121122935964.png">
 <meta property="article:published_time" content="2022-01-21T07:01:19.000Z">
-<meta property="article:modified_time" content="2022-01-28T12:20:42.966Z">
+<meta property="article:modified_time" content="2022-01-29T07:33:02.646Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="OverFitting">
 <meta property="article:tag" content="Regularization">
@@ -272,7 +272,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-28 20:20:42" itemprop="dateModified" datetime="2022-01-28T20:20:42+08:00">2022-01-28</time>
+      <time title="修改时间：2022-01-29 15:33:02" itemprop="dateModified" datetime="2022-01-29T15:33:02+08:00">2022-01-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -320,7 +320,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​ 在训练数据不够多时，或者overtraining时，常常会导致overfitting（过拟合）。其直观的表现如下图所示，随着训练过程的进行，模型复杂度增加，在Training data上的error渐渐减小，但是在验证集上的error却反而渐渐增大——因为训练出来的网络过拟合了训练集，对训练集外的数据却不work。</p>
+        <p>在训练数据不够多时，或者overtraining时，常常会导致overfitting（过拟合）。其直观的表现如下图所示，随着训练过程的进行，模型复杂度增加，在Training data上的error渐渐减小，但是在验证集上的error却反而渐渐增大——因为训练出来的网络过拟合了训练集，对训练集外的数据却不work。</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/OhX9eFQ.jpg" /></p>
 <p>​ 在ML2021课程系列笔记2中，提及了一些防止过拟合的内容，本篇用于详细解释其中正则化的部分：</p>
 <h3 id="一什么是l1l2正则化">一、什么是L1、L2正则化？</h3>
@@ -334,25 +334,19 @@
 <h3 id="二l1l2正则化如何避免overfitting">二、L1、L2正则化如何避免OverFitting？</h3>
 <h4 id="l1l2正则化能降低权重值w">1、L1、L2正则化能降低权重值w</h4>
 <p>​ 我们以L2正则化项为例，进行解释，首先我们让C对偏置项b和对权重系数w进行求导，得到如下：</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/mebEC90.jpg" alt="mebEC90" /><figcaption aria-hidden="true">mebEC90</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/mebEC90.jpg" /></p>
 <p>​ 我们发现，C对b求导与正则化项无关，C对w求导得到得结果与正则化项有关。</p>
 <p>​ 最终所反映到梯度下降优化参数上，就是如下图所示得情况：</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/qM83geg.jpg" alt="mebEC90" /><figcaption aria-hidden="true">mebEC90</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/qM83geg.jpg" /></p>
 <p>​ <strong>如果没有正则化项，那么更新得w前得系数应当为1，而现在由于因为η、λ、n都是正的，所以 1−ηλ/n小于1，它的效果是减小w，这也就是权重衰减（weight decay）的由来</strong>。</p>
 <p>​ <strong>到此为止，我们发现L2正则化项，其能够使得减小w。（其实这一点比较直观的也能看出来，因为Loss函数中加入了一项<span class="math inline">\(w^2\)</span>的求和，也就是说如果权重值w过大，Loss函数值会上升，这就意味着这一个正则化项惩罚了权值矩阵使其不能取太大值。）</strong></p>
 <p>​ 那么，关键问题是，<strong>为什么权重矩阵w小，能够防止过拟合呢？</strong></p>
 <h4 id="较高的权重w往往意味着过拟合的函数">2、较高的权重w往往意味着过拟合的函数：</h4>
 <p>​ 我们会发现：<strong>过拟合的时候，拟合函数的系数往往非常大，为什么？如下图所示，过拟合，就是拟合函数需要顾忌每一个点，最终形成的拟合函数波动很大。在某些很小的区间里，函数值的变化很剧烈。这就意味着函数在某些小区间里的导数值（绝对值）非常大，由于自变量值可大可小，所以只有系数足够大，才能保证导数值很大。</strong></p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/RsR5cOK.png" alt="RsR5cOK" /><figcaption aria-hidden="true">RsR5cOK</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/RsR5cOK.png" /></p>
 <p>​</p>
 <p>​ 更进一步的解释：当权重系数很小的时候，容易出现像左图一样，高偏差拟合能力很差的情况，随着权重系数逐渐增大，就会像右侧的图进行发展。如果权重系数很大，往往意味着在某些很小的区间中，函数值的变化会非常的剧烈，导致一些高方差的结果，也就是函数对于训练数据过度拟合了。</p>
-<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121122935964.png" alt="image-20220121122935964" /></p>
+<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121122935964.png" /></p>
 <p>​</p>
 
     </div>
@@ -436,13 +430,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">185k</span>
+    <span title="站点总字数">182k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:35</span>
+    <span title="站点阅读时长">8:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

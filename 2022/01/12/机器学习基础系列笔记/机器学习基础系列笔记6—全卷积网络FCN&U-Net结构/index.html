@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212421618.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212533302.png">
 <meta property="article:published_time" content="2022-01-12T02:18:19.000Z">
-<meta property="article:modified_time" content="2022-01-28T12:20:17.094Z">
+<meta property="article:modified_time" content="2022-01-29T07:31:33.578Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Machine Learning">
 <meta property="article:tag" content="UNet">
@@ -272,7 +272,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-28 20:20:17" itemprop="dateModified" datetime="2022-01-28T20:20:17+08:00">2022-01-28</time>
+      <time title="修改时间：2022-01-29 15:31:33" itemprop="dateModified" datetime="2022-01-29T15:31:33+08:00">2022-01-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -298,7 +298,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.9k</span>
+      <span>2.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -325,9 +325,7 @@
 <p>​ 首先，我们还是要回顾一下CNN的整体网络架构与优势：CNN网络最后输出的是类别的概率值。CNN 的强大之处在于它的多层卷积结构能自动学习特征，并且可以学习到多个层次的特征：</p>
 <p>​ 较浅的卷积层感知域较小，学习到一些局部区域的特征。</p>
 <p>​ 而较深的卷积层具有较大的感知域，能够学习到更加抽象一些的特征。这些抽象特征对物体的大小、位置和方向等敏感性更低，从而有助于识别性能的提高。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212245766.png" alt="image-20220114212245766" /><figcaption aria-hidden="true">image-20220114212245766</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212245766.png" /></p>
 <p>​ 而FCN相较于CNN来说，其将CNN最后几个用于输出概率的全连接层都改成了卷积层，从而使得模型网络中所有的层都是卷积层，最终输出一张已经label好的图像，故称为全卷积网络。全卷积神经网络主要使用了三种技术：</p>
 <p>​ 1、卷积化（Convolutional）</p>
 <p>​ 2、上采样（Upsample）</p>
@@ -338,9 +336,7 @@
 <p>​ 3、pool2 feature再经过多个conv+一个max pooling变为pool3 feature，宽高变为1/8</p>
 <p>​ 4、......</p>
 <p>​ 5、直到pool5 feature，宽高变为1/32。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/dsawqeasd.png" alt="dsawqeasd" /><figcaption aria-hidden="true">dsawqeasd</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/dsawqeasd.png" /></p>
 <p>那么，对于三种不同规格参数的FCN，后续还原操作也不太一样，如下所示：</p>
 <p>​ 1、对于FCN-32s，直接对pool5 feature进行32倍上采样获得32x upsampled feature，再对32x upsampled feature每个点做softmax prediction获得32x upsampled feature prediction（即语义分割图）。</p>
 <p>​ 2、对于FCN-16s，首先对pool5 feature进行2倍上采样获得2x upsampled feature，再把pool4 feature和2x upsampled feature逐点相加，然后对相加的feature进行16倍上采样，并softmax prediction，获得16x upsampled feature prediction。</p>
@@ -348,9 +344,7 @@
 <p>​ 在上述处理过程中，我们发现FCN-16s和FCN-8s都引入了skip connection，将pool3或是pool4 feature与pool5上采样后的feature逐像素相加，进行多次特征融合，这样处理的原因在于：</p>
 <p>​ FCN模型虽然通过卷积和反卷积我们基本能定位到目标区域，但是，我们会发现模型前期是通过卷积、池化、非线性激活函数等作用输出了特征权重图像，我们经过反卷积等操作输出的<strong>图像实际是很粗糙的</strong>，毕竟丢了很多细节。因此我们需要找到一种方式填补丢失的细节数据，所以就有了跳跃结构。</p>
 <p>​ 作者在原文种给出3种网络结果对比，明显可以看出效果：FCN-32s &lt; FCN-16s &lt; FCN-8s，即使用多层feature融合有利于提高分割准确性。</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212421618.png" alt="image-20220114212421618" /><figcaption aria-hidden="true">image-20220114212421618</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212421618.png" /></p>
 <h4 id="fcn优点">FCN优点：</h4>
 <p>​ 与传统用CNN进行图像分割的方法相比，FCN有两大明显的优点：一是可以接受任意大小的输入图像，而不用要求所有的训练图像和测试图像具有同样的尺寸。二是更加高效，因为避免了由于使用像素块而带来的重复存储和计算卷积的问题。</p>
 <h4 id="fcn缺点">FCN缺点：</h4>
@@ -362,9 +356,7 @@
 <p>​ 3、对于特征提取阶段，浅层结构可以抓取图像的一些简单的特征，比如边界，颜色，而深层结构因为感受野大了，而且经过的卷积操作多了，能抓取到图像的一些抽象特征。</p>
 <h3 id="三unet网络">三、UNet网络</h3>
 <p>​ UNet网络整体结构如下：</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212533302.png" alt="image-20220114212533302" /><figcaption aria-hidden="true">image-20220114212533302</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212533302.png" /></p>
 <p>​ 蓝色箭头代表3*3的卷积层+ReLU激活函数层</p>
 <p>​ 红色箭头代表2*2的最大池化层</p>
 <p>​ 绿色箭头代表2*2的上采样层（通常采用反卷积）</p>
@@ -466,13 +458,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">185k</span>
+    <span title="站点总字数">182k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:35</span>
+    <span title="站点阅读时长">8:25</span>
   </span>
 </div>
 <div class="busuanzi-count">
