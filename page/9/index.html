@@ -157,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -168,7 +168,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">61</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -227,7 +227,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/05/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B06%E2%80%94%E8%AF%84%E4%BC%B0GAN%E7%9A%84%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95%E6%8C%87%E6%A0%87/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/13/Pytorch%E7%AC%94%E8%AE%B0/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94Tensor%E4%BB%8B%E7%BB%8D/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -239,7 +239,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/12/05/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B06%E2%80%94%E8%AF%84%E4%BC%B0GAN%E7%9A%84%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95%E6%8C%87%E6%A0%87/" class="post-title-link" itemprop="url">GAN系列笔记6——评估GAN的相关方法指标</a>
+          <a href="/2021/12/13/Pytorch%E7%AC%94%E8%AE%B0/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94Tensor%E4%BB%8B%E7%BB%8D/" class="post-title-link" itemprop="url">Pytorch学习笔记1——Tensor介绍</a>
         </h2>
 
         <div class="post-meta-container">
@@ -251,14 +251,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-12-05 18:31:19" itemprop="dateCreated datePublished" datetime="2021-12-05T18:31:19+08:00">2021-12-05</time>
+      <time title="创建时间：2021-12-13 15:47:19" itemprop="dateCreated datePublished" datetime="2021-12-13T15:47:19+08:00">2021-12-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-29 15:25:03" itemprop="dateModified" datetime="2022-01-29T15:25:03+08:00">2022-01-29</time>
+      <time title="修改时间：2022-01-28 20:17:06" itemprop="dateModified" datetime="2022-01-28T20:17:06+08:00">2022-01-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -266,7 +266,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">GAN系列笔记</span></a>
+          <a href="/categories/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Pytorch学习笔记</span></a>
         </span>
     </span>
 
@@ -277,217 +277,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-        
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了如何对GAN生成的图像结果进行一个更为客观的评估的相关方法。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/05/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B06%E2%80%94%E8%AF%84%E4%BC%B0GAN%E7%9A%84%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95%E6%8C%87%E6%A0%87/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/04/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B05%E2%80%94GAN%E5%BA%94%E7%94%A8%E4%BA%8E%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%EF%BC%88InfoGAN%EF%BC%8CVAEGAN%EF%BC%8CBiGAN%EF%BC%89/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.webp">
-      <meta itemprop="name" content="Fantast">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Fantast's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/12/04/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B05%E2%80%94GAN%E5%BA%94%E7%94%A8%E4%BA%8E%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%EF%BC%88InfoGAN%EF%BC%8CVAEGAN%EF%BC%8CBiGAN%EF%BC%89/" class="post-title-link" itemprop="url">GAN系列笔记5——GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-12-04 18:31:19" itemprop="dateCreated datePublished" datetime="2021-12-04T18:31:19+08:00">2021-12-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-29 15:24:56" itemprop="dateModified" datetime="2022-01-29T15:24:56+08:00">2022-01-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">GAN系列笔记</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.7k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
-    </span>
-</div>
-
-        </div>
-        
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了InfoGAN、VAEGAN、BiGAN，以及GAN在特征提取领域相关的应用。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/04/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B05%E2%80%94GAN%E5%BA%94%E7%94%A8%E4%BA%8E%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%EF%BC%88InfoGAN%EF%BC%8CVAEGAN%EF%BC%8CBiGAN%EF%BC%89/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/03/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B04%E2%80%94%E5%8E%9F%E5%A7%8BGAN%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9BTips%E4%B8%8E%E6%94%B9%E8%BF%9B%E7%9A%84GAN%E7%BD%91%E7%BB%9C%EF%BC%88%E5%90%ABLSGAN%E3%80%81WGAN%E3%80%81EBGAN%EF%BC%89/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.webp">
-      <meta itemprop="name" content="Fantast">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Fantast's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/12/03/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B04%E2%80%94%E5%8E%9F%E5%A7%8BGAN%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9BTips%E4%B8%8E%E6%94%B9%E8%BF%9B%E7%9A%84GAN%E7%BD%91%E7%BB%9C%EF%BC%88%E5%90%ABLSGAN%E3%80%81WGAN%E3%80%81EBGAN%EF%BC%89/" class="post-title-link" itemprop="url">GAN系列笔记4——GAN训练过程中的一些Tips与改进的GAN网络（含LSGAN、WGAN、EBGAN）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-12-03 21:31:19" itemprop="dateCreated datePublished" datetime="2021-12-03T21:31:19+08:00">2021-12-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-29 15:24:45" itemprop="dateModified" datetime="2022-01-29T15:24:45+08:00">2022-01-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">GAN系列笔记</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.5k</span>
+      <span>4.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -506,10 +296,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了一些关于GAN训练过程中的Tips，同时深入讲解了解决方案WGAN以及EBGAN。</p>
+          <p>Pytorch中基本概念，Tensor张量的介绍</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/12/03/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B04%E2%80%94%E5%8E%9F%E5%A7%8BGAN%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9BTips%E4%B8%8E%E6%94%B9%E8%BF%9B%E7%9A%84GAN%E7%BD%91%E7%BB%9C%EF%BC%88%E5%90%ABLSGAN%E3%80%81WGAN%E3%80%81EBGAN%EF%BC%89/">
+              <a class="btn" href="/2021/12/13/Pytorch%E7%AC%94%E8%AE%B0/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94Tensor%E4%BB%8B%E7%BB%8D/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -542,7 +332,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/02/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B03%E2%80%94GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E7%90%86%E8%AE%BA%E6%94%AF%E6%92%91/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/09/Transformer%E7%AC%94%E8%AE%B0/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B04%E2%80%94Swin%20Transformer/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -554,7 +344,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/12/02/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B03%E2%80%94GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E7%90%86%E8%AE%BA%E6%94%AF%E6%92%91/" class="post-title-link" itemprop="url">GAN系列笔记3——GAN的数学理论支撑</a>
+          <a href="/2021/12/09/Transformer%E7%AC%94%E8%AE%B0/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B04%E2%80%94Swin%20Transformer/" class="post-title-link" itemprop="url">Transformer系列笔记4——Swin Transformer思想与架构</a>
         </h2>
 
         <div class="post-meta-container">
@@ -566,14 +356,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-12-02 17:31:19" itemprop="dateCreated datePublished" datetime="2021-12-02T17:31:19+08:00">2021-12-02</time>
+      <time title="创建时间：2021-12-09 20:31:19" itemprop="dateCreated datePublished" datetime="2021-12-09T20:31:19+08:00">2021-12-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-29 15:24:18" itemprop="dateModified" datetime="2022-01-29T15:24:18+08:00">2022-01-29</time>
+      <time title="修改时间：2022-01-29 15:30:15" itemprop="dateModified" datetime="2022-01-29T15:30:15+08:00">2022-01-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -581,7 +371,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">GAN系列笔记</span></a>
+          <a href="/categories/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Transformer系列笔记</span></a>
         </span>
     </span>
 
@@ -592,7 +382,322 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.8k</span>
+      <span>5.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>14 分钟</span>
+    </span>
+</div>
+
+        </div>
+        
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Transformer在视觉领域应用与NLP领域有一些较大的差别，首先就是在视觉领域，视觉实体的规模尺度会存在较大的变化，举例而言，想要识别同一张图像中的同一距离的果实和汽车，两者的规模尺度大小可能会存在较大的不同。第二点就是相比于文字而言，图像像素的分辨率更高，信息量更多，计算更为复杂，需要消耗更多的计算资源与训练时间。相比于先前的Vision Transformer的架构，Swin Transformer使用Shifted Windows这样一个技巧，不仅大大加速了计算速度，和图像的尺度呈线性计算复杂度，并且其也仍然能够考虑到不同窗口之间的信息交互，在识别质量上也提高了2-3个百分点。故而成为了应用性非常广泛的一个架构。那么具体而言，如何加速计算，并且仍然能够考虑不同窗口的信息交互，后面会详细讲解。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/09/Transformer%E7%AC%94%E8%AE%B0/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B04%E2%80%94Swin%20Transformer/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/08/Transformer%E7%AC%94%E8%AE%B0/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B03%E2%80%94Vision%20Transformer%E6%9E%B6%E6%9E%84/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Fantast">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fantast's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/12/08/Transformer%E7%AC%94%E8%AE%B0/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B03%E2%80%94Vision%20Transformer%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">Transformer系列笔记3——Vision Transformer思想与架构</a>
+        </h2>
+
+        <div class="post-meta-container">
+          
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-08 18:31:19" itemprop="dateCreated datePublished" datetime="2021-12-08T18:31:19+08:00">2021-12-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 15:29:53" itemprop="dateModified" datetime="2022-01-29T15:29:53+08:00">2022-01-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Transformer系列笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+        
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>自从Transfomer机制出现以后，已经成为了NLP领域的业界标准流程，但是在CV领域的应用较少。CV领域中往往都是会将其和CNN结合使用，或是代替CNN架构中的一部分。这篇论文就提出了其实在CV领域中，Transformer并不需要依赖于CNN来进行使用，其提出的Vision Transformer架构，在基于一些大体量数据的预训练的网络参数时，能够取得非常好的效果，并且也能节省训练的计算资源。所以Vision Transformer是应用于CV领域的，不简单依托于CNN架构的一类Transformer架构的衍生内容。在此论文中，其应用于了CV领域的图象识别任务。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/08/Transformer%E7%AC%94%E8%AE%B0/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B03%E2%80%94Vision%20Transformer%E6%9E%B6%E6%9E%84/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/07/Transformer%E7%AC%94%E8%AE%B0/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B02%E2%80%94%E5%8E%9F%E5%A7%8BTransformer%E6%9E%B6%E6%9E%84%E4%B8%8ESeq2Seq%E9%97%AE%E9%A2%98/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Fantast">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fantast's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/12/07/Transformer%E7%AC%94%E8%AE%B0/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B02%E2%80%94%E5%8E%9F%E5%A7%8BTransformer%E6%9E%B6%E6%9E%84%E4%B8%8ESeq2Seq%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Transformer系列笔记2——原始Transformer架构与Seq2Seq问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-07 21:31:19" itemprop="dateCreated datePublished" datetime="2021-12-07T21:31:19+08:00">2021-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 15:29:41" itemprop="dateModified" datetime="2022-01-29T15:29:41+08:00">2022-01-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Transformer系列笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>17 分钟</span>
+    </span>
+</div>
+
+        </div>
+        
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Transformer架构最广泛用在Seq2Seq问题上，也就是Sequence-to-Sequence。区别于GAN所对应的Pix2Pix的问题，Seq2Seq的问题也会有非常多的应用和变式，其应用场景也是非常的广。Seq2Seq问题是指输入一个序列，输出一个序列，同时输出序列的长度由训练好的模型进行决定。比较经典的问题就是语音识别、机器翻译、语音翻译等领域。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/07/Transformer%E7%AC%94%E8%AE%B0/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B02%E2%80%94%E5%8E%9F%E5%A7%8BTransformer%E6%9E%B6%E6%9E%84%E4%B8%8ESeq2Seq%E9%97%AE%E9%A2%98/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/06/Transformer%E7%AC%94%E8%AE%B0/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B01%E2%80%94SelfAttention%E6%9C%BA%E5%88%B6/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Fantast">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fantast's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/12/06/Transformer%E7%AC%94%E8%AE%B0/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B01%E2%80%94SelfAttention%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">Transformer系列笔记1——Self Attention机制</a>
+        </h2>
+
+        <div class="post-meta-container">
+          
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-06 21:31:19" itemprop="dateCreated datePublished" datetime="2021-12-06T21:31:19+08:00">2021-12-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 15:29:25" itemprop="dateModified" datetime="2022-01-29T15:29:25+08:00">2022-01-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Transformer系列笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -611,115 +716,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了GAN的理论数学部分的支撑，将直观的GAN训练过程背后的原理，为什么能这么做，训练的时候又需要注意的点是为什么这些内容进行了讲解。</p>
+          <p>本篇笔记讲解了Self Attention的基本机制，Self Attention是Transformer的核心机制之一。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/12/02/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B03%E2%80%94GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E7%90%86%E8%AE%BA%E6%94%AF%E6%92%91/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/01/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B02%E2%80%94%E5%B8%B8%E8%A7%81GAN%E5%8F%98%E7%A7%8D%EF%BC%88%E5%90%ABConditionalGAN%EF%BC%8CPatchGAN%EF%BC%8CCycleGAN%E7%AD%89%EF%BC%89/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.webp">
-      <meta itemprop="name" content="Fantast">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Fantast's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/12/01/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B02%E2%80%94%E5%B8%B8%E8%A7%81GAN%E5%8F%98%E7%A7%8D%EF%BC%88%E5%90%ABConditionalGAN%EF%BC%8CPatchGAN%EF%BC%8CCycleGAN%E7%AD%89%EF%BC%89/" class="post-title-link" itemprop="url">GAN系列笔记2——常见GAN变种（ConditionalGAN，PatchGAN，CycleGAN等）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-12-01 20:31:19" itemprop="dateCreated datePublished" datetime="2021-12-01T20:31:19+08:00">2021-12-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-29 15:23:13" itemprop="dateModified" datetime="2022-01-29T15:23:13+08:00">2022-01-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">GAN系列笔记</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>8.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>23 分钟</span>
-    </span>
-</div>
-
-        </div>
-        
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了一些常见的GAN的变种，以及它们的一些核心的思想，包括Conditional GAN用于Text-To-Image和Image-To-Image的任务，期间有提及一些改进诸如Patch GAN。然后简单讲述了StackGAN的思想以及应用场景。之后，是对非监督学习条件生成领域的一些探讨，这一部分最常见的就是风格迁移的应用。讲述了两大类实现非监督学习条件生成的方法思想，第一类是直接生成，其中介绍了CycleGAN和变体StarGAN。第二类是投射至相同公共空间的方法，其中包含了解决此方法中一个关键问题的各种思想方案。看完本篇笔记，你应当会对Conditinal GAN和Unsupervised Conditional Generation领域及该领域下的CycleGAN思想有一个大概的了解，随后你可以选择感兴趣的GAN网络，再去详细的阅读原论文，研究细节部分。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/01/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B02%E2%80%94%E5%B8%B8%E8%A7%81GAN%E5%8F%98%E7%A7%8D%EF%BC%88%E5%90%ABConditionalGAN%EF%BC%8CPatchGAN%EF%BC%8CCycleGAN%E7%AD%89%EF%BC%89/">
+              <a class="btn" href="/2021/12/06/Transformer%E7%AC%94%E8%AE%B0/Transformer%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B01%E2%80%94SelfAttention%E6%9C%BA%E5%88%B6/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -745,7 +745,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
@@ -768,13 +768,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">182k</span>
+    <span title="站点总字数">245k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:25</span>
+    <span title="站点阅读时长">11:19</span>
   </span>
 </div>
 <div class="busuanzi-count">

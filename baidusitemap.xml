@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://blog.slks.xyz/2022/01/31/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B06%E2%80%94java%E6%B3%A8%E8%A7%A3/</loc>
+    <lastmod>2022-01-30</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/30/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B05%E2%80%94java%E5%8F%8D%E5%B0%84/</loc>
+    <lastmod>2022-01-30</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/30/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B04%E2%80%94java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2022-01-30</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/30/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B03%E2%80%94java%E6%A0%B8%E5%BF%83%E7%B1%BB/</loc>
+    <lastmod>2022-01-30</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/28/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B01%E2%80%94java%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2022-01-30</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.slks.xyz/2022/01/28/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B02%E2%80%94java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2022-01-30</lastmod>
+  </url>
+  <url>
     <loc>https://blog.slks.xyz/2022/01/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B014%E2%80%94ResNet%E8%AF%A6%E8%A7%A3%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E8%A7%A3%E5%86%B3%E6%B7%B1%E5%BA%A6%E7%BD%91%E7%BB%9C%E9%80%80%E5%8C%96%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2022-01-29</lastmod>
   </url>
@@ -139,10 +163,6 @@
   <url>
     <loc>https://blog.slks.xyz/2021/11/30/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/GAN%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B01%E2%80%94%E5%8E%9F%E5%A7%8BGAN%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%90%86%E5%BF%B5%E4%B8%8E%E6%80%9D%E6%83%B3/</loc>
     <lastmod>2022-01-29</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.slks.xyz/2022/01/28/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B01%E2%80%94java%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2022-01-28</lastmod>
   </url>
   <url>
     <loc>https://blog.slks.xyz/2022/01/18/Python%E7%AC%94%E8%AE%B0/python_import_module/</loc>
