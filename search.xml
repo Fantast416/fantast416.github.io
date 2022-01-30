@@ -1540,8 +1540,8 @@ static class Inner &#123;
       </categories>
       <tags>
         <tag>GAN</tag>
-        <tag>HandWritting Generation</tag>
         <tag>Transformer</tag>
+        <tag>HandWritting Generation</tag>
       </tags>
   </entry>
   <entry>
@@ -2688,8 +2688,8 @@ static class Inner &#123;
       </categories>
       <tags>
         <tag>Swin Transformer</tag>
-        <tag>Image Restoration</tag>
         <tag>UNet</tag>
+        <tag>Image Restoration</tag>
       </tags>
   </entry>
   <entry>
@@ -2747,8 +2747,8 @@ static class Inner &#123;
       </categories>
       <tags>
         <tag>Machine Learning</tag>
-        <tag>UNet</tag>
         <tag>FCN</tag>
+        <tag>UNet</tag>
       </tags>
   </entry>
   <entry>
@@ -4388,9 +4388,9 @@ n: [2. 2. 2. 2. 2.]</code></pre>
         <category>Transformer系列笔记</category>
       </categories>
       <tags>
-        <tag>Swin Transformer</tag>
         <tag>Transformer</tag>
         <tag>Computer Vision</tag>
+        <tag>Swin Transformer</tag>
       </tags>
   </entry>
   <entry>
