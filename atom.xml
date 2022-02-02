@@ -59,6 +59,48 @@
   </entry>
   
   <entry>
+    <title>剑指OfferII008——滑动窗口解决连续子串问题</title>
+    <link href="https://blog.slks.xyz/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E5%89%91%E6%8C%87OfferII008%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E8%A7%A3%E5%86%B3%E8%BF%9E%E7%BB%AD%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/"/>
+    <id>https://blog.slks.xyz/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E5%89%91%E6%8C%87OfferII008%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E8%A7%A3%E5%86%B3%E8%BF%9E%E7%BB%AD%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/</id>
+    <published>2022-02-02T11:52:19.000Z</published>
+    <updated>2022-02-02T12:10:12.279Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>例题网址：</strong>https://leetcode-cn.com/problems/2VG8Kg/</p><p><strong>例题描述：</strong></p><p>​ 给定一个含有 n 个正整数的数组和一个正整数 target 。</p><p>​ 找出该数组中满足其和 ≥ target 的长度最小的 连续子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。</p><ul><li><p>示例 1：</p><ul><li>输入：target = 7, nums = [2,3,1,2,4,3]</li><li>输出：2</li><li>解释：子数组 [4,3] 是该条件下的长度最小的子数组。</li></ul></li><li><p>示例 2：</p><ul><li>输入：target = 4, nums = [1,4,4]</li><li>输出：1</li></ul></li><li><p>示例 3：</p><ul><li>输入：target = 11, nums = [1,1,1,1,1,1,1,1]</li><li>输出：0</li></ul></li><li><p>提示：</p><p>1 &lt;= target &lt;= 109 1 &lt;= nums.length &lt;= 105 1 &lt;= nums[i] &lt;= 105</p></li></ul><p><strong>例题详解</strong>：</p><p>​ 本题在做的时候有三种解决方案:</p><p>​ 第一种就是最为简单的先计算前缀和，然后暴力开始从len = 1 到 len = nums.length 进行搜索，找到符合条件的len即返回.</p><p>​ 第二种,在第一种的基础上进行改进,将暴力搜索改为二分索,left=1,right=nums.length, len=(left + right)/2,时间复杂度能大大降低。</p><p>​ 第三种就是本文着重记录的<strong>滑动窗口</strong>解决方案：</p><p>​ 可以使用滑窗的题目一般题目中都会有明确的“<strong>连续子数组</strong>”、“<strong>连续子串</strong>”等关键字，另外可能会附带<strong>最大</strong>、<strong>最小</strong>的限定词进行补充。</p><p>​ 那么遇到此类题目，往往可以分为以下几步进行求解：</p><ul><li>初始化窗口左边界为0，右边界可以为0，也可以根据题意固定大小。</li><li>我们需要初始化一个ret的返回值，默认为0或者根据题意默认为最大值。</li><li>窗口的大小需要根据题目条件进行调整<ul><li>最大连续...尽量扩张右边界，直到不满足题意再收缩左边界</li><li>最小连续...尽量缩小左边界，直到不满足题意再扩大右边界</li></ul></li><li>在执行3操作的过程中，不断与ret进行比较</li><li>最终返回ret结果即可。</li></ul><p>根据上述指南，我们可以书写代码如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minSubArrayLen</span><span class="params">(<span class="keyword">int</span> target, vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">1e7</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> total = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(;right&lt;nums.size();right++)&#123;</span><br><span class="line">            total += nums[right];</span><br><span class="line">            <span class="keyword">while</span>(total &gt;= target)&#123;</span><br><span class="line">                <span class="keyword">if</span>(right - left + <span class="number">1</span> &lt; len) len = right - left + <span class="number">1</span>;</span><br><span class="line">                total-= nums[left++];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(len == <span class="number">1e7</span>) len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> len;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">剑指 Offer II 008——滑动窗口解决连续子串问题详解</summary>
+    
+    
+    
+    <category term="LeetCode算法笔记" scheme="https://blog.slks.xyz/categories/LeetCode%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="leetcode" scheme="https://blog.slks.xyz/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode 算法解题Tricks（持续更新）</title>
+    <link href="https://blog.slks.xyz/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E7%AE%97%E6%B3%95%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/"/>
+    <id>https://blog.slks.xyz/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E7%AE%97%E6%B3%95%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</id>
+    <published>2022-02-02T08:34:19.000Z</published>
+    <updated>2022-02-02T11:52:34.375Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="涉及二进制计算的题目">1、涉及二进制计算的题目：</h4><p>​ 一些涉及二进制计算，例如让你计算某数字的二进制形式中1的个数，或者直接计算两个二进制数之和的，多多利用<strong>逻辑运算与移位运算能够大幅提高程序运行速度</strong>。</p><h4 id="判断两个字符串是否有同一个字符">2、判断两个字符串是否有同一个字符？</h4><p>​ 已知：字符串中仅有小写字母。</p><p>​ <strong>可以利用一个数字的二进制形式，表示一个字符串中所含有的全部字符</strong></p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_02_16_37_25_816.png" /></p><p>​ <strong>然后利用 逻辑运算 &amp; ，来判断，两个字符串之间有没有字符是重合的</strong></p><p>​</p><h4 id="一旦涉及有序数组就可以考虑二分法搜索代替暴力搜索">3、一旦涉及有序数组，就可以考虑二分法搜索代替暴力搜索</h4><p>​ 注意，关键词在于有序</p><h4 id="涉及连续子数组连续子串等关键词我们可以采用滑动窗口进行问题的求解见另一篇博文">4、涉及连续子数组、连续子串等关键词，我们可以采用滑动窗口进行问题的求解。见另一篇博文。</h4>]]></content>
+    
+    
+    <summary type="html">本篇笔记为刷LeetCode过程中，对一些题目进行优化的时候进行的些许思考与记录，持续更新</summary>
+    
+    
+    
+    <category term="LeetCode算法笔记" scheme="https://blog.slks.xyz/categories/LeetCode%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="leetcode" scheme="https://blog.slks.xyz/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
     <title>java系列笔记11——java正则表达式</title>
     <link href="https://blog.slks.xyz/2022/02/02/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B011%E2%80%94java%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
     <id>https://blog.slks.xyz/2022/02/02/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B011%E2%80%94java%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</id>
@@ -413,54 +455,6 @@
     <category term="OverFitting" scheme="https://blog.slks.xyz/tags/OverFitting/"/>
     
     <category term="DropOut" scheme="https://blog.slks.xyz/tags/DropOut/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>机器学习基础系列笔记12——BatchNorm详解及为什么能防止过拟合</title>
-    <link href="https://blog.slks.xyz/2022/01/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B012%E2%80%94BatchNorm%E8%AF%A6%E8%A7%A3%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E9%98%B2%E6%AD%A2%E8%BF%87%E6%8B%9F%E5%90%88/"/>
-    <id>https://blog.slks.xyz/2022/01/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B012%E2%80%94BatchNorm%E8%AF%A6%E8%A7%A3%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E9%98%B2%E6%AD%A2%E8%BF%87%E6%8B%9F%E5%90%88/</id>
-    <published>2022-01-21T14:01:19.000Z</published>
-    <updated>2022-01-29T07:34:02.518Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一详解batchnorm原理">一、详解BatchNorm原理：</h2><p>​ BatchNorm是一种能够加速深度神经网络收敛，避免过拟合的方法，那么为什么呢？首先我们需要探讨一下这个问题，为什么深度神经网络<strong>随着网络深度加深，训练起来越困难，收敛越来越慢？</strong></p><p>在回答这个问题前需要首先了解两个概念：</p><p>​ <strong>1、独立同分布（IID）</strong>：即假设训练数据和测试数据是满足相同分布的。它是通过训练数据获得的模型能够在测试集获得好的效果的一个基本保障</p><p>​ <strong>2、Covariate shift</strong>：<strong>如果ML系统实例集合&lt;X,Y&gt;中的输入值X的分布老是变，这不符合IID假设</strong>，网络模型很难<strong>稳定的学规律</strong>。</p><p>​ 所以，之所以深度神经网络随着网络深度加深，训练越来越困难是因为，对于深度学习这种包含很多隐层的网络结构，在训练过程中，因为各层参数不停在变化，所以每个隐层都会面临covariate shift的问题，也就是<strong>在训练过程中，隐层的输入分布老是变来变去，这就是所谓的“Internal Covariate Shift（ICS）”，Internal指的是深层网络的隐层，是发生在网络内部的事情，而不是covariate shift问题只发生在输入层</strong></p><p>​ BatchNorm的基本思想就是能不能<strong>让每个隐层节点的激活输入分布固定下来呢</strong>？这样就避免了“Internal Covariate Shift”问题了。</p><p>所以BN实质上就是在深度神经网络训练过程中使得每一层神经网络的输入保持相同分布的一种方法。</p><p>​ BN的基本思想其实相当直观：因为深层神经网络在做非线性变换前的<strong>激活输入值随着网络深度加深或者在训练过程中，其分布逐渐发生偏移或者变动，之所以训练收敛慢，一般是整体分布逐渐往非线性函数的取值区间的上下限两端靠近</strong>（对于Sigmoid函数来说，意味着激活输入值WU+B是大的负值或正值），所以这<strong>导致反向传播时低层神经网络的梯度消失</strong>，这是训练深层神经网络收敛越来越慢的<strong>本质原因</strong>，<strong>而BN就是通过一定的规范化手段，把每层神经网络任意神经元这个输入值的分布强行拉回到均值为0方差为1的标准正态分布</strong>，其实就是把越来越偏的分布强制拉回比较标准的分布，这样使得激活输入值落在非线性函数对输入比较敏感的区域，这样输入的小变化就会导致损失函数较大的变化，意思是<strong>这样让梯度变大，避免梯度消失问题产生，而且梯度变大意味着学习收敛速度快，能大大加快训练速度。</strong></p><p>​ <strong>对于每个隐层神经元，把逐渐向非线性函数映射后向取值区间极限饱和区靠拢的输入分布强制拉回到均值为0方差为1的比较标准的正态分布，使得非线性变换函数的输入值落入对输入比较敏感的区域，以此避免梯度消失问题。</strong>因为梯度一直都能保持比较大的状态，所以很明显对神经网络的参数调整效率比较高，就是变动大，就是说向损失函数最优值迈动的步子大，也就是说收敛地快。BN说到底就是这么个机制，方法很简单，道理很深刻。</p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/aHR0cDovL3FsLm1hZ2ljLXNldmVuLnRvcC91cGxvYWQvMjAyMC8zL2ltYWdlLTVkMjU4MDQxNGI0YTRkNjhiODEzMDMxMDZlMzY5YzNiLnBuZw.png" /></p><h2 id="二batchnorm在训练阶段和测试阶段的做法与意义">二、BatchNorm在训练阶段和测试阶段的做法与意义：</h2><h3 id="训练阶段">1、训练阶段：</h3><p>​ 首先计算均值和方差（每次训练给一个批量，计算批量的均值方差），然后归一化，然后缩放和平移，完事！</p><h3 id="测试阶段">2、测试阶段：</h3><p>​ 每次只输入一张图片，这怎么计算批量的均值和方差，于是，就有了代码中下面两行，在训练的时候实现计算好mean、 var，测试的时候直接拿来用就可以了，不用计算均值和方差。</p><p>​ 用训练集来估计总体均值 μ 和总体标准差 σ 。</p><p>​ 较为简单的做法就是把每个mini-batch的均值和方差都保存下来，然后训练完了求均值的均值，方差的均值即可。</p><p>​ 在测试阶段应用BatchNorm的含义，应该就是要让测试集的测试精度与整个训练网络保持一致。</p><h2 id="三batchnorm的两个参数gamma和beta有什么作用">三、BatchNorm的两个参数<span class="math inline">\({\gamma}\)</span>和<span class="math inline">\(\beta\)</span>有什么作用？</h2><p><img src="https://www.zhihu.com/equation?tex=y%3D\frac%7Bx-\mathrm%7BE%7D%5Bx%5D%7D%7B\sqrt%7B\operatorname%7BVar%7D%5Bx%5D%2B\epsilon%7D%7D+*+\gamma%2B\beta+" /></p><h3 id="如果只做归一化为什么是学不到任何东西的">1、如果只做归一化，为什么是学不到任何东西的？</h3><p>​ 如果在每一层之后都归一化成0-1的高斯分布（减均值除方差）那么数据的分布一直都是高斯分布，数据分布都是固定的了，这样即使加更多层就没有意义了，<strong>深度网络就是想学习数据的分布发现规律性，BN就是不让学习的数据分布偏离太远</strong></p><h3 id="两个参数的作用">2、两个参数的作用</h3><p>​ 为了减小Internal Covariate Shift，对神经网络的每一层做归一化不就可以了，假设将每一层输出后的数据都归一化到0均值，1方差，满足正胎分布，但是，此时有一个问题，<strong>如果每一层的数据分布都是标准正太分布，导致其完全学习不到输入数据的特征，因为，费劲心思学习到的特征分布被归一化了，因此，直接对每一层做归一化显然是不合理的。</strong>但是如果稍作修改，加入可训练的参数做归一化，那就是BatchNorm 实现的了。</p><p>​ 接下来详细介绍一下这额外的两个参数，之前也说过如果直接做归一化不做其他处理，神经网络是学不到任何东西的，但是加入这两个参数后，事情就不一样了。先考虑特殊情况下，如果γ 和β 分别等于此batch的标准差和均值，那么<span class="math inline">\(y_i\)</span>就还原到归一化前的x了吗，也即是缩放平移到了归一化前的分布，相当于batch norm没有起作用，<span class="math inline">\(β\)</span>和γ 分别称之为 平移参数和缩放参数 。这样就<strong>保证了每一次数据经过归一化后还保留的有学习来的特征，同时又能完成归一化这个操作，加速训练</strong>。</p><p>引用：https://www.cnblogs.com/hoojjack/p/12350707.html</p>]]></content>
-    
-    
-    <summary type="html">BatchNorm是一种能够加速深度神经网络收敛，避免过拟合的方法，那么为什么呢？首先我们需要探讨一下这个问题，为什么深度神经网络随着网络深度加深，训练起来越困难，收敛越来越慢？</summary>
-    
-    
-    
-    <category term="机器学习基础系列笔记" scheme="https://blog.slks.xyz/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="OverFitting" scheme="https://blog.slks.xyz/tags/OverFitting/"/>
-    
-    <category term="Batch Normalization" scheme="https://blog.slks.xyz/tags/Batch-Normalization/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>机器学习基础系列笔记11——Training Data、Validation Data、Testing Data含义及作用</title>
-    <link href="https://blog.slks.xyz/2022/01/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B011%E2%80%94Training%20Data%E3%80%81Validation%20Data%E3%80%81Testing%20Data%E5%90%AB%E4%B9%89%E5%8F%8A%E4%BD%9C%E7%94%A8/"/>
-    <id>https://blog.slks.xyz/2022/01/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B011%E2%80%94Training%20Data%E3%80%81Validation%20Data%E3%80%81Testing%20Data%E5%90%AB%E4%B9%89%E5%8F%8A%E4%BD%9C%E7%94%A8/</id>
-    <published>2022-01-21T08:01:19.000Z</published>
-    <updated>2022-01-29T07:33:51.758Z</updated>
-    
-    <content type="html"><![CDATA[<p>我们在进行一个机器学习的任务的时候，往往会将所有数据划分成三块——Training Data、Validation Data、Testing Data,它们各自在训练的过程中扮演何种角色呢？</p><h4 id="一trainvaltest的含义与作用">一、Train、Val、Test的含义与作用：</h4><p>顾名思义，三个数据集合它们的简单含义如下：</p><ul><li>训练集(train)：训练模型，用来拟合模型的数据集；</li><li>验证集(val)：评估模型，训练过程中提供相对于train的无偏估计的数据集，同时用来调整超参数和特征选择，实际参与训练</li><li>测试集(test)：最终模型训练好之后，用来提供相对于train+valid的无偏估计的数据集。</li></ul><p>​ 一般我们会将最开始划分的Training Set分割为Training Data和Validation Data两个集合，一般而言比例为9：1。我们使用划分后的Training Data进行训练，在每个Epoch结束后使用训练期间机器没有见到过的Validation进行验证，依据验证集得到的Loss值来进行模型好坏的衡量。</p><p>​ 话句话说，Validation Data　其实就是用来避免过拟合的，在训练过程中，我们通常用它来确定一些超参数（比如根据validation data上的accuracy来确定early stopping的epoch大小、根据validation data确定learning rate等等）。</p><p>​ 那为啥不直接在Testing data上做这些呢？因为如果在Testing data做这些，那么随着训练的进行，我们的网络实际上就是在一点一点地overfitting我们的Testing data，导致最后得到的Testing accuracy没有任何参考意义。因此，Training data的作用是计算梯度更新权重，Validation data在每个Epoch结束后进行验证，Testing data则给出一个accuracy以判断网络的好坏。</p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/20210202115236662.png" /></p><p><strong>如上所示的训练划分容易带来一些显而易见的问题：</strong></p><ul><li>如果样本数量太少，验证集和测试集更少，无法在统计学上代表数据</li><li>划分数据前时，进行不同的随机打乱则得到的模型性能差别可能很大，可能训练集中的数据都偏向于某一类，而验证集的数据偏向于另一类</li></ul><h4 id="二n-fold-cross-validation">二、N-Fold Cross Validation</h4><p>此时，就可以使用常见的叫做N-Fold Cross Validation，（K折交叉验证）：</p><p>​ 如下图所示,我们将Training Set分为N个集合(示例中为3个),其中N-1个集合用于训练,1个集合用于验证,然后每轮Epoch中,都执行N遍,每一遍都拿不同的集合用于训练与验证,然后计算一遍Loss值,最终选取平均Loss最小的那一组参数进行模型的更新.</p><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114111918585.png" /></p>]]></content>
-    
-    
-    <summary type="html">我们在进行一个机器学习的任务的时候，往往会将所有数据划分成三块——Training Data、Validation Data、Testing Data,它们各自在训练的过程中都扮演着某种角色</summary>
-    
-    
-    
-    <category term="机器学习基础系列笔记" scheme="https://blog.slks.xyz/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="Training Set" scheme="https://blog.slks.xyz/tags/Training-Set/"/>
-    
-    <category term="Validation Set" scheme="https://blog.slks.xyz/tags/Validation-Set/"/>
-    
-    <category term="Testing Set" scheme="https://blog.slks.xyz/tags/Testing-Set/"/>
     
   </entry>
   
