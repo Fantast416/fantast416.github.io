@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.slks.xyz/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E5%89%91%E6%8C%87OfferII008%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E8%A7%A3%E5%86%B3%E8%BF%9E%E7%BB%AD%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/</loc>
+    <loc>https://blog.slks.xyz/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E7%AE%97%E6%B3%95%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</loc>
     
     <lastmod>2022-02-02</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E7%AE%97%E6%B3%95%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</loc>
+    <loc>https://blog.slks.xyz/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E8%A7%A3%E5%86%B3%E8%BF%9E%E7%BB%AD%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/</loc>
     
     <lastmod>2022-02-02</lastmod>
     
@@ -630,13 +630,6 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Theoretical-Basis/</loc>
-    <lastmod>2022-02-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.slks.xyz/tags/LSGAN/</loc>
     <lastmod>2022-02-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -658,6 +651,20 @@
   </url>
   
   <url>
+    <loc>https://blog.slks.xyz/tags/Theoretical-Basis/</loc>
+    <lastmod>2022-02-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/GAN-Evaluation/</loc>
+    <lastmod>2022-02-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.slks.xyz/tags/InfoGAN/</loc>
     <lastmod>2022-02-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -673,13 +680,6 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/BiGAN/</loc>
-    <lastmod>2022-02-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/GAN-Evaluation/</loc>
     <lastmod>2022-02-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
