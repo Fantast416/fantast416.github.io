@@ -1,9 +1,966 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>java系列笔记6——java注解（更新中）</title>
+    <title>java系列笔记13——Maven基础介绍（更新中）</title>
+    <url>/2022/02/04/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B013%E2%80%94Maven%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1255945359327200</p>
+]]></content>
+      <categories>
+        <category>java系列笔记</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java系列笔记10——java单元测试JUnit</title>
+    <url>/2022/02/02/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B010%E2%80%94java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1304048154181666</p>
+<h3 id="一编写junit测试">一、编写JUnit测试：</h3>
+<h4 id="什么是测试驱动开发">1、什么是测试驱动开发？</h4>
+<p>​ 所谓测试驱动开发，是指先编写接口，紧接着编写测试。编写完测试后，我们才开始真正编写实现代码。在编写实现代码的过程中，一边写，一边测，什么时候测试全部通过了，那就表示编写的实现完成了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">    编写接口</span><br><span class="line">     │</span><br><span class="line">     ▼</span><br><span class="line">    编写测试</span><br><span class="line">     │</span><br><span class="line">     ▼</span><br><span class="line">┌─&gt; 编写实现</span><br><span class="line">│    │</span><br><span class="line">│ N  ▼</span><br><span class="line">└── 运行测试</span><br><span class="line">     │ Y</span><br><span class="line">     ▼</span><br><span class="line">    任务完成</span><br></pre></td></tr></table></figure>
+<h4 id="junit测试框架">2、JUnit测试框架：</h4>
+<p>​ JUnit是一个开源的Java语言的单元测试框架，专门针对Java设计，使用最广泛。JUnit是事实上的单元测试的标准框架，任何Java开发者都应当学习并使用JUnit编写单元测试</p>
+<p>​ 使用JUnit编写单元测试的好处在于，我们可以非常简单地组织测试代码，并随时运行它们，JUnit就会给出成功的测试和失败的测试，还可以生成测试报告，不仅包含测试的成功率，还可以统计测试的代码覆盖率，即被测试的代码本身有多少经过了测试。对于高质量的代码来说，测试覆盖率应该在80%以上。</p>
+<h4 id="intellij中如何开启单元测试">3、IntelliJ中如何开启单元测试？</h4>
+<p>​ 教程：https://blog.csdn.net/qq754772661/article/details/107790362</p>
+<h4 id="单元测试文件怎么编写">4、单元测试文件怎么编写？</h4>
+<p>​ 核心测试方法<code>testFact()</code>加上了<code>@Test</code>注解，这是JUnit要求的，它会把带有<code>@Test</code>的方法识别为测试方法。在测试方法内部，我们用<code>assertEquals(1, Factorial.fact(1))</code>表示，期望<code>Factorial.fact(1)</code>返回<code>1</code>。<code>assertEquals(expected, actual)</code>是最常用的测试方法，它在<code>Assertion</code>类中定义。<code>Assertion</code>还定义了其他断言方法，例如：</p>
+<ul>
+<li><code>assertTrue()</code>: 期待结果为<code>true</code></li>
+<li><code>assertFalse()</code>: 期待结果为<code>false</code></li>
+<li><code>assertNotNull()</code>: 期待结果为非<code>null</code></li>
+<li><code>assertArrayEquals()</code>: 期待结果为数组并与期望数组每个元素的值均相等</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.itranswarp.learnjava;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.*;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactorialTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testFact</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        assertEquals(<span class="number">1</span>, Factorial.fact(<span class="number">1</span>));</span><br><span class="line">        assertEquals(<span class="number">2</span>, Factorial.fact(<span class="number">2</span>));</span><br><span class="line">        assertEquals(<span class="number">6</span>, Factorial.fact(<span class="number">3</span>));</span><br><span class="line">        assertEquals(<span class="number">3628800</span>, Factorial.fact(<span class="number">10</span>));</span><br><span class="line">        assertEquals(<span class="number">2432902008176640000L</span>, Factorial.fact(<span class="number">20</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编写完成后，在编译器内直接选择运行该文件即可。</p>
+<h4 id="单元测试的结果">5、单元测试的结果：</h4>
+<ul>
+<li>如果全部通过测试：</li>
+</ul>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_02_10_13_50_410.png" alt="屏幕捕获_2022_02_02_10_13_50_410" /><figcaption aria-hidden="true">屏幕捕获_2022_02_02_10_13_50_410</figcaption>
+</figure>
+<ul>
+<li>如果有案例通不过测试：</li>
+</ul>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_02_10_14_11_224.png" alt="屏幕捕获_2022_02_02_10_14_11_224" /><figcaption aria-hidden="true">屏幕捕获_2022_02_02_10_14_11_224</figcaption>
+</figure>
+<h4 id="单元测试的好处">6、单元测试的好处：</h4>
+<p>​ 单元测试可以确保单个方法按照正确预期运行，如果修改了某个方法的代码，只需确保其对应的单元测试通过，即可认为改动正确。此外，测试代码本身就可以作为示例代码，用来演示如何调用该方法。</p>
+<p>​ 使用JUnit进行单元测试，我们可以使用断言（<code>Assertion</code>）来测试期望结果，可以方便地组织和运行测试，并方便地查看测试结果。此外，<strong>JUnit既可以直接在IDE中运行，也可以方便地集成到Maven这些自动化工具中运行。</strong></p>
+<p>在编写单元测试的时候，我们要遵循一定的规范：</p>
+<p>​ 一是单元测试代码本身必须非常简单，能一下看明白，决不能再为测试代码编写测试；</p>
+<p>​ 二是每个单元测试应当互相独立，不依赖运行的顺序；</p>
+<p>​ <strong>三是测试时不但要覆盖常用测试用例，还要特别注意测试边界条件，例如输入为<code>0</code>，<code>null</code>，空字符串<code>""</code>等情况。</strong></p>
+<h3 id="二使用fixture">二、使用Fixture</h3>
+<p>​ 在一个单元测试中，我们经常编写多个<code>@Test</code>方法，来分组、分类对目标代码进行测试。在测试的时候，我们经常遇到一个对象需要初始化，测试完可能还需要清理的情况。如果每个<code>@Test</code>方法都写一遍这样的重复代码，显然比较麻烦。</p>
+<p>​ <strong>JUnit提供了编写测试前准备、测试后清理的固定代码，我们称之为Fixture。</strong></p>
+<ul>
+<li>以下为要测试的代码：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Calculator</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> n = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">add</span><span class="params">(<span class="keyword">long</span> x)</span> </span>&#123;</span><br><span class="line">        n = n + x;</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">sub</span><span class="params">(<span class="keyword">long</span> x)</span> </span>&#123;</span><br><span class="line">        n = n - x;</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 这个类的功能很简单，但是测试的时候，我们要先初始化对象，我们不必在每个测试方法中都写上初始化代码，而是<strong>通过<code>@BeforeEach</code>来初始化，通过<code>@AfterEach</code>来清理资源：</strong>如下所示</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalculatorTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Calculator calculator;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BeforeEach</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.calculator = <span class="keyword">new</span> Calculator();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterEach</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tearDown</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.calculator = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        assertEquals(<span class="number">100</span>, <span class="keyword">this</span>.calculator.add(<span class="number">100</span>));</span><br><span class="line">        assertEquals(<span class="number">150</span>, <span class="keyword">this</span>.calculator.add(<span class="number">50</span>));</span><br><span class="line">        assertEquals(<span class="number">130</span>, <span class="keyword">this</span>.calculator.add(-<span class="number">20</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testSub</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        assertEquals(-<span class="number">100</span>, <span class="keyword">this</span>.calculator.sub(<span class="number">100</span>));</span><br><span class="line">        assertEquals(-<span class="number">150</span>, <span class="keyword">this</span>.calculator.sub(<span class="number">50</span>));</span><br><span class="line">        assertEquals(-<span class="number">130</span>, <span class="keyword">this</span>.calculator.sub(-<span class="number">20</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 还有一些资源初始化和清理可能更加繁琐，而且会耗费较长的时间，例如初始化数据库。**JUnit还提供了<code>@BeforeAll</code>和<code>@AfterAll</code>，它们在运行所有@Test前后运行。</p>
+<p>​ 因为<code>@BeforeAll</code>和<code>@AfterAll</code>在所有<code>@Test</code>方法运行前后仅运行一次，因此，它们只能初始化静态变量。</p>
+<p><strong>事实上，<code>@BeforeAll</code>和<code>@AfterAll</code>也只能标注在静态方法上。</strong></p>
+<p><strong>因此，我们总结出编写Fixture的套路如下：</strong></p>
+<ol type="1">
+<li>对于实例变量，在<code>@BeforeEach</code>中初始化，在<code>@AfterEach</code>中清理，它们在各个<code>@Test</code>方法中互不影响，因为是不同的实例；</li>
+<li>对于静态变量，在<code>@BeforeAll</code>中初始化，在<code>@AfterAll</code>中清理，它们在各个<code>@Test</code>方法中均是唯一实例，会影响各个<code>@Test</code>方法。</li>
+</ol>
+<p>​ 大多数情况下，使用<code>@BeforeEach</code>和<code>@AfterEach</code>就足够了。只有某些测试资源初始化耗费时间太长，以至于我们不得不尽量“复用”时才会用到<code>@BeforeAll</code>和<code>@AfterAll</code>。</p>
+<p>​ <strong>最后，注意到每次运行一个<code>@Test</code>方法前，JUnit首先创建一个<code>XxxTest</code>实例，因此，每个<code>@Test</code>方法内部的成员变量都是独立的，不能也无法把成员变量的状态从一个<code>@Test</code>方法带到另一个<code>@Test</code>方法。</strong></p>
+<h3 id="三异常测试">三、异常测试：</h3>
+<p>​ 对于可能抛出的异常进行测试，本身就是测试的重要环节。在编写JUnit测试的时候，除了正常的输入输出，我们还要特别针对可能导致异常的情况进行测试。示例如下：</p>
+<ul>
+<li>被测试代码如下：在方法入口，我们增加了对参数<code>n</code>的检查，如果为负数，则直接抛出<code>IllegalArgumentException</code>。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Factorial</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">fact</span><span class="params">(<span class="keyword">long</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> r = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            r = r * i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试代码：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testNegative</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    assertThrows(IllegalArgumentException.class, () -&gt; &#123;</span><br><span class="line">        Factorial.fact(-<span class="number">1</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="四条件测试">四、条件测试：</h3>
+<h4 id="disabled">1、<span class="citation" data-cites="Disabled">@Disabled</span></h4>
+<p>​ 在运行测试的时候，有些时候，我们需要排出某些<code>@Test</code>方法，不要让它运行，这时，我们就可以给它标记一个<code>@Disabled</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Disabled</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testBug101</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 这个测试不会运行</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 为什么我们不直接注释掉<code>@Test</code>，而是要加一个<code>@Disabled</code>？这是因为注释掉<code>@Test</code>，JUnit就不知道这是个测试方法，而加上<code>@Disabled</code>，JUnit仍然识别出这是个测试方法，只是暂时不运行。它会在测试结果中显示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Tests run: 68, Failures: 2, Errors: 0, Skipped: 5</span><br></pre></td></tr></table></figure>
+<p>​ 类似<code>@Disabled</code>这种注解就称为条件测试，JUnit根据不同的条件注解，决定是否运行当前的<code>@Test</code>方法。</p>
+<h4 id="enabledonos">2、<span class="citation" data-cites="EnabledOnOs">@EnabledOnOs</span></h4>
+<p>给两个测试方法分别加上条件如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@EnabledOnOs(OS.WINDOWS)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testWindows</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    assertEquals(<span class="string">&quot;C:\\test.ini&quot;</span>, config.getConfigFile(<span class="string">&quot;test.ini&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@EnabledOnOs(&#123; OS.LINUX, OS.MAC &#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testLinuxAndMac</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    assertEquals(<span class="string">&quot;/usr/local/test.cfg&quot;</span>, config.getConfigFile(<span class="string">&quot;test.cfg&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>@EnableOnOs</code>就是一个条件测试判断。</p>
+<p>在Windows平台执行的测试: <span class="citation" data-cites="EnabledOnOs">@EnabledOnOs</span>(OS.WINDOWS)</p>
+<h4 id="其他条件测试">3、其他条件测试：</h4>
+<p>只能在Java 9或更高版本执行的测试，可以加上<code>@DisabledOnJre(JRE.JAVA_8)</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@DisabledOnJre(JRE.JAVA_8)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testOnJava9OrAbove</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> this test is disabled on java 8</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>只能在64位操作系统上执行的测试，可以用<code>@EnabledIfSystemProperty</code>判断：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@EnabledIfSystemProperty(named = &quot;os.arch&quot;, matches = &quot;.*64.*&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testOnlyOn64bitSystem</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> this test is only run on 64 bit system</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要传入环境变量<code>DEBUG=true</code>才能执行的测试，可以用<code>@EnabledIfEnvironmentVariable</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@EnabledIfEnvironmentVariable(named = &quot;DEBUG&quot;, matches = &quot;true&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testOnlyOnDebugMode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> this test is only run on DEBUG=true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="五参数化测试">五、参数化测试：</h3>
+<p>如果待测试的输入和输出是一组数据： 可以把测试数据组织起来 用不同的测试数据调用相同的测试方法</p>
+<p>参数化测试和普通测试稍微不同的地方在于，一个测试方法需要接收至少一个参数，然后，传入一组参数反复运行。</p>
+<p>JUnit提供了一个<code>@ParameterizedTest</code>注解，用来进行参数化测试。</p>
+<p>假设我们想对<code>Math.abs()</code>进行测试，先用一组正数进行测试：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@ValueSource(ints = &#123; 0, 1, 5, 100 &#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testAbs</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    assertEquals(x, Math.abs(x));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再用一组负数进行测试：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@ValueSource(ints = &#123; -1, -5, -100 &#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testAbsNegative</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    assertEquals(-x, Math.abs(x));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意到参数化测试的注解是<code>@ParameterizedTest</code>，而不是普通的<code>@Test</code>。</p>
+<p>实际的测试场景往往没有这么简单。假设我们自己编写了一个<code>StringUtils.capitalize()</code>方法，它会把字符串的第一个字母变为大写，后续字母变为小写：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringUtils</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">capitalize</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s.length() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Character.toUpperCase(s.charAt(<span class="number">0</span>)) + s.substring(<span class="number">1</span>).toLowerCase();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要用参数化测试的方法来测试，我们不但要给出输入，还要给出预期输出。因此，测试方法至少需要接收两个参数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCapitalize</span><span class="params">(String input, String result)</span> </span>&#123;</span><br><span class="line">    assertEquals(result, StringUtils.capitalize(input));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在问题来了：参数如何传入？</p>
+<p>最简单的方法是通过<code>@MethodSource</code>注解，它允许我们编写一个同名的静态方法来提供测试参数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@MethodSource</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCapitalize</span><span class="params">(String input, String result)</span> </span>&#123;</span><br><span class="line">    assertEquals(result, StringUtils.capitalize(input));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> List&lt;Arguments&gt; <span class="title">testCapitalize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> List.of( <span class="comment">// arguments:</span></span><br><span class="line">            Arguments.arguments(<span class="string">&quot;abc&quot;</span>, <span class="string">&quot;Abc&quot;</span>), <span class="comment">//</span></span><br><span class="line">            Arguments.arguments(<span class="string">&quot;APPLE&quot;</span>, <span class="string">&quot;Apple&quot;</span>), <span class="comment">//</span></span><br><span class="line">            Arguments.arguments(<span class="string">&quot;gooD&quot;</span>, <span class="string">&quot;Good&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码很容易理解：静态方法<code>testCapitalize()</code>返回了一组测试参数，每个参数都包含两个<code>String</code>，正好作为测试方法的两个参数传入。</p>
+<p>如果静态方法和测试方法的名称不同，<span class="citation" data-cites="MethodSource也允许指定方法名">@MethodSource也允许指定方法名</span>。但使用默认同名方法最方便。</p>
+<p>另一种传入测试参数的方法是使用<code>@CsvSource</code>，它的每一个字符串表示一行，一行包含的若干参数用<code>,</code>分隔，因此，上述测试又可以改写如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@CsvSource(&#123; &quot;abc, Abc&quot;, &quot;APPLE, Apple&quot;, &quot;gooD, Good&quot; &#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCapitalize</span><span class="params">(String input, String result)</span> </span>&#123;</span><br><span class="line">    assertEquals(result, StringUtils.capitalize(input));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果有成百上千的测试输入，那么，直接写<code>@CsvSource</code>就很不方便。这个时候，我们可以把测试数据提到一个独立的CSV文件中，然后标注上<code>@CsvFileSource</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@CsvFileSource(resources = &#123; &quot;/test-capitalize.csv&quot; &#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCapitalizeUsingCsvFile</span><span class="params">(String input, String result)</span> </span>&#123;</span><br><span class="line">    assertEquals(result, StringUtils.capitalize(input));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>JUnit只在classpath中查找指定的CSV文件，因此，<code>test-capitalize.csv</code>这个文件要放到<code>test</code>目录下，内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apple, Apple</span><br><span class="line">HELLO, Hello</span><br><span class="line">JUnit, Junit</span><br><span class="line">reSource, Resource</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>java系列笔记</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java系列笔记12——java多线程（更新中）</title>
+    <url>/2022/02/02/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B012%E2%80%94java%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
+    <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1304521607217185</p>
+]]></content>
+      <categories>
+        <category>java系列笔记</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java系列笔记11——java正则表达式</title>
+    <url>/2022/02/02/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B011%E2%80%94java%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1304066130968610</p>
+<h3 id="一什么是正则表达式">一、什么是正则表达式：</h3>
+<p>​ 正则表达式可以用字符串来描述规则，并用来匹配字符串。例如，判断手机号，我们用正则表达式<code>\d&#123;11&#125;</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isValidMobileNumber</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s.matches(<span class="string">&quot;\\d&#123;11&#125;&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 使用正则表达式的好处有哪些？一个正则表达式就是一个描述规则的字符串，所以，只需要编写正确的规则，我们就可以让正则表达式引擎去判断目标字符串是否符合规则。</p>
+<p>​ 正则表达式是用字符串描述的一个匹配规则，使用正则表达式可以快速判断给定的字符串是否符合匹配规则。<strong>Java标准库<code>java.util.regex</code>内建了正则表达式引擎。</strong></p>
+<h3 id="二匹配规则">二、匹配规则：</h3>
+<p>正则表达式的匹配规则是从左到右按规则匹配。</p>
+<h4 id="精确匹配">1、精确匹配：</h4>
+<p>​ 对于正则表达式<code>abc</code>来说，它只能精确地匹配字符串<code>"abc"</code>，不能匹配<code>"ab"</code>，<code>"Abc"</code>，<code>"abcd"</code>等其他任何字符串。</p>
+<p>​ 如果正则表达式有特殊字符，那就需要用<code>\</code>转义。例如，正则表达式<code>a\&amp;c</code>，其中<code>\&amp;</code>是用来匹配特殊字符<code>&amp;</code>的，它能精确匹配字符串<code>"a&amp;c"</code>，但不能匹配<code>"ac"</code>、<code>"a-c"</code>、<code>"a&amp;&amp;c"</code>等。</p>
+<p>​ 如果想匹配非ASCII字符，例如中文，那就用<code>\u####</code>的十六进制表示，例如：<code>a\u548cc</code>匹配字符串<code>"a和c"</code>，中文字符<code>和</code>的Unicode编码是<code>548c</code>。</p>
+<h4 id="模糊匹配.">2、模糊匹配：(.)</h4>
+<p>​ 正则表达式<code>a.c</code>中间的<code>.</code>可以匹配一个任意字符</p>
+<p>​ <code>.</code>匹配一个字符且仅限一个字符</p>
+<h4 id="匹配数字">3、匹配数字：（</h4>
+<p>​ 如果我们只想匹配<code>0</code>~<code>9</code>这样的数字，可以用<code>\d</code>匹配。例如，正则表达式<code>00\d</code>可以匹配：</p>
+<ul>
+<li><code>"007"</code>，因为<code>\d</code>可以匹配字符<code>7</code>；</li>
+<li><code>"008"</code>，因为<code>\d</code>可以匹配字符<code>8</code>。</li>
+</ul>
+<p>​ 它不能匹配<code>"00A"</code>，<code>"0077"</code>，因为<code>\d</code>仅限单个数字字符。</p>
+<h4 id="匹配常用字符">4、匹配常用字符：()</h4>
+<p>用<code>\w</code>可以匹配一个字母、数字或下划线，w的意思是word。例如，<code>java\w</code>可以匹配：</p>
+<ul>
+<li><code>"javac"</code>，因为<code>\w</code>可以匹配英文字符<code>c</code>；</li>
+<li><code>"java9"</code>，因为<code>\w</code>可以匹配数字字符<code>9</code>；。</li>
+<li><code>"java_"</code>，因为<code>\w</code>可以匹配下划线<code>_</code>。</li>
+</ul>
+<p>因为<code>\w</code>不能匹配<code>#</code>、空格等字符。</p>
+<h4 id="匹配空格字符">5、 匹配空格字符()</h4>
+<p>用<code>\s</code>可以匹配一个空格字符，注意空格字符不但包括空格`<code>，还包括tab字符（在Java中用</code>表示）。例如，<code>a\sc</code>可以匹配：</p>
+<ul>
+<li><code>"a c"</code>，因为<code>\s</code>可以匹配空格字符``；</li>
+<li><code>"a c"</code>，因为<code>\s</code>可以匹配tab字符<code>\t</code>。</li>
+</ul>
+<p>它不能匹配<code>"ac"</code>，<code>"abc"</code>等。</p>
+<h4 id="匹配非数字">6、匹配非数字：（）</h4>
+<p>​ <code>\D</code>匹配一个非数字</p>
+<p>​ 类似的，<code>\W</code>可以匹配<code>\w</code>不能匹配的字符，<code>\S</code>可以匹配<code>\s</code>不能匹配的字符，这几个正好是反着来的。</p>
+<h4 id="重复匹配">7、重复匹配：</h4>
+<ul>
+<li><p>修饰符<code>*</code>可以匹配任意个字符，包括0个字符。我们用<code>A\d*</code>可以匹配：</p>
+<ul>
+<li><p><code>A</code>：因为<code>\d*</code>可以匹配0个数字；</p></li>
+<li><p><code>A0</code>：因为<code>\d*</code>可以匹配1个数字<code>0</code>；</p></li>
+<li><p><code>A380</code>：因为<code>\d*</code>可以匹配多个数字<code>380</code>。</p></li>
+</ul></li>
+<li><p>修饰符<code>+</code>可以匹配至少一个字符。我们用<code>A\d+</code>可以匹配：</p>
+<ul>
+<li><code>A0</code>：因为<code>\d+</code>可以匹配1个数字<code>0</code>；</li>
+<li><code>A380</code>：因为<code>\d+</code>可以匹配多个数字<code>380</code>。</li>
+</ul></li>
+<li><p>修饰符<code>?</code>可以匹配0个或一个字符。我们用<code>A\d?</code>可以匹配：</p>
+<ul>
+<li><code>A</code>：因为<code>\d?</code>可以匹配0个数字；</li>
+<li><code>A0</code>：因为<code>\d?</code>可以匹配1个数字<code>0</code>。</li>
+</ul></li>
+<li><p>用修饰符<code>&#123;n&#125;</code>精确指定n个字符,<code>A\d&#123;3&#125;</code>可以精确匹配：</p>
+<ul>
+<li><code>A380</code>：因为<code>\d&#123;3&#125;</code>可以匹配3个数字<code>380</code>。</li>
+</ul></li>
+<li><p>用修饰符<code>&#123;n,m&#125;</code>指定匹配n~m个字符, <code>A\d&#123;3,5&#125;</code>可以精确匹配：</p>
+<ul>
+<li><code>A380</code>：因为<code>\d&#123;3,5&#125;</code>可以匹配3个数字<code>380</code>；</li>
+<li><code>A3800</code>：因为<code>\d&#123;3,5&#125;</code>可以匹配4个数字<code>3800</code>；</li>
+<li><code>A38000</code>：因为<code>\d&#123;3,5&#125;</code>可以匹配5个数字<code>38000</code>。</li>
+</ul></li>
+<li><p>如果没有上限，那么修饰符<code>&#123;n,&#125;</code>就可以匹配至少n个字符。</p></li>
+</ul>
+<h4 id="匹配规则快速查找">8、匹配规则快速查找：</h4>
+<p>单个字符的匹配规则如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>正则表达式</th>
+<th>规则</th>
+<th>可以匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>A</code></td>
+<td>指定字符</td>
+<td><code>A</code></td>
+</tr>
+<tr class="even">
+<td><code>\u548c</code></td>
+<td>指定Unicode字符</td>
+<td><code>和</code></td>
+</tr>
+<tr class="odd">
+<td><code>.</code></td>
+<td>任意字符</td>
+<td><code>a</code>，<code>b</code>，<code>&amp;</code>，<code>0</code></td>
+</tr>
+<tr class="even">
+<td><code>\d</code></td>
+<td>数字0~9</td>
+<td><code>0</code>~<code>9</code></td>
+</tr>
+<tr class="odd">
+<td><code>\w</code></td>
+<td>大小写字母，数字和下划线</td>
+<td><code>a</code><sub><code>z</code>，<code>A</code></sub><code>Z</code>，<code>0</code>~<code>9</code>，<code>_</code></td>
+</tr>
+<tr class="even">
+<td><code>\s</code></td>
+<td>空格、Tab键</td>
+<td>空格，Tab</td>
+</tr>
+<tr class="odd">
+<td><code>\D</code></td>
+<td>非数字</td>
+<td><code>a</code>，<code>A</code>，<code>&amp;</code>，<code>_</code>，……</td>
+</tr>
+<tr class="even">
+<td><code>\W</code></td>
+<td>非</td>
+<td><code>&amp;</code>，<code>@</code>，<code>中</code>，……</td>
+</tr>
+<tr class="odd">
+<td><code>\S</code></td>
+<td>非</td>
+<td><code>a</code>，<code>A</code>，<code>&amp;</code>，<code>_</code>，……</td>
+</tr>
+</tbody>
+</table>
+<p>多个字符的匹配规则如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>正则表达式</th>
+<th>规则</th>
+<th>可以匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>A*</code></td>
+<td>任意个数字符</td>
+<td>空，<code>A</code>，<code>AA</code>，<code>AAA</code>，……</td>
+</tr>
+<tr class="even">
+<td><code>A+</code></td>
+<td>至少1个字符</td>
+<td><code>A</code>，<code>AA</code>，<code>AAA</code>，……</td>
+</tr>
+<tr class="odd">
+<td><code>A?</code></td>
+<td>0个或1个字符</td>
+<td>空，<code>A</code></td>
+</tr>
+<tr class="even">
+<td><code>A&#123;3&#125;</code></td>
+<td>指定个数字符</td>
+<td><code>AAA</code></td>
+</tr>
+<tr class="odd">
+<td><code>A&#123;2,3&#125;</code></td>
+<td>指定范围个数字符</td>
+<td><code>AA</code>，<code>AAA</code></td>
+</tr>
+<tr class="even">
+<td><code>A&#123;2,&#125;</code></td>
+<td>至少n个字符</td>
+<td><code>AA</code>，<code>AAA</code>，<code>AAAA</code>，……</td>
+</tr>
+<tr class="odd">
+<td><code>A&#123;0,3&#125;</code></td>
+<td>最多n个字符</td>
+<td>空，<code>A</code>，<code>AA</code>，<code>AAA</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="三复杂匹配规则">三、复杂匹配规则：</h3>
+<h4 id="匹配开头结尾">1、匹配开头结尾：</h4>
+<p>​ 进行多行匹配时，用<code>^</code>表示开头，<code>$</code>表示结尾。例如，<code>^A\d&#123;3&#125;$</code>，可以匹配<code>"A001"</code>、<code>"A380"</code>。</p>
+<h4 id="匹配指定范围">2、匹配指定范围：</h4>
+<p>​ <strong>使用<code>[...]</code>可以匹配范围内的字符</strong>，例如，<code>[123456789]</code>可以匹配<code>1</code>~<code>9</code>，这样就可以写出上述电话号码的规则：<code>[123456789]\d&#123;6,7&#125;</code>。</p>
+<p>​ 把所有字符全列出来太麻烦，<code>[...]</code>还有一种写法，直接写<code>[1-9]</code>就可以。</p>
+<p>​ <strong>要匹配大小写不限的十六进制数，比如<code>1A2b3c</code>，我们可以这样写：<code>[0-9a-fA-F]</code>，它表示一共可以匹配以下任意范围的字符：</strong></p>
+<ul>
+<li><code>0-9</code>：字符<code>0</code>~<code>9</code>；</li>
+<li><code>a-f</code>：字符<code>a</code>~<code>f</code>；</li>
+<li><code>A-F</code>：字符<code>A</code>~<code>F</code>。</li>
+</ul>
+<p>​ <strong><code>[...]</code>还有一种排除法，即不包含指定范围的字符。假设我们要匹配任意字符，但不包括数字，可以写<code>[^1-9]&#123;3&#125;</code>：</strong></p>
+<ul>
+<li>可以匹配<code>"ABC"</code>，因为不包含字符<code>1</code>~<code>9</code>；</li>
+<li>可以匹配<code>"A00"</code>，因为不包含字符<code>1</code>~<code>9</code>；</li>
+<li>不能匹配<code>"A01"</code>，因为包含字符<code>1</code>；</li>
+<li>不能匹配<code>"A05"</code>，因为包含字符<code>5</code>。</li>
+</ul>
+<h4 id="或规则匹配">3、或规则匹配：</h4>
+<p>​ 用<code>|</code>连接的两个正则规则是<em>或</em>规则，例如，<code>AB|CD</code>表示可以匹配<code>AB</code>或<code>CD</code>。</p>
+<h4 id="使用括号">4、使用括号:</h4>
+<p>​ 现在我们想要匹配字符串<code>learn java</code>、<code>learn php</code>和<code>learn go</code>怎么办？一个最简单的规则是<code>learn\sjava|learn\sphp|learn\sgo</code>，但是这个规则太复杂了，可以把公共部分提出来，然后用<code>(...)</code>把子规则括起来表示成<code>learn\\s(java|php|go)</code>。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String re = <span class="string">&quot;learn\\s(java|php|go)&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="规则总结">5、规则总结：</h4>
+<p>复杂匹配规则主要有：</p>
+<table>
+<thead>
+<tr class="header">
+<th>正则表达式</th>
+<th>规则</th>
+<th>可以匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>^</td>
+<td>开头</td>
+<td>字符串开头</td>
+</tr>
+<tr class="even">
+<td>$</td>
+<td>结尾</td>
+<td>字符串结束</td>
+</tr>
+<tr class="odd">
+<td>[ABC]</td>
+<td>[…]内任意字符</td>
+<td>A，B，C</td>
+</tr>
+<tr class="even">
+<td>[A-F0-9xy]</td>
+<td>指定范围的字符</td>
+<td><code>A</code>，……，<code>F</code>，<code>0</code>，……，<code>9</code>，<code>x</code>，<code>y</code></td>
+</tr>
+<tr class="odd">
+<td>[^A-F]</td>
+<td>指定范围外的任意字符</td>
+<td>非<code>A</code>~<code>F</code></td>
+</tr>
+<tr class="even">
+<td>AB|CD|EF</td>
+<td>AB或CD或EF</td>
+<td><code>AB</code>，<code>CD</code>，<code>EF</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="四分组匹配-提取子串">四、分组匹配 + 提取子串：</h3>
+<p>​ <code>(...)</code>还有一个重要作用，就是分组匹配。</p>
+<p>​ 我们来看一下如何用正则匹配<code>区号-电话号</code>码这个规则。利用前面讲到的匹配规则，写出来很容易：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\d&#123;3,4&#125;\-\d&#123;6,8&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 虽然这个正则匹配规则很简单，但是往往匹配成功后，下一步是提取区号和电话号码，分别存入数据库。于是问题来了：<strong>如何提取匹配的子串</strong>？</p>
+<p>​ 当然可以用<code>String</code>提供的<code>indexOf()</code>和<code>substring()</code>这些方法，但它们从正则匹配的字符串中提取子串没有通用性，下一次要提取<code>learn\s(java|php)</code>还得改代码。</p>
+<p>​ <strong>正确的方法是用<code>(...)</code>先把要提取的规则分组，把上述正则表达式变为<code>(\d&#123;3,4&#125;)\-(\d&#123;6,8&#125;)</code></strong>。然后引入<code>java.util.regex</code>包，用<code>Pattern</code>对象匹配，匹配后获得一个<code>Matcher</code>对象，如果匹配成功，就可以直接从<code>Matcher.group(index)</code>返回子串：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Pattern p = Pattern.compile(<span class="string">&quot;(\\d&#123;3,4&#125;)\\-(\\d&#123;7,8&#125;)&quot;</span>);</span><br><span class="line">        Matcher m = p.matcher(<span class="string">&quot;010-12345678&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (m.matches()) &#123;</span><br><span class="line">            String g1 = m.group(<span class="number">1</span>);</span><br><span class="line">            String g2 = m.group(<span class="number">2</span>);</span><br><span class="line">            System.out.println(g1);</span><br><span class="line">            System.out.println(g2);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;匹配失败!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行上述代码，会得到两个匹配上的子串<code>010</code>和<code>12345678</code>。</p>
+<p>​ 要特别注意，<code>Matcher.group(index)</code>方法的参数用1表示第一个子串，2表示第二个子串。如果我们传入0会得到什么呢？答案是<code>010-12345678</code>，即整个正则匹配到的字符串。</p>
+<p>​ 我们在前面的代码中用到的正则表达式代码是<code>String.matches()</code>方法，而我们在分组提取的代码中用的是<code>java.util.regex</code>包里面的<code>Pattern</code>类和<code>Matcher</code>类。实际上这两种代码本质上是一样的，因为<code>String.matches()</code>方法内部调用的就是<code>Pattern</code>和<code>Matcher</code>类的方法。</p>
+<p>​ 但是反复使用<code>String.matches()</code>对同一个正则表达式进行多次匹配效率较低，因为每次都会创建出一样的<code>Pattern</code>对象。完全可以先创建出一个<code>Pattern</code>对象，然后反复使用，就可以实现编译一次，多次匹配：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Pattern pattern = Pattern.compile(<span class="string">&quot;(\\d&#123;3,4&#125;)\\-(\\d&#123;7,8&#125;)&quot;</span>);</span><br><span class="line">        pattern.matcher(<span class="string">&quot;010-12345678&quot;</span>).matches(); <span class="comment">// true</span></span><br><span class="line">        pattern.matcher(<span class="string">&quot;021-123456&quot;</span>).matches(); <span class="comment">// false</span></span><br><span class="line">        pattern.matcher(<span class="string">&quot;022#1234567&quot;</span>).matches(); <span class="comment">// false</span></span><br><span class="line">        <span class="comment">// 获得Matcher对象:</span></span><br><span class="line">        Matcher matcher = pattern.matcher(<span class="string">&quot;010-12345678&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (matcher.matches()) &#123;</span><br><span class="line">            String whole = matcher.group(<span class="number">0</span>); <span class="comment">// &quot;010-12345678&quot;, 0表示匹配的整个字符串</span></span><br><span class="line">            String area = matcher.group(<span class="number">1</span>); <span class="comment">// &quot;010&quot;, 1表示匹配的第1个子串</span></span><br><span class="line">            String tel = matcher.group(<span class="number">2</span>); <span class="comment">// &quot;12345678&quot;, 2表示匹配的第2个子串</span></span><br><span class="line">            System.out.println(area);</span><br><span class="line">            System.out.println(tel);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 使用<code>Matcher</code>时，必须首先调用<code>matches()</code>判断是否匹配成功，匹配成功后，才能调用<code>group()</code>提取子串。</p>
+<p>​ 利用提取子串的功能，我们轻松获得了区号和号码两部分。</p>
+<h3 id="五非贪婪匹配">五、非贪婪匹配：</h3>
+<p>先看一个简单的问题：</p>
+<p>给定一个字符串表示的数字，判断该数字末尾<code>0</code>的个数。例如：</p>
+<ul>
+<li><code>"123000"</code>：3个<code>0</code></li>
+<li><code>"10100"</code>：2个<code>0</code></li>
+<li><code>"1001"</code>：0个<code>0</code></li>
+</ul>
+<p>可以很容易地写出该正则表达式：<code>(\d+)(0*)</code>，Java代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Pattern pattern = Pattern.compile(<span class="string">&quot;(\\d+)(0*)&quot;</span>);</span><br><span class="line">        Matcher matcher = pattern.matcher(<span class="string">&quot;1230000&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (matcher.matches()) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;group1=&quot;</span> + matcher.group(<span class="number">1</span>)); <span class="comment">// &quot;1230000&quot;</span></span><br><span class="line">            System.out.println(<span class="string">&quot;group2=&quot;</span> + matcher.group(<span class="number">2</span>)); <span class="comment">// &quot;&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然而打印的第二个子串是空字符串<code>""</code>。</p>
+<p>实际上，我们期望分组匹配结果是：</p>
+<table>
+<thead>
+<tr class="header">
+<th>input</th>
+<th><code>\d+</code></th>
+<th><code>0*</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>123000</td>
+<td>"123"</td>
+<td>"000"</td>
+</tr>
+<tr class="even">
+<td>10100</td>
+<td>"101"</td>
+<td>"00"</td>
+</tr>
+<tr class="odd">
+<td>1001</td>
+<td>"1001"</td>
+<td>""</td>
+</tr>
+</tbody>
+</table>
+<p>但实际的分组匹配结果是这样的：</p>
+<table>
+<thead>
+<tr class="header">
+<th>input</th>
+<th><code>\d+</code></th>
+<th><code>0*</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>123000</td>
+<td>"123000"</td>
+<td>""</td>
+</tr>
+<tr class="even">
+<td>10100</td>
+<td>"10100"</td>
+<td>""</td>
+</tr>
+<tr class="odd">
+<td>1001</td>
+<td>"1001"</td>
+<td>""</td>
+</tr>
+</tbody>
+</table>
+<p>​ 仔细观察上述实际匹配结果，实际上它是完全合理的，因为<code>\d+</code>确实可以匹配后面任意个<code>0</code>。</p>
+<p>​ <strong>这是因为正则表达式默认使用贪婪匹配：任何一个规则，它总是尽可能多地向后匹配，因此，<code>\d+</code>总是会把后面的<code>0</code>包含进来。</strong></p>
+<p>​ <strong>要让<code>\d+</code>尽量少匹配，让<code>0*</code>尽量多匹配，我们就必须让<code>\d+</code>使用非贪婪匹配。在规则<code>\d+</code>后面加个<code>?</code>即可表示非贪婪匹配。我们改写正则表达式如下：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Pattern pattern = Pattern.compile(<span class="string">&quot;(\\d+?)(0*)&quot;</span>);</span><br><span class="line">        Matcher matcher = pattern.matcher(<span class="string">&quot;1230000&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (matcher.matches()) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;group1=&quot;</span> + matcher.group(<span class="number">1</span>)); <span class="comment">// &quot;123&quot;</span></span><br><span class="line">            System.out.println(<span class="string">&quot;group2=&quot;</span> + matcher.group(<span class="number">2</span>)); <span class="comment">// &quot;0000&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ <strong>因此，给定一个匹配规则，加上<code>?</code>后就变成了非贪婪匹配。</strong></p>
+<p>​ <strong>我们再来看这个正则表达式<code>(\d??)(9*)</code>，注意<code>\d?</code>表示匹配0个或1个数字，后面第二个<code>?</code>表示非贪婪匹配，因此，给定字符串<code>"9999"</code>，匹配到的两个子串分别是<code>""</code>和<code>"9999"</code>，因为对于<code>\d?</code>来说，可以匹配1个<code>9</code>，也可以匹配0个<code>9</code>，但是因为后面的<code>?</code>表示非贪婪匹配，它就会尽可能少的匹配，结果是匹配了0个<code>9</code>。</strong></p>
+<h3 id="六搜索和替换">六、搜索和替换：</h3>
+<h4 id="分割字符串">1、分割字符串：</h4>
+<p>​ 使用正则表达式分割字符串可以实现更加灵活的功能。<code>String.split()</code>方法传入的正是正则表达式。我们来看下面的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;a b c&quot;.split(&quot;\\s&quot;); // &#123; &quot;a&quot;, &quot;b&quot;, &quot;c&quot; &#125;</span><br><span class="line">&quot;a b  c&quot;.split(&quot;\\s&quot;); // &#123; &quot;a&quot;, &quot;b&quot;, &quot;&quot;, &quot;c&quot; &#125;</span><br><span class="line">&quot;a, b ;; c&quot;.split(&quot;[\\,\\;\\s]+&quot;); // &#123; &quot;a&quot;, &quot;b&quot;, &quot;c&quot; &#125;</span><br></pre></td></tr></table></figure>
+<p>​ 如果我们想让用户输入一组标签，然后把标签提取出来，因为用户的输入往往是不规范的，这时，使用合适的正则表达式，就可以消除多个空格、混合<code>,</code>和<code>;</code>这些不规范的输入，直接提取出规范的字符串。</p>
+<h4 id="搜索字符串">2、搜索字符串：</h4>
+<p>​ 使用正则表达式还可以搜索字符串，我们来看例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;the quick brown fox jumps over the lazy dog.&quot;</span>;</span><br><span class="line">        Pattern p = Pattern.compile(<span class="string">&quot;\\wo\\w&quot;</span>);</span><br><span class="line">        Matcher m = p.matcher(s);</span><br><span class="line">        <span class="keyword">while</span> (m.find()) &#123;</span><br><span class="line">            String sub = s.substring(m.start(), m.end());</span><br><span class="line">            System.out.println(sub);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 我们获取到<code>Matcher</code>对象后，不需要调用<code>matches()</code>方法（因为匹配整个串肯定返回false），而是反复调用<code>find()</code>方法，在整个串中搜索能匹配上<code>\\wo\\w</code>规则的子串，并打印出来。<strong>这种方式比<code>String.indexOf()</code>要灵活得多，因为我们搜索的规则是3个字符：中间必须是<code>o</code>，前后两个必须是字符<code>[A-Za-z0-9_]</code>。</strong></p>
+<h4 id="替换字符串">3、替换字符串：</h4>
+<p>​ 使用正则表达式替换字符串可以直接调用<code>String.replaceAll()</code>，它的第一个参数是正则表达式，第二个参数是待替换的字符串。我们还是来看例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;The     quick\t\t brown   fox  jumps   over the  lazy dog.&quot;</span>;</span><br><span class="line">        String r = s.replaceAll(<span class="string">&quot;\\s+&quot;</span>, <span class="string">&quot; &quot;</span>);</span><br><span class="line">        System.out.println(r); <span class="comment">// &quot;The quick brown fox jumps over the lazy dog.&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>java系列笔记</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java系列笔记7——java泛型（更新中）</title>
+    <url>/2022/02/01/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B07%E2%80%94java%E6%B3%9B%E5%9E%8B/</url>
+    <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1264799402020448</p>
+<h3 id="一泛型定义简介">一、泛型定义简介</h3>
+<p>​ 泛型是一种“代码模板”，可以用一套代码套用各种类型。</p>
+<p>​ 我们可以把<code>ArrayList</code>变成一种模板：<code>ArrayList&lt;T&gt;</code>，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> T[] array;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(T e)</span> </span>&#123;...&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;...&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>T</code>可以是任何class。这样一来，我们就实现了：<strong>编写一次模版，可以创建任意类型的<code>ArrayList</code>：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建可以存储String的ArrayList:</span></span><br><span class="line">ArrayList&lt;String&gt; strList = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line"><span class="comment">// 创建可以存储Float的ArrayList:</span></span><br><span class="line">ArrayList&lt;Float&gt; floatList = <span class="keyword">new</span> ArrayList&lt;Float&gt;();</span><br><span class="line"><span class="comment">// 创建可以存储Person的ArrayList:</span></span><br><span class="line">ArrayList&lt;Person&gt; personList = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</span><br></pre></td></tr></table></figure>
+<p>​ 因此，<strong>泛型就是定义一种模板，例如<code>ArrayList&lt;T&gt;</code>，然后在代码中为用到的类创建对应的<code>ArrayList&lt;类型&gt;</code>：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ArrayList&lt;String&gt; strList = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：注意泛型的继承关系：可以把<code>ArrayList&lt;Integer&gt;</code>向上转型为<code>List&lt;Integer&gt;</code>（<code>T</code>不能变！），但不能把<code>ArrayList&lt;Integer&gt;</code>向上转型为<code>ArrayList&lt;Number&gt;</code>（<code>T</code>不能变成父类）。</p>
+<h3 id="二使用泛型">二、使用泛型</h3>
+<h4 id="简写泛型">1、简写泛型：</h4>
+<p>当我们定义泛型类型<code>&lt;Number&gt;</code>后，<code>List&lt;T&gt;</code>的泛型接口变为强类型<code>List&lt;Number&gt;</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Number&gt; list = <span class="keyword">new</span> ArrayList&lt;Number&gt;();</span><br><span class="line">list.add(<span class="keyword">new</span> Integer(<span class="number">123</span>));</span><br><span class="line">list.add(<span class="keyword">new</span> Double(<span class="number">12.34</span>));</span><br><span class="line">Number first = list.get(<span class="number">0</span>);</span><br><span class="line">Number second = list.get(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>编译器如果能自动推断出泛型类型，就可以省略后面的泛型类型</strong>。例如，对于下面的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Number&gt; list = <span class="keyword">new</span> ArrayList&lt;Number&gt;();</span><br></pre></td></tr></table></figure>
+<p>编译器看到泛型类型<code>List&lt;Number&gt;</code>就可以自动推断出后面的<code>ArrayList&lt;T&gt;</code>的泛型类型必须是<code>ArrayList&lt;Number&gt;</code>，因此，可以把代码简写为：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 可以省略后面的Number，编译器可以自动推断泛型类型：</span></span><br><span class="line">List&lt;Number&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<h4 id="使用泛型接口">2、使用泛型接口：</h4>
+<p>​ 除了<code>ArrayList&lt;T&gt;</code>使用了泛型，还可以在接口中使用泛型。例如， <code>Arrays.sort(Object[])</code>可以对任意数组进行排序，但待排序的元素必须实现<code>Comparable&lt;T&gt;</code>这个泛型接口：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public interface Comparable&lt;T&gt; &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 返回负数: 当前实例比参数o小</span><br><span class="line">     * 返回0: 当前实例与参数o相等</span><br><span class="line">     * 返回正数: 当前实例比参数o大</span><br><span class="line">     */</span><br><span class="line">    int compareTo(T o);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 如下示例所示：实现对我们的自定义类Person的元素排序：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Person[] ps = <span class="keyword">new</span> Person[] &#123;</span><br><span class="line">            <span class="keyword">new</span> Person(<span class="string">&quot;Bob&quot;</span>, <span class="number">61</span>),</span><br><span class="line">            <span class="keyword">new</span> Person(<span class="string">&quot;Alice&quot;</span>, <span class="number">88</span>),</span><br><span class="line">            <span class="keyword">new</span> Person(<span class="string">&quot;Lily&quot;</span>, <span class="number">75</span>),</span><br><span class="line">        &#125;;</span><br><span class="line">        Arrays.sort(ps);</span><br><span class="line">        System.out.println(Arrays.toString(ps));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Person</span>&gt; </span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="keyword">int</span> score;</span><br><span class="line">    Person(String name, <span class="keyword">int</span> score) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.score = score;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Person other)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name.compareTo(other.name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">&quot;,&quot;</span> + <span class="keyword">this</span>.score;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 运行上述代码，可以正确实现按name进行排序。</span></span><br></pre></td></tr></table></figure>
+<h3 id="三编写泛型">三、编写泛型</h3>
+<h4 id="一般方法">1、一般方法：</h4>
+<ul>
+<li><p>首先，按照某种类型，例如：<code>String</code>，来编写类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String first;</span><br><span class="line">    <span class="keyword">private</span> String last;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(String first, String last)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.first = first;</span><br><span class="line">        <span class="keyword">this</span>.last = last;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> first;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getLast</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> last;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>然后，标记所有的特定类型，这里是<code>String</code>,并替换为T，并申明<code>&lt;T&gt;</code>：</p></li>
+<li><p>``` public class Pair<T> { private T first; private T last; public Pair(T first, T last) { this.first = first; this.last = last; } public T getFirst() { return first; } public T getLast() { return last; } } <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- 熟练后即可直接从`T`开始编写。</span><br><span class="line"></span><br><span class="line">#### 2、静态方法：</span><br><span class="line"></span><br><span class="line">​	泛型类型`&lt;T&gt;`不能用于静态方法。</span><br><span class="line"></span><br><span class="line">​	对于静态方法，我们可以单独改写为“泛型”方法，只需要使用另一个类型即可。对于上面的`create()`静态方法，我们应该把它改为另一种泛型类型，例如，`&lt;K&gt;`：</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">public class Pair&lt;T&gt; &#123;</span><br><span class="line">    private T first;</span><br><span class="line">    private T last;</span><br><span class="line">    public Pair(T first, T last) &#123;</span><br><span class="line">        this.first = first;</span><br><span class="line">        this.last = last;</span><br><span class="line">    &#125;</span><br><span class="line">    public T getFirst() &#123; ... &#125;</span><br><span class="line">    public T getLast() &#123; ... &#125;</span><br><span class="line"></span><br><span class="line">    // 静态泛型方法应该使用其他类型区分:</span><br><span class="line">    public static &lt;K&gt; Pair&lt;K&gt; create(K first, K last) &#123;</span><br><span class="line">        return new Pair&lt;K&gt;(first, last);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></li>
+</ul>
+<p>这样才能清楚地将静态方法的泛型类型和实例类型的泛型类型区分开。</p>
+<h4 id="多个泛型的类型">3、多个泛型的类型：</h4>
+<p>​ 泛型还可以定义多种类型。例如，我们希望<code>Pair</code>不总是存储两个类型一样的对象，就可以使用类型<code>&lt;T, K&gt;</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>, <span class="title">K</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> T first;</span><br><span class="line">    <span class="keyword">private</span> K last;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T first, K last)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.first = first;</span><br><span class="line">        <span class="keyword">this</span>.last = last;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span> </span>&#123; ... &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> K <span class="title">getLast</span><span class="params">()</span> </span>&#123; ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用的时候，需要指出两种类型：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Pair&lt;String, Integer&gt; p = <span class="keyword">new</span> Pair&lt;&gt;(<span class="string">&quot;test&quot;</span>, <span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+<p>​ <strong>Java标准库的<code>Map&lt;K, V&gt;</code>就是使用两种泛型类型的例子。它对Key使用一种类型，对Value使用另一种类型。</strong></p>
+<h3 id="四擦拭法java语言的泛型实现方法">四、擦拭法（java语言的泛型实现方法）：</h3>
+<h4 id="擦拭法的基本含义">1、擦拭法的基本含义</h4>
+<p>​ 擦拭法是指，<strong>虚拟机对泛型其实一无所知，所有的工作都是编译器做的。</strong></p>
+<p>​ 例如，我们编写了一个泛型类<code>Pair&lt;T&gt;</code>，这是编译器看到的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> T first;</span><br><span class="line">    <span class="keyword">private</span> T last;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T first, T last)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.first = first;</span><br><span class="line">        <span class="keyword">this</span>.last = last;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而虚拟机根本不知道泛型。这是虚拟机执行的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object first;</span><br><span class="line">    <span class="keyword">private</span> Object last;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(Object first, Object last)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.first = first;</span><br><span class="line">        <span class="keyword">this</span>.last = last;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因此，java使用擦拭法实现泛型，导致了：</p>
+<ul>
+<li><strong>编译器把类型<code>&lt;T&gt;</code>视为<code>Object</code>；</strong></li>
+<li><strong>编译器根据<code>&lt;T&gt;</code>实现安全的强制转型。</strong></li>
+</ul>
+<p>使用泛型的时候，我们编写的代码也是编译器看到的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Pair&lt;String&gt; p = <span class="keyword">new</span> Pair&lt;&gt;(<span class="string">&quot;Hello&quot;</span>, <span class="string">&quot;world&quot;</span>);</span><br><span class="line">String first = p.getFirst();</span><br><span class="line">String last = p.getLast();</span><br></pre></td></tr></table></figure>
+<p>而虚拟机执行的代码并没有泛型：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Pair p = <span class="keyword">new</span> Pair(<span class="string">&quot;Hello&quot;</span>, <span class="string">&quot;world&quot;</span>);</span><br><span class="line">String first = (String) p.getFirst();</span><br><span class="line">String last = (String) p.getLast();</span><br></pre></td></tr></table></figure>
+<p><strong>Java的泛型是由编译器在编译时实行的，编译器内部永远把所有类型<code>T</code>视为<code>Object</code>处理，但是，在需要转型的时候，编译器会根据<code>T</code>的类型自动为我们实行安全地强制转型。</strong></p>
+<h4 id="java泛型的局限">2、java泛型的局限：</h4>
+<ul>
+<li><p>1） <code>&lt;T&gt;</code>不能是基本类型，例如<code>int</code>，因为实际类型是<code>Object</code>，<code>Object</code>类型无法持有基本类型：</p></li>
+<li><p>2） 所有泛型实例，无论<code>T</code>的类型是什么，<code>getClass()</code>返回同一个<code>Class</code>实例，因为编译后它们全部都是<code>Pair&lt;Object&gt;</code>。示例如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Pair&lt;String&gt; p1 = <span class="keyword">new</span> Pair&lt;&gt;(<span class="string">&quot;Hello&quot;</span>, <span class="string">&quot;world&quot;</span>);</span><br><span class="line">Pair&lt;Integer&gt; p2 = <span class="keyword">new</span> Pair&lt;&gt;(<span class="number">123</span>, <span class="number">456</span>);</span><br><span class="line">Class c1 = p1.getClass();</span><br><span class="line">Class c2 = p2.getClass();</span><br><span class="line">System.out.println(c1==c2); <span class="comment">// true</span></span><br><span class="line">System.out.println(c1==Pair.class); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li>
+<li><p>3）无法判断带泛型的类型，原因和前面一样，并不存在<code>Pair&lt;String&gt;.class</code>，而是只有唯一的<code>Pair.class</code>。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Pair&lt;Integer&gt; p = <span class="keyword">new</span> Pair&lt;&gt;(<span class="number">123</span>, <span class="number">456</span>);</span><br><span class="line"><span class="comment">// Compile error:</span></span><br><span class="line"><span class="keyword">if</span> (p <span class="keyword">instanceof</span> Pair&lt;String&gt;) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>4）不能实例化<code>T</code>类型</p></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> T first;</span><br><span class="line">    <span class="keyword">private</span> T last;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Compile error:</span></span><br><span class="line">        first = <span class="keyword">new</span> T();</span><br><span class="line">        last = <span class="keyword">new</span> T();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码无法通过编译，因为构造方法的两行语句：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">first = <span class="keyword">new</span> T();</span><br><span class="line">last = <span class="keyword">new</span> T();</span><br></pre></td></tr></table></figure>
+<p>擦拭后实际上变成了：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">first = <span class="keyword">new</span> Object();</span><br><span class="line">last = <span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure>
+<p>这样一来，创建<code>new Pair&lt;String&gt;()</code>和创建<code>new Pair&lt;Integer&gt;()</code>就全部成了<code>Object</code>，显然编译器要阻止这种类型不对的代码。</p>
+<p>要实例化<code>T</code>类型，我们必须借助额外的<code>Class&lt;T&gt;</code>参数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> T first;</span><br><span class="line">    <span class="keyword">private</span> T last;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(Class&lt;T&gt; clazz)</span> </span>&#123;</span><br><span class="line">        first = clazz.newInstance();</span><br><span class="line">        last = clazz.newInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码借助<code>Class&lt;T&gt;</code>参数并通过反射来实例化<code>T</code>类型，使用的时候，也必须传入<code>Class&lt;T&gt;</code>。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Pair&lt;String&gt; pair = <span class="keyword">new</span> Pair&lt;&gt;(String.class);</span><br></pre></td></tr></table></figure>
+<p>因为传入了<code>Class&lt;String&gt;</code>的实例，所以我们借助<code>String.class</code>就可以实例化<code>String</code>类型。</p>
+<h4 id="不恰当的覆写方法">3、不恰当的覆写方法</h4>
+<p>有些时候，一个看似正确定义的方法会无法通过编译。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span> == t;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是因为，定义的<code>equals(T t)</code>方法实际上会被擦拭成<code>equals(Object t)</code>，而这个方法是继承自<code>Object</code>的，编译器会阻止一个实际上会变成覆写的泛型方法定义。</p>
+<p>换个方法名，避开与<code>Object.equals(Object)</code>的冲突就可以成功编译：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">same</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span> == t;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="泛型继承待补充">4、泛型继承（待补充</h4>
+<h3 id="五extends通配符">五、Extends通配符</h3>
+<h3 id="六super通配符">六、Super通配符</h3>
+<h3 id="七泛型和反射">七、泛型和反射</h3>
+]]></content>
+      <categories>
+        <category>java系列笔记</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java系列笔记8——java IO模块（更新中）</title>
+    <url>/2022/02/01/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B09%E2%80%94java%E6%97%A5%E6%9C%9F%E4%B8%8E%E6%97%B6%E9%97%B4/</url>
+    <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1298613246361634</p>
+<h3 id="一基本概念">一、基本概念：</h3>
+<h4 id="本地时间">1、本地时间</h4>
+<p>​ 不同的时区，在同一时刻，本地时间是不同的。全球一共分为24个时区，<strong>伦敦所在的时区称为标准时区，其他时区按东／西偏移的小时区分，北京所在的时区是东八区。</strong></p>
+<h4 id="时区">2、时区</h4>
+<p>​ 因为光靠本地时间还无法唯一确定一个准确的时刻，所以我们还需要给本地时间加上一个时区。时区有好几种表示方式。</p>
+<p>​ 一种是以<code>GMT</code>或者<code>UTC</code>加时区偏移表示，例如：<code>GMT+08:00</code>或者<code>UTC+08:00</code>表示东八区。</p>
+<p>​ <code>GMT</code>和<code>UTC</code>可以认为基本是等价的，只是<code>UTC</code>使用更精确的原子钟计时，每隔几年会有一个闰秒，我们在开发程序的时候可以忽略两者的误差，因为计算机的时钟在联网的时候会自动与时间服务器同步时间。</p>
+<p>​ 另一种是缩写，例如，<code>CST</code>表示<code>China Standard Time</code>，也就是中国标准时间。但是<code>CST</code>也可以表示美国中部时间<code>Central Standard Time USA</code>，因此，缩写容易产生混淆，我们尽量不要使用缩写。</p>
+<p>​ 最后一种是以洲／城市表示，例如，<code>Asia/Shanghai</code>，表示上海所在地的时区。特别注意城市名称不是任意的城市，而是由国际标准组织规定的城市。</p>
+<p>​ 因为时区的存在，东八区的2019年11月20日早上8:15，和西五区的2019年11月19日晚上19:15，他们的时刻是相同的</p>
+<h4 id="夏令时">3、夏令时</h4>
+<p>​ 时区还不是最复杂的，更复杂的是夏令时。所谓夏令时，就是夏天开始的时候，把时间往后拨1小时，夏天结束的时候，再把时间往前拨1小时。</p>
+<p>​ 因为涉及到夏令时，相同的时区，如果表示的方式不同，转换出的时间是不同的。我们举个栗子：</p>
+<p>对于2019-11-20和2019-6-20两个日期来说，假设北京人在纽约：</p>
+<ul>
+<li>如果以<code>GMT</code>或者<code>UTC</code>作为时区，无论日期是多少，时间都是<code>19:00</code>；</li>
+<li>如果以国家／城市表示，例如<code>America／NewYork</code>，虽然纽约也在西五区，但是，因为夏令时的存在，在不同的日期，<code>GMT</code>时间和纽约时间可能是不一样的：</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>时区</th>
+<th>2019-11-20</th>
+<th>2019-6-20</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GMT-05:00</td>
+<td>19:00</td>
+<td>19:00</td>
+</tr>
+<tr class="even">
+<td>UTC-05:00</td>
+<td>19:00</td>
+<td>19:00</td>
+</tr>
+<tr class="odd">
+<td>America/New_York</td>
+<td>19:00</td>
+<td>20:00</td>
+</tr>
+</tbody>
+</table>
+<p>​ 实行夏令时的不同地区，进入和退出夏令时的时间很可能是不同的。同一个地区，根据历史上是否实行过夏令时，标准时间在不同年份换算成当地时间也是不同的。因此，计算夏令时，没有统一的公式，必须按照一组给定的规则来算，并且，该规则要定期更新。</p>
+<h4 id="本地化">4、本地化</h4>
+<p>​ 在计算机中，通常使用<code>Locale</code>表示一个国家或地区的日期、时间、数字、货币等格式。<code>Locale</code>由<code>语言_国家</code>的字母缩写构成，例如，<code>zh_CN</code>表示中文+中国，<code>en_US</code>表示英文+美国。语言使用小写，国家使用大写。</p>
+<p>对于日期来说，不同的Locale，例如，中国和美国的表示方式如下：</p>
+<ul>
+<li>zh_CN：2016-11-30</li>
+<li>en_US：11/30/2016</li>
+</ul>
+<p>​ 计算机用<code>Locale</code>在日期、时间、货币和字符串之间进行转换。一个电商网站会根据用户所在的<code>Locale</code>对用户显示如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>中国用户</th>
+<th>美国用户</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>购买价格</td>
+<td>12000.00</td>
+<td>12,000.00</td>
+</tr>
+<tr class="even">
+<td>购买日期</td>
+<td>2016-11-30</td>
+<td>11/30/2016</td>
+</tr>
+</tbody>
+</table>
+<h3 id="二date和calendar">二、Date和Calendar</h3>
+<p>​ 这个“同一个时刻”在计算机中存储的本质上只是一个整数，我们称它为<code>Epoch Time</code></p>
+<p>​ <code>Epoch Time</code>是计算从1970年1月1日零点（格林威治时区／GMT+00:00）到现在所经历的秒数，例如：</p>
+<p>​ <code>1574208900</code>表示从从1970年1月1日零点GMT时区到该时刻一共经历了1574208900秒，换算成伦敦、北京和纽约时间分别是：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1574208900 = 北京时间2019-11-20 8:15:00</span><br><span class="line">           = 伦敦时间2019-11-20 0:15:00</span><br><span class="line">           = 纽约时间2019-11-19 19:15:00</span><br></pre></td></tr></table></figure>
+<p><code>Epoch Time</code>又称为时间戳，在不同的编程语言中，会有几种存储方式：</p>
+<ul>
+<li>以秒为单位的整数：1574208900，缺点是精度只能到秒；</li>
+<li>以毫秒为单位的整数：1574208900123，最后3位表示毫秒数；</li>
+<li>以秒为单位的浮点数：1574208900.123，小数点后面表示零点几秒。</li>
+</ul>
+<p><strong>在Java程序中，时间戳通常是用<code>long</code>表示的毫秒数，即：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">long t = 1574208900123L;</span><br></pre></td></tr></table></figure>
+<p><strong>转换成北京时间就是<code>2019-11-20T8:15:00.123</code>。要获取当前时间戳，可以使用<code>System.currentTimeMillis()</code>，这是Java程序获取时间戳最常用的方法。</strong></p>
+]]></content>
+      <categories>
+        <category>java系列笔记</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java系列笔记8——java IO模块（更新中）</title>
+    <url>/2022/02/01/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B08%E2%80%94java%20IO%E6%A8%A1%E5%9D%97/</url>
+    <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1255945227202752</p>
+<h3 id="一简介">一、简介：</h3>
+<p>​ 在Java中，<code>InputStream</code>代表输入字节流，<code>OuputStream</code>代表输出字节流，这是最基本的两种IO流。</p>
+<p>​ 如果我们需要读写的是字符，并且字符不全是单字节表示的ASCII字符，那么，按照<code>char</code>来读写显然更方便，这种流称为<em>字符流</em>。</p>
+<p>​ Java提供了<code>Reader</code>和<code>Writer</code>表示字符流，字符流传输的最小数据单位是<code>char</code>。</p>
+<p>​ <code>Reader</code>和<code>Writer</code><strong>本质上是一个能自动编解码的<code>InputStream</code>和<code>OutputStream</code></strong>。</p>
+<p>​ <strong>使用<code>Reader</code>，数据源虽然是字节，但我们读入的数据都是<code>char</code>类型的字符，原因是<code>Reader</code>内部把读入的<code>byte</code>做了解码，转换成了<code>char</code>。</strong></p>
+<p>​ <strong>使用<code>InputStream</code>，我们读入的数据和原始二进制数据一模一样，是<code>byte[]</code>数组</strong>，但是我们可以自己把二进制<code>byte[]</code>数组按照某种编码转换为字符串。</p>
+<h3 id="二file对象">二、File对象：</h3>
+<h4 id="构造file对象">1、构造File对象</h4>
+<p>​ Java的标准库<code>java.io</code>提供了<code>File</code>对象来操作文件和目录。</p>
+<p>​ 要构造一个<code>File</code>对象，需要传入文件路径：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(<span class="string">&quot;C:\\Windows\\notepad.exe&quot;</span>);</span><br><span class="line">        System.out.println(f);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="file对象有3种形式表示的路径">2、File对象有3种形式表示的路径</h4>
+<ul>
+<li><code>getPath()</code>，返回构造方法传入的路径</li>
+<li><code>getAbsolutePath()</code>，返回绝对路径</li>
+<li><code>getCanonicalPath</code>，它和绝对路径类似，但是返回的是规范路径。</li>
+</ul>
+<p><strong>什么是规范路径？</strong></p>
+<p>​ 绝对路径可以表示成<code>C:\Windows\System32\..\notepad.exe</code>，而<strong>规范路径就是把<code>.</code>和<code>..</code>转换成标准的绝对路径后的路径</strong>：<code>C:\Windows\notepad.exe</code>。</p>
+<h4 id="文件和目录">3、文件和目录：</h4>
+<p>​ <code>File</code>对象既可以表示文件，也可以表示目录。特别要注意的是，<strong>构造一个<code>File</code>对象，即使传入的文件或目录不存在，代码也不会出错</strong>，因为构造一个<code>File</code>对象，并不会导致任何磁盘操作。<strong>只有当我们调用<code>File</code>对象的某些方法的时候，才真正进行磁盘操作</strong>。</p>
+<ul>
+<li><code>isFile()</code>，判断该<code>File</code>对象是否是一个已存在的文件</li>
+<li><code>isDirectory()</code>，判断该<code>File</code>对象是否是一个已存在的目录：</li>
+</ul>
+<p><strong>用<code>File</code>对象获取到一个文件时，还可以进一步判断文件的权限和大小：</strong></p>
+<ul>
+<li><code>boolean canRead()</code>：是否可读；</li>
+<li><code>boolean canWrite()</code>：是否可写；</li>
+<li><code>boolean canExecute()</code>：是否可执行；</li>
+<li><code>long length()</code>：文件字节大小。</li>
+</ul>
+<p>对目录而言，是否可执行表示能否列出它包含的文件和子目录。</p>
+<h4 id="创建和删除文件">4、创建和删除文件：</h4>
+<p>​ 当File对象表示一个文件时，可以通过<code>createNewFile()</code>创建一个新文件，用<code>delete()</code>删除该文件：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">File file = <span class="keyword">new</span> File(<span class="string">&quot;/path/to/file&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (file.createNewFile()) &#123;</span><br><span class="line">    <span class="comment">// 文件创建成功:</span></span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span></span></span><br><span class="line">    <span class="keyword">if</span> (file.delete()) &#123;</span><br><span class="line">        <span class="comment">// 删除文件成功:</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 有些时候，程序需要读写一些临时文件，<strong>File对象提供了<code>createTempFile()</code>来创建一个临时文件</strong>，以及<code>deleteOnExit()</code>在JVM退出时自动删除该文件。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        File f = File.createTempFile(<span class="string">&quot;tmp-&quot;</span>, <span class="string">&quot;.txt&quot;</span>); <span class="comment">// 提供临时文件的前缀和后缀</span></span><br><span class="line">        f.deleteOnExit(); <span class="comment">// JVM退出时自动删除</span></span><br><span class="line">        System.out.println(f.isFile());</span><br><span class="line">        System.out.println(f.getAbsolutePath());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="遍历文件和目录">5、遍历文件和目录：</h4>
+<p>​ 当File对象表示一个目录时，可以使用<code>list()</code>和<code>listFiles()</code>列出目录下的文件和子目录名。<code>listFiles()</code>提供了一系列重载方法，可以过滤不想要的文件和目录：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(<span class="string">&quot;C:\\Windows&quot;</span>);</span><br><span class="line">        File[] fs1 = f.listFiles(); <span class="comment">// 列出所有文件和子目录</span></span><br><span class="line">        printFiles(fs1);</span><br><span class="line">        File[] fs2 = f.listFiles(<span class="keyword">new</span> FilenameFilter() &#123; <span class="comment">// 仅列出.exe文件</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File dir, String name)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> name.endsWith(<span class="string">&quot;.exe&quot;</span>); <span class="comment">// 返回true表示接受该文件</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        printFiles(fs2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printFiles</span><span class="params">(File[] files)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;==========&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (files != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (File f : files) &#123;</span><br><span class="line">                System.out.println(f);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;==========&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>和文件操作类似，File对象如果表示一个目录，可以通过以下方法创建和删除目录：</p>
+<ul>
+<li><code>boolean mkdir()</code>：创建当前File对象表示的目录；</li>
+<li><code>boolean mkdirs()</code>：创建当前File对象表示的目录，并在必要时将不存在的父目录也创建出来；</li>
+<li><code>boolean delete()</code>：删除当前File对象表示的目录，当前目录必须为空才能删除成功。</li>
+</ul>
+<h4 id="path对象">6、path对象：</h4>
+<p>​ Java标准库还提供了一个<code>Path</code>对象，它位于<code>java.nio.file</code>包。<code>Path</code>对象和<code>File</code>对象类似，但操作更加简单：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Path p1 = Paths.get(<span class="string">&quot;.&quot;</span>, <span class="string">&quot;project&quot;</span>, <span class="string">&quot;study&quot;</span>); <span class="comment">// 构造一个Path对象</span></span><br><span class="line">        System.out.println(p1);</span><br><span class="line">        Path p2 = p1.toAbsolutePath(); <span class="comment">// 转换为绝对路径</span></span><br><span class="line">        System.out.println(p2);</span><br><span class="line">        Path p3 = p2.normalize(); <span class="comment">// 转换为规范路径</span></span><br><span class="line">        System.out.println(p3);</span><br><span class="line">        File f = p3.toFile(); <span class="comment">// 转换为File对象</span></span><br><span class="line">        System.out.println(f);</span><br><span class="line">        <span class="keyword">for</span> (Path p : Paths.get(<span class="string">&quot;..&quot;</span>).toAbsolutePath()) &#123; <span class="comment">// 可以直接遍历Path</span></span><br><span class="line">            System.out.println(<span class="string">&quot;  &quot;</span> + p);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三inputstream-和-outputstream">三、InputStream 和 OutputStream</h3>
+<h4 id="inputstream">1、InputStream</h4>
+<p>​ <code>InputStream</code>就是Java标准库提供的最基本的输入流。它位于<code>java.io</code>这个包里。<code>java.io</code>包提供了所有同步IO的功能。</p>
+<p>​ <code>InputStream</code>并不是一个接口，而是一个抽象类，它是所有输入流的超类。这个抽象类定义的一个最重要的方法就是<code>int read()</code>，签名如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract int read() throws IOException;</span><br></pre></td></tr></table></figure>
+<p>​ 这个方法会读取输入流的下一个字节，并返回字节表示的<code>int</code>值（0~255）。如果已读到末尾，返回<code>-1</code>表示不能继续读取了。</p>
+<h4 id="fileinputstream">2、FileInputStream</h4>
+<p>​ <code>FileInputStream</code>是<code>InputStream</code>的一个子类。顾名思义，<code>FileInputStream</code>就是从文件流中读取数据。下面的代码演示了如何完整地读取一个<code>FileInputStream</code>的所有字节</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个FileInputStream对象:</span></span><br><span class="line">    InputStream input = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;src/readme.txt&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">int</span> n = input.read(); <span class="comment">// 反复调用read()方法，直到返回-1</span></span><br><span class="line">        <span class="keyword">if</span> (n == -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(n); <span class="comment">// 打印byte的值</span></span><br><span class="line">    &#125;</span><br><span class="line">    input.close(); <span class="comment">// 关闭流, InputStream和OutputStream都是通过close()方法来关闭流。关闭流就会释放对应的底层资源。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 我们还要注意到在读取或写入IO流的过程中，可能会发生错误，例如，文件不存在导致无法读取，没有写权限导致写入失败，等等，这些底层错误由Java虚拟机自动封装成<code>IOException</code>异常并抛出。因此，所有与IO操作相关的代码都必须正确处理<code>IOException</code>。</p>
+<p>​ <strong>我们可以利用Java 7引入的新的<code>try(resource)</code>的语法</strong>，只需要编写<code>try</code>语句，让编译器自动为我们关闭资源。推荐的写法如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (InputStream input = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;src/readme.txt&quot;</span>)) &#123;</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        <span class="keyword">while</span> ((n = input.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">            System.out.println(n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="comment">// 编译器在此自动为我们写入finally并调用close()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 实际上，编译器并不会特别地为<code>InputStream</code>加上自动关闭。<strong>编译器只看<code>try(resource = ...)</code>中的对象是否实现了<code>java.lang.AutoCloseable</code>接口</strong>，如果实现了，就自动加上<code>finally</code>语句并调用<code>close()</code>方法。<code>InputStream</code>和<code>OutputStream</code>都实现了这个接口，因此，都可以用在<code>try(resource)</code>中。</p>
+<h4 id="缓冲区读取数据">3、缓冲区读取数据</h4>
+<p>​ 在读取流的时候，一次读取一个字节并不是最高效的方法。很多流支持一次性读取多个字节到缓冲区，对于文件和网络流来说，利用缓冲区一次性读取多个字节效率往往要高很多。<code>InputStream</code>提供了两个重载方法来支持读取多个字节：</p>
+<ul>
+<li><code>int read(byte[] b)</code>：读取若干字节并填充到<code>byte[]</code>数组，返回读取的字节数</li>
+<li><code>int read(byte[] b, int off, int len)</code>：指定<code>byte[]</code>数组的偏移量和最大填充数</li>
+</ul>
+<p>​ 利用上述方法一次读取多个字节时，需要先定义一个<code>byte[]</code>数组作为缓冲区，<code>read()</code>方法会尽可能多地读取字节到缓冲区， 但不会超过缓冲区的大小。<code>read()</code>方法的返回值不再是字节的<code>int</code>值，而是返回实际读取了多少个字节。如果返回<code>-1</code>，表示没有更多的数据了。</p>
+<p>利用缓冲区一次读取多个字节的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (InputStream input = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;src/readme.txt&quot;</span>)) &#123;</span><br><span class="line">        <span class="comment">// 定义1000个字节大小的缓冲区:</span></span><br><span class="line">        <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1000</span>];</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        <span class="keyword">while</span> ((n = input.read(buffer)) != -<span class="number">1</span>) &#123; <span class="comment">// 读取到缓冲区</span></span><br><span class="line">            System.out.println(<span class="string">&quot;read &quot;</span> + n + <span class="string">&quot; bytes.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="阻塞">4、阻塞</h4>
+<p>​ 在调用<code>InputStream</code>的<code>read()</code>方法读取数据时，我们说<code>read()</code>方法是阻塞（Blocking）的。它的意思是，对于下面的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> n;</span><br><span class="line">n = input.read(); <span class="comment">// 必须等待read()方法返回才能执行下一行代码</span></span><br><span class="line"><span class="keyword">int</span> m = n;</span><br></pre></td></tr></table></figure>
+<p>​ 执行到第二行代码时，必须等<code>read()</code>方法返回后才能继续。因为读取IO流相比执行普通代码，速度会慢很多，因此，无法确定<code>read()</code>方法调用到底要花费多长时间。</p>
+<h3 id="四outputstream">四、OutputStream</h3>
+<h4 id="介绍">1、介绍</h4>
+<p>​ 和<code>InputStream</code>类似，<code>OutputStream</code>也是抽象类，它是所有输出流的超类。这个抽象类定义的一个最重要的方法就是<code>void write(int b)</code>，签名如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> b)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
+<p>​ 这个方法会<strong>写入一个字节到输出流</strong>。要注意的是，虽然传入的是<code>int</code>参数，但只会写入一个字节，即只写入<code>int</code>最低8位表示字节的部分（相当于<code>b &amp; 0xff</code>）。</p>
+<h4 id="flush方法">2、Flush方法</h4>
+<p>​ 要特别注意：<code>OutputStream</code>还提供了一个<code>flush()</code>方法，它的目的是将缓冲区的内容真正输出到目的地。</p>
+<p>​ 为什么要有<code>flush()</code>？因为向磁盘、网络写入数据的时候，出于效率的考虑，操作系统并不是输出一个字节就立刻写入到文件或者发送到网络，而是把输出的字节先放到内存的一个缓冲区里（本质上就是一个<code>byte[]</code>数组），等到缓冲区写满了，再一次性写入文件或者网络。对于很多IO设备来说，一次写一个字节和一次写1000个字节，花费的时间几乎是完全一样的，所以<code>OutputStream</code>有个<code>flush()</code>方法，能强制把缓冲区内容输出。</p>
+<p>​ 通常情况下，我们不需要调用这个<code>flush()</code>方法，因为缓冲区写满了<code>OutputStream</code>会自动调用它，并且，在调用<code>close()</code>方法关闭<code>OutputStream</code>之前，也会自动调用<code>flush()</code>方法。</p>
+<p>​ <strong>但是，在某些情况下，我们必须手动调用<code>flush()</code>方法。举个栗子：</strong></p>
+<p>​ 小明正在开发一款在线聊天软件，当用户输入一句话后，就通过<code>OutputStream</code>的<code>write()</code>方法写入网络流。小明测试的时候发现，发送方输入后，接收方根本收不到任何信息，怎么肥四？</p>
+<p>​ 原因就在于写入网络流是先写入内存缓冲区，等缓冲区满了才会一次性发送到网络。如果缓冲区大小是4K，则发送方要敲几千个字符后，操作系统才会把缓冲区的内容发送出去，这个时候，接收方会一次性收到大量消息。</p>
+<p>​ 解决办法就是每输入一句话后，立刻调用<code>flush()</code>，不管当前缓冲区是否已满，强迫操作系统把缓冲区的内容立刻发送出去。</p>
+<h4 id="将若干个字节写入文件流-示例">3、将若干个字节写入文件流 示例：</h4>
+<p>​ 我们以<code>FileOutputStream</code>为例，演示如何将若干个字节写入文件流：</p>
+<p>​ 每次写入一个字节非常麻烦，更常见的方法是一次性写入若干字节。这时，可以用<code>OutputStream</code>提供的重载方法<code>void write(byte[])</code>来实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    OutputStream output = <span class="keyword">new</span> FileOutputStream(<span class="string">&quot;out/readme.txt&quot;</span>);</span><br><span class="line">    output.write(<span class="string">&quot;Hello&quot;</span>.getBytes(<span class="string">&quot;UTF-8&quot;</span>)); <span class="comment">// Hello</span></span><br><span class="line">    output.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 和<code>InputStream</code>一样，上述代码没有考虑到在发生异常的情况下如何正确地关闭资源。写入过程也会经常发生IO错误，例如，磁盘已满，无权限写入等等。我们需要用<code>try(resource)</code>来保证<code>OutputStream</code>在无论是否发生IO错误的时候都能够正确地关闭：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (OutputStream output = <span class="keyword">new</span> FileOutputStream(<span class="string">&quot;out/readme.txt&quot;</span>)) &#123;</span><br><span class="line">        output.write(<span class="string">&quot;Hello&quot;</span>.getBytes(<span class="string">&quot;UTF-8&quot;</span>)); <span class="comment">// Hello</span></span><br><span class="line">    &#125; <span class="comment">// 编译器在此自动为我们写入finally并调用close()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="四阻塞">四、阻塞</h4>
+<p>和<code>InputStream</code>一样，<code>OutputStream</code>的<code>write()</code>方法也是阻塞的。</p>
+<h3 id="五filter模式">五、Filter模式</h3>
+<h3 id="六操作zip">六、操作Zip</h3>
+<p><code>ZipInputStream</code>是一种<code>FilterInputStream</code>，它可以直接读取zip包的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌───────────────────┐</span><br><span class="line">│    InputStream    │</span><br><span class="line">└───────────────────┘</span><br><span class="line">          ▲</span><br><span class="line">          │</span><br><span class="line">┌───────────────────┐</span><br><span class="line">│ FilterInputStream │</span><br><span class="line">└───────────────────┘</span><br><span class="line">          ▲</span><br><span class="line">          │</span><br><span class="line">┌───────────────────┐</span><br><span class="line">│InflaterInputStream│</span><br><span class="line">└───────────────────┘</span><br><span class="line">          ▲</span><br><span class="line">          │</span><br><span class="line">┌───────────────────┐</span><br><span class="line">│  ZipInputStream   │</span><br><span class="line">└───────────────────┘</span><br><span class="line">          ▲</span><br><span class="line">          │</span><br><span class="line">┌───────────────────┐</span><br><span class="line">│  JarInputStream   │</span><br><span class="line">└───────────────────┘</span><br></pre></td></tr></table></figure>
+<h4 id="读取zip包">1、读取Zip包：</h4>
+<p>​ 我们要创建一个<code>ZipInputStream</code>，通常是传入一个<code>FileInputStream</code>作为数据源，然后，循环调用<code>getNextEntry()</code>，直到返回<code>null</code>，表示zip流结束。</p>
+<p>​ 一个<code>ZipEntry</code>表示一个压缩文件或目录，如果是压缩文件，我们就用<code>read()</code>方法不断读取，直到返回<code>-1</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> (ZipInputStream zip = <span class="keyword">new</span> ZipInputStream(<span class="keyword">new</span> FileInputStream(...))) &#123;</span><br><span class="line">    ZipEntry entry = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">while</span> ((entry = zip.getNextEntry()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">        String name = entry.getName();</span><br><span class="line">        <span class="keyword">if</span> (!entry.isDirectory()) &#123;</span><br><span class="line">            <span class="keyword">int</span> n;</span><br><span class="line">            <span class="keyword">while</span> ((n = zip.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">                ...</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="写入zip包">2、写入Zip包：</h4>
+<p><code>ZipOutputStream</code>是一种<code>FilterOutputStream</code>，它可以直接写入内容到zip包。我们要先创建一个<code>ZipOutputStream</code>，通常是包装一个<code>FileOutputStream</code>，然后，每写入一个文件前，先调用<code>putNextEntry()</code>，然后用<code>write()</code>写入<code>byte[]</code>数据，写入完毕后调用<code>closeEntry()</code>结束这个文件的打包。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> (ZipOutputStream zip = <span class="keyword">new</span> ZipOutputStream(<span class="keyword">new</span> FileOutputStream(...))) &#123;</span><br><span class="line">    File[] files = ...</span><br><span class="line">    <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">        zip.putNextEntry(<span class="keyword">new</span> ZipEntry(file.getName()));</span><br><span class="line">        zip.write(getFileDataAsBytes(file));</span><br><span class="line">        zip.closeEntry();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码没有考虑文件的目录结构。如果要实现目录层次结构，<code>new ZipEntry(name)</code>传入的<code>name</code>要用相对路径。</p>
+<h3 id="七读取classpath资源">七、读取classpath资源：</h3>
+<h3 id="八序列化">八、序列化</h3>
+<h3 id="九reader">九、Reader</h3>
+<h3 id="十writer">十、Writer</h3>
+<h3 id="十一printstream和printwriter">十一、PrintStream和PrintWriter</h3>
+<h3 id="十二使用files">十二、使用Files</h3>
+]]></content>
+      <categories>
+        <category>java系列笔记</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java系列笔记6——java注解</title>
     <url>/2022/01/31/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B06%E2%80%94java%E6%B3%A8%E8%A7%A3/</url>
     <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1264799402020448</p>
+<h3 id="一注解是什么">一、注解是什么？</h3>
+<p>​ 注解是放在Java源码的类、方法、字段、参数前的一种特殊“注释”：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// this is a component:</span></span><br><span class="line"><span class="meta">@Resource(&quot;hello&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Inject</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(<span class="meta">@Param</span> String name)</span> </span>&#123;</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ <strong>注释会被编译器直接忽略，注解则可以被编译器打包进入class文件</strong>，因此，注解是一种用作标注的“元数据”。</p>
+<h3 id="二注解的作用">二、注解的作用：</h3>
+<p>​ 从JVM的角度看，注解本身对代码逻辑没有任何影响，如何使用注解完全由工具决定。</p>
+<p>​ Java的注解可以分为三类：</p>
+<ul>
+<li>1、<strong>由编译器使用的注解:</strong>( 这类注解不会被编译进入<code>.class</code>文件，它们在编译后就被编译器扔掉了 )
+<ul>
+<li><code>@Override</code>：让编译器检查该方法是否正确地实现了覆写；</li>
+<li><code>@SuppressWarnings</code>：告诉编译器忽略此处代码产生的警告。</li>
+</ul></li>
+<li>2、<strong>由工具处理<code>.class</code>文件使用的注解</strong>:
+<ul>
+<li>比如有些工具会在加载class的时候，对class做动态修改，实现一些特殊的功能。<strong>这类注解会被编译进入<code>.class</code>文件，但加载结束后并不会存在于内存中</strong>。这类注解只被一些底层库使用，一般我们不必自己处理。</li>
+</ul></li>
+<li>3、<strong>在程序运行期能够读取的注解</strong>：
+<ul>
+<li>它们<strong>在加载后一直存在于JVM中</strong>，这也是最常用的注解。例如，一个配置了<code>@PostConstruct</code>的方法会在调用构造方法后自动被调用（这是Java代码读取该注解实现的功能，JVM并不会识别该注解）</li>
+</ul></li>
+</ul>
+<h3 id="三注解的配置参数">三、注解的配置参数：</h3>
+<p>定义一个注解时，还可以定义<strong>配置参数</strong>。配置参数可以包括：</p>
+<ul>
+<li>所有基本类型；</li>
+<li>String；</li>
+<li>枚举类型；</li>
+<li>基本类型、String、Class以及枚举的数组。</li>
+</ul>
+<p>因为<strong>配置参数必须是常量</strong>，所以，上述限制保证了注解在定义时就已经确定了每个参数的值。</p>
+<p><strong>注解的配置参数可以有默认值，缺少某个配置参数时将使用默认值。</strong></p>
+<p>此外，大部分注解会有一个名为<code>value</code>的配置参数，对此参数赋值，可以只写常量，相当于省略了value参数。如果只写注解，相当于全部使用默认值。</p>
+<p>举个栗子，对以下代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Check(min=0, max=100, value=55)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Check(value=99)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> p;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Check(99)</span> <span class="comment">// @Check(value=99)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> x;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Check</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>@Check</code>就是一个注解。第一个<code>@Check(min=0, max=100, value=55)</code>明确定义了三个参数，第二个<code>@Check(value=99)</code>只定义了一个<code>value</code>参数，它实际上和<code>@Check(99)</code>是完全一样的。最后一个<code>@Check</code>表示所有参数都使用默认值。</p>
+<h3 id="四定义注解">四、定义注解：</h3>
+<h4 id="如何定义一个注解">1、如何定义一个注解？</h4>
+<p>java语言使用<code>@interface</code>语法来定义注解（<code>Annotation</code>），它的格式如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Report &#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">type</span><span class="params">()</span> <span class="keyword">default</span> 0</span>;</span><br><span class="line">    <span class="function">String <span class="title">level</span><span class="params">()</span> <span class="keyword">default</span> &quot;info&quot;</span>;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 注解的参数类似无参数方法，可以用<code>default</code>设定一个默认值（强烈推荐）。最常用的参数应当命名为<code>value</code>。</p>
+<h4 id="元注解">2、元注解：</h4>
+<p>​ 有一些注解可以修饰其他注解，这些注解就称为元注解（meta annotation）。Java标准库已经定义了一些元注解，我们只需要使用元注解，通常不需要自己去编写元注解。</p>
+<ul>
+<li><p><span class="citation" data-cites="Target">@Target</span>：</p>
+<ul>
+<li><p>使用<code>@Target</code>可以定义<code>Annotation</code>能够被应用于源码的哪些位置</p>
+<ul>
+<li>类或接口：<code>ElementType.TYPE</code>；</li>
+<li>字段：<code>ElementType.FIELD</code>；</li>
+<li>方法：<code>ElementType.METHOD</code>；</li>
+<li>构造方法：<code>ElementType.CONSTRUCTOR</code>；</li>
+<li>方法参数：<code>ElementType.PARAMETER</code>。</li>
+</ul></li>
+<li><p>例如，定义注解<code>@Report</code>可用在方法上，我们必须添加一个<code>@Target(ElementType.METHOD)</code></p>
+<ul>
+<li>```java <span class="citation" data-cites="Target">@Target</span>(ElementType.METHOD) public <span class="citation" data-cites="interface">@interface</span> Report { int type() default 0; String level() default "info"; String value() default ""; } <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- 定义注解`@Report`可用在方法或字段上，可以把`@Target`注解参数变为数组`&#123; ElementType.METHOD, ElementType.FIELD &#125;`：</span><br><span class="line"></span><br><span class="line">  - ```java</span><br><span class="line">    @Target(&#123;</span><br><span class="line">        ElementType.METHOD,</span><br><span class="line">        ElementType.FIELD</span><br><span class="line">    &#125;)</span><br><span class="line">    public @interface Report &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+</ul></li>
+<li><p><span class="citation" data-cites="Retention">@Retention</span>:</p>
+<ul>
+<li><p><code>@Retention</code>定义了<code>Annotation</code>的生命周期</p>
+<ul>
+<li>仅编译期：<code>RetentionPolicy.SOURCE</code>；</li>
+<li>仅class文件：<code>RetentionPolicy.CLASS</code>；</li>
+<li>运行期：<code>RetentionPolicy.RUNTIME</code>。</li>
+</ul></li>
+<li><p>如果<code>@Retention</code>不存在，则该<code>Annotation</code>默认为<code>CLASS</code>。因为通常我们自定义的<code>Annotation</code>都是<code>RUNTIME</code>，所以，务必要加上<code>@Retention(RetentionPolicy.RUNTIME)</code>这个元注解：</p>
+<ul>
+<li></li>
+<li>```java <span class="citation" data-cites="Retention">@Retention</span>(RetentionPolicy.RUNTIME) public <span class="citation" data-cites="interface">@interface</span> Report { int type() default 0; String level() default "info"; String value() default ""; } <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- @Repeatable</span><br><span class="line"></span><br><span class="line">  - `@Repeatable`这个元注解可以定义`Annotation`是否可重复。</span><br><span class="line"></span><br><span class="line">    - ```</span><br><span class="line">      @Repeatable(Reports.class)</span><br><span class="line">      @Target(ElementType.TYPE)</span><br><span class="line">      public @interface Report &#123;</span><br><span class="line">          int type() default 0;</span><br><span class="line">          String level() default &quot;info&quot;;</span><br><span class="line">          String value() default &quot;&quot;;</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      @Target(ElementType.TYPE)</span><br><span class="line">      public @interface Reports &#123;</span><br><span class="line">          Report[] value();</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>经过<code>@Repeatable</code>修饰后，在某个类型声明处，就可以添加多个<code>@Report</code>注解：</p>
+<ul>
+<li>```java <span class="citation" data-cites="Report">@Report</span>(type=1, level="debug") <span class="citation" data-cites="Report">@Report</span>(type=2, level="warning") public class Hello { } <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- @Inherited</span><br><span class="line"></span><br><span class="line">  - 使用`@Inherited`定义子类是否可继承父类定义的`Annotation`</span><br><span class="line"></span><br><span class="line">  - `@Inherited`仅针对`@Target(ElementType.TYPE)`类型的`annotation`有效，**并且仅针对`class`的继承，对`interface`的继承无效**</span><br><span class="line"></span><br><span class="line">    - ```java</span><br><span class="line">      @Inherited</span><br><span class="line">      @Target(ElementType.TYPE)</span><br><span class="line">      public @interface Report &#123;</span><br><span class="line">          int type() default 0;</span><br><span class="line">          String level() default &quot;info&quot;;</span><br><span class="line">          String value() default &quot;&quot;;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>在使用的时候，如果一个类用到了<code>@Report</code>,则它的子类默认也定义了该注解：</p>
+<ul>
+<li>```java <span class="citation" data-cites="Report">@Report</span>(type=1) public class Person { } <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- ```java</span><br><span class="line">  public class Student extends Person &#123;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="总结定义annotation的步骤">3、总结定义Annotation的步骤：</h4>
+<h5 id="用interface定义注解">1）用<code>@interface</code>定义注解：</h5>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Report &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="添加参数默认值把最常用的参数定义为value推荐所有参数都尽量设置默认值">2) 添加参数、默认值：(把最常用的参数定义为<code>value()</code>，推荐所有参数都尽量设置默认值。)</h5>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Report &#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">type</span><span class="params">()</span> <span class="keyword">default</span> 0</span>;</span><br><span class="line">    <span class="function">String <span class="title">level</span><span class="params">()</span> <span class="keyword">default</span> &quot;info&quot;</span>;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="第三步用元注解配置注解">3) 第三步，用元注解配置注解：</h5>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Report &#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">type</span><span class="params">()</span> <span class="keyword">default</span> 0</span>;</span><br><span class="line">    <span class="function">String <span class="title">level</span><span class="params">()</span> <span class="keyword">default</span> &quot;info&quot;</span>;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 必须设置<code>@Target</code>和<code>@Retention</code>，<code>@Retention</code>一般设置为<code>RUNTIME</code>，因为我们自定义的注解通常要求在运行期读取。一般情况下，不必写<code>@Inherited</code>和<code>@Repeatable</code>。</p>
+<h3 id="五处理注解">五、处理注解：</h3>
+<p>​ Java的注解本身对代码逻辑没有任何影响。根据<code>@Retention</code>的配置：</p>
+<ul>
+<li><code>SOURCE</code>类型的注解在编译期就被丢掉了；</li>
+<li><code>CLASS</code>类型的注解仅保存在class文件中，它们不会被加载进JVM；</li>
+<li><code>RUNTIME</code>类型的注解会被加载进JVM，并且在运行期可以被程序读取。</li>
+</ul>
+<p>​ 如何使用注解完全由工具决定。<code>SOURCE</code>类型的注解主要由编译器使用，因此我们一般只使用，不编写。<code>CLASS</code>类型的注解主要由底层工具库使用，涉及到class的加载，一般我们很少用到。<strong>只有<code>RUNTIME</code>类型的注解不但要使用，还经常需要编写。</strong></p>
+<p>​ 因为注解定义后也是一种<code>class</code>，所有的注解都继承自<code>java.lang.annotation.Annotation</code>，因此，读取注解，需要使用反射API。</p>
+<p>​ Java提供的使用反射API读取<code>Annotation</code>的方法包括：</p>
+<p>判断某个注解是否存在于<code>Class</code>、<code>Field</code>、<code>Method</code>或<code>Constructor</code>：</p>
+<ul>
+<li><code>Class.isAnnotationPresent(Class)</code></li>
+<li><code>Field.isAnnotationPresent(Class)</code></li>
+<li><code>Method.isAnnotationPresent(Class)</code></li>
+<li><code>Constructor.isAnnotationPresent(Class)</code></li>
+</ul>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 判断@Report是否存在于Person类:</span></span><br><span class="line">Person.class.isAnnotationPresent(Report.class);</span><br></pre></td></tr></table></figure>
+<p>使用反射API读取Annotation：</p>
+<ul>
+<li><code>Class.getAnnotation(Class)</code></li>
+<li><code>Field.getAnnotation(Class)</code></li>
+<li><code>Method.getAnnotation(Class)</code></li>
+<li><code>Constructor.getAnnotation(Class)</code></li>
+</ul>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取Person定义的@Report注解:</span></span><br><span class="line">Report report = Person.class.getAnnotation(Report.class);</span><br><span class="line"><span class="keyword">int</span> type = report.type();</span><br><span class="line">String level = report.level();</span><br></pre></td></tr></table></figure>
+<p>使用反射API读取<code>Annotation</code>有两种方法。方法一是先判断<code>Annotation</code>是否存在，如果存在，就直接读取：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Class cls = Person.class;</span><br><span class="line"><span class="keyword">if</span> (cls.isAnnotationPresent(Report.class)) &#123;</span><br><span class="line">    Report report = cls.getAnnotation(Report.class);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二种方法是直接读取<code>Annotation</code>，如果<code>Annotation</code>不存在，将返回<code>null</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Class cls = Person.class;</span><br><span class="line">Report report = cls.getAnnotation(Report.class);</span><br><span class="line"><span class="keyword">if</span> (report != <span class="keyword">null</span>) &#123;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>读取方法、字段和构造方法的<code>Annotation</code>和Class类似。但要读取方法参数的<code>Annotation</code>就比较麻烦一点，因为方法参数本身可以看成一个数组，而每个参数又可以定义多个注解，所以，一次获取方法参数的所有注解就必须用一个二维数组来表示。例如，对于以下方法定义的注解：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(<span class="meta">@NotNull</span> <span class="meta">@Range(max=5)</span> String name, <span class="meta">@NotNull</span> String prefix)</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要读取方法参数的注解，我们先用反射获取<code>Method</code>实例，然后读取方法参数的所有注解：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取Method实例:</span></span><br><span class="line">Method m = ...</span><br><span class="line"><span class="comment">// 获取所有参数的Annotation:</span></span><br><span class="line">Annotation[][] annos = m.getParameterAnnotations();</span><br><span class="line"><span class="comment">// 第一个参数（索引为0）的所有Annotation:</span></span><br><span class="line">Annotation[] annosOfName = annos[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">for</span> (Annotation anno : annosOfName) &#123;</span><br><span class="line">    <span class="keyword">if</span> (anno <span class="keyword">instanceof</span> Range) &#123; <span class="comment">// @Range注解</span></span><br><span class="line">        Range r = (Range) anno;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (anno <span class="keyword">instanceof</span> NotNull) &#123; <span class="comment">// @NotNull注解</span></span><br><span class="line">        NotNull n = (NotNull) anno;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="六使用注解">六、使用注解</h3>
+<p>​ 注解如何使用，完全由程序自己决定。例如，JUnit是一个测试框架，它会自动运行所有标记为<code>@Test</code>的方法。</p>
+<p>​ 我们来看一个<code>@Range</code>注解，我们希望用它来定义一个<code>String</code>字段的规则：字段长度满足<code>@Range</code>的参数定义：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.FIELD)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Range &#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">min</span><span class="params">()</span> <span class="keyword">default</span> 0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">()</span> <span class="keyword">default</span> 255</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 在某个JavaBean中，我们可以使用该注解：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Range(min=1, max=20)</span></span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Range(max=10)</span></span><br><span class="line">    <span class="keyword">public</span> String city;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 但是，定义了注解，本身对程序逻辑没有任何影响。我们必须自己编写代码来使用注解。这里，我们编写一个<code>Person</code>实例的检查方法，它可以检查<code>Person</code>实例的<code>String</code>字段长度是否满足<code>@Range</code>的定义：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">check</span><span class="params">(Person person)</span> <span class="keyword">throws</span> IllegalArgumentException, ReflectiveOperationException </span>&#123;</span><br><span class="line">    <span class="comment">// 遍历所有Field:</span></span><br><span class="line">    <span class="keyword">for</span> (Field field : person.getClass().getFields()) &#123;</span><br><span class="line">        <span class="comment">// 获取Field定义的@Range:</span></span><br><span class="line">        Range range = field.getAnnotation(Range.class);</span><br><span class="line">        <span class="comment">// 如果@Range存在:</span></span><br><span class="line">        <span class="keyword">if</span> (range != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 获取Field的值:</span></span><br><span class="line">            Object value = field.get(person);</span><br><span class="line">            <span class="comment">// 如果值是String:</span></span><br><span class="line">            <span class="keyword">if</span> (value <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">                String s = (String) value;</span><br><span class="line">                <span class="comment">// 判断值是否满足@Range的min/max:</span></span><br><span class="line">                <span class="keyword">if</span> (s.length() &lt; range.min() || s.length() &gt; range.max()) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Invalid field: &quot;</span> + field.getName());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 这样一来，我们通过<code>@Range</code>注解，配合<code>check()</code>方法，就可以完成<code>Person</code>实例的检查。注意检查逻辑完全是我们自己编写的，JVM不会自动给注解添加任何额外的逻辑。</p>
 ]]></content>
       <categories>
         <category>java系列笔记</category>
@@ -14,19 +971,168 @@
       </tags>
   </entry>
   <entry>
-    <title>java系列笔记5——java反射机制（更新中）</title>
+    <title>java系列笔记5——java反射机制</title>
     <url>/2022/01/30/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B05%E2%80%94java%E5%8F%8D%E5%B0%84/</url>
     <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1255945147512512</p>
-<h4 id="一反射简介">一、反射简介</h4>
+<h3 id="一反射简介">一、反射简介</h3>
 <p>Java的反射是指程序在运行期可以拿到一个对象的所有信息。</p>
 <p>​ 反射是为了解决在运行期，对某个实例一无所知的情况下，如何调用其方法。正常情况下，如果我们要调用一个对象的方法，或者访问一个对象的字段，通常会传入对象实例：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Main.java</span></span><br><span class="line"><span class="keyword">import</span> com.itranswarp.learnjava.Person;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">getFullName</span><span class="params">(Person p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> p.getFirstName() + <span class="string">&quot; &quot;</span> + p.getLastName();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>但是，如果不能获得<code>Person</code>类，只有一个<code>Object</code>实例，比如这样：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">String <span class="title">getFullName</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ???</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>怎么办？有童鞋会说：强制转型啊！</p>
+<p>怎么办？可能有人说：强制转型啊！</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">String <span class="title">getFullName</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    Person p = (Person) obj;</span><br><span class="line">    <span class="keyword">return</span> p.getFirstName() + <span class="string">&quot; &quot;</span> + p.getLastName();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​ 强制转型的时候，你会发现一个问题：编译上面的代码，仍然需要引用<code>Person</code>类。不然，去掉<code>import</code>语句，你看能不能编译通过？</p>
 <p>​ <strong>所以，反射是为了解决在运行期，对某个实例一无所知的情况下，如何调用其方法。</strong></p>
+<h3 id="二class类">二、Class类</h3>
+<p>​ 查看此节前，需要注意：我们平时所说的类都是指“class”(小写)，本节要介绍的是一个叫做<strong>"Class"</strong>的类。</p>
+<h4 id="简介">1、简介</h4>
+<p>​ 我们平常定义的各个类都是<strong>由JVM在执行过程中动态加载的</strong>。JVM在第一次读取到一个不同的类时，就会将其加载入内存。每加载一种类，JVM就会为其创建一个<strong>"Class"</strong>类型的类的实例，并进行关联。这个叫做<strong>“Class”</strong>的类定义如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Class</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 以<code>String</code>类为例，当JVM加载<code>String</code>类时，它首先读取<code>String.class</code>文件到内存，然后，为<code>String</code>类创建一个<strong>“Class”</strong>类的实例并关联起来：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Class cls = <span class="keyword">new</span> Class(String);</span><br></pre></td></tr></table></figure>
+<p>​ 这个<strong>“Class”</strong>类的实例实例是JVM内部创建的，如果我们查看JDK源码，可以发现<strong>"Class"</strong>类的构造方法是<code>private</code>，只有JVM能创建<strong>"Class"</strong>类的实例，我们自己的Java程序是无法创建<strong>"Class"</strong>实例的。</p>
+<p>​ 所以，JVM持有的每个<strong>"Class"</strong>实例都指向一个数据类型（<code>class</code>或<code>interface</code>），如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌───────────────────────────┐</span><br><span class="line">│      Class Instance       │──────&gt; String</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│name = &quot;java.lang.String&quot;  │</span><br><span class="line">└───────────────────────────┘</span><br><span class="line">┌───────────────────────────┐</span><br><span class="line">│      Class Instance       │──────&gt; Random</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│name = &quot;java.util.Random&quot;  │</span><br><span class="line">└───────────────────────────┘</span><br><span class="line">┌───────────────────────────┐</span><br><span class="line">│      Class Instance       │──────&gt; Runnable</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│name = &quot;java.lang.Runnable&quot;│</span><br><span class="line">└───────────────────────────┘</span><br></pre></td></tr></table></figure>
+<p>一个<strong>"Class"</strong>实例包含了其对应的类的所有完整信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌───────────────────────────┐</span><br><span class="line">│      Class Instance       │──────&gt; String</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│name = &quot;java.lang.String&quot;  │</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│package = &quot;java.lang&quot;      │</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│super = &quot;java.lang.Object&quot; │</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│interface = CharSequence...│</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│field = value[],hash,...   │</span><br><span class="line">├───────────────────────────┤</span><br><span class="line">│method = indexOf()...      │</span><br><span class="line">└───────────────────────────┘</span><br></pre></td></tr></table></figure>
+<p>​ 由于JVM为每个加载的类创建了对应的<strong>"Class"</strong>实例，并在实例中保存了该类的所有信息，包括类名、包名、父类、实现的接口、所有方法、字段等，因此，如果获取了某个<strong>"Class"</strong>实例，我们就可以通过这个<strong>"Class"</strong>实例获取到该实例对应的类的所有信息。</p>
+<p>​ 这种通过<strong>"Class"</strong>的实例获取类的信息的方法称为<strong>反射（Reflection）</strong>。</p>
+<h4 id="如何获取一个类的class实例">2、如何获取一个类的<strong>"Class"</strong>实例</h4>
+<ul>
+<li>方法1：直接通过一个类的静态变量<code>class</code>获取：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Class cls = String.class;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方法二：如果我们有一个实例变量，可以通过该实例变量提供的<code>getClass()</code>方法获取：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">Class cls = s.getClass();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方法三：如果知道一个类的完整类名，可以通过静态方法<code>Class.forName()</code>获取：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Class cls = Class.forName(<span class="string">&quot;java.lang.String&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="比较class实例">3、比较”Class“实例</h4>
+<p>​ 因为<strong>"Class"</strong>实例在JVM中是唯一的，所以，上述方法获取的<strong>"Class"</strong>实例是同一个实例。可以用<code>==</code>比较两个<strong>"Class"</strong>实例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Class cls1 = String.class;</span><br><span class="line"></span><br><span class="line">String s = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">Class cls2 = s.getClass();</span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> sameClass = cls1 == cls2; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：<strong>"Class"</strong>实例比较和<strong>instanceof</strong>的差别：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Integer n = <span class="keyword">new</span> Integer(<span class="number">123</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> b1 = n <span class="keyword">instanceof</span> Integer; <span class="comment">// true，因为n是Integer类型</span></span><br><span class="line"><span class="keyword">boolean</span> b2 = n <span class="keyword">instanceof</span> Number; <span class="comment">// true，因为n是Number类型的子类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> b3 = n.getClass() == Integer.class; <span class="comment">// true，因为n.getClass()返回Integer.class</span></span><br><span class="line"><span class="keyword">boolean</span> b4 = n.getClass() == Number.class; <span class="comment">// false，因为Integer.class!=Number.class</span></span><br></pre></td></tr></table></figure>
+<p>​ 用<code>instanceof</code>不但匹配指定类型，还匹配指定类型的子类。而用<code>==</code>判断<code>class</code>实例可以精确地判断数据类型，但不能作子类型比较。</p>
+<p>​ 通常情况下，我们应该用<code>instanceof</code>判断数据类型，因为面向抽象编程的时候，我们不关心具体的子类型。只有在需要精确判断一个类型是不是某个<code>class</code>的时候，我们才使用<code>==</code>判断<code>class</code>实例。</p>
+<h4 id="如何从class实例获取基本信息">4、如何从Class实例获取基本信息</h4>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printObjectInfo</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    Class cls = obj.getClass();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printClassInfo</span><span class="params">(Class cls)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Class name: &quot;</span> + cls.getName());</span><br><span class="line">    System.out.println(<span class="string">&quot;Simple name: &quot;</span> + cls.getSimpleName());</span><br><span class="line">    <span class="keyword">if</span> (cls.getPackage() != <span class="keyword">null</span>) &#123;</span><br><span class="line">    	System.out.println(<span class="string">&quot;Package name: &quot;</span> + cls.getPackage().getName());</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">&quot;is interface: &quot;</span> + cls.isInterface());</span><br><span class="line">    System.out.println(<span class="string">&quot;is enum: &quot;</span> + cls.isEnum());</span><br><span class="line">    System.out.println(<span class="string">&quot;is array: &quot;</span> + cls.isArray());</span><br><span class="line">    System.out.println(<span class="string">&quot;is primitive: &quot;</span> + cls.isPrimitive());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="动态加载">5、动态加载：</h4>
+<p>​ JVM在执行Java程序的时候，<strong>并不是一次性把所有用到的class全部加载到内存，而是第一次需要用到class时才加载</strong>。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Main.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (args.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            create(args[<span class="number">0</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        Person p = <span class="keyword">new</span> Person(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 当执行<code>Main.java</code>时，由于用到了<code>Main</code>，因此，JVM首先会把<code>Main.class</code>加载到内存。然而，并不会加载<code>Person.class</code>，除非程序执行到<code>create()</code>方法，JVM发现需要加载<code>Person</code>类时，才会首次加载<code>Person.class</code>。如果没有执行<code>create()</code>方法，那么<code>Person.class</code>根本就不会被加载。</p>
+<p>​ 这就是<strong>JVM动态加载<code>class</code>的特性</strong>。</p>
+<p>​ <strong>备注</strong>：动态加载类的特性对于Java程序非常重要。利用JVM动态加载类的特性，我们才能在运行期根据条件加载不同的实现类。例如，Commons Logging总是优先使用Log4j，只有当Log4j不存在时，才使用JDK的logging。利用JVM动态加载特性，大致的实现代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Commons Logging优先使用Log4j:</span></span><br><span class="line">LogFactory factory = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (isClassPresent(<span class="string">&quot;org.apache.logging.log4j.Logger&quot;</span>)) &#123;</span><br><span class="line">    factory = createLog4j();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    factory = createJdkLog();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isClassPresent</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Class.forName(name);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 这就是为什么我们只需要把Log4j的jar包放到classpath中，Commons Logging就会自动使用Log4j的原因。</p>
+<h3 id="三通过class实例访问字段">三、通过Class实例访问字段：</h3>
+<h4 id="获取字段信息">1、获取字段信息</h4>
+<p>​ 对任意的一个<code>Object</code>实例，只要我们获取了它的<strong>"Class"</strong>，就可以获取它的一切信息。</p>
+<p>​ <strong>"Class"</strong>类提供了以下几个方法来获取字段Field：</p>
+<ul>
+<li>Field getField(name)：根据字段名获取某个public的field（包括父类）</li>
+<li>Field getDeclaredField(name)：根据字段名获取当前类的某个field（不包括父类）</li>
+<li>Field[] getFields()：获取所有public的field（包括父类）</li>
+<li>Field[] getDeclaredFields()：获取当前类的所有field（不包括父类）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Class stdClass = Student.class;</span><br><span class="line">        <span class="comment">// 获取public字段&quot;score&quot;:</span></span><br><span class="line">        System.out.println(stdClass.getField(<span class="string">&quot;score&quot;</span>));</span><br><span class="line">        <span class="comment">// 获取继承的public字段&quot;name&quot;:</span></span><br><span class="line">        System.out.println(stdClass.getField(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">        <span class="comment">// 获取private字段&quot;grade&quot;:</span></span><br><span class="line">        System.out.println(stdClass.getDeclaredField(<span class="string">&quot;grade&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> score;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> grade;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/** 上述输出 </span></span><br><span class="line"><span class="comment">public int Student.score</span></span><br><span class="line"><span class="comment">public java.lang.String Person.name</span></span><br><span class="line"><span class="comment">private int Student.grade</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>一个<code>Field</code>对象包含了一个字段的所有信息：</p>
+<ul>
+<li><code>getName()</code>：返回字段名称，例如，<code>"name"</code>；</li>
+<li><code>getType()</code>：返回字段类型，也是一个<code>Class</code>实例，例如，<code>String.class</code>；</li>
+<li><code>getModifiers()</code>：返回字段的修饰符，它是一个<code>int</code>，不同的bit表示不同的含义。</li>
+</ul>
+<h4 id="获取字段值">2、获取字段值：</h4>
+<p>​ 利用反射拿到字段的一个<code>Field</code>实例只是第一步，我们还可以拿到一个实例对应的该字段的值。</p>
+<p>​ 例如，对于一个<code>Person</code>实例，我们可以先拿到<code>name</code>字段对应的<code>Field</code>，再获取这个实例的<code>name</code>字段的值：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Object p = <span class="keyword">new</span> Person(<span class="string">&quot;Xiao Ming&quot;</span>);</span><br><span class="line">        Class c = p.getClass();</span><br><span class="line">        Field f = c.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        Object value = f.get(p);</span><br><span class="line">        System.out.println(value); <span class="comment">// &quot;Xiao Ming&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 上述代码先获取<code>Class</code>实例，再获取<code>Field</code>实例，然后，用<code>Field.get(Object)</code>获取指定实例的指定字段的值。</p>
+<p>​ 运行代码，如果不出意外，会得到一个<code>IllegalAccessException</code>，这是因为<code>name</code>被定义为一个<code>private</code>字段，正常情况下，<code>Main</code>类无法访问<code>Person</code>类的<code>private</code>字段。要修复错误，可以将<code>private</code>改为<code>public</code>，或者，在调用<code>Object value = f.get(p);</code>前，先写一句：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">f.setAccessible(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+<p>调用<code>Field.setAccessible(true)</code>的意思是，别管这个字段是不是<code>public</code>，一律允许访问。</p>
+<h4 id="设置字段值">3、设置字段值：</h4>
+<p>​ 通过Field实例既然可以获取到指定实例的字段值，自然也可以设置字段的值。</p>
+<p>​ 设置字段值是通过<code>Field.set(Object, Object)</code>实现的，其中第一个<code>Object</code>参数是指定的实例，第二个<code>Object</code>参数是待修改的值。示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Person p = <span class="keyword">new</span> Person(<span class="string">&quot;Xiao Ming&quot;</span>);</span><br><span class="line">        System.out.println(p.getName()); <span class="comment">// &quot;Xiao Ming&quot;</span></span><br><span class="line">        Class c = p.getClass();</span><br><span class="line">        Field f = c.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        f.set(p, <span class="string">&quot;Xiao Hong&quot;</span>);</span><br><span class="line">        System.out.println(p.getName()); <span class="comment">// &quot;Xiao Hong&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样的，修改非<code>public</code>字段，需要首先调用<code>setAccessible(true)</code>。</p>
+<h3 id="四调用方法">四、调用方法：</h3>
+<h4 id="简介-1">1、简介</h4>
+<p>可以通过<code>Class</code>实例获取所有<code>Method</code>信息。<code>Class</code>类提供了以下几个方法来获取<code>Method</code>：</p>
+<ul>
+<li><code>Method getMethod(name, Class...)</code>：获取某个<code>public</code>的<code>Method</code>（包括父类）</li>
+<li><code>Method getDeclaredMethod(name, Class...)</code>：获取当前类的某个<code>Method</code>（不包括父类）</li>
+<li><code>Method[] getMethods()</code>：获取所有<code>public</code>的<code>Method</code>（包括父类）</li>
+<li><code>Method[] getDeclaredMethods()</code>：获取当前类的所有<code>Method</code>（不包括父类）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Class stdClass = Student.class;</span><br><span class="line">        <span class="comment">// 获取public方法getScore，参数为String:</span></span><br><span class="line">        System.out.println(stdClass.getMethod(<span class="string">&quot;getScore&quot;</span>, String.class));</span><br><span class="line">        <span class="comment">// 获取继承的public方法getName，无参数:</span></span><br><span class="line">        System.out.println(stdClass.getMethod(<span class="string">&quot;getName&quot;</span>));</span><br><span class="line">        <span class="comment">// 获取private方法getGrade，参数为int:</span></span><br><span class="line">        System.out.println(stdClass.getDeclaredMethod(<span class="string">&quot;getGrade&quot;</span>, <span class="keyword">int</span>.class));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getScore</span><span class="params">(String type)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">99</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getGrade</span><span class="params">(<span class="keyword">int</span> year)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Person&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">public int Student.getScore(java.lang.String)</span></span><br><span class="line"><span class="comment">public java.lang.String Person.getName()</span></span><br><span class="line"><span class="comment">private int Student.getGrade(int)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>一个<code>Method</code>对象包含一个方法的所有信息：</p>
+<ul>
+<li><code>getName()</code>：返回方法名称，例如：<code>"getScore"</code>；</li>
+<li><code>getReturnType()</code>：返回方法返回值类型，也是一个Class实例，例如：<code>String.class</code>；</li>
+<li><code>getParameterTypes()</code>：返回方法的参数类型，是一个Class数组，例如：<code>&#123;String.class, int.class&#125;</code>；</li>
+<li><code>getModifiers()</code>：返回方法的修饰符，它是一个<code>int</code>，不同的bit表示不同的含义。</li>
+</ul>
+<h4 id="调用方法">2、调用方法：</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">String s = &quot;Hello world&quot;;</span><br><span class="line">String r = s.substring(6); // &quot;world&quot;</span><br></pre></td></tr></table></figure>
+<p>​ 如果用反射来用<code>substring</code>方法，需要以下代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// String对象:</span></span><br><span class="line">        String s = <span class="string">&quot;Hello world&quot;</span>;</span><br><span class="line">        <span class="comment">// 获取String substring(int)方法，参数为int:</span></span><br><span class="line">        Method m = String.class.getMethod(<span class="string">&quot;substring&quot;</span>, <span class="keyword">int</span>.class);</span><br><span class="line">        <span class="comment">// 在s对象上调用该方法并获取结果:</span></span><br><span class="line">        String r = (String) m.invoke(s, <span class="number">6</span>);</span><br><span class="line">        <span class="comment">// 打印调用结果:</span></span><br><span class="line">        System.out.println(r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​ 对<code>Method</code>实例调用<code>invoke</code>就相当于调用该方法，<code>invoke</code>的第一个参数是对象实例，即在哪个实例上调用该方法，后面的可变参数要与方法参数一致，否则将报错。</p>
+<h4 id="调用静态方法">3、调用静态方法：</h4>
+<p>​ 如果获取到的Method表示一个静态方法，调用静态方法时，由于无需指定实例对象，所以<code>invoke</code>方法传入的第一个参数永远为<code>null</code>。我们以<code>Integer.parseInt(String)</code>为例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 获取Integer.parseInt(String)方法，参数为String:</span></span><br><span class="line">        Method m = Integer.class.getMethod(<span class="string">&quot;parseInt&quot;</span>, String.class);</span><br><span class="line">        <span class="comment">// 调用该静态方法并获取结果:</span></span><br><span class="line">        Integer n = (Integer) m.invoke(<span class="keyword">null</span>, <span class="string">&quot;12345&quot;</span>);</span><br><span class="line">        <span class="comment">// 打印调用结果:</span></span><br><span class="line">        System.out.println(n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="调用非public方法">4、调用非public方法：</h4>
+<p>为了调用非public方法，我们通过<code>Method.setAccessible(true)</code>允许其调用：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Person p = <span class="keyword">new</span> Person();</span><br><span class="line">        Method m = p.getClass().getDeclaredMethod(<span class="string">&quot;setName&quot;</span>, String.class);</span><br><span class="line">        m.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        m.invoke(p, <span class="string">&quot;Bob&quot;</span>);</span><br><span class="line">        System.out.println(p.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="五调用构造方法">五、调用构造方法：</h3>
+<p>我们通常使用<code>new</code>操作符创建新的实例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Person p = new Person();</span><br></pre></td></tr></table></figure>
+<p>如果通过反射来创建新的实例，可以调用Class提供的newInstance()方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Person p = Person.class.newInstance();</span><br></pre></td></tr></table></figure>
+<p>​ 调用Class.newInstance()的局限是，<strong>它只能调用该类的public无参数构造方法</strong>。如果构造方法带有参数，或者不是public，就无法直接通过Class.newInstance()来调用。</p>
+<p>​ 为了调用任意的构造方法，Java的<strong>反射API提供了Constructor对象</strong>，它包含一个构造方法的所有信息，可以创建一个实例。Constructor对象和Method非常类似，不同之处仅在于它是一个构造方法，并且，调用结果总是返回实例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 获取构造方法Integer(int):</span></span><br><span class="line">        Constructor cons1 = Integer.class.getConstructor(<span class="keyword">int</span>.class);</span><br><span class="line">        <span class="comment">// 调用构造方法:</span></span><br><span class="line">        Integer n1 = (Integer) cons1.newInstance(<span class="number">123</span>);</span><br><span class="line">        System.out.println(n1);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取构造方法Integer(String)</span></span><br><span class="line">        Constructor cons2 = Integer.class.getConstructor(String.class);</span><br><span class="line">        Integer n2 = (Integer) cons2.newInstance(<span class="string">&quot;456&quot;</span>);</span><br><span class="line">        System.out.println(n2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过Class实例获取Constructor的方法如下：</p>
+<ul>
+<li><code>getConstructor(Class...)</code>：获取某个<code>public</code>的<code>Constructor</code>；</li>
+<li><code>getDeclaredConstructor(Class...)</code>：获取某个<code>Constructor</code>；</li>
+<li><code>getConstructors()</code>：获取所有<code>public</code>的<code>Constructor</code>；</li>
+<li><code>getDeclaredConstructors()</code>：获取所有<code>Constructor</code>。</li>
+</ul>
+<p>​ 注意<code>Constructor</code>总是当前类定义的构造方法，和父类无关，因此不存在多态的问题。</p>
+<p>​ 调用非<code>public</code>的<code>Constructor</code>时，必须首先通过<code>setAccessible(true)</code>设置允许访问。<code>setAccessible(true)</code>可能会失败。</p>
+<h3 id="六获取继承关系">六、获取继承关系：</h3>
+<h4 id="获取父类的class">1、获取父类的Class</h4>
+<p>​ 有了某个类的<code>Class</code>实例，我们还可以获取它的父类的<code>Class</code>：如下，<code>Integer</code>的父类类型是<code>Number</code>，<code>Number</code>的父类是<code>Object</code>，<code>Object</code>的父类是<code>null</code>。除<code>Object</code>外，其他任何非<code>interface</code>的<code>Class</code>都必定存在一个父类类型。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Class i = Integer.class;</span><br><span class="line">        Class n = i.getSuperclass();</span><br><span class="line">        System.out.println(n);</span><br><span class="line">        Class o = n.getSuperclass();</span><br><span class="line">        System.out.println(o);</span><br><span class="line">        System.out.println(o.getSuperclass());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">class java.lang.Number</span></span><br><span class="line"><span class="comment">class java.lang.Object</span></span><br><span class="line"><span class="comment">null </span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h4 id="获取interface">2、获取Interface</h4>
+<p>​ 由于一个类可能实现一个或多个接口，通过<code>Class</code>我们就可以查询到实现的接口类型。例如，查询<code>Integer</code>实现的接口：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Class s = Integer.class;</span><br><span class="line">        Class[] is = s.getInterfaces();</span><br><span class="line">        <span class="keyword">for</span> (Class i : is) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">interface java.lang.Comparable</span></span><br><span class="line"><span class="comment">interface java.lang.constant.Constable</span></span><br><span class="line"><span class="comment">interface java.lang.constant.ConstantDesc </span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>运行上述代码可知，<code>Integer</code>实现的接口有：</p>
+<ul>
+<li>java.lang.Comparable</li>
+<li>java.lang.constant.Constable</li>
+<li>java.lang.constant.ConstantDesc</li>
+</ul>
+<p>要特别注意：</p>
+<ul>
+<li><p><code>getInterfaces()</code>只返回当前类直接实现的接口类型，并不包括其父类实现的接口类型：</p></li>
+<li><p>对所有<code>interface</code>的<code>Class</code>调用<code>getSuperclass()</code>返回的是<code>null</code></p></li>
+<li><p>如果一个类没有实现任何<code>interface</code>，那么<code>getInterfaces()</code>返回空数组。</p></li>
+</ul>
+<h4 id="继承关系">3、继承关系</h4>
+<ul>
+<li>当我们判断一个实例是否是某个类型时，正常情况下，使用<code>instanceof</code>操作符：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Object n = Integer.valueOf(<span class="number">123</span>);</span><br><span class="line"><span class="keyword">boolean</span> isDouble = n <span class="keyword">instanceof</span> Double; <span class="comment">// false</span></span><br><span class="line"><span class="keyword">boolean</span> isInteger = n <span class="keyword">instanceof</span> Integer; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">boolean</span> isNumber = n <span class="keyword">instanceof</span> Number; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">boolean</span> isSerializable = n <span class="keyword">instanceof</span> java.io.Serializable; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果是两个<code>Class</code>实例，要判断一个向上转型是否成立，可以调用<code>isAssignableFrom()</code>：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Integer i = ?</span></span><br><span class="line">Integer.class.isAssignableFrom(Integer.class); <span class="comment">// true，因为Integer可以赋值给Integer</span></span><br><span class="line"><span class="comment">// Number n = ?</span></span><br><span class="line">Number.class.isAssignableFrom(Integer.class); <span class="comment">// true，因为Integer可以赋值给Number</span></span><br><span class="line"><span class="comment">// Object o = ?</span></span><br><span class="line">Object.class.isAssignableFrom(Integer.class); <span class="comment">// true，因为Integer可以赋值给Object</span></span><br><span class="line"><span class="comment">// Integer i = ?</span></span><br><span class="line">Integer.class.isAssignableFrom(Number.class); <span class="comment">// false，因为Number不能赋值给Integer</span></span><br></pre></td></tr></table></figure>
+<h3 id="七动态代理">七、动态代理：</h3>
+<p>​ ? 未完待续</p>
 ]]></content>
       <categories>
         <category>java系列笔记</category>
@@ -1409,9 +2515,9 @@ static class Inner &#123;
         <category>论文阅读笔记</category>
       </categories>
       <tags>
-        <tag>CNN</tag>
         <tag>Transformer</tag>
         <tag>Visual Recognition</tag>
+        <tag>CNN</tag>
       </tags>
   </entry>
   <entry>
@@ -1540,8 +2646,8 @@ static class Inner &#123;
       </categories>
       <tags>
         <tag>GAN</tag>
-        <tag>Transformer</tag>
         <tag>HandWritting Generation</tag>
+        <tag>Transformer</tag>
       </tags>
   </entry>
   <entry>
@@ -2688,8 +3794,8 @@ static class Inner &#123;
       </categories>
       <tags>
         <tag>Swin Transformer</tag>
-        <tag>UNet</tag>
         <tag>Image Restoration</tag>
+        <tag>UNet</tag>
       </tags>
   </entry>
   <entry>
@@ -2746,9 +3852,9 @@ static class Inner &#123;
         <category>机器学习基础系列笔记</category>
       </categories>
       <tags>
+        <tag>UNet</tag>
         <tag>Machine Learning</tag>
         <tag>FCN</tag>
-        <tag>UNet</tag>
       </tags>
   </entry>
   <entry>
@@ -3002,8 +4108,8 @@ static class Inner &#123;
         <category>ML2021课程系列笔记</category>
       </categories>
       <tags>
-        <tag>Machine Learning</tag>
         <tag>CNN</tag>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -4388,9 +5494,9 @@ n: [2. 2. 2. 2. 2.]</code></pre>
         <category>Transformer系列笔记</category>
       </categories>
       <tags>
+        <tag>Swin Transformer</tag>
         <tag>Transformer</tag>
         <tag>Computer Vision</tag>
-        <tag>Swin Transformer</tag>
       </tags>
   </entry>
   <entry>
