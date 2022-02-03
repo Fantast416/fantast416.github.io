@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>LeetCode 算法解题Tricks（持续更新）</title>
+    <url>/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E7%AE%97%E6%B3%95%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h4 id="涉及二进制计算的题目">1、涉及二进制计算的题目：</h4>
+<p>​ 一些涉及二进制计算，例如让你计算某数字的二进制形式中1的个数，或者直接计算两个二进制数之和的，多多利用<strong>逻辑运算与移位运算能够大幅提高程序运行速度</strong>。</p>
+<h4 id="判断两个字符串是否有同一个字符">2、判断两个字符串是否有同一个字符？</h4>
+<p>​ 已知：字符串中仅有小写字母。</p>
+<p>​ <strong>可以利用一个数字的二进制形式，表示一个字符串中所含有的全部字符</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_02_16_37_25_816.png" /></p>
+<p>​ <strong>然后利用 逻辑运算 &amp; ，来判断，两个字符串之间有没有字符是重合的</strong></p>
+<p>​</p>
+<h4 id="一旦涉及有序数组就可以考虑二分法搜索代替暴力搜索">3、一旦涉及有序数组，就可以考虑二分法搜索代替暴力搜索</h4>
+<h4 id="涉及连续子数组连续子串等关键词">4、涉及连续子数组、连续子串等关键词</h4>
+<p>​ 我们可以采用滑动窗口进行问题的求解。见<a href="https://blog.slks.xyz/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E8%A7%A3%E5%86%B3%E8%BF%9E%E7%BB%AD%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/">滑动窗口解决连续子串问题</a></p>
+]]></content>
+      <categories>
+        <category>LeetCode算法笔记</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode 错题整理（持续更新）</title>
+    <url>/2022/02/03/LeetCode%E7%AC%94%E8%AE%B0/LeetCode%E9%94%99%E9%A2%98%E6%95%B4%E7%90%86/</url>
+    <content><![CDATA[<p>sssss</p>
+]]></content>
+      <categories>
+        <category>LeetCode算法笔记</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java系列笔记13——Maven基础介绍（更新中）</title>
     <url>/2022/02/04/Java%E7%AC%94%E8%AE%B0/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B013%E2%80%94Maven%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/</url>
     <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1255945359327200</p>
@@ -25,9 +59,10 @@
       </tags>
   </entry>
   <entry>
-    <title>滑动窗口解决连续子串问题</title>
-    <url>/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E8%A7%A3%E5%86%B3%E8%BF%9E%E7%BB%AD%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="一剑指-offer-ii-008.-和大于等于-target-的最短子数组">一、剑指 Offer II 008. 和大于等于 target 的最短子数组</h3>
+    <title>连续子串问题</title>
+    <url>/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E8%BF%9E%E7%BB%AD%E5%AD%90%E4%B8%B2%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h4 id="注意连续子串问题较为常见的两个技巧为滑动窗口法与前缀和滑动窗口法解相关子数组问题一般而言需要数组内元素都为正整数如果数组内元素存在负数的话滑动窗口是无法处理相关的负数样例的需要采用前缀和的技巧进行求解">注意：连续子串问题较为常见的两个技巧为：滑动窗口法与前缀和，滑动窗口法解相关子数组问题，一般而言需要数组内元素都为正整数，如果数组内元素存在负数的话，滑动窗口是无法处理相关的负数样例的，需要采用前缀和的技巧进行求解。</h4>
+<h3 id="一剑指-offer-ii-008.-和大于等于-target-的最短子数组">一、剑指 Offer II 008. 和大于等于 target 的最短子数组</h3>
 <p><strong>例题1网址：</strong>https://leetcode-cn.com/problems/2VG8Kg/</p>
 <p><strong>例题1描述：</strong></p>
 <p>​ 给定一个含有 n 个正整数的数组和一个正整数 target 。</p>
@@ -71,11 +106,11 @@
 <li>最终返回ret结果即可。</li>
 </ul>
 <p>根据上述指南，我们可以书写代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minSubArrayLen</span><span class="params">(<span class="keyword">int</span> target, vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">1e7</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> total = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(;right&lt;nums.size();right++)&#123;</span><br><span class="line">            total += nums[right];</span><br><span class="line">            <span class="keyword">while</span>(total &gt;= target)&#123;</span><br><span class="line">                <span class="keyword">if</span>(right - left + <span class="number">1</span> &lt; len) len = right - left + <span class="number">1</span>;</span><br><span class="line">                total-= nums[left++];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(len == <span class="number">1e7</span>) len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> len;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minSubArrayLen</span><span class="params">(<span class="keyword">int</span> target, vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">1e7</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> total = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(;right&lt;nums.<span class="built_in">size</span>();right++)&#123;</span><br><span class="line">            total += nums[right];</span><br><span class="line">            <span class="keyword">while</span>(total &gt;= target)&#123;</span><br><span class="line">                <span class="keyword">if</span>(right - left + <span class="number">1</span> &lt; len) len = right - left + <span class="number">1</span>;</span><br><span class="line">                total-= nums[left++];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(len == <span class="number">1e7</span>) len = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> len;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h3 id="二剑指-offer-ii-009-乘积小于-k-的子数组">二、剑指 Offer II 009 乘积小于 K 的子数组</h3>
 <p><strong>例题2网址：</strong>https://leetcode-cn.com/problems/ZVAVXX/</p>
 <p><strong>例题2描述：</strong></p>
-<p>​ 给定一个正整数数组 <code>nums</code>和整数 <code>k</code> ，请找出该数组内乘积小于 <code>k</code> 的连续的子数组的个数。</p>
+<p>​ 给定一个<strong>正整数数组 <code>nums</code></strong>和整数 <code>k</code> ，请找出该数组内乘积小于 <code>k</code> 的连续的子数组的个数。</p>
 <ul>
 <li><p>示例 1:</p>
 <ul>
@@ -91,33 +126,35 @@
 <li><p>提示:</p>
 <p>1 &lt;= nums.length &lt;= 3 * 10^4 1 &lt;= nums[i] &lt;= 1000 0 &lt;= k &lt;= 10^6</p></li>
 </ul>
+<p><strong>例题2解析</strong>：</p>
 <p>​ 按照上述例题1的思想，简单来向，我们发现此题目求解的不是某个长度最小或长度最大的值，而是所有的连续子数组的个数，乍一看无法按照先前的内容进行求解，但其实我们可以发现：</p>
 <p>​ 窗口每次移动后，ret都可以增加 <strong>right - left + 1</strong>个子数组。具体而言是什么意思呢？</p>
 <p>​ 比如某次遍历符合题意的子数组为 ABCX，那么在该条件下符合条件的有X，CX，BCX，ABCX共四个（可以进行多个例子，发现个数符合right-left+1） ​ 我们可能会有疑问：AB，BC也算，为什么不算进去？ ​ 记住一点<strong>我们是以最右边的X为必要条件，进行计算符合条件的子数组，否则会出现重复的！</strong> ​ 比如在X为右侧边界时（ABCX），我们把BC算进去了，可是我们在C为最右侧时（ABC），BC已经出现过，我们重复加了BC这个子数组两次！</p>
 <p>具体的代码应当如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numSubarrayProductLessThanK</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> product = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(;right&lt;nums.size();right++)&#123;</span><br><span class="line">            product = product * nums[right];</span><br><span class="line">            <span class="comment">//下面加了一个条件：left&lt;=right是因为，如果不加这个条件，当k=0的时候，会一直陷入该死循环中无法出循环。</span></span><br><span class="line">            <span class="keyword">while</span>(left &lt;= right &amp;&amp; product &gt;= k)&#123;</span><br><span class="line">                product = product / nums[left];</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            count += right - left + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode算法笔记</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode 算法解题Tricks（持续更新）</title>
-    <url>/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E7%AE%97%E6%B3%95%E8%A7%A3%E9%A2%98%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<h4 id="涉及二进制计算的题目">1、涉及二进制计算的题目：</h4>
-<p>​ 一些涉及二进制计算，例如让你计算某数字的二进制形式中1的个数，或者直接计算两个二进制数之和的，多多利用<strong>逻辑运算与移位运算能够大幅提高程序运行速度</strong>。</p>
-<h4 id="判断两个字符串是否有同一个字符">2、判断两个字符串是否有同一个字符？</h4>
-<p>​ 已知：字符串中仅有小写字母。</p>
-<p>​ <strong>可以利用一个数字的二进制形式，表示一个字符串中所含有的全部字符</strong></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_02_16_37_25_816.png" /></p>
-<p>​ <strong>然后利用 逻辑运算 &amp; ，来判断，两个字符串之间有没有字符是重合的</strong></p>
-<p>​</p>
-<h4 id="一旦涉及有序数组就可以考虑二分法搜索代替暴力搜索">3、一旦涉及有序数组，就可以考虑二分法搜索代替暴力搜索</h4>
-<h4 id="涉及连续子数组连续子串等关键词">4、涉及连续子数组、连续子串等关键词</h4>
-<p>​ 我们可以采用滑动窗口进行问题的求解。见<a href="https://blog.slks.xyz/2022/02/02/LeetCode%E7%AC%94%E8%AE%B0/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E8%A7%A3%E5%86%B3%E8%BF%9E%E7%BB%AD%E5%AD%90%E4%B8%B2%E9%97%AE%E9%A2%98/">滑动窗口解决连续子串问题</a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numSubarrayProductLessThanK</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> product = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(;right&lt;nums.<span class="built_in">size</span>();right++)&#123;</span><br><span class="line">            product = product * nums[right];</span><br><span class="line">            <span class="comment">//下面加了一个条件：left&lt;=right是因为，如果不加这个条件，当k=0的时候，会一直陷入该死循环中无法出循环。</span></span><br><span class="line">            <span class="keyword">while</span>(left &lt;= right &amp;&amp; product &gt;= k)&#123;</span><br><span class="line">                product = product / nums[left];</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            count += right - left + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="三剑指-offer-ii-010.-和为-k-的子数组">三、剑指 Offer II 010. 和为 k 的子数组</h3>
+<p><strong>例题3网址：</strong>https://leetcode-cn.com/problems/ZVAVXX/</p>
+<p><strong>例题3描述：</strong></p>
+<p>​ 给定一个<strong>整数数组</strong>和一个整数 <code>k</code> <strong>，</strong>请找到该数组中和为 <code>k</code> 的连续子数组的个数。</p>
+<ul>
+<li><p>示例 1:</p>
+<ul>
+<li>``` 输入:nums = [1,1,1], k = 2 输出: 2 解释: 此题 [1,1] 与 [1,1] 为两种不同的情况 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- 示例 2:</span><br><span class="line"></span><br><span class="line">  - ```</span><br><span class="line">    输入:nums = [1,2,3], k = 3</span><br><span class="line">    输出: 2</span><br></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p>提示:</p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 2 * 104</code></li>
+<li><code>-1000 &lt;= nums[i] &lt;= 1000</code></li>
+<li><code>-107 &lt;= k &lt;= 107</code></li>
+</ul></li>
+</ul>
+<p><strong>例题3解析</strong>：</p>
+<p>​ 非常需要注意的是：此题中给出的条件是整数数组，而非正整数，故而滑动窗口没法使用，因为滑动窗口是需要你能保证，当右边界扩充时，和必增大，左边界收缩时和必减小，但是如果数组中存在负数，那么我们无法保证。此时需要应用前缀和。</p>
+<p>​ <strong>以前我使用前缀和，都是通过先把所有的前缀和计算得到，然后存在Vector<int>中，然后再去根据前缀和，遍历处理问题，但这样人工遍历其复杂度为N^2</strong>，就会导致较高的时间复杂度，并且容易重复计算。那么应当如何去进行处理会比较好呢？</p>
+<p>​ 我们<strong>一般可以采用Hash表来存储前缀和，</strong>在C++中可以使用速度较快的unordered_map，其底层就是用hash表进行实现。&lt;key,value&gt;，其存储的key代表前缀和的值，value代表该前缀和出现的次数。<strong>（只有在数组内存在负数的时候，才会有前缀和出现多次的情况）</strong></p>
+<p>​ 然后，在上述例题中，应当在计算前缀和的每一步中，就去计算，到该元素为止，以该元素为结尾的子序列，有没有符合和为k 这一条件的，不然容易重复计算。</p>
+<p>​ 同时，我们需要注意，要在开始时就往hash表中，插入(0,1)这一对元素，以处理边界条件。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">subarraySum</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//利用哈希表存储 计算前缀和</span></span><br><span class="line">        unordered_map&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; sums;</span><br><span class="line">        sums[<span class="number">0</span>] = <span class="number">1</span>;  <span class="comment">// sum = 0 , 出现了1次</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            sum = sum + nums[i];</span><br><span class="line">            <span class="comment">//判断以该元素为结尾的子序列，有没有符合和为k 这一条件的</span></span><br><span class="line">            <span class="keyword">if</span>(sums.<span class="built_in">find</span>(sum-k) != sums.<span class="built_in">end</span>()) count+= sums[sum-k];</span><br><span class="line">			<span class="comment">//将该位置的前缀和也存入hash表中，以供后续计算参考</span></span><br><span class="line">            <span class="keyword">if</span>(sums.<span class="built_in">find</span>(sum) != sums.<span class="built_in">end</span>()) sums[sum]++;</span><br><span class="line">            <span class="keyword">else</span> sums[sum] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode算法笔记</category>
