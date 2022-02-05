@@ -22,13 +22,13 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 <meta name="description" content="本篇笔记记录一道LeetCode题目，需要设计一个插入、删除和随机访问都是 O(1) 的容器。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fantast&#39;s Blog">
+<meta property="og:title" content="插入、删除和随机访问都是 O(1) 的容器设计">
 <meta property="og:url" content="https://blog.slks.xyz/2022/02/05/LeetCode%E7%AC%94%E8%AE%B0/O(1)%E5%AE%B9%E5%99%A8%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="本篇笔记记录一道LeetCode题目，需要设计一个插入、删除和随机访问都是 O(1) 的容器。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-05T01:02:19.000Z">
-<meta property="article:modified_time" content="2022-02-05T02:24:07.000Z">
+<meta property="article:modified_time" content="2022-02-05T08:13:05.407Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary">
@@ -38,10 +38,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/02/05/LeetCode%E7%AC%94%E8%AE%B0/O(1)%E5%AE%B9%E5%99%A8%E8%AE%BE%E8%AE%A1/","path":"2022/02/05/LeetCode笔记/O(1)容器设计/","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/02/05/LeetCode%E7%AC%94%E8%AE%B0/O(1)%E5%AE%B9%E5%99%A8%E8%AE%BE%E8%AE%A1/","path":"2022/02/05/LeetCode笔记/O(1)容器设计/","title":"插入、删除和随机访问都是 O(1) 的容器设计"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title> | Fantast's Blog</title>
+<title>插入、删除和随机访问都是 O(1) 的容器设计 | Fantast's Blog</title>
   
 
 
@@ -246,7 +246,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          插入、删除和随机访问都是 O(1) 的容器设计
         </h1>
 
         <div class="post-meta-container">
@@ -259,7 +259,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-02-05 09:02:19 / 修改时间：10:24:07" itemprop="dateCreated datePublished" datetime="2022-02-05T09:02:19+08:00">2022-02-05</time>
+      <time title="创建时间：2022-02-05 09:02:19 / 修改时间：16:13:05" itemprop="dateCreated datePublished" datetime="2022-02-05T09:02:19+08:00">2022-02-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -332,7 +332,7 @@ getRandom：随机返回现有集合中的一项。每个元素应该有 相同�
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\02\03\LeetCode笔记\LeetCode题目情况整理\" rel="bookmark"></a></div>
+      <div class="popular-posts-title"><a href="\2022\02\03\LeetCode笔记\LeetCode题目情况整理\" rel="bookmark">LeetCode 题目情况整理（持续更新）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2022\02\02\LeetCode笔记\算法解题技巧\" rel="bookmark">LeetCode 算法解题Tricks（持续更新）</a></div>
