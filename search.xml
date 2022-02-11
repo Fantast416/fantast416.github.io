@@ -75,9 +75,7 @@
 <h4 id="七adam优化器">七、Adam优化器：</h4>
 <p>​ 综合了RMSProp和Momentum技术的优化</p>
 <p>​ Adam可以理解为加了Momentum 的 RMSprop</p>
-<figure>
-<img src="https://pics1.baidu.com/feed/d50735fae6cd7b891692d4d0b34087a1d8330e56.jpeg?token=7478aa992fc94fe4b20be33e3cb30c51" alt="img" /><figcaption aria-hidden="true">img</figcaption>
-</figure>
+<p><img src="C:\Users\14012\Desktop\d50735fae6cd7b891692d4d0b34087a1d8330e56.jpeg" /></p>
 <p>参考资料：https://zhuanlan.zhihu.com/p/25765735</p>
 ]]></content>
       <categories>

@@ -20,12 +20,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="一、批量梯度下降法BGD： ​ 更新每一参数都用所有样本去进行更新，在下面例子中，总共有n个参数，m个样本，我们如果想要更新参数$ _j$ ，就需要遍历所有的m个训练样本，然后将所有的梯度累加起来取平均，然后再进行更新。 ​  二、随机梯度下降法SGD： ​ 由于BGD每跟新一个参数的时候，要用到所有的样本数，所以训练速度会随着样本数量的增加而变得非常缓慢。随机梯度下降正是为了解决这个办法">
+<meta name="description" content="整理了一些常见的梯度下降优化器，相关的基础知识内容。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习基础系列笔记16——常见的梯度下降优化器整理">
 <meta property="og:url" content="https://blog.slks.xyz/2022/02/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B016%E2%80%94%E5%B8%B8%E8%A7%81%E7%9A%84%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E4%BC%98%E5%8C%96%E5%99%A8%E6%95%B4%E7%90%86/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
-<meta property="og:description" content="一、批量梯度下降法BGD： ​ 更新每一参数都用所有样本去进行更新，在下面例子中，总共有n个参数，m个样本，我们如果想要更新参数$ _j$ ，就需要遍历所有的m个训练样本，然后将所有的梯度累加起来取平均，然后再进行更新。 ​  二、随机梯度下降法SGD： ​ 由于BGD每跟新一个参数的时候，要用到所有的样本数，所以训练速度会随着样本数量的增加而变得非常缓慢。随机梯度下降正是为了解决这个办法">
+<meta property="og:description" content="整理了一些常见的梯度下降优化器，相关的基础知识内容。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-890e5ab2843f3b22467a5e6aeef58b59_720w.png">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-65566b643790ca6c89919fd970f34e2c_720w.png">
@@ -34,9 +34,9 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121170754841.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114113547513.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114113634056.png">
-<meta property="og:image" content="https://pics1.baidu.com/feed/d50735fae6cd7b891692d4d0b34087a1d8330e56.jpeg?token=7478aa992fc94fe4b20be33e3cb30c51">
+<meta property="og:image" content="c:/Users/14012/Desktop/d50735fae6cd7b891692d4d0b34087a1d8330e56.jpeg">
 <meta property="article:published_time" content="2022-02-11T08:54:19.000Z">
-<meta property="article:modified_time" content="2022-02-11T09:17:15.425Z">
+<meta property="article:modified_time" content="2022-02-11T10:48:38.083Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Gradient Descent">
 <meta property="article:tag" content="Optimizer">
@@ -269,7 +269,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-02-11 16:54:19 / 修改时间：17:17:15" itemprop="dateCreated datePublished" datetime="2022-02-11T16:54:19+08:00">2022-02-11</time>
+      <time title="创建时间：2022-02-11 16:54:19 / 修改时间：18:48:38" itemprop="dateCreated datePublished" datetime="2022-02-11T16:54:19+08:00">2022-02-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -306,6 +306,9 @@
     </span>
 </div>
 
+            <div class="post-description">整理了一些常见的梯度下降优化器，相关的基础知识内容。</div>
+            <div class="post-remind">Google Chrome is recommended, otherwise the image size may be wrong</div>
+            <div class="post-remind">FireFox is not recommended,Because it does not support the image zoom property</div>
         </div>
         
       </header>
@@ -342,9 +345,7 @@
 <h4 id="七adam优化器">七、Adam优化器：</h4>
 <p>​ 综合了RMSProp和Momentum技术的优化</p>
 <p>​ Adam可以理解为加了Momentum 的 RMSprop</p>
-<figure>
-<img src="https://pics1.baidu.com/feed/d50735fae6cd7b891692d4d0b34087a1d8330e56.jpeg?token=7478aa992fc94fe4b20be33e3cb30c51" alt="img" /><figcaption aria-hidden="true">img</figcaption>
-</figure>
+<p><img src="C:\Users\14012\Desktop\d50735fae6cd7b891692d4d0b34087a1d8330e56.jpeg" /></p>
 <p>参考资料：https://zhuanlan.zhihu.com/p/25765735</p>
 
     </div>

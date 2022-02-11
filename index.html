@@ -470,7 +470,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-02-11 16:54:19 / 修改时间：17:17:15" itemprop="dateCreated datePublished" datetime="2022-02-11T16:54:19+08:00">2022-02-11</time>
+      <time title="创建时间：2022-02-11 16:54:19 / 修改时间：18:48:38" itemprop="dateCreated datePublished" datetime="2022-02-11T16:54:19+08:00">2022-02-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -508,39 +508,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h4 id="一批量梯度下降法bgd">一、批量梯度下降法BGD：</h4>
-<p>​ 更新每一参数都用所有样本去进行更新，在下面例子中，总共有n个参数，m个样本，我们如果想要更新参数$ _j$ ，就需要遍历所有的m个训练样本，然后将所有的梯度累加起来取平均，然后再进行更新。</p>
-<p>​ <img src="https://pic2.zhimg.com/80/v2-890e5ab2843f3b22467a5e6aeef58b59_720w.png" /></p>
-<h4 id="二随机梯度下降法sgd">二、随机梯度下降法SGD：</h4>
-<p>​ 由于BGD每跟新一个参数的时候，要用到所有的样本数，所以训练速度会随着样本数量的增加而变得非常缓慢。随机梯度下降正是为了解决这个办法而提出的。它是<strong>利用每个样本的损失函数</strong>对θ求偏导得到对应的梯度，来更新θ：</p>
-<p><img src="https://pic1.zhimg.com/80/v2-65566b643790ca6c89919fd970f34e2c_720w.png" /></p>
-<p>​ 随机梯度下降是通过每个样本来迭代更新一次，对比上面的批量梯度下降，迭代一次需要用到所有训练样本（<strong>往往如今真实问题训练数据都是非常巨大</strong>），一次迭代不可能最优，如果迭代10次的话就需要遍历训练样本10次。<strong>但是，SGD伴随的一个问题是噪音较BGD要多，使得SGD并不是每次迭代都向着整体最优化方向。</strong></p>
-<p>​ 但是可以并行化计算。</p>
-<h4 id="三min-batch小批量梯度下降法-mbgd">三、<strong>min-batch</strong>小批量梯度下降法 MBGD：</h4>
-<p>​ 我们假设每次更新参数的时候用到的样本数为10个</p>
-<p><img src="https://pic2.zhimg.com/80/v2-9d473c89948f1ddc8c4f294c55123f59_720w.png" /></p>
-<p>​ <strong>随机取batch个样本，</strong>而不是1个样本，然后对参数进行更新即可。</p>
-<h4 id="四冲量优化器momentum">四、冲量优化器（Momentum）</h4>
-<p>​ 在Gradient Descent + Momentum的算法如下：最开始第一步和原来的一样，从<span class="math inline">\(\theta^0\)</span>开始计算梯度，然后沿着梯度反方向移动下降，达到<span class="math inline">\(\theta^1\)</span>时，此时和原先就会发生不同了，其现在的移动会结合前一步的movement（即<span class="math inline">\(m^1\)</span>）以及当前点的梯度<span class="math inline">\(g^1\)</span>，计算出一个新的下降方向<span class="math inline">\(m^2\)</span>，然后进行更新。如图所示：<span class="math inline">\(m^2\)</span>是由 <span class="math inline">\(m^1\)</span>和 <span class="math inline">\(-g^1\)</span>两个向量相加所得到的。从公式上来讲就是$m^1 - g^1 $，两者都有自己的参数，来控制影响整个梯度下降方向的比例。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114113022761.png" style="zoom:50%;" /></p>
-<h4 id="五adagrad优化器auto-learning-rate">五、AdaGrad优化器（Auto Learning Rate）</h4>
-<p>​ 如果Loss函数在某个方向上比较平坦,梯度比较小，那么我们希望Learning Rate比较大，快速的走过这一片平坦的区域。如果在某个方向上比较陡峭，我们希望Learning Rate比较小.</p>
-<p>​ 将原来的学习率η修改成 $  <span class="math inline">\(, 这个\)</span>_{it}$既跟参数相关又跟训练步骤（不同点所在的梯度）相关。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121170754841.png" /></p>
-<p>​ 以下是σ的计算方式，通过计算每次更新得到的参数空间所在点的梯度的Norm值的平方的平均，即RMS来计算每步中σ。</p>
-<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114113547513.png" alt="image-20220114113547513" style="zoom:25%;" /></p>
-<h4 id="六rmsprop优化器">六、RMSProp优化器</h4>
-<p>​ <strong>AdaGrad的进阶版本：</strong></p>
-<p>​ 它在计算每一步的σ的时候，结合了上一步的σ以及该步的梯度g，同时还有一个超参数α，可以进行调整。如果我们调整α比较大的话，代表其参考当前的梯度较多，也就是说如果梯度突然产生较大变化，其就能快速的反应过来，对LearningRate进行快速的调整。相较于前RMS所有先前的梯度都平均权值考虑的做法，这一做法能够更快速的对梯度的变化进行响应。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114113634056.png" alt="image-20220114113634056" style="zoom:25%;" /></p>
-<h4 id="七adam优化器">七、Adam优化器：</h4>
-<p>​ 综合了RMSProp和Momentum技术的优化</p>
-<p>​ Adam可以理解为加了Momentum 的 RMSprop</p>
-<figure>
-<img src="https://pics1.baidu.com/feed/d50735fae6cd7b891692d4d0b34087a1d8330e56.jpeg?token=7478aa992fc94fe4b20be33e3cb30c51" alt="img" /><figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>参考资料：https://zhuanlan.zhihu.com/p/25765735</p>
-
+          <p>整理了一些常见的梯度下降优化器，相关的基础知识内容。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/02/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B016%E2%80%94%E5%B8%B8%E8%A7%81%E7%9A%84%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E4%BC%98%E5%8C%96%E5%99%A8%E6%95%B4%E7%90%86/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
