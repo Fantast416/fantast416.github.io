@@ -788,6 +788,13 @@
   </url>
   
   <url>
+    <loc>https://blog.slks.xyz/tags/GAN-Evaluation/</loc>
+    <lastmod>2022-02-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.slks.xyz/tags/LSGAN/</loc>
     <lastmod>2022-02-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -830,7 +837,28 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/GAN-Evaluation/</loc>
+    <loc>https://blog.slks.xyz/tags/java/</loc>
+    <lastmod>2022-02-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/annotation/</loc>
+    <lastmod>2022-02-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Machine-Learning/</loc>
+    <lastmod>2022-02-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/CNN/</loc>
     <lastmod>2022-02-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -844,14 +872,14 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/container/</loc>
+    <loc>https://blog.slks.xyz/tags/priority-queue/</loc>
     <lastmod>2022-02-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/priority-queue/</loc>
+    <loc>https://blog.slks.xyz/tags/container/</loc>
     <lastmod>2022-02-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -894,34 +922,6 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/linked-list/</loc>
-    <lastmod>2022-02-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/java/</loc>
-    <lastmod>2022-02-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/annotation/</loc>
-    <lastmod>2022-02-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/Machine-Learning/</loc>
-    <lastmod>2022-02-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/CNN/</loc>
     <lastmod>2022-02-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -991,20 +991,6 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Python/</loc>
-    <lastmod>2022-02-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.slks.xyz/tags/Module-Import/</loc>
-    <lastmod>2022-02-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.slks.xyz/tags/Pytorch/</loc>
     <lastmod>2022-02-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -1013,6 +999,20 @@
   
   <url>
     <loc>https://blog.slks.xyz/tags/Auto-BroadCasting/</loc>
+    <lastmod>2022-02-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Python/</loc>
+    <lastmod>2022-02-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/tags/Module-Import/</loc>
     <lastmod>2022-02-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1131,14 +1131,14 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Info-Encoding/</loc>
+    <loc>https://blog.slks.xyz/tags/Auto-Encoder/</loc>
     <lastmod>2022-02-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/tags/Auto-Encoder/</loc>
+    <loc>https://blog.slks.xyz/tags/Info-Encoding/</loc>
     <lastmod>2022-02-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1301,13 +1301,6 @@
   </url>
   
   <url>
-    <loc>https://blog.slks.xyz/categories/LeetCode%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2022-02-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.slks.xyz/categories/java%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-02-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -1316,6 +1309,13 @@
   
   <url>
     <loc>https://blog.slks.xyz/categories/ML2021%E8%AF%BE%E7%A8%8B%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2022-02-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.slks.xyz/categories/LeetCode%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-02-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
