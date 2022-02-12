@@ -45,6 +45,113 @@
       </tags>
   </entry>
   <entry>
+    <title>机器学习基础系列笔记17——常见的Loss损失函数整理</title>
+    <url>/2022/02/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B017%E2%80%94%E5%B8%B8%E8%A7%81%E7%9A%84Loss%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E6%95%B4%E7%90%86/</url>
+    <content><![CDATA[<h3 id="一分类任务常用损失">一、分类任务常用损失：</h3>
+<h4 id="交叉熵-cross-entropy">1、交叉熵 Cross-Entropy</h4>
+<p>​ 在分类任务中，我们不太采用Classification Error这种最直接的分类错误率函数，因为有可能有一个模型它预测对的较少，但是其实质输出的概率相差不大，而另外一个模型，虽然预测对的稍少，但是其实质输出的概率错的那个错的非常离谱。不太好用于衡量。</p>
+<p>​ 在分类任务中，我们不太常采用MSE损失函数。使用MSE的一个缺点就是<strong>其偏导值在输出概率值接近0或者接近1的时候非常小，这可能会造成模型刚开始训练时，偏导值几乎消失。</strong></p>
+<p>​ 所以在分类问题中，使用sigmoid/softmax得到概率，配合MSE损失函数时，会出现模型一开始训练时，学习速率非常慢的情况。我们采用交叉熵就不会出现此问题：先出公式：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_22_48_18_836.png" /></p>
+<ul>
+<li>M —— 类别的数量</li>
+<li><span class="math inline">\(y_{ic}\)</span> —— 符号函数，0或者1，如果样本i的真实类别等于c，则为1，否则为0</li>
+<li><span class="math inline">\(p_{ic}\)</span> —— 观测样本i属于类别c的概率。</li>
+</ul>
+<p>【其实<span class="math inline">\(\sum_{c=1}^M y_{ic}log(p_{ic})\)</span> 对于每一个i来说，有效的值仅只有一项，当yic = 1的时候的那一项】</p>
+<p>【我们计算的其实就是某个样本属于某个类别的概率的Log值的平均】</p>
+<p>​ <strong>函数性质如下</strong>：</p>
+<p>​ 预测概率接近0的时候，导数较大，容易训练。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_22_51_48_7.png" style="zoom:50%;" /></p>
+<p><strong>分类任务的学习过程：</strong></p>
+<p>​ 用神经网络最后一层输出的情况，来看一眼整个模型预测、获得损失和学习的流程：</p>
+<ol type="1">
+<li>神经网络最后一层得到每个类别的得分<strong>scores（也叫logits）</strong>；</li>
+<li>该得分经过<strong>sigmoid(或softmax)函数</strong>获得概率输出；</li>
+<li>模型预测的类别概率输出与真实类别的one hot形式进行交叉熵损失函数的计算。</li>
+</ol>
+<p><strong>多分类情况如下所示：</strong></p>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-08a626d27078d36541ad0b02d560efa5_1440w.jpg" alt="img" /><figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>求导过程可以分为三个子过程：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_23_00_21_237.png" /></p>
+<p>可以得到最终的求导结果为：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_23_01_46_607.png" /></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>从上面的式子中，我们发现，偏导值的大小取决于 <span class="math inline">\(x_i\)</span>和 <span class="math inline">\([\sigma(s) - y]\)</span> ，我们重点关注后者，后者的大小值反映了我们模型的错误程度，<strong>该值越大，说明模型效果越差，但是该值越大同时也会使得偏导值越大，从而模型学习速度更快。</strong>所以，使用逻辑函数得到概率，并结合交叉熵当损失函数时，在模型效果差的时候学习速度比较快，在模型效果好的时候学习速度变慢。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>sigmoid(softmax)+cross-entropy loss 擅长于学习类间的信息，因为它采用了类间竞争机制，它只关心对于正确标签预测概率的准确性，忽略了其他非正确标签的差异，导致学习到的特征比较散。</li>
+</ul>
+<h4 id="k-l散度-k-l-divergence相对熵">2、K-L散度 K-L Divergence（相对熵）</h4>
+<p>​ KL散度用于估计两个分布的相似性，是一种<strong>量化两种概率分布P和Q之间差异</strong>的方式，又叫相对熵。</p>
+<p>K-L散度能帮助我们度量<strong>使用一个分布来近似另一个分布时所损失的信息量</strong>。</p>
+<p>​ 设<code>p</code>为观察得到的概率分布，<code>q</code>为另一分布来近似<code>p</code>，则<code>p</code>、<code>q</code>的<code>K-L散度</code>为</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_12_11_20_00_934.png" /></p>
+<p>​ K-L散度其实是<strong>数据的原始分布p和近似分布q之间的对数差值的期望</strong>。</p>
+<p>​ K-L散度<strong>并非距离，其不满足对称性</strong>，即 $D_{KL}(p||q) $ <span class="math inline">\(!=\)</span> $D_{KL}(q||p) $</p>
+<h4 id="为什么分类任务不用k-l散度而是用交叉熵">3、为什么分类任务不用K-L散度而是用交叉熵？</h4>
+<p>​ 因为其实交叉熵只是KL散度的一部分：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_12_11_28_21_156.png" style="zoom:67%;" /></p>
+<p>​ <strong>p代表label或者叫groundtruth，q代表预测值.</strong></p>
+<p>​ 在训练集不变的情况下，因此label的分布是一定的，H(p)是常数。训练网络主要是用梯度下降，常数没有梯度。KL散度和交叉熵反向传播的结果是一样的，但是KL散度每次都要多计算一项，所以一般直接用交叉熵了。</p>
+<h3 id="二回归任务常用损失">二、回归任务常用损失：</h3>
+<h4 id="l1-loss-平均绝对误差">1、L1 Loss 平均绝对误差</h4>
+<p>​ <strong>目标变量和预测变量之间绝对差值之和</strong></p>
+<p>​ MAE曲线连续，但是在<em>y</em>−<em>f</em>(<em>x</em>)=0处不可导。而且 MAE 大部分情况下梯度都是相等的，这意味着即使对于小的损失值，其梯度也是大的。这不利于函数的收敛和模型的学习。但是，无论对于什么样的输入值，都有着稳定的梯度，不会导致梯度爆炸问题，具有较为稳健性的解。</p>
+<p>​ MAE有个优点就是，对于离群点不那么敏感。因为MAE计算的是误差<em>y</em>−<em>f</em>(<em>x</em>) 的绝对值，对于任意大小的差值，其惩罚都是固定的。<strong>针对带有离群点的数据，MAE的效果要好于MSE。</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_12_11_35_15_642.png" style="zoom:50%;" /></p>
+<h4 id="l2-loss-均方误差mse">2、L2 Loss 均方误差MSE</h4>
+<p>​ MSE的函数曲线光滑、连续，处处可导，便于使用梯度下降算法，是一种常用的损失函数。 而且，随着误差的减小，梯度也在减小，这有利于收敛，即使使用固定的学习速率，也能较快的收敛到最小值。</p>
+<p>​ 当<span class="math inline">\(y\)</span>和<span class="math inline">\(f(x)\)</span>也就是真实值和预测值的差值大于1时，会放大误差；而当差值小于1时，则会缩小误差，这是平方运算决定的。MSE对于较大的误差（&gt;1）给予较大的惩罚，较小的误差（&lt;1）给予较小的惩罚。也就是说，<strong>对离群点比较敏感，受其影响较大。</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_12_11_35_12_56.png" style="zoom:50%;" /></p>
+<h4 id="smooth-l1-loss">3、Smooth L1 Loss</h4>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_12_12_04_33_822.png" style="zoom: 50%;" /></p>
+<p>​ 从下图种中可以看出，该函数实际是一个分段函数，既解决了L1不光滑的问题，也解决了L2容易产生梯度爆炸的问题。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_12_12_05_00_718.png" style="zoom:50%;" /></p>
+<p><strong>Smooth L1的优点</strong></p>
+<ul>
+<li>相比于L1损失函数，可以收敛得更快。</li>
+<li>相比于L2损失函数，对离群点、异常值不敏感，梯度变化相对更小，训练时不容易跑飞。</li>
+</ul>
+<p><strong>参考：</strong></p>
+<p>https://zhuanlan.zhihu.com/p/35709485</p>
+<p>https://www.zhihu.com/question/336677048/answer/761385679</p>
+<p>https://www.cnblogs.com/wangguchangqing/p/12021638.html</p>
+]]></content>
+      <categories>
+        <category>机器学习基础系列笔记</category>
+      </categories>
+      <tags>
+        <tag>Loss Function</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>博文复习日志1</title>
+    <url>/2022/02/11/%E5%A4%8D%E4%B9%A0%E6%97%A5%E5%BF%97/%E5%8D%9A%E6%96%87%E5%A4%8D%E4%B9%A0%E6%97%A5%E5%BF%971/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="2081aa44a084dc3a364c8311cc0ec60f227681f9e103ecb9084fbd584733ed68">0b64cd3abe5b0a0a039a37d86c66d75eaeb9cde5c6dadc3c6d4d424e956e68e5859de93c067c256c245d75df485065102f6e2903c24acc225d3947c06b46eb863dd4b5852f98aab38803012f003c6c5ce6fff79afb10e1792ca7214d925987e0c717d406814885b789fb91e2e91f62e79489c1eb338c6615f677769d830ccf190fb9bbb686abd703322115c45664a457c7196ebc5128f0dbc61fa90adc2470af75105015c70e866cf9e65b8431b286f91724aada9a9fd5965d62719e3af60032aa7a2f77ed452eac7ab39f33c601c5d6de7df46cb4de25570ccbf95f141c0967a7b34c72683919d199358e5f05f83fc8af0d4a187180a67e0dfe958e0af9d66d33ab8d086e02df177e615e8042752039da97c9cc8367e10e00afd9b5e1efb0e995897a1248169e0d75653fb21e3369d1323fb2cc414bbe6d24a2f1133b9fa2128636babb1ab51015ebcd1f094f15614fff728713e7561569e0e691a1fa644591a1e02bc186772fa03bd2359d37836d42a71196ec3b0690da9f20acc93b99f8235e0536afdc1e5c93410552b856163f3ca031815cd2a4a7571b872a314b1ed7f670c8f63ddd6b85abb45386a538239b7a245e5a05d6de11406092418c85ff59fa5e37c5f1520dcc80dc4dc37749947f29f473a10cf9112920fcc021e94d10b1ebc0cb1fe40c66c99d3adfabfd2bb5588e5616f4e136e814a3a5527d5bf41884d240c479faeab5f8f166b0cb5f84a32e57006959d8f6e4111a6da661874f929d2d6f3675521e8ffdaf85ba7e47d0824b17d531fb8bd1fe9b14345faeca9a171aacc5dc29965a36a4f290c7de954347331905482b8f8407b01039cdd892569f0e574bd8ca4f91618e5a05fdb1298e3c3598ce2f9b2b0c50b8d5dd0165b2e5419bcb82444c6f7257166c5424066ff22e351a050b1eb4b1a22e387d6dd30664af8c7303384d7d0d112207ee24e6711f2400297184cb5429be75e3e80c1f46f15a611f34e26a63e6c865538481a2dcce0ee65abd12d85714ab0825695d8641896de42a3097cf250706e2c852bd884f50ffef89d3e845292186624ca7d3e8f49b0e7c24b4a93c5daa980896eb28e3f3bd6c715bca762531b5bb8cea254454de68b477b202987fcbef09fb052e7cd735b2e2a192df1cb2a802be63c4c98405337d187f1a0c0c351062ec7e2067b102c629ac5a56391212fe1a7226add7e38aae23a28f36</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>博文复习日志</category>
+      </categories>
+      <tags>
+        <tag>Review</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习基础系列笔记16——常见的梯度下降优化器整理</title>
     <url>/2022/02/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B016%E2%80%94%E5%B8%B8%E8%A7%81%E7%9A%84%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E4%BC%98%E5%8C%96%E5%99%A8%E6%95%B4%E7%90%86/</url>
     <content><![CDATA[<h4 id="一批量梯度下降法bgd">一、批量梯度下降法BGD：</h4>
@@ -6496,8 +6603,8 @@ n: [2. 2. 2. 2. 2.]</code></pre>
       </categories>
       <tags>
         <tag>Transformer</tag>
-        <tag>Vision Transformer</tag>
         <tag>Computer Vision</tag>
+        <tag>Vision Transformer</tag>
       </tags>
   </entry>
   <entry>
