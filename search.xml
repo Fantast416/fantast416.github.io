@@ -47,22 +47,69 @@
   <entry>
     <title>机器学习基础系列笔记17——常见的Loss损失函数整理</title>
     <url>/2022/02/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B017%E2%80%94%E5%B8%B8%E8%A7%81%E7%9A%84Loss%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E6%95%B4%E7%90%86/</url>
-    <content><![CDATA[<h3 id="一分类任务常用损失">一、分类任务常用损失：</h3>
-<h4 id="交叉熵-cross-entropy">1、交叉熵 Cross-Entropy</h4>
-<p>​ 在分类任务中，我们不太采用Classification Error这种最直接的分类错误率函数，因为有可能有一个模型它预测对的较少，但是其实质输出的概率相差不大，而另外一个模型，虽然预测对的稍少，但是其实质输出的概率错的那个错的非常离谱。不太好用于衡量。</p>
-<p>​ 在分类任务中，我们不太常采用MSE损失函数。使用MSE的一个缺点就是<strong>其偏导值在输出概率值接近0或者接近1的时候非常小，这可能会造成模型刚开始训练时，偏导值几乎消失。</strong></p>
-<p>​ 所以在分类问题中，使用sigmoid/softmax得到概率，配合MSE损失函数时，会出现模型一开始训练时，学习速率非常慢的情况。我们采用交叉熵就不会出现此问题：先出公式：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_22_48_18_836.png" /></p>
-<ul>
-<li>M —— 类别的数量</li>
-<li><span class="math inline">\(y_{ic}\)</span> —— 符号函数，0或者1，如果样本i的真实类别等于c，则为1，否则为0</li>
-<li><span class="math inline">\(p_{ic}\)</span> —— 观测样本i属于类别c的概率。</li>
-</ul>
-<p>【其实<span class="math inline">\(\sum_{c=1}^M y_{ic}log(p_{ic})\)</span> 对于每一个i来说，有效的值仅只有一项，当yic = 1的时候的那一项】</p>
-<p>【我们计算的其实就是某个样本属于某个类别的概率的Log值的平均】</p>
-<p>​ <strong>函数性质如下</strong>：</p>
-<p>​ 预测概率接近0的时候，导数较大，容易训练。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_22_51_48_7.png" style="zoom:50%;" /></p>
+    <content><![CDATA[<h3 id="一分类任务常用损失信息熵交叉熵相对熵的概念与应用">一、分类任务常用损失：信息熵、交叉熵、相对熵的概念与应用</h3>
+<h4 id="信息熵">1、信息熵</h4>
+<ol type="1">
+<li>随机变量 <span class="math inline">\(x\)</span> 的自信息 (self-information)，描述的是随机变量的某个事件发生所带来的信息量。</li>
+</ol>
+<p>​ <span class="math inline">\(I(x) = -log(p(x))\)</span></p>
+<ol start="2" type="1">
+<li><strong>信息熵</strong>即所有信息量的期望,其中<span class="math inline">\(n\)</span>为事件的所有可能性。</li>
+</ol>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=H%28X%29%3D%E2%88%92%E2%88%91_xp%28x%29log%28p%28x%29%29%3D%E2%88%92%E2%88%91_%7Bi%3D1%7D%5Enp%28x_i%29log%28p%28x_i%29%29" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<h4 id="相对熵">2、相对熵</h4>
+<p>​ KL散度，如果对于同一个随机变量x有两个单独的概率分布 <span class="math inline">\(p(x)\)</span>和 <span class="math inline">\(q(x)\)</span>，可以使用相对熵来衡量这两个分布的差异。</p>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=D_%7BKL%7D%28p%7C%7Cq%29%3D%5Csum_%7Bi%3D1%7D%5Enp%28x_i%29log%28%5Cfrac%7Bp%28x_i%29%7D%7Bq%28x_i%29%7D%29" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<p>​ K-L散度其实是<strong>数据的原始分布p和近似分布q之间的对数差值的期望</strong>。</p>
+<p>​ K-L散度<strong>并非距离，其不满足对称性</strong>，即 $D_{KL}(p||q) $ <span class="math inline">\(!=\)</span> $D_{KL}(q||p) $</p>
+<h4 id="交叉熵">3、交叉熵：</h4>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=H%28p%2Cq%29%3D-%5Csum_%7Bi%3D1%7D%5Enp%28x_i%29log%28q%28x_i%29%29" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<p>​ 在机器学习中，往往用 <span class="math inline">\(p(x)\)</span> 用来描述<strong>真实分布</strong>， <span class="math inline">\(q(x)\)</span> 用来描述模型<strong>预测的分布</strong>。</p>
+<p>​ 计算损失，理应使用相对熵来计算概率分布的差异，然而由相对熵推导出的结果看：</p>
+<p>​ 由于信息熵描述的是消除 p (即真实分布) 的不确定性所需信息量的度量，所以其值应该是最小的、固定的。那么：<strong>优化相对熵也就是优化交叉熵，所以在机器学习中使用交叉熵就可以了</strong></p>
+<h4 id="为什么使用交叉熵">4、为什么使用交叉熵：</h4>
+<p>​ 在机器学习中，我们希望模型在训练数据上学到的<strong>预测数据分布</strong>与<strong>真实数据分布</strong>越相近越好，上面讲过了，用相对熵，但是为了简便计算使用交叉熵就可以了。</p>
+<p>在二分类中，交叉熵损失函数如下：<span class="math inline">\(y\)</span>是实际标签，<span class="math inline">\(\hat y\)</span> 是预测值z经过sigmoid函数之后的预测概率。</p>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=L%3D-%5Bylog+\hat+y%2B(1-y)log+(1-\hat+y)%5D" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<p>Sigmoid函数如下：</p>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=\sigma(z)+%3D+\frac%7B1%7D%7B1%2Be%5E%7B-z%7D%7D" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<p>​ 交叉熵损失函数一般用来代替均方差损失函数与sigmoid激活函数的组合：对于sigmoid函数，当 <span class="math inline">\(x\)</span> 的取值越大或越小，函数曲线变得越平缓，意味着导数<span class="math inline">\(\sigma(x)&#39;\)</span> 越趋近于0。以单个样本的梯度下降为例子：</p>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=z%3D+wx%2Bb" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=\hat%7By%7D%3D+a+%3D\sigma(z)" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=L_1(y%2Ca)%3D\frac%7B1%7D%7B2%7D(y-a)%5E2" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=L_2%28y%2Ca%29%3D-%28ylog%28a%29%2B%281-y%29log%281-a%29%29" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<p>​ 前两个公式是前向传播过程中线性的部分，和非线性的部分。L1是MSE损失函数，L2是交叉熵损失函数。然后我们分别用L1和L2对参数w和b，利用链式法则求解梯度。</p>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=\frac%7B\partial+L_1(y%2Ca)%7D%7B\partial+w%7D%3D-%7Cy-\sigma(z)%7C\sigma&#39;(z)x" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=\frac%7B\partial+L_1(y%2Ca)%7D%7B\partial+b%7D%3D-%7Cy-\sigma(z)%7C\sigma&#39;(z)" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=\frac%7B\partial+L_2(y%2Ca)%7D%7B\partial+w%7D%3Dx%5B\sigma(z)-y%5D" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<figure>
+<img src="https://www.zhihu.com/equation?tex=\frac%7B\partial+L_2(y%2Ca)%7D%7B\partial+b%7D%3D\sigma(z)-y" alt="[公式]" /><figcaption aria-hidden="true">[公式]</figcaption>
+</figure>
+<p>​ 可以看出，<strong>均方差</strong>对参数的偏导的结果都<strong>乘了sigmoid的导数</strong> <span class="math inline">\(\sigma(z)&#39;\)</span> ，而之前看图发现sigmoid导数在其变量值很大或很小时趋近于0，所以偏导数很有可能接近于0。反观<strong>交叉熵</strong>对参数的偏导就<strong>没有sigmoid导数</strong>，所以不存在这个问题。<strong>这就是选择交叉熵而不选择均方差的原因。</strong></p>
 <p><strong>分类任务的学习过程：</strong></p>
 <p>​ 用神经网络最后一层输出的情况，来看一眼整个模型预测、获得损失和学习的流程：</p>
 <ol type="1">
@@ -70,34 +117,6 @@
 <li>该得分经过<strong>sigmoid(或softmax)函数</strong>获得概率输出；</li>
 <li>模型预测的类别概率输出与真实类别的one hot形式进行交叉熵损失函数的计算。</li>
 </ol>
-<p><strong>多分类情况如下所示：</strong></p>
-<figure>
-<img src="https://pic2.zhimg.com/80/v2-08a626d27078d36541ad0b02d560efa5_1440w.jpg" alt="img" /><figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p>求导过程可以分为三个子过程：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_23_00_21_237.png" /></p>
-<p>可以得到最终的求导结果为：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_23_01_46_607.png" /></p>
-<p><strong>优点：</strong></p>
-<ul>
-<li>从上面的式子中，我们发现，偏导值的大小取决于 <span class="math inline">\(x_i\)</span>和 <span class="math inline">\([\sigma(s) - y]\)</span> ，我们重点关注后者，后者的大小值反映了我们模型的错误程度，<strong>该值越大，说明模型效果越差，但是该值越大同时也会使得偏导值越大，从而模型学习速度更快。</strong>所以，使用逻辑函数得到概率，并结合交叉熵当损失函数时，在模型效果差的时候学习速度比较快，在模型效果好的时候学习速度变慢。</li>
-</ul>
-<p><strong>缺点</strong>：</p>
-<ul>
-<li>sigmoid(softmax)+cross-entropy loss 擅长于学习类间的信息，因为它采用了类间竞争机制，它只关心对于正确标签预测概率的准确性，忽略了其他非正确标签的差异，导致学习到的特征比较散。</li>
-</ul>
-<h4 id="k-l散度-k-l-divergence相对熵">2、K-L散度 K-L Divergence（相对熵）</h4>
-<p>​ KL散度用于估计两个分布的相似性，是一种<strong>量化两种概率分布P和Q之间差异</strong>的方式，又叫相对熵。</p>
-<p>K-L散度能帮助我们度量<strong>使用一个分布来近似另一个分布时所损失的信息量</strong>。</p>
-<p>​ 设<code>p</code>为观察得到的概率分布，<code>q</code>为另一分布来近似<code>p</code>，则<code>p</code>、<code>q</code>的<code>K-L散度</code>为</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_12_11_20_00_934.png" /></p>
-<p>​ K-L散度其实是<strong>数据的原始分布p和近似分布q之间的对数差值的期望</strong>。</p>
-<p>​ K-L散度<strong>并非距离，其不满足对称性</strong>，即 $D_{KL}(p||q) $ <span class="math inline">\(!=\)</span> $D_{KL}(q||p) $</p>
-<h4 id="为什么分类任务不用k-l散度而是用交叉熵">3、为什么分类任务不用K-L散度而是用交叉熵？</h4>
-<p>​ 因为其实交叉熵只是KL散度的一部分：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_12_11_28_21_156.png" style="zoom:67%;" /></p>
-<p>​ <strong>p代表label或者叫groundtruth，q代表预测值.</strong></p>
-<p>​ 在训练集不变的情况下，因此label的分布是一定的，H(p)是常数。训练网络主要是用梯度下降，常数没有梯度。KL散度和交叉熵反向传播的结果是一样的，但是KL散度每次都要多计算一项，所以一般直接用交叉熵了。</p>
 <h3 id="二回归任务常用损失">二、回归任务常用损失：</h3>
 <h4 id="l1-loss-平均绝对误差">1、L1 Loss 平均绝对误差</h4>
 <p>​ <strong>目标变量和预测变量之间绝对差值之和</strong></p>
@@ -133,7 +152,7 @@
     <title>博文复习日志1</title>
     <url>/2022/02/11/%E5%A4%8D%E4%B9%A0%E6%97%A5%E5%BF%97/%E5%8D%9A%E6%96%87%E5%A4%8D%E4%B9%A0%E6%97%A5%E5%BF%971/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="2081aa44a084dc3a364c8311cc0ec60f227681f9e103ecb9084fbd584733ed68">0b64cd3abe5b0a0a039a37d86c66d75eaeb9cde5c6dadc3c6d4d424e956e68e5859de93c067c256c245d75df485065102f6e2903c24acc225d3947c06b46eb863dd4b5852f98aab38803012f003c6c5ce6fff79afb10e1792ca7214d925987e0c717d406814885b789fb91e2e91f62e79489c1eb338c6615f677769d830ccf190fb9bbb686abd703322115c45664a457c7196ebc5128f0dbc61fa90adc2470af75105015c70e866cf9e65b8431b286f91724aada9a9fd5965d62719e3af60032aa7a2f77ed452eac7ab39f33c601c5d6de7df46cb4de25570ccbf95f141c0967a7b34c72683919d199358e5f05f83fc8af0d4a187180a67e0dfe958e0af9d66d33ab8d086e02df177e615e8042752039da97c9cc8367e10e00afd9b5e1efb0e995897a1248169e0d75653fb21e3369d1323fb2cc414bbe6d24a2f1133b9fa2128636babb1ab51015ebcd1f094f15614fff728713e7561569e0e691a1fa644591a1e02bc186772fa03bd2359d37836d42a71196ec3b0690da9f20acc93b99f8235e0536afdc1e5c93410552b856163f3ca031815cd2a4a7571b872a314b1ed7f670c8f63ddd6b85abb45386a538239b7a245e5a05d6de11406092418c85ff59fa5e37c5f1520dcc80dc4dc37749947f29f473a10cf9112920fcc021e94d10b1ebc0cb1fe40c66c99d3adfabfd2bb5588e5616f4e136e814a3a5527d5bf41884d240c479faeab5f8f166b0cb5f84a32e57006959d8f6e4111a6da661874f929d2d6f3675521e8ffdaf85ba7e47d0824b17d531fb8bd1fe9b14345faeca9a171aacc5dc29965a36a4f290c7de954347331905482b8f8407b01039cdd892569f0e574bd8ca4f91618e5a05fdb1298e3c3598ce2f9b2b0c50b8d5dd0165b2e5419bcb82444c6f7257166c5424066ff22e351a050b1eb4b1a22e387d6dd30664af8c7303384d7d0d112207ee24e6711f2400297184cb5429be75e3e80c1f46f15a611f34e26a63e6c865538481a2dcce0ee65abd12d85714ab0825695d8641896de42a3097cf250706e2c852bd884f50ffef89d3e845292186624ca7d3e8f49b0e7c24b4a93c5daa980896eb28e3f3bd6c715bca762531b5bb8cea254454de68b477b202987fcbef09fb052e7cd735b2e2a192df1cb2a802be63c4c98405337d187f1a0c0c351062ec7e2067b102c629ac5a56391212fe1a7226add7e38aae23a28f36</script>
+  <script id="hbeData" type="hbeData" data-hmacdigest="f14f1cdd9a38d3c867b0cea665af50f4a753bb878cb967452cae9f1147a0a587">0b64cd3abe5b0a0a039a37d86c66d75eaeb9cde5c6dadc3c6d4d424e956e68e5859de93c067c256c245d75df485065102f6e2903c24acc225d3947c06b46eb863dd4b5852f98aab38803012f003c6c5ce6fff79afb10e1792ca7214d925987e0c717d406814885b789fb91e2e91f62e79489c1eb338c6615f677769d830ccf190fb9bbb686abd703322115c45664a457c7196ebc5128f0dbc61fa90adc2470af75105015c70e866cf9e65b8431b286f91724aada9a9fd5965d62719e3af60032aa7a2f77ed452eac7ab39f33c601c5d6de7df46cb4de25570ccbf95f141c0967a7b34c72683919d199358e5f05f83fc8af0d4a187180a67e0dfe958e0af9d66d33ab8d086e02df177e615e8042752039da97c9cc8367e10e00afd9b5e1efb0e995897a1248169e0d75653fb21e3369d1323fb2cc414bbe6d24a2f1133b9fa2128636babb1ab51015ebcd1f094f15614fff728713e7561569e0e691a1fa644591a1e02bc186772fa03bd2359d37836d42a71196ec3b0690da9f20acc93b99f8235e0536afdc1e5c93410552b856163f3ca031815cd2a4a7571b872a314b1ed7f670c8f63ddd6b85abb45386a538239b7a245e5a05d6de11406092418c85ff59fa5e37c5f1520dcc80dc4dc37749947f29f473a10cf9112920fcc021e94d10b1ebc0cb1fe40c66c99d3adfabfd2bb5588e5616f4e136e814a3a5527d5bf41884d240c479faeab5f8f166b0cb5f84a32e57006959d8f6e4111a6da661874f929d2d6f3675521e8ffdaf85ba7e47d0824b17d531fb8bd1fe9b14345faeca9a171aacc5dc29965a36a4f290c7de954347331905482b8f8407b01039cdd892569f0e574bd8ca4f91618e5a05fdb1298e3c3598ce2f9b2b0c50b8d5dd0165b2e5419bcb82444c6f7257166c5424066ff22e351a050b1eb4b1a22e387d6dd30664af8c7303384d7d0d112207ee24e6711f2400297184cb5429be75e3e80c1f46f15a611f34e26a63e6c865538481a2dcce0ee65abd12d85714ab0825695d8641896de42a3097cf250706e2c852bd884f50ffef89d3e845292186624ca7d3e8f49b0e7c24b4a93c5daa980896eb28e3f3bd6c715bca762531b5bb8cea254454de68b477b202987fcbef09fb052e7cd735b2e2a192df1cb2a802be63c4c98405337d187f1ab508d75265ee266bb9cc84eff888f1ac31b874c1c72a972ca7424ea9bdcbe41e684842913781c9a66b66a03685ac9034d408fbab2d6a27f7fda5f4a55afad087195650114151db8f11c41770ee9ef0bbd7e074cfc29247e103677b8a8791b98f413fef117353542ed870563c8f36bbd28afa2321ceb4d7ad30a0ebbd4a17e2a138118f34eb6576334f2eaf6534f5b80e961a5bcd9c715263d5571c89784d883632f4031968bf37dcdb80d9faf234c1ad8f3886fb1f9a7263a3c99fa3373706504d06dffce131c8fe48c7c14518814c82c211996b805a32bdfd0bea836d0f6c29b7e250be91c964e2a31ab1b425d578420d5300828b072147868116a9178af7e246bb5cf4c0fbf360a38ca294368f3bee88ecf45c9d4ddc395f781c580f376425eaf02da4337dfaa7608970d37cecd709f13e63615a0ddc94723ab53379cbe55865df64f5d4ea910bd2c48f63dc34cae901431513e434c5dfaa3025190e981931ab9117df6e4b97bbed5744420babd03a97390d2ac70522a7f3f90c9016b3535c88910edcaa02ca40940d9db815c9014a2b8dc5eb5e0e633dd915448416b3012b9b44256f4360d1d168ea0d918362d8633afbd2778760fd7cca69a194df75e80181e0f2c2004eedc06c4b3fc72600fbbec443cc9e5d14bc9938b292e8367a65e6156d1fd8c0119904f431ae439fea0146fe97e71fc77e42bc9ed42ca9ab6cf54ebc12428a4b7b095b7e3723e9b5fbc1f3ccad13c6d7facf0bfa156898f97a10524485af6a3d84eb4fed308668118ac2be25e315f36b6e6ac4849f68b6e80b24b07c1e09d2e9fc5651421546280a358fe0798aa287753c474ba5250845beb3d406f4e8fe92e47e5d78559da0b92ee5aaaa0b18a0b74015164ea9420e421c2506df5c36d1d7a634d1dd17bcd616ec7a18330b8c4fa083642f20963149fb4306ad77846b16f547a36a8470c8b74f845869aee604ef46780bdd42c79bfeb8080a16b76bff541576c7e22beff46ba64f1525de6d4c6cdcdbe80787b0fa6d1bfe6fd84ffa0b56f778cc297db51f5be87c0e0b18b62d850451cc221e6e5ef1f9f090908691fda050a1422f41d75c495281d28b289de25c522c4d0a0092a1c74777fb50602487d09fc7683cde60911e3fcea327f412f511c07c757f7560358b66ed412a884b3b4c6861e2b1ea04c01b683b725c5ffb111c596ff674bae4a0b76ca6e6027c7bec3ff5ef472a4412edf839580cc152787475d2af410d4c65e33098b76900bdbee6db152a2cc4298151378f53c74f77d75bcc9b5b2d6827f23ecb7b0513bd03c347ae5803f6f2c6aaa556845263a2444df5fef9a76128a8c89fb9fe48aeca89d7c1b592cd5a2f2d2bf9157c88a53109293034f513ebc87e6eff201e531afc2109a2a5c08671bc2936c21c27b21df3856c8e3256d5e4ee4afa23cf6f2658848eb3fda6a0ce6c085809741d4820d93a1cde5659f30dee1180a8b24f801b4e30a414490760f09ed3a60f796db02f5afaa6c34fb508b478a22627d8830ec114ccfc665c2dc74fc8f0deecdc640b5c57ff7cedf684d2f5f8204608d99cfe685ff845be06b260f367c4ff4f17679e6fe17918efbb8e6c08e652bad96a7948fe93e0eb37fabd8254e60193ee016a2fdba1863997c9c557904ba652940e82c48e8567f582ceefa8de9c75a6c19ba16d18de48f5b4514845cd2ecd7e36ef11414d7c5a958767e8e248eae27bd32190dbad2489c70d5ccaa07d732037a46598ecc70b5a2163f634e4041fb8f7d38dcb72483a22b06d5f7b55d147b390be7d7bdf03216dd4f647f2ca3e3170a5b74836eb5798c523b57b203319a0a3b8de043280ae69312f53f313e1e48c781b6c5a1483b13b2702922b48cfea9c1d87d503801e699841f62885e300eb51332c95823402d67b75186a8187416e8119343b2ed4b820e5403e37f0fcf54bc5b9cc2c8f5a8c2ea95c8e0452e39712ae824b00777a50f70a2e5166ac47b7e2ec56c31cd99c498bd07ef3f2fb59c1d980a9989ba1d231d681f52e202d5c2e767184615473b6da9906f718714ac61d54dbbef21965600d67d94249efbe150ff7dd92ea1e252dc20ed638dfed2e4a5e3be51aa1a6691690de416b9d989e0908beaaf8494a628f9b050ee8941fcc3acbd7406768ff7ce36c45049e056d3a0c74143960f4eb0de479d8c91e1e4fe60c4cac22fef0c4164324f9a7cb47c4e8a799d149870c5eb5db2a55e50920e8cbadb1e95ee6568d2711f61c540b40eb68707a3df6c0e0918dbda75d2c20d653e0e3909c07a59350f3e24693e8dcb8e49da32fb48e800c9fa079449c62b048fcc6fef629dd1abc898f93a1cda3e902875e3b560ea3726f93252c6060c3e2cb21a7c36f54f22d2a3670d131ef672c24ccb072c9f57c28da93680c75b95c23fc1c628e08bae18606407de5800a69fb0dc264ff0964946add804a047eec3a923512181572ba21b21e1e352fc8b9b45a341e133572c2a26205163124152856e49e66c5605b9f6be5645d93348b3b2f33272d4663b23fc8079227c7b519f403bd92857b306e21d5d39dfa3158acab13dfa2fdcf71037a173028dd254022c76d7a588d0dba3dea2df40094e8fc6309ec385141d8c6a03e2a8c23ee61cde7cbafb4f4c7c7a955784f7a6ebe2427510b012575a864e042c4ee8bc0efaf77dde303d9064a8d6f48e397d2e7db13da6c864670bb2087c423da200d97c69c4abfe4bb2c0b1eaebd458b48eec25c382cc49eca10d75c154dcfdbca7740f50e69851c6cd4737639a8c9ff3576089c9bbbb54603e9f3052beaf192524703a3794494542c9182de319e2996a2f55aadb5729981f74ccdbf60e754eb39437781d5fb1a0fcdd694c9ca8b4d8e5f65beaff9c32f2acb027d61c5a6985e326afd4f59b7a7a501ce85cb14dcefa7ee8cc77f43ba5e7c04f66ee61aa56423d0a149a3716eeeb60fda807df5bec6c79c1b6f5f00b6d6f0bcd2539d644dfc920a1476474264cdcaa79d1b4075ce2ad2b67dc76fcb6b13d3e9c11cb2c80f2675da074ab627b504bc67ab4fde422483bf3c783314908c02479c657a7ecc11438b0dbcf7026760aa95f0dde2fb474f34c27efd03bd804774838f96f3d8040f1a49f3fee84d5d1495690cfc7d2f49403c6f246d16dc45a4e3b7ccb5195a99fd8db22bdd60e553ec2d8352f52e1fbad3b6626f7bb8809d9f3d16dfdd5b6687c5fd4e15f3b6a518f48ca3cef184b7fa30cbfbf31074bc813382cc9ca079d5a4e72ae2a029e8408c56e852e0402b6aaa58244066ce8716f73fa0476de0d078e37eb7cf153da9e723444590785ce33a0f0c66ea995fa8a9a0f8f0088ded0776b6fdec6c6ef71ae500b312ea099e15e133bb1cee01c908332b4b60f521d20b80ae80593dd5813da547a0d4067165b257ff9fb2ce3c94f720a87870f1f95b5fd42b35e607b78cebdcc79b3db4f310a9b53cdf33341170527ff913fa994ae99db3f3d9a1ed1fad120330ea2b628b355c33dda18574d28454e20b57b58778e3771f9f8770ce780d4c5b57933c09a3ce94cb559aa8a340ab7fff7082e0fd074d023841a50f6f2c2eb20bb6e5a809ea2abd5bd316e4c577817f33bf36f28d5aa6ff5a5613def9da870ce9270a1d518c7fc3d5b830ab1a6eac8eabbb897cb65f5db293f8cdb1b7e856ff909da74a12f2cc3cc36e6f49518e52fc72bad50c7dacaa5d309a5c4f192a763709a58cefe612903b369d66d2e6402e7050cb492c23e51958766f9dc2ffd6fd2c7f70778606fbe7b45ee0d2d5dbeb0792f1874a04a12e13788b7a8ae04136ccc2ddcccd0ab36c87b47706658f19afcf31260867b9de81f81e8b7476ed42902876e3e1a8fb08ab72c97b26e8a8a7ae42fea550015f0cd847a4f0d9088d6a8b388cb94532e3d9734b5e5689465a5a409fb58be34fe5097e9361d116b456c678fdce6427f19336d180f36463030ee140bf0852a3793ed3ab8ac997ed3afd8e7cd5d3984b8ef367de0ec914913230ee80a12fbae3d136162dbeb832205913a1fc90f1a0010803d9ab22fb536cfcb2a795e94a22551bcf5e88dae73cf6befc6ad0af2351320754d4db18a2cf4749e21aae023b9acb6cd7a0926b7e9dd4d37b11a1e12d8ecd43e01c09cedbe97ff7209c2e2ffe9cdc5a13988ba7440479e3c25fdbe49a0a9c603be639af5e0c828c538a32fa5588f7a151849e5f5ee639cf4ce0aab2f613e49c6c9bfff89be91c9c69db0650560ce59771b5b1827620c53d1d8327a49dd6bba7945c0c614f9bd2fe238647f1ebea7312d8d7e5f692cbb542e79ef2a0c935687e56a63403ff25322280b5b0cf39782173e519e6bd88f92f3459b77c83ab207b2c45cb8020376e02f0808cf762b8273deec4c86a0cc1a4e0164cf9a1207f178ce84fee11b76391f13fbfa63cb3e06458018592aa818928411b21607690abd202892a0a5abe34e53bd2d8f3229ddd859c3fb2c98ad82e4848640df7121a86abfa83ffb99330b71ae9ff77b7b9a5ea59b6098defb6fde2834b8c0b668ef647a5d109dc74442ef3b3fb144d49d36fa88cabafc28aa3dacbc73e75ae227ec41861be2151d848e0b3b5157ae4ddc0ac0f5bc9f24a2566ac67cc3c2aa5d235ed5c3bfc7350e8b51bab1bbababc0da08939fa5ce90306be9dccc7f1c8be414fe5252cf69ab1036fc2f8b8846852fc1ee4873a43df60316428175b9c5f75d68a796940541694ca95322c854b99e3d8d0ce0f8f5518fd06762be657498e8f98ade33962f3d329319416768176cb76c2bb99bdd2eac23445fbb4a97c13b55d5d3a69bdcf3f3ec32a7a05eb1ead97ed256fc36ceef9a3e0b2d0152b27ac4c7dcd258059567012a7001b744e812acfbbbc0af097027c22bff16722474cbe1f13c892cf57d0084777d686052e2dd1acd42b92a3587f235e4dc092b8312c6d0b1c60b35cdc8479f0f33a6f1bebda7c0464a0ddb94e2c2955504b608866c7c26293bc5685fed49df714ba963226e1748428899733f9ad5993f60729cb4edcecbf39205bf8785aa34946ba94edea5de7bd8004a918be8e24b268ed3a685d3c845937c7671861d4f5ba52e452fc8733cb2a2d78a50f786811bcc437aa17ebe848be7135611b97406a8efc2fa1406a674bed2466f74ec4d22e81ddb7637caf8f9a2c7ef5a812b6b6735fda4804b614801764643d968b7c486541c12ef2d444d274747947baea1e94a612a41719a3a61f4c7deefe2deb41cbf76b1c245959d1f673bf9a2ed1a3b7ed06071be06b9772a3e2d520d5d383b43d715fe428bf445f9dbfb84ebdba29f162213bccec080021c173d6fcee75f55e0ecf6dcc6cda05fbebea9f218124a6d81e939b5bc5810c446daa8cdd933a490230f4b05df92ae931e5230ddb19bad3e2c87d7a64744f6faf5ac715672f70f1510434c7cc079be6292bff9bc6e1b59e50fd34b4d1aa490ec9418db0cc588ea0ef45d7c2678bc55450a1b57e78824d4e91c86dc8ff427d681fb4e401323d469dcb9e3170ecc0fc13be8d3060379b8bfaa6fe4e1ea6be7a11d39156b6b930959adb7a6836081d7f8f574f1b6571ed5b4a6fc795a05c04c763f8f324e83b6441671a55195d74b8a25779a2e679183a1b4e0d504b5ea0f3ba13c15e384ce38bf00b5a6dd71892fbf6c900c246a5887fc9377e5de8cb8fe0258b49a012fc567617aeb808dda33c9292b5eadd615f323ca31aa1bf4d083dc63a5731c1436247d12a154c58c653b275c7e6be9d76690132390c0dd1888c0fa4b83215c843bfded7887ebb13fc59bd568f8d76f8bd02f60e9ef9b00225f564735c35e239ce5d5e714f1ebfdab3ac3599a3335b6e42a5577f5982d1a9fedbff34b0e532ab6264c5a9451748259fa18805693f164ee6a95fbf58948491d60a0dc5a43520d7b47c529641cf269aabe098037a0c3b2bae71c26dad63ee49fd77bc8ff32ee1066b85daad38224517a347a1af15ee44</script>
   <div class="hbe hbe-content">
     <div class="hbe hbe-input hbe-input-default">
       <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
@@ -3750,7 +3769,7 @@ static class Inner &#123;
 <p>​</p>
 <h2 id="三为什么resnet能解决深度网络退化问题">三、为什么ResNet能解决深度网络退化问题？</h2>
 <p>1、加了残差结构后就是给了输入x多一个选择，在神经网络学习到这层的参数是冗余的时候它可以选择直接走这条“跳接”曲线，跳过这个冗余层，而不需要再去拟合参数使得输出H(x)等于x。</p>
-<p>2、因为学习残差的计算量比学习恒等映射小。假设普通网络为A，残差网络为B，输入为2，输出为2（输入和输出一样是为了模拟冗余层需要恒等映射的情况），那么普通网络就是A (2) = 2，而残差网络就是B ( 2 ) = F ( 2 ) + 2 = 2，显然残差网络中的F ( 2 ) = 0 。我们知道网络中权重一般会初始化成0附近的数，那么我们就很容易理解，为什么让F(2)（拟合0会比A (2) = 2 容易了</p>
+<p>2、因为学习残差的计算量比学习恒等映射小。假设普通网络为A，残差网络为B，输入为2，输出为2（输入和输出一样是为了模拟冗余层需要恒等映射的情况），那么普通网络就是A (2) = 2，而残差网络就是B ( 2 ) = F ( 2 ) + 2 = 2，显然残差网络中的F ( 2 ) = 0 。我们知道网络中权重一般会初始化成0附近的数，那么我们就很容易理解，为什么让F(2)拟合0会比A (2) = 2 容易了</p>
 <p>3、我们知道ReLU能够将负数激活为0，而正数输入等于输出。这相当于过滤了负数的线性变化，让F(x)=0变得更加容易。</p>
 <p>4、我们知道残差网络可以表示成H ( x ) = F ( x ) + x ，这就说明了在求输出H ( x ) 对输入x 的倒数（梯度），也就是在反向传播的时候，H ′ ( x ) = F ′ ( x ) + 1，残差结构的这个常数1也能保证在求梯度的时候梯度不会消失。</p>
 <h2 id="四一些细节问题">四、一些细节问题：</h2>
@@ -3823,24 +3842,26 @@ static class Inner &#123;
 <p>​ <strong>2、Covariate shift</strong>：<strong>如果ML系统实例集合&lt;X,Y&gt;中的输入值X的分布老是变，这不符合IID假设</strong>，网络模型很难<strong>稳定的学规律</strong>。</p>
 <p>​ 所以，之所以深度神经网络随着网络深度加深，训练越来越困难是因为，对于深度学习这种包含很多隐层的网络结构，在训练过程中，因为各层参数不停在变化，所以每个隐层都会面临covariate shift的问题，也就是<strong>在训练过程中，隐层的输入分布老是变来变去，这就是所谓的“Internal Covariate Shift（ICS）”，Internal指的是深层网络的隐层，是发生在网络内部的事情，而不是covariate shift问题只发生在输入层</strong></p>
 <p>​ BatchNorm的基本思想就是能不能<strong>让每个隐层节点的激活输入分布固定下来呢</strong>？这样就避免了“Internal Covariate Shift”问题了。</p>
-<p>所以BN实质上就是在深度神经网络训练过程中使得每一层神经网络的输入保持相同分布的一种方法。</p>
+<p>​ 所以BN实质上就是在深度神经网络训练过程中使得每一层神经网络的输入保持相同分布的一种方法。</p>
 <p>​ BN的基本思想其实相当直观：因为深层神经网络在做非线性变换前的<strong>激活输入值随着网络深度加深或者在训练过程中，其分布逐渐发生偏移或者变动，之所以训练收敛慢，一般是整体分布逐渐往非线性函数的取值区间的上下限两端靠近</strong>（对于Sigmoid函数来说，意味着激活输入值WU+B是大的负值或正值），所以这<strong>导致反向传播时低层神经网络的梯度消失</strong>，这是训练深层神经网络收敛越来越慢的<strong>本质原因</strong>，<strong>而BN就是通过一定的规范化手段，把每层神经网络任意神经元这个输入值的分布强行拉回到均值为0方差为1的标准正态分布</strong>，其实就是把越来越偏的分布强制拉回比较标准的分布，这样使得激活输入值落在非线性函数对输入比较敏感的区域，这样输入的小变化就会导致损失函数较大的变化，意思是<strong>这样让梯度变大，避免梯度消失问题产生，而且梯度变大意味着学习收敛速度快，能大大加快训练速度。</strong></p>
 <p>​ <strong>对于每个隐层神经元，把逐渐向非线性函数映射后向取值区间极限饱和区靠拢的输入分布强制拉回到均值为0方差为1的比较标准的正态分布，使得非线性变换函数的输入值落入对输入比较敏感的区域，以此避免梯度消失问题。</strong>因为梯度一直都能保持比较大的状态，所以很明显对神经网络的参数调整效率比较高，就是变动大，就是说向损失函数最优值迈动的步子大，也就是说收敛地快。BN说到底就是这么个机制，方法很简单，道理很深刻。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/aHR0cDovL3FsLm1hZ2ljLXNldmVuLnRvcC91cGxvYWQvMjAyMC8zL2ltYWdlLTVkMjU4MDQxNGI0YTRkNjhiODEzMDMxMDZlMzY5YzNiLnBuZw.png" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/aHR0cDovL3FsLm1hZ2ljLXNldmVuLnRvcC91cGxvYWQvMjAyMC8zL2ltYWdlLTVkMjU4MDQxNGI0YTRkNjhiODEzMDMxMDZlMzY5YzNiLnBuZw.png" style="zoom: 67%;" /></p>
 <h2 id="二batchnorm在训练阶段和测试阶段的做法与意义">二、BatchNorm在训练阶段和测试阶段的做法与意义：</h2>
 <h3 id="训练阶段">1、训练阶段：</h3>
 <p>​ 首先计算均值和方差（每次训练给一个批量，计算批量的均值方差），然后归一化，然后缩放和平移，完事！</p>
 <h3 id="测试阶段">2、测试阶段：</h3>
-<p>​ 每次只输入一张图片，这怎么计算批量的均值和方差，于是，就有了代码中下面两行，在训练的时候实现计算好mean、 var，测试的时候直接拿来用就可以了，不用计算均值和方差。</p>
-<p>​ 用训练集来估计总体均值 μ 和总体标准差 σ 。</p>
-<p>​ 较为简单的做法就是把每个mini-batch的均值和方差都保存下来，然后训练完了求均值的均值，方差的均值即可。</p>
-<p>​ 在测试阶段应用BatchNorm的含义，应该就是要让测试集的测试精度与整个训练网络保持一致。</p>
+<p>​ 每次只输入一张图片，这怎么计算批量的均值和方差，于是，应该是这样子，在训练的时候实现计算好mean、 var，测试的时候直接拿来用就可以了，不用计算均值和方差。</p>
+<ul>
+<li><p>用训练集来估计总体均值 μ 和总体标准差 σ 。</p></li>
+<li><p>较为简单的做法就是把每个mini-batch的均值和方差都保存下来，然后训练完了求均值的均值，方差的均值即可。</p></li>
+<li><p>在测试阶段应用BatchNorm的含义，应该就是要让测试集的测试精度与整个训练网络保持一致。</p></li>
+</ul>
 <h2 id="三batchnorm的两个参数gamma和beta有什么作用">三、BatchNorm的两个参数<span class="math inline">\({\gamma}\)</span>和<span class="math inline">\(\beta\)</span>有什么作用？</h2>
 <p><img src="https://www.zhihu.com/equation?tex=y%3D\frac%7Bx-\mathrm%7BE%7D%5Bx%5D%7D%7B\sqrt%7B\operatorname%7BVar%7D%5Bx%5D%2B\epsilon%7D%7D+*+\gamma%2B\beta+" /></p>
 <h3 id="如果只做归一化为什么是学不到任何东西的">1、如果只做归一化，为什么是学不到任何东西的？</h3>
 <p>​ 如果在每一层之后都归一化成0-1的高斯分布（减均值除方差）那么数据的分布一直都是高斯分布，数据分布都是固定的了，这样即使加更多层就没有意义了，<strong>深度网络就是想学习数据的分布发现规律性，BN就是不让学习的数据分布偏离太远</strong></p>
 <h3 id="两个参数的作用">2、两个参数的作用</h3>
-<p>​ 为了减小Internal Covariate Shift，对神经网络的每一层做归一化不就可以了，假设将每一层输出后的数据都归一化到0均值，1方差，满足正胎分布，但是，此时有一个问题，<strong>如果每一层的数据分布都是标准正太分布，导致其完全学习不到输入数据的特征，因为，费劲心思学习到的特征分布被归一化了，因此，直接对每一层做归一化显然是不合理的。</strong>但是如果稍作修改，加入可训练的参数做归一化，那就是BatchNorm 实现的了。</p>
+<p>​ 为了减小Internal Covariate Shift，对神经网络的每一层做归一化不就可以了，假设将每一层输出后的数据都归一化到0均值，1方差，满足正胎分布，但是，此时有一个问题，<strong>如果每一层的数据分布都是标准正态分布，导致其完全学习不到输入数据的特征，因为，费劲心思学习到的特征分布被归一化了，因此，直接对每一层做归一化显然是不合理的。</strong>但是如果稍作修改，加入可训练的参数做归一化，那就是BatchNorm 实现的了。</p>
 <p>​ 接下来详细介绍一下这额外的两个参数，之前也说过如果直接做归一化不做其他处理，神经网络是学不到任何东西的，但是加入这两个参数后，事情就不一样了。先考虑特殊情况下，如果γ 和β 分别等于此batch的标准差和均值，那么<span class="math inline">\(y_i\)</span>就还原到归一化前的x了吗，也即是缩放平移到了归一化前的分布，相当于batch norm没有起作用，<span class="math inline">\(β\)</span>和γ 分别称之为 平移参数和缩放参数 。这样就<strong>保证了每一次数据经过归一化后还保留的有学习来的特征，同时又能完成归一化这个操作，加速训练</strong>。</p>
 <p>引用：https://www.cnblogs.com/hoojjack/p/12350707.html</p>
 ]]></content>
@@ -4357,7 +4378,7 @@ static class Inner &#123;
 <p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_01_17_09_26_22_177.png" /></p>
 <p>​ BN的文章中介绍过几乎所有的归一化方法都能起到平滑损失平面的作用。<strong>所以从原理上讲，LN能加速收敛速度的。</strong>但我们发现，将LN添加到CNN后，实验结果表明LN破坏了卷积层学习到的特征，使得模型无法收敛，所以在CNN之后使用BN是一个较好的选择。</p>
 <h5 id="类比-1"><strong>类比</strong>：</h5>
-<p>​ LN 求均值时，相当于把每一本书的所有字加起来，再除以这本书的字符总数：C<strong>×</strong>H<strong>×</strong>W，即求整本书的“平均字”，求标准差时也是同理。</p>
+<p>​ LN 求均值时，相当于把每一本书的所有字加起来，再除以这本书的 字符总数：C<strong>×</strong>H<strong>×</strong>W，即求整本书的“平均字”，求标准差时也是同理。</p>
 <h5 id="总结-1"><strong>总结</strong></h5>
 <p>​ 总体而言，LN是和BN非常近似的一种归一化方法，不同的是<strong>BN取的是不同样本的同一个特征，而LN取的是同一个样本的不同特征</strong>。在BN和LN都能使用的场景中，<strong>BN的效果一般优于LN，原因是基于不同数据，同一特征得到的归一化特征更不容易损失信息。</strong></p>
 <p>​ 但是有些场景是不能使用BN的，例如batchsize较小或者在RNN中，这时候可以选择使用LN，LN得到的模型更稳定且起到正则化的作用。RNN能应用到小批量和RNN中是因为LN的归一化统计量的计算是和batchsize没有关系的</p>
@@ -4885,7 +4906,7 @@ static class Inner &#123;
 <p>2、因为模型是基于CNN改进而来，即便是用卷积替换了全连接，但是依然是独立像素进行分类，没有充分考虑像素与像素之间的关系</p>
 <h2 id="二关于卷积网络中降采样与上采样以及特征提取阶段的理解">二、关于卷积网络中降采样与上采样以及特征提取阶段的理解：</h2>
 <p>​ 1、降采样的理论意义是，它可以增加对输入图像的一些小扰动的鲁棒性，比如图像平移，旋转等，减少过拟合的风险，降低运算量，增加感受野的大小。</p>
-<p>​ 2、上采样的最大的作用其实就是把抽象的特征再还原解码到原图的尺寸，最终得到分割结果。但很容易得到模糊或过于平滑的结果，无法还原细节部分。</p>
+<p>​ 2、上采样的最大的作用其实就是把抽象的特征再还原到原图的尺寸，最终得到分割结果。但很容易得到模糊或过于平滑的结果，无法还原细节部分。</p>
 <p>​ 3、对于特征提取阶段，浅层结构可以抓取图像的一些简单的特征，比如边界，颜色，而深层结构因为感受野大了，而且经过的卷积操作多了，能抓取到图像的一些抽象特征。</p>
 <h3 id="三unet网络">三、UNet网络</h3>
 <p>​ UNet网络整体结构如下：</p>
@@ -4926,7 +4947,7 @@ static class Inner &#123;
 <li><p>3 * 3卷积部分： 32 * 48 * 3 * 3= 13824个</p>
 <p>总计16896个训练参数</p></li>
 </ol>
-<p><strong>情况2:</strong> 总计 96<em>48</em>3*3 = 41472个训练参数</p>
+<p><strong>情况2:</strong> 总计 96*48*3*3 = 41472个训练参数</p>
 <p>​ 从实际上来看，带1 * 1卷积的模型参数量更少，本质原因是因为1*1的卷积对数据的特征向量进行了降维的处理，使得特征通道数目先有了一定的减少。</p>
 <p>​ 如下所示：在ResNet中的残差模块使用1*1的卷积核的意义也在于此：</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114211323250.png" /></p>
@@ -4938,12 +4959,12 @@ static class Inner &#123;
 <p>​ 1、上采样和池化层是人为设计好的，是不可学习的。</p>
 <p>​ 2、容易丢失内部数据结构与空间的层次化信息</p>
 <p>​ 3、小物体的信息无法重建，假设有多个pooling layer，那么从理论上来讲在一定小的范围内的像素的物体是无法被重建的。</p>
-<p>​ 所以有人提出了空洞卷积的思想。其本身避免了一部分上述讲到的2、3的问题，但是其也存在一些潜在问题，具体可以参考：https://www.zhihu.com/question/54149221</p>
+<p>​ 所以有人提出了空洞卷积的思想。其本身避免了一部分上述讲到的2、3的问题，但是其也存在一些潜在问题，具体可以参考：<a href="https://www.zhihu.com/question/54149221">如何理解空洞卷积（dilated convolution）？</a></p>
 <p>​ 最终，图森组提出了一个HDC的设计结构，来满足整个基于空洞卷积的设计。较为具体的内容也可以参考上述的文章。</p>
 <h3 id="三部分卷积partial-convolution">三、部分卷积（Partial Convolution）</h3>
 <p>​ 部分卷积在这篇论文中被提出，用于进行图像补全的任务，《Image Inpainting for Irregular Holes Using Partial Convolutions》</p>
 <p>​ 在图像补全领域中，这篇论文前通常使用卷积层对有效像素和mask像素无差别的做卷积，容易导致颜色差异和伪影。而且先前的工作都是聚焦于一个图像中心的规则区域，并且都需要很昂贵的后处理机制。</p>
-<p>​ 相比于人们以前使用的非神经网路的方法（PatchMatch等），使用神经网络的方法容易学习到语义的优点和有意义的隐藏表示信息，对于图像补全有很大的意义。但是这些网络使用卷积核的时候，使用一个固定的值将输入图像中被mask的地方代替，然后去卷积，这样就很容易导致孔洞区域内的纹理缺失，或者是边缘出现伪影。（就比如说使用经典卷积的U-Net架构。</p>
+<p>​ 相比于人们以前使用的非神经网络的方法（PatchMatch等），使用神经网络的方法容易学习到语义的优点和有意义的隐藏表示信息，对于图像补全有很大的意义。但是这些网络使用卷积核的时候，使用一个固定的值将输入图像中被mask的地方代替，然后去卷积，这样就很容易导致孔洞区域内的纹理缺失，或者是边缘出现伪影。（就比如说使用经典卷积的U-Net架构。</p>
 <p>​ 具体一点，如下图所示：先使用固定值m替换掉mask为0的区域，然后进行卷积。</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114211456573.png" /></p>
 <p>​ 而在这篇论文中提出了部分卷积的概念，只针对于有有效像素的部分进行卷积，并且能够自动的更新mask。</p>
@@ -4981,7 +5002,7 @@ static class Inner &#123;
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212018393.png" /></p>
 <p>​ 这样的话呢，采样就在一个不规则的并且带有偏移的位置上进行了。通常而言这个offset ∆pn 是小数，所以通常需要通过线性插值来计算像素的值，公式如下所示：其实就是x(p)的值要由其周围整数像素x(q)加权得到。</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212038364.png" /></p>
-<p>​ 那么，关键的问题来了：这个offset怎么得到呢？这个offset是通过另一个在相同的输入图像上的卷积得到的。这个卷积的卷积核与当前的可变形卷积的卷积核有相同的空间分辨率。同时，经过这个卷积后得到的offest的输出域，和输入也有同样的空间分辨率。输出维度为2N，分别对应N个2维的offsets。</p>
+<p>​ 那么，关键的问题来了：这个offset怎么得到呢？<strong>这个offset是通过另一个在相同的输入图像上的卷积得到的。这个卷积的卷积核与当前的可变形卷积的卷积核有相同的空间分辨率。同时，经过这个卷积后得到的offest的输出域，和输入也有同样的空间分辨率。输出维度为2N，分别对应N个2维的offsets。</strong></p>
 <p>​ 在训练过程中，用来生成输出特征的卷积核和用来计算offsets的卷积核是同时进行学习的。下图是一个3*3的可变形卷积的示意图。</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212046759.png" /></p>
 <p>​ 至于更为详细的可变形卷积思想以及实验，可以更深入的精读《Deformable Convolutional Networks》这篇论文。</p>
@@ -5009,7 +5030,7 @@ static class Inner &#123;
 <p>​ 但是，Depthwise通过深度以及广度的操作能很好的保留各个通道信息的同时，降低了计算开销。而这一思想也逐渐应用到了移动端神经网络。</p>
 <h3 id="point-wise-convolution1x1卷积">3、Point-Wise Convolution(1x1卷积)</h3>
 <p>​ Pointwise Convolution的运算的卷积核的尺寸为 1×1×M，M为输入的图像的通道数。如下图所示：输入图像为3通道，经过4个1x1x3的卷积核以后，生成4个特征图，特征图大小并不会变化，故而这里的卷积运算其实就是将输入的图像在深度方向上进行加权组合，生成新的Feature map。</p>
-<p>​ 详见：https://blog.slks.xyz/2022/01/07/basic/basic5/</p>
+<p>​ 详见：<a href="https://blog.slks.xyz/2022/01/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B05%E2%80%941x1%E5%8D%B7%E7%A7%AF&amp;%E9%83%A8%E5%88%86%E5%8D%B7%E7%A7%AF&amp;%E7%A9%BA%E6%B4%9E%E5%8D%B7%E7%A7%AF&amp;%E5%8F%AF%E5%8F%98%E6%80%A7%E5%8D%B7%E7%A7%AF/">机器学习基础系列笔记5——1x1卷积 &amp; 部分卷积 &amp; 空洞卷积 &amp; 可变形卷积</a></p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114211035827.png" /></p>
 <h3 id="depth-wise-separable-convolution">4、Depth-Wise Separable Convolution</h3>
 <p>​ Depthwise Separable Convolution是将一个完整的卷积运算分解为两步进行，即上面所述的Depthwise Convolution与Pointwise Convolution。</p>
@@ -5028,7 +5049,7 @@ static class Inner &#123;
     <content><![CDATA[<p><strong>提示：在观看此篇文章前，需要你掌握卷积操作。</strong></p>
 <p>​ Deconvolution反卷积通常用于进行图像的上采样，恢复分辨率。又称transposed convolution或是Fractionally-strided convolution。首先，我们先聊一聊为什么需要反卷积来进行上采样？</p>
 <p>​ 在反卷积前，人们上采样通常采用插值的方法去进行，但是插值的方法完全是由人工定义规则，并不能够对于不同图像的插值有特定的优化，也没有可调整参数的空间。此时，我们想要让网络能够学出一种最优化的上采样方案，就是我们的反卷积操作。</p>
-<p>​ 众所周知如下所示是一个普通的卷积操作，我们拿一个3<em>3的卷积核去卷一个4</em>4的矩阵，padding=0，stride=1，得到了一个2*2的矩阵。</p>
+<p>​ 众所周知如下所示是一个普通的卷积操作，我们拿一个3*3的卷积核去卷一个4*4的矩阵，padding=0，stride=1，得到了一个2*2的矩阵。</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114210644864.png" /></p>
 <p>​ 从实质的角度去理解卷积这一件事情，其实它就是建立了输入与输出图像的像素对应关系，比如说按照上图所示的内容，输入图像中每9个像素，通过卷积核，建立起了和输出图像中1个像素的映射关系。所以Convolution建立的是一个“多对一”的像素映射关系。那么，顾名思义，Deconvolution本身应该要做的就是从output到input之间，建立“一对多”的像素映射关系。也就是说从output的一个值中计算出input的9个值。看到这里也许会有些懵，实际上来说，卷积这个操作是没法逆向进行的，我们这边说的反卷积只是一种形式，因为其比较像而已。</p>
 <p>​ 那么反卷积是如何进行的呢？我们先再来看一看卷积的另一种计算形式（除了移动卷积核遍历以外）—— 使用矩阵相乘的形式进行计算，然后能够很好的推出得到反卷积的计算形式。</p>
@@ -5041,7 +5062,7 @@ static class Inner &#123;
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114210739770.png" /></p>
 <p>然后我们发现，原来卷积操作，可以写成两个矩阵相乘的形式，在上述例子中就是：</p>
 <p>B（4 * 16）· A（16 * 1） = C（4 * 1）--》reshape --》 output（2 * 2）</p>
-<p>​ 那么，现在反卷积要干的事情其实就是让C（4<em>1）·BT（16</em>4）就可以得到一个16<em>1的矩阵，然后进行reshape就可以变成一个4</em>4的图像，其分辨率为最开始输入的2*2的图像的两倍，就可以完成反卷积。</p>
+<p>​ 那么，现在反卷积要干的事情其实就是让 <span class="math inline">\(B^T\)</span>（16*4）· <span class="math inline">\(C\)</span>（4*1）就可以得到一个16*1的矩阵，然后进行reshape就可以变成一个4*4的图像，其分辨率为最开始输入的2*2的图像的两倍，就可以完成反卷积。</p>
 <p>​ 其实，按照上述的做法，我们就建立了一个1对多的映射关系，请注意，在实际操作中，其实并不需要去计算反卷积的矩阵B内部到底是什么信息，B内部的参数是可以让网络进行学习而得到的，网络学习得到的参数往往就是针对于这一组训练集或者针对于特定任务而言，最好的一个上采样的方案。</p>
 <p>​ 所以严格来说，反卷积并不算卷积，只是另一种形式罢了。</p>
 ]]></content>
@@ -6603,8 +6624,8 @@ n: [2. 2. 2. 2. 2.]</code></pre>
       </categories>
       <tags>
         <tag>Transformer</tag>
-        <tag>Computer Vision</tag>
         <tag>Vision Transformer</tag>
+        <tag>Computer Vision</tag>
       </tags>
   </entry>
   <entry>

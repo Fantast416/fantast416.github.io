@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/1496926-9e0fd762d02d26c1.webp">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220117102111791.png">
 <meta property="article:published_time" content="2022-01-16T04:33:19.000Z">
-<meta property="article:modified_time" content="2022-01-29T07:31:53.000Z">
+<meta property="article:modified_time" content="2022-02-12T07:35:31.418Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Normalization">
 <meta name="twitter:card" content="summary">
@@ -279,7 +279,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-29 15:31:53" itemprop="dateModified" datetime="2022-01-29T15:31:53+08:00">2022-01-29</time>
+      <time title="修改时间：2022-02-12 15:35:31" itemprop="dateModified" datetime="2022-02-12T15:35:31+08:00">2022-02-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -373,7 +373,7 @@
 <p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_01_17_09_26_22_177.png" /></p>
 <p>​ BN的文章中介绍过几乎所有的归一化方法都能起到平滑损失平面的作用。<strong>所以从原理上讲，LN能加速收敛速度的。</strong>但我们发现，将LN添加到CNN后，实验结果表明LN破坏了卷积层学习到的特征，使得模型无法收敛，所以在CNN之后使用BN是一个较好的选择。</p>
 <h5 id="类比-1"><strong>类比</strong>：</h5>
-<p>​ LN 求均值时，相当于把每一本书的所有字加起来，再除以这本书的字符总数：C<strong>×</strong>H<strong>×</strong>W，即求整本书的“平均字”，求标准差时也是同理。</p>
+<p>​ LN 求均值时，相当于把每一本书的所有字加起来，再除以这本书的 字符总数：C<strong>×</strong>H<strong>×</strong>W，即求整本书的“平均字”，求标准差时也是同理。</p>
 <h5 id="总结-1"><strong>总结</strong></h5>
 <p>​ 总体而言，LN是和BN非常近似的一种归一化方法，不同的是<strong>BN取的是不同样本的同一个特征，而LN取的是同一个样本的不同特征</strong>。在BN和LN都能使用的场景中，<strong>BN的效果一般优于LN，原因是基于不同数据，同一特征得到的归一化特征更不容易损失信息。</strong></p>
 <p>​ 但是有些场景是不能使用BN的，例如batchsize较小或者在RNN中，这时候可以选择使用LN，LN得到的模型更稳定且起到正则化的作用。RNN能应用到小批量和RNN中是因为LN的归一化统计量的计算是和batchsize没有关系的</p>
@@ -490,13 +490,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">388k</span>
+    <span title="站点总字数">397k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">17:59</span>
+    <span title="站点阅读时长">18:22</span>
   </span>
 </div>
 <div class="busuanzi-count">
