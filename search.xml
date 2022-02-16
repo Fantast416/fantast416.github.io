@@ -16,7 +16,7 @@
 </div>
 <script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -38,7 +38,7 @@
 </div>
 <script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -72,7 +72,8 @@ res[i][j] = max(res[i-1][j],res[i][j-1])  \ \ \ \ \ (if \ \ \ \ text1[i-1] != te
 <p>​</p>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>动态规划系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -100,7 +101,7 @@ res[i][j] = max(res[i-1][j],res[i][j-1])  \ \ \ \ \ (if \ \ \ \ text1[i-1] != te
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120814669.png" /></p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -205,7 +206,7 @@ res[i][j] = max(res[i-1][j],res[i][j-1])  \ \ \ \ \ (if \ \ \ \ text1[i-1] != te
 <p>https://www.cnblogs.com/wangguchangqing/p/12021638.html</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -228,7 +229,7 @@ res[i][j] = max(res[i-1][j],res[i][j-1])  \ \ \ \ \ (if \ \ \ \ text1[i-1] != te
 </div>
 <script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
-        <category>博文复习日志</category>
+        <category>⓻ 博文复习日志</category>
       </categories>
       <tags>
         <tag>Review</tag>
@@ -269,7 +270,7 @@ res[i][j] = max(res[i-1][j],res[i][j-1])  \ \ \ \ \ (if \ \ \ \ text1[i-1] != te
 <p>参考资料：https://zhuanlan.zhihu.com/p/25765735</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -279,7 +280,7 @@ res[i][j] = max(res[i-1][j],res[i][j-1])  \ \ \ \ \ (if \ \ \ \ text1[i-1] != te
   </entry>
   <entry>
     <title>科研方法经验整理帖（待更新）</title>
-    <url>/2022/02/11/%E7%A7%91%E7%A0%94%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86/</url>
+    <url>/2022/02/11/%E7%BB%8F%E9%AA%8C%E7%B1%BB%E7%AC%94%E8%AE%B0/%E7%A7%91%E7%A0%94%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95%E6%95%B4%E7%90%86/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
   <script id="hbeData" type="hbeData" data-hmacdigest="78aebff3f21474859eea069c0aa5c0a529296882e8f50aa3379a7d94bcebd625">0b64cd3abe5b0a0a039a37d86c66d75e6ec8e220ebc13f2625638343d94e3b65856d18f3658e019a32f1894ad03d5b43cd3328e3f66535cd458efc00fced97588ae5b90ce7a87482e304e348cff487d0a7f8bcf0295640ec945ed8d5e406b374abc5bba690c86f2886f3362d4f623c32b36c4f794256435eceb4da718881a9e7c2533b6e6d91c809af5f27331ed2f2fb22cacb3965452f407d7f6ae923d408cd92a4317a17f49af58f77d2f15111feffb8148525f76b08d07e6251bb129a663faf652a3bc98809d7ff7a3a14ee27d9be1abd84c0104ec8f806657a52f5a1daf5f07adc5bc057b952c3cf5900f7c35b9ab8fbf98132dcdfa00cf47b1a443e11718700d2a517a2241b256ee3a4a95b58c9e4a629c6ecf96a067648570369f958143547c21c4af91b3be855606102efe201b16ad62f39df0eaee7cd71768b33debb3582eeb31d8f45ac2724fa746620ea8194315003e007ef9f18c12f9f05b78ab4221720ec308f2063f7395464c5e5d6be0979f7fa163b0151d8bb77f8bdb49f32509359e981d66fc81cc21e3d91ef38867369f64baf096500ad895b2d105eae48d7b0cb9a86bef3ce31b1a09b6d4b95fb7567de9080fad3fe9ea80e88d2b1629c435bdd3de51ae48d7bf4db692f075853f10bf0db1699d57a0bc772d5a63ea25b31c57a72b12977dd4ccf35dd254570a3ca4b3529af585f4669945095193c0ee7c5b0aa041d22ed94103bb8e5b1e06fe05a85be94ab2cf23c7a3cbac506f1b441ef822b5d1e5b956a769f8916c5aa01aa09680bb95a37dc6a937977735c703e44c51e3c901fbada4748c2abc33d52aa2160be9bd3cdfad2de9bd9243b1843c51901bc2e43c71769bd8148fb7e7d85bd3a6d3f7d93dedd1cc52ae971a3edd5ce0675801ed8a11a68b088d418db3aecaf80125ad0f5d0e3b824eb9a359473df6910f49944b68599c952462f781673563c867c7198b46b14b582e74c0f919a1f8e19a57229942155d146417e8baa7074448898c65e11ff73087e94a1537bf7ae94a281174267459ec4f005a2fd9e37a7385fd6afc35343c6af7298e741af541d397f5123ecf7d2a1565cee5a38c9ebf15707d94a789a52b0b02890595cccc15541502d70d731693976b0c03d28de438a60775cdf1084e9c853e7d9e28ee351a2d8337611940f1ddf52d68cc97a118372c54f26c7fd8d74df21b2015e105a365d57c981561924e559ddc2c5a1d167f55ece4106df2802653517880f2ee2fb37b05883456e5d5de7a1e05acdf5504788352f28d03a810b24f8b7ac309d1d1b024d487d53a58cf6a6d14ec244986531e432edcee36fb0b41d8ae26399f14178133b01c5c7373d1cc8d06b49541e361dd45bdbd090446979781b3d6e9727b6ac2d3eb5e7391af68646cd0a5523d446835f88907509129abe9af4dabb6de925f8b616bbcb533e6d96dfc0abf900ebf282e0a65086da1f96b03c71565d32d230988996215f0152b87d73248e1b6ac0af8dab915818</script>
   <div class="hbe hbe-content">
@@ -293,7 +294,7 @@ res[i][j] = max(res[i-1][j],res[i][j-1])  \ \ \ \ \ (if \ \ \ \ text1[i-1] != te
 </div>
 <script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
-        <category>经验整理</category>
+        <category>⓺ 经验整理类笔记</category>
       </categories>
       <tags>
         <tag>Methods</tag>
@@ -518,7 +519,7 @@ res[i][j] = max(res[i-1][j],res[i][j-1])  \ \ \ \ \ (if \ \ \ \ text1[i-1] != te
 <p>5、https://zhuanlan.zhihu.com/p/53506221</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -573,7 +574,8 @@ buildDict 仅在 search 之前调用一次
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MagicDictionary</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unordered_map&lt;string,<span class="keyword">int</span>&gt; neighbors;</span><br><span class="line">    unordered_map&lt;string,<span class="keyword">int</span>&gt; dictionary;</span><br><span class="line">    <span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line">    <span class="built_in">MagicDictionary</span>() &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">generateNeighbors</span><span class="params">(string word)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;word.<span class="built_in">length</span>();i++)&#123;</span><br><span class="line">            string new_word = word;</span><br><span class="line">            new_word[i] = <span class="string">&#x27;*&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span>(neighbors.<span class="built_in">find</span>(new_word) == neighbors.<span class="built_in">end</span>()) neighbors[new_word] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> neighbors[new_word]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">buildDict</span><span class="params">(vector&lt;string&gt; dictionary)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;dictionary.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="built_in">generateNeighbors</span>(dictionary[i]);</span><br><span class="line">            <span class="keyword">this</span>-&gt;dictionary[dictionary[i]] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">search</span><span class="params">(string searchWord)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> res = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;searchWord.<span class="built_in">length</span>();i++)&#123;</span><br><span class="line">            string new_word = searchWord;</span><br><span class="line">            new_word[i] = <span class="string">&#x27;*&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span>(neighbors.<span class="built_in">find</span>(new_word) == neighbors.<span class="built_in">end</span>())&#123;&#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(neighbors[new_word] == <span class="number">1</span>)&#123;</span><br><span class="line">                <span class="comment">//可能存在广义邻居，需要看searchWord在不在dictionary种</span></span><br><span class="line">                <span class="keyword">if</span>(dictionary.<span class="built_in">find</span>(searchWord) == dictionary.<span class="built_in">end</span>())&#123;</span><br><span class="line">                    res = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(neighbors[new_word] &gt; <span class="number">1</span>)&#123;</span><br><span class="line">                res = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MagicDictionary object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * MagicDictionary* obj = new MagicDictionary();</span></span><br><span class="line"><span class="comment"> * obj-&gt;buildDict(dictionary);</span></span><br><span class="line"><span class="comment"> * bool param_2 = obj-&gt;search(searchWord);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>字符串数组系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -610,7 +612,8 @@ buildDict 仅在 search 之前调用一次
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> v1;</span><br><span class="line">    <span class="keyword">int</span> v2;</span><br><span class="line">    <span class="built_in">Node</span>(<span class="keyword">int</span> v1,<span class="keyword">int</span> v2)&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;v1 = v1;</span><br><span class="line">        <span class="keyword">this</span>-&gt;v2 = v2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NodeCompare</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(Node* &amp;a,Node* &amp;b)</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a-&gt;v1 + a-&gt;v2 &gt; b-&gt;v1 + b-&gt;v2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">kSmallestPairs</span>(vector&lt;<span class="keyword">int</span>&gt;&amp; nums1, vector&lt;<span class="keyword">int</span>&gt;&amp; nums2, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        priority_queue&lt;Node*,vector&lt;Node*&gt;,NodeCompare&gt; q;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;k &amp;&amp; i&lt;nums1.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;k &amp;&amp; j&lt;nums2.<span class="built_in">size</span>();j++)&#123;</span><br><span class="line">                Node* tmp = <span class="keyword">new</span> <span class="built_in">Node</span>(nums1[i],nums2[j]);</span><br><span class="line">                q.<span class="built_in">push</span>(tmp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(k-- &amp;&amp; q.<span class="built_in">size</span>()!=<span class="number">0</span>)&#123;</span><br><span class="line">            Node* tmp = q.<span class="built_in">top</span>();</span><br><span class="line">            res.<span class="built_in">push_back</span>(&#123;tmp-&gt;v1,tmp-&gt;v2&#125;);</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>堆栈系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -635,7 +638,8 @@ int add(int val) 将 val 插入数据流 nums 后，返回当前数据流中第 
 <p>​</p>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>堆栈系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -671,7 +675,8 @@ int add(int val) 将 val 插入数据流 nums 后，返回当前数据流中第 
 </ul>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>树系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -722,7 +727,8 @@ int add(int val) 将 val 插入数据流 nums 后，返回当前数据流中第 
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; heights)</span> </span>&#123;</span><br><span class="line">        stack&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">        heights.<span class="built_in">push_back</span>(<span class="number">0</span>);  <span class="comment">//先在最后加一个高度为0的柱子，方便后续操作</span></span><br><span class="line">        s.<span class="built_in">push</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> maxValue = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;heights.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> top_idx = s.<span class="built_in">top</span>();</span><br><span class="line">            <span class="keyword">while</span>(heights[i] &lt; heights[top_idx])&#123;</span><br><span class="line">                s.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">int</span> new_top_idx = s.<span class="built_in">empty</span>() ? <span class="number">-1</span> : s.<span class="built_in">top</span>();</span><br><span class="line">                <span class="comment">//计算pop出去的这个元素，maxValue</span></span><br><span class="line">                maxValue = <span class="built_in">max</span>(maxValue,heights[top_idx] * (i - new_top_idx - <span class="number">1</span>));</span><br><span class="line">                <span class="keyword">if</span>(s.<span class="built_in">empty</span>()) <span class="keyword">break</span>;</span><br><span class="line">                top_idx = s.<span class="built_in">top</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            s.<span class="built_in">push</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maximalRectangle</span><span class="params">(vector&lt;string&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; rectangular;</span><br><span class="line">        <span class="keyword">int</span> maxValue = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;matrix.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            string row = matrix[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;row.<span class="built_in">length</span>();j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i==<span class="number">0</span>) rectangular.<span class="built_in">push_back</span>(row[j] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">if</span>(row[j] == <span class="string">&#x27;1&#x27;</span>)&#123;</span><br><span class="line">                        rectangular[j]++;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        rectangular[j]=<span class="number">0</span>;<span class="comment">//这一行的某个字符为“0”，那就矩形高度清0</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//更新好了以后，计算改行的maxValue</span></span><br><span class="line">            maxValue = <span class="built_in">max</span>(maxValue,<span class="built_in">largestRectangleArea</span>(rectangular));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxValue;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>堆栈系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -751,7 +757,8 @@ int add(int val) 将 val 插入数据流 nums 后，返回当前数据流中第 
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Codec</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(TreeNode* root,string &amp;res)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">NULL</span>)&#123;</span><br><span class="line">            res += <span class="string">&quot;None,&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        res += <span class="built_in">to_string</span>(root-&gt;val) + <span class="string">&quot;,&quot;</span>;</span><br><span class="line">        <span class="built_in">preOrder</span>(root-&gt;left,res);</span><br><span class="line">        <span class="built_in">preOrder</span>(root-&gt;right,res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Encodes a tree to a single string.</span></span><br><span class="line">    <span class="function">string <span class="title">serialize</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        string str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="comment">//需要一棵树的前序(P) + 中序遍历序列(I)才能够进行重构</span></span><br><span class="line">        <span class="built_in">preOrder</span>(root,str);</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">preOrderReverse</span><span class="params">(queue&lt;string&gt; &amp;q)</span></span>&#123;</span><br><span class="line">        string tmp = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(tmp == <span class="string">&quot;None&quot;</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(<span class="built_in">stoi</span>(tmp));</span><br><span class="line">        root-&gt;left = <span class="built_in">preOrderReverse</span>(q);</span><br><span class="line">        root-&gt;right =<span class="built_in">preOrderReverse</span>(q);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Decodes your encoded data to tree.</span></span><br><span class="line">    <span class="function">TreeNode* <span class="title">deserialize</span><span class="params">(string data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 先把string转成序列的形式</span></span><br><span class="line">        queue&lt;string&gt; q;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;data.<span class="built_in">length</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">            <span class="comment">// i = 0 是第一个数字的起始位置，i = data.lenth()-1 是 I前面那个逗号的位置</span></span><br><span class="line">            string tmp_str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="keyword">while</span>(data[i]!=<span class="string">&#x27;,&#x27;</span>)&#123;</span><br><span class="line">                tmp_str += data[i];</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            i++;</span><br><span class="line">            q.<span class="built_in">push</span>(tmp_str);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//然后再通过序列重建树</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">preOrderReverse</span>(q);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>树系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -771,7 +778,8 @@ int add(int val) 将 val 插入数据流 nums 后，返回当前数据流中第 
 <p>​ 此篇博客就是为了记录这样一个小的Trick。</p>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>树系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -800,7 +808,8 @@ int add(int val) 将 val 插入数据流 nums 后，返回当前数据流中第 
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_06_11_41_37_32.png" /></p>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>容器设计系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -859,7 +868,8 @@ boolean startsWith(String prefix) 如果之前已经插入的字符串 word 的�
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyTreeNode</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    MyTreeNode* left;  <span class="comment">// 0 </span></span><br><span class="line">    MyTreeNode* right; <span class="comment">// 1</span></span><br><span class="line">    <span class="built_in">MyTreeNode</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;left = <span class="keyword">this</span>-&gt;right = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    MyTreeNode* root;</span><br><span class="line">    <span class="built_in">Trie</span>()&#123;</span><br><span class="line">        root = <span class="keyword">new</span> <span class="built_in">MyTreeNode</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">        MyTreeNode* r = <span class="keyword">this</span>-&gt;root;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">32</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> bit = (val &gt;&gt; (<span class="number">31</span>-i)) &amp; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(bit == <span class="number">0</span> &amp;&amp; r-&gt;left)&#123; <span class="comment">//找到这个节点了</span></span><br><span class="line">                r = r-&gt;left;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(bit == <span class="number">1</span> &amp;&amp; r-&gt;right)&#123; <span class="comment">//找到这个节点了</span></span><br><span class="line">                r = r-&gt;right;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//没找到这个节点，进行插入</span></span><br><span class="line">                MyTreeNode* c = <span class="keyword">new</span> <span class="built_in">MyTreeNode</span>();</span><br><span class="line">                <span class="keyword">if</span>(bit == <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="comment">//插入左侧</span></span><br><span class="line">                    r-&gt;left = c;</span><br><span class="line">                    r = r-&gt;left;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="comment">//插入右侧</span></span><br><span class="line">                    r-&gt;right = c;</span><br><span class="line">                    r = r-&gt;right;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">calculateMax</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">        MyTreeNode* r = <span class="keyword">this</span>-&gt;root;</span><br><span class="line">        <span class="keyword">int</span> multi_val = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">32</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> bit = (val &gt;&gt; (<span class="number">31</span>-i)) &amp; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(bit == <span class="number">0</span> &amp;&amp; r-&gt;right)&#123;</span><br><span class="line">                <span class="comment">//当前位为0，且有1，那么直接往1那边走</span></span><br><span class="line">                r = r-&gt;right;</span><br><span class="line">                multi_val = (multi_val &lt;&lt; <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(bit == <span class="number">1</span> &amp;&amp; r-&gt;left)&#123;</span><br><span class="line">                <span class="comment">//当前位为1，且有0，那么直接往0那边走</span></span><br><span class="line">                r = r-&gt;left;</span><br><span class="line">                multi_val = multi_val &lt;&lt; <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(bit == <span class="number">0</span> &amp;&amp; !r-&gt;right &amp;&amp; r-&gt;left)&#123;</span><br><span class="line">                <span class="comment">//当前位为0，且无1，则往0那边走</span></span><br><span class="line">                r = r-&gt;left;</span><br><span class="line">                multi_val = multi_val &lt;&lt; <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(bit == <span class="number">1</span> &amp;&amp; !r-&gt;left &amp;&amp; r-&gt;right)&#123;</span><br><span class="line">                <span class="comment">//当前位为1，且无0，那么直接往1那边走</span></span><br><span class="line">                r = r-&gt;right;</span><br><span class="line">                multi_val = (multi_val &lt;&lt; <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> multi_val ^ val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findMaximumXOR</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        Trie* t = <span class="keyword">new</span> <span class="built_in">Trie</span>();</span><br><span class="line">        <span class="keyword">int</span> maxVal = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            t-&gt;<span class="built_in">insert</span>(nums[i]);</span><br><span class="line">            maxVal = <span class="built_in">max</span>(maxVal,t-&gt;<span class="built_in">calculateMax</span>(nums[i]));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxVal;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>树系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -886,7 +896,8 @@ getRandom：随机返回现有集合中的一项。每个元素应该有 相同�
 <p>​</p>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>容器设计系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -933,7 +944,8 @@ getRandom：随机返回现有集合中的一项。每个元素应该有 相同�
 <p>​ 如果两链表长度不一致，这样子的话，我们假设链表A、B的长度各位m和n，当pA 遍历完 m + n个节点，pB遍历完 n + m个节点的时候，必定同时到达尾部的NULL节点。</p>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>链表系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -993,7 +1005,8 @@ s 由小写英文字母组成</code></pre>
 </ul>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>字符串数组系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -1006,7 +1019,7 @@ s 由小写英文字母组成</code></pre>
     <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1255945359327200</p>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -1040,7 +1053,8 @@ s 由小写英文字母组成</code></pre>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">threeSum</span>(vector&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= <span class="number">1</span> &amp;&amp; nums[i] == nums[i<span class="number">-1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> j = i+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> k = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j&lt;k)&#123;</span><br><span class="line">                <span class="keyword">int</span> value = nums[i] + nums[j] + nums[k];</span><br><span class="line">                <span class="keyword">if</span>(value &gt; <span class="number">0</span>) k--;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(value &lt; <span class="number">0</span>) j++;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    res.<span class="built_in">push_back</span>(&#123;nums[i],nums[j],nums[k]&#125;);</span><br><span class="line">                    <span class="keyword">while</span> (j &lt; k &amp;&amp; nums[j] == nums[j + <span class="number">1</span>]) j++; </span><br><span class="line">                    j++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>字符串数组系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -1053,7 +1067,7 @@ s 由小写英文字母组成</code></pre>
     <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1304521607217185</p>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -1156,7 +1170,8 @@ s 由小写英文字母组成</code></pre>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">subarraySum</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//利用哈希表存储 计算前缀和</span></span><br><span class="line">        unordered_map&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; sums;</span><br><span class="line">        sums[<span class="number">0</span>] = <span class="number">1</span>;  <span class="comment">// sum = 0 , 出现了1次</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            sum = sum + nums[i];</span><br><span class="line">            <span class="comment">//判断以该元素为结尾的子序列，有没有符合和为k 这一条件的</span></span><br><span class="line">            <span class="keyword">if</span>(sums.<span class="built_in">find</span>(sum-k) != sums.<span class="built_in">end</span>()) count+= sums[sum-k];</span><br><span class="line">			<span class="comment">//将该位置的前缀和也存入hash表中，以供后续计算参考</span></span><br><span class="line">            <span class="keyword">if</span>(sums.<span class="built_in">find</span>(sum) != sums.<span class="built_in">end</span>()) sums[sum]++;</span><br><span class="line">            <span class="keyword">else</span> sums[sum] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>LeetCode算法笔记</category>
+        <category>⓷ 算法类笔记</category>
+        <category>字符串数组系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -1508,7 +1523,7 @@ s 由小写英文字母组成</code></pre>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;The     quick\t\t brown   fox  jumps   over the  lazy dog.&quot;</span>;</span><br><span class="line">        String r = s.replaceAll(<span class="string">&quot;\\s+&quot;</span>, <span class="string">&quot; &quot;</span>);</span><br><span class="line">        System.out.println(r); <span class="comment">// &quot;The quick brown fox jumps over the lazy dog.&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -1632,7 +1647,7 @@ s 由小写英文字母组成</code></pre>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apple, Apple</span><br><span class="line">HELLO, Hello</span><br><span class="line">JUnit, Junit</span><br><span class="line">reSource, Resource</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -1733,7 +1748,7 @@ s 由小写英文字母组成</code></pre>
 <p><strong>转换成北京时间就是<code>2019-11-20T8:15:00.123</code>。要获取当前时间戳，可以使用<code>System.currentTimeMillis()</code>，这是Java程序获取时间戳最常用的方法。</strong></p>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -1862,7 +1877,7 @@ s 由小写英文字母组成</code></pre>
 <h3 id="十二使用files">十二、使用Files</h3>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -1959,7 +1974,7 @@ s 由小写英文字母组成</code></pre>
 <h3 id="七泛型和反射">七、泛型和反射</h3>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -2107,7 +2122,7 @@ s 由小写英文字母组成</code></pre>
 <p>​ 这样一来，我们通过<code>@Range</code>注解，配合<code>check()</code>方法，就可以完成<code>Person</code>实例的检查。注意检查逻辑完全是我们自己编写的，JVM不会自动给注解添加任何额外的逻辑。</p>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -2280,7 +2295,7 @@ s 由小写英文字母组成</code></pre>
 <p>​ ? 未完待续</p>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -2559,7 +2574,7 @@ s 由小写英文字母组成</code></pre>
 <p>具体可以参照更详细的官方网站的教程</p>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -2956,7 +2971,7 @@ s 由小写英文字母组成</code></pre>
 <p><code>SecureRandom</code>的安全性是通过操作系统提供的安全的随机种子来生成随机数。这个种子是通过CPU的热噪声、读写磁盘的字节、网络流量等各种随机事件产生的“熵”。</p>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -3417,7 +3432,7 @@ static class Inner &#123;
 <p>因此，模块进一步隔离了代码的访问权限。</p>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -3525,7 +3540,7 @@ static class Inner &#123;
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (String arg : args) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">&quot;-version&quot;</span>.equals(arg)) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;v 1.0&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>java系列笔记</category>
       </categories>
       <tags>
@@ -3662,12 +3677,13 @@ static class Inner &#123;
 <h3 id="视频分类-密集预测-等其他框架详见论文主体">2） 视频分类 &amp;&amp; 密集预测 等其他框架详见论文主体</h3>
 ]]></content>
       <categories>
-        <category>论文阅读笔记</category>
+        <category>⓶ 论文阅读笔记</category>
+        <category>CV相关论文</category>
       </categories>
       <tags>
+        <tag>CNN</tag>
         <tag>Transformer</tag>
         <tag>Visual Recognition</tag>
-        <tag>CNN</tag>
       </tags>
   </entry>
   <entry>
@@ -3792,7 +3808,8 @@ static class Inner &#123;
 </ul>
 ]]></content>
       <categories>
-        <category>论文阅读笔记</category>
+        <category>⓶ 论文阅读笔记</category>
+        <category>CV相关论文</category>
       </categories>
       <tags>
         <tag>GAN</tag>
@@ -3821,7 +3838,7 @@ static class Inner &#123;
 <p>​ ctrl + q 按下后松开 再立马按 [</p>
 ]]></content>
       <categories>
-        <category>工具类使用笔记</category>
+        <category>⓹ 工具使用类笔记</category>
       </categories>
       <tags>
         <tag>Tmux</tag>
@@ -3863,7 +3880,7 @@ static class Inner &#123;
 <p>引用：https://blog.csdn.net/cristiano20/article/details/104309948</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -3905,7 +3922,7 @@ static class Inner &#123;
 <p>https://www.zhihu.com/question/402485242/answer/1553947864</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -3947,7 +3964,7 @@ static class Inner &#123;
 <p>引用：https://www.cnblogs.com/hoojjack/p/12350707.html</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -3981,7 +3998,7 @@ static class Inner &#123;
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114111918585.png" /></p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -4023,7 +4040,7 @@ static class Inner &#123;
 <p>​</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -4204,7 +4221,8 @@ static class Inner &#123;
 <p><strong>注：此部分结合了官方源码的内容，讲述训练的整体过程</strong></p>
 ]]></content>
       <categories>
-        <category>论文阅读笔记</category>
+        <category>⓶ 论文阅读笔记</category>
+        <category>CV相关论文</category>
       </categories>
       <tags>
         <tag>Font Generation</tag>
@@ -4244,7 +4262,7 @@ static class Inner &#123;
 <p>​ 但关于<strong>dropout</strong>，个人强烈推荐使用<code>nn.Xxx</code>方式，因为一般情况下只有训练阶段才进行dropout，在eval阶段都不会进行dropout。使用<code>nn.Xxx</code>方式定义dropout，在调用<code>model.eval()</code>之后，model中所有的dropout layer都关闭，但以<code>nn.function.dropout</code>方式定义dropout，在调用<code>model.eval</code>之后并不能关闭dropout。</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Pytorch系列笔记</category>
       </categories>
       <tags>
@@ -4274,7 +4292,7 @@ static class Inner &#123;
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FRN</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_features, eps=<span class="number">1e-6</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>(FRN, self).__init__()</span><br><span class="line">        self.tau = nn.Parameter(torch.zeros(<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.gamma = nn.Parameter(torch.ones(<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.beta = nn.Parameter(torch.zeros(<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.eps = eps</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        <span class="comment">## input x  shape [B,C,H,W] (batch_size , channel , height , width)</span></span><br><span class="line">        x1 = torch.mean(x**<span class="number">2</span>, dim=[<span class="number">2</span>, <span class="number">3</span>], keepdim=<span class="literal">True</span>)</span><br><span class="line">        <span class="comment">## x1       shape [B,C,1,1] (batch_size , channel , 1 , 1)</span></span><br><span class="line">        x2 = x1 + self.eps</span><br><span class="line">        <span class="comment">## x2 	    shape [B,C,1,1] (batch_size , channel , 1 , 1),  【+ 为逐元素相加，不改变维度】</span></span><br><span class="line">        x3 = torch.rsqrt(x2)</span><br><span class="line">        <span class="comment">## x3       shape [B,C,1,1] (batch_size , channel , 1 , 1),  【sqrt 为逐元素操作，不改变为维度】</span></span><br><span class="line">        x4 = x * x3</span><br><span class="line">        <span class="comment">## x4       shape [B,C,H,W] (batch_size , channel , height , width)  </span></span><br><span class="line">        <span class="comment">##          广播机制,逐元素相乘  [B,C,H,W] * [B,C,1,1] = [B,C,H,W]</span></span><br><span class="line">        output = torch.<span class="built_in">max</span>(self.gamma * x4 + self.beta, self.tau)</span><br><span class="line">        <span class="comment">## output   shape [B,C,H,W] (batch_size , channel , height , width)  torch.max 逐元素操作</span></span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line"><span class="comment">## 相关注解：</span></span><br><span class="line"><span class="comment">## 输入的 x.shape = [B,C,H,W] ( Batch_Size \ Channel \ Height \ Width )</span></span><br><span class="line"><span class="comment">## torch.rsqrt()  对每个元素取平方根后再取倒数，并不会影响如维度等因素。</span></span><br><span class="line"><span class="comment">## torch.mean() 其中dim=[2,3] 代表按第2、3维求平均值, 即在单个实例、单个Channel上求平均</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -4307,7 +4325,7 @@ static class Inner &#123;
 </figure>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>Python基础扩充笔记</category>
       </categories>
       <tags>
@@ -4352,7 +4370,7 @@ static class Inner &#123;
 <p>​ 只不过在同级目录以及子目录下进行引入，不需要这么复杂，可以有更简单的方法，而在跨目录引入时，就需要采用这种方案。</p>
 ]]></content>
       <categories>
-        <category>编程语言类笔记</category>
+        <category>⓸ 编程语言类笔记</category>
         <category>Python基础扩充笔记</category>
       </categories>
       <tags>
@@ -4410,7 +4428,7 @@ static class Inner &#123;
 <p>​ https://github.com/xunhuang1995/AdaIN-style</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -4508,7 +4526,7 @@ static class Inner &#123;
 <p>https://www.jianshu.com/p/f15fcdf13438</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -4608,183 +4626,13 @@ static class Inner &#123;
 </ul>
 ]]></content>
       <categories>
-        <category>论文阅读笔记</category>
+        <category>⓶ 论文阅读笔记</category>
+        <category>CV相关论文</category>
       </categories>
       <tags>
         <tag>FFT</tag>
         <tag>Image Deblurring</tag>
         <tag>Residual Block</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《SwinIR- Image Restoration Using Swin Transformer》论文笔记</title>
-    <url>/2022/01/13/Paper%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94%E3%80%8ASwinIR-%20Image%20Restoration%20Using%20Swin%20Transformer%E3%80%8B/</url>
-    <content><![CDATA[<h3 id="论文名称swinir-image-restoration-using-swin-transformer">论文名称：《SwinIR: Image Restoration Using Swin Transformer》</h3>
-<h3 id="论文链接httpsopenaccess.thecvf.comcontenticcv2021waimhtmlliang_swinir_image_restoration_using_swin_transformer_iccvw_2021_paper.html">论文链接：https://openaccess.thecvf.com/content/ICCV2021W/AIM/html/Liang_SwinIR_Image_Restoration_Using_Swin_Transformer_ICCVW_2021_paper.html</h3>
-<h2 id="关键词">1、关键词：</h2>
-<p>​ 图像修复（Image Restoration）、Transformer</p>
-<h2 id="领域背景图像修复">2、领域背景—图像修复：</h2>
-<p>​ 图像修复是一个经典问题，一般而言其目标为从低分辨率的图像中恢复出高分辨率的图像。通常可以用于超分辨率、图像去噪，以及JPEG压缩鬼影去除等应用。此篇文章将Swin Transformer应用于图像修复领域中。</p>
-<h2 id="先前工作描述与比较">3、先前工作描述与比较：</h2>
-<p>​ 和CNN比起来，Transformer设计了Self-Attention机制来捕获全局内容之间的信息交互，也在一系列的任务重得到了比较好的结果。但是ViT用于图像恢复的话，因为Vit要划分patch，所以就会不可避免的导致恢复的图像在patch和patch之间有边界感，同时每一个patch邻近边界的像素也会因为缺少信息而没法做出更好的恢复效果。</p>
-<p>​ <strong>先前方法的问题</strong>：使用基于CNN的方法进行图像修复：会存在两个源于卷积层本身带来的基本的问题：</p>
-<p>1、图像和卷积核之间是内容无关的，我们用同一个卷积核去修复不同的图像区域，可能并不是一个好的选择</p>
-<p>2、由于CNN的local processing方案，卷积层是在局部邻域（ local neighborhood ）内建立像素关系，其长距离的依赖关系（long-range dependency）主要通过深度叠加卷积层来进行建模，有的时候可能并不是很有效</p>
-<p>​ 而Swin Transformer，结合了两者的优势。既能够像CNN那样处理大尺度的图像，也能弥补CNN在long-range dependency上的不足（使用SW-MSA机制）</p>
-<h2 id="主要设计思想">4、主要设计思想：</h2>
-<p>​ SwinIR由三部分组成。首先浅层特征提取部分是由卷积层组成的，输出结果将直接传输到重建模块中，为了保持图像本身的低频信息，而深层特征提取模块主要由RSTB（Residual Swin Transformer blocks）组成。同时，其在每一个block的后面还加了一层卷积层，来做特征加强，以及使用残差网络来为特征聚合提供捷径。最终，浅层和深层特征被输送到重建模块，进行高质量的图像重建。总体流程概括如下：</p>
-<ul>
-<li>浅层特征提取：<strong>低质量图像</strong> <span class="math inline">\(\to\)</span><strong>浅层特征图</strong></li>
-<li>深层特征提取：<strong>浅层特征图</strong><span class="math inline">\(\to\)</span><strong>深层特征图</strong></li>
-<li>高质量图片生成：<strong>浅层特征图</strong>+<strong>深层特征图</strong><span class="math inline">\(\to\)</span><strong>高质量图像</strong></li>
-</ul>
-<h2 id="具体方法与网络架构">5、具体方法与网络架构：</h2>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/network_swinir.png" /></p>
-<p>​ 首先，对于这一整个架构而言，分为3大块，分别是浅层特征提取、深层特征提取以及图像重建，<strong>对于不同的任务而言，我们使用相同的特征提取模块，但是会使用不同的图像重建模块</strong>。</p>
-<h3 id="浅层特征提取shallow-feature-extraction">1）浅层特征提取(Shallow Feature Extraction)</h3>
-<ul>
-<li><strong>概述</strong>：使用卷积网络从<strong>低质量图像</strong>中提取<strong>浅层特征图</strong></li>
-<li><strong>输入</strong>：<strong>低质量图像(LQ)</strong> <span class="math inline">\(I_{LQ}\in R^{H\times W\times C_{in}}\)</span></li>
-<li><strong>输出</strong>：<strong>浅层特征图</strong> <span class="math inline">\(F_{0}\in R^{H\times W\times C_{embed}}\)</span>，<span class="math inline">\(C_{embed}\)</span>为特征通道数目</li>
-<li><strong>网络结构</strong>：单层<span class="math inline">\(3\times3\)</span>卷积网络</li>
-<li><strong>公式表达</strong>：<span class="math inline">\(F_{0}=H_{SF}(I_{LQ})\)</span>，其中<span class="math inline">\(H_{SF}\)</span>为卷积网络</li>
-<li><strong>实现细节（官方代码）</strong>
-<ul>
-<li><span class="math inline">\(H_{SF}\)</span>为单层，输入图像通道<span class="math inline">\(C_{in}=3\)</span>，输出特征通道<span class="math inline">\(C=96\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络</li>
-</ul></li>
-<li><strong>意义</strong>：卷积层在前期的视觉处理中往往能起到较好的效果，能够导致一个较为稳定的结果，同时也提供了一个从图像空间映射到高维特征空间的手段。</li>
-</ul>
-<h3 id="深层特征提取deep-feature-extraction">2）深层特征提取(Deep Feature Extraction)：</h3>
-<ul>
-<li><p><strong>输入</strong>：<strong>浅层特征图</strong><span class="math inline">\(F_{0}\in R^{H\times W\times C_{embed}}\)</span></p></li>
-<li><p><strong>输出</strong>：<strong>深层特征图</strong><span class="math inline">\(F_{DF}\in R^{H\times W\times C_{embed}}\)</span></p></li>
-<li><p><strong>网络结构：</strong></p>
-<ul>
-<li><span class="math inline">\(K\)</span>个串联的Residual Swin Transformer Block（RSTB）和 <span class="math inline">\(1\)</span>个卷积层 构成</li>
-<li>每个RSTB（Residual Swin Transformer Block）内部由<span class="math inline">\(L\)</span>个串联的 Swin Transformer Layer（STL）和 一个卷积层构成（如上图a）</li>
-<li>STL（Swin Transformer Layer）结构为Layer Norm<span class="math inline">\(\to\)</span>MSA<span class="math inline">\(\to\)</span>Layer Norm<span class="math inline">\(\to\)</span>MLP 且 MSA和MLP后有残差连接（如上图b）</li>
-</ul></li>
-<li><p><strong>公式表达</strong>：</p>
-<ul>
-<li><strong>整体结构</strong>：
-<ul>
-<li><span class="math inline">\(F_i=H_{RSTB_i}(F_{i-1}),\ i=1,2,...,K\)</span></li>
-<li><span class="math inline">\(F_{DF}=H_{CONV}(F_{K})\)</span></li>
-</ul></li>
-<li><strong>RSTB</strong>：
-<ul>
-<li><span class="math inline">\(F_{i,j}=H_{Swin_{i,j}}(F_{i,j-1}),\ j=1,2,...,L\)</span></li>
-<li><span class="math inline">\(F_i=H_{CONV_i}(F_{i,L})\)</span></li>
-</ul></li>
-<li><strong>STL</strong>：
-<ul>
-<li><span class="math inline">\(H_{Swin_{i,j}}(X)=STL_2(STL_1(X))\)</span></li>
-<li><span class="math inline">\(STL_1(X)=MSA(LN(X))+X\)</span></li>
-<li><span class="math inline">\(STL_2(X)=MLP(LN(X))+X\)</span></li>
-</ul></li>
-</ul></li>
-<li><p><strong>实现细节（官方代码）</strong></p>
-<ul>
-<li><p><strong>PatchEmbed和PatchUnEmbed操作</strong></p>
-<ul>
-<li>代码中使用PatchEmbed操作将<span class="math inline">\(224\times224\)</span>的特征图拆分为<span class="math inline">\(16\times16\)</span>的Patch，并且有可选的LayerNorm操作</li>
-<li>对应的代码中使用PatchUnEmbed操作将<span class="math inline">\(16\times16\)</span>的Patch还原为<span class="math inline">\(224\times224\)</span>的特征图</li>
-<li>PatchEmbed和PatchUnEmbed操作的执行逻辑如下
-<ul>
-<li>每一个RSTB的开头，执行PatchEmbed操作</li>
-<li>每一个RSTB的卷积操作前，执行PatchUnEmbed操作</li>
-<li>只在第一个RSTB开头的PatchEmbed操作中，使用LayerNorm</li>
-</ul></li>
-</ul></li>
-<li><p><strong>RSTB的串联数量（<span class="math inline">\(K\)</span>的取值）</strong></p>
-<ul>
-<li>虽然论文图片中的RSTB有6个，但在代码中只有4个，即<span class="math inline">\(K=4\)</span></li>
-</ul></li>
-<li><p><strong>STL的串联数量（<span class="math inline">\(L\)</span>的取值）</strong></p>
-<ul>
-<li>代码中每个RSTB内部的STL的数目为6个，与论文图片中的一致，即<span class="math inline">\(L=6\)</span></li>
-</ul></li>
-<li><p><strong>配对的STL</strong></p>
-<ul>
-<li>如前述所说，每个RSTB中STL的数目为6个，其中每两个STL构成一组，第一个STL内的MSA为Swin中的W-MSA，第二个为Swin中的SW-MSA，这一操作与原版Swin中的一致</li>
-</ul></li>
-<li><p><strong>卷积操作</strong></p>
-<ul>
-<li>对于整个深层特征提取模块末尾和RSTB内部的卷积，代码根据任务不同分为两种
-<ol type="1">
-<li>对于小模型任务，如一般图片、轻量图片的SR、图片降噪和JPEG格式压缩图像修复，采用的是单层，输入输出维度为<span class="math inline">\(C_{embed}=96\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络</li>
-<li>对于大模型任务，如真实世界图片SR，采用的是一个多层卷积网络
-<ul>
-<li>第一层为输入维度为<span class="math inline">\(C_{embed}=96\)</span>，输出维度为<span class="math inline">\(C_{embed}/4\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，并对输出进行LeakyReLu</li>
-<li>第二层为输入维度为<span class="math inline">\(C_{embed}/4\)</span>，输出维度为<span class="math inline">\(C_{embed}/4\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，并对输出进行LeakyReLu</li>
-<li>第三层为输入维度为<span class="math inline">\(C_{embed}/4\)</span>，输出维度为<span class="math inline">\(C_{embed}\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络</li>
-</ul></li>
-</ol></li>
-</ul></li>
-</ul></li>
-<li><p><strong>意义</strong>：</p>
-<ul>
-<li>作者认为在所有RSTB后面，再加一层Conv层，能够将卷积操作的归纳偏置(inductive bias)带入这类基于Transformer骨架的网络中，为后续浅层和深层特征的融合打好基础。</li>
-<li><!--具体的作用需要通过实验验证，这个Conv层是否是必要的。--></li>
-<li>对于单个RSTB内部的卷积操作，论文认为卷积核在空间上的不变性可以增强提取出特征的平移不变性</li>
-<li>残差连接为不同的RSTB模块提供了一个到后续图像重建模块的短连接，允许不同级别的特征在最后一个重建模块中更好的进行聚合。</li>
-<li><!--同样，具体的作用需要通过实验验证，这个Conv层是否是必要的。--></li>
-</ul></li>
-</ul>
-<h3 id="高质量图像修复-hq-image-reconstruction">3）高质量图像修复 (HQ Image Reconstruction)：</h3>
-<ul>
-<li><strong>概述</strong>：根据<strong>浅层与深层特征图</strong>生成<strong>高质量图像</strong>，浅层特征负责包含低频信息，深层特征聚焦于恢复丢失的高频信息。</li>
-<li><strong>输入</strong>：<strong>浅层特征图</strong> <span class="math inline">\(F_{0}\in R^{H\times W\times C_{embed}}\)</span>和 <strong>深层特征图</strong> <span class="math inline">\(F_{DF}\in R^{H\times W\times C_{embed}}\)</span></li>
-<li><strong>输出</strong>：<strong>高质量重建图像(RHQ)</strong> <span class="math inline">\(I_{RHQ}\in R^{H&#39;\times W&#39;\times C_{out}}\)</span></li>
-<li><strong>网络结构</strong>：卷积网络</li>
-<li><strong>公式表达</strong>：<span class="math inline">\(I_{RHQ}=H_{REC}(F_{0}+F_{DF})\)</span>，其中<span class="math inline">\(H_{REC}\)</span>为重建模块函数，其实在实现上就是一个卷积模块</li>
-<li><strong>实现细节（官方代码）</strong>
-<ul>
-<li><span class="math inline">\(H_{REC}(F_{0}+F_{DF})\)</span>中的“+”号就是数学意义上的相加，本质上是残差连接</li>
-<li><strong>卷积操作</strong>
-<ul>
-<li>根据任务不同分为四种卷积操作：
-<ol type="1">
-<li>对于图像去噪和JPEG格式压缩图像修复，采用的是单层，输入维度为<span class="math inline">\(C_{embed}=96\)</span>，输出维度为<span class="math inline">\(C_{out}=3\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，同时卷积输出与输入使用残差连接，即<span class="math inline">\(H_{REC}(X)=H_{CONV}(X)+X\)</span></li>
-<li>对于一般图像SR，卷积分为三层
-<ul>
-<li>第一层进行特征降维，为输入维度为<span class="math inline">\(C_{embed}=96\)</span>，输出维度为<span class="math inline">\(C_{feat}=64\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，并对卷积输出进行LeakyReLU</li>
-<li>第二层进行上采样，先通过输入维度为<span class="math inline">\(C_{feat}=64\)</span>，输出维度为<span class="math inline">\(4\times C_{feat}\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，然后对卷积输出进行PixelShuffle</li>
-<li>第三层为输入维度为<span class="math inline">\(C_{feat}=64\)</span>，输出维度为<span class="math inline">\(C_{out}=3\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络</li>
-</ul></li>
-<li>对于轻量图像SR，为了减少参数，采用的是单层，输入维度为<span class="math inline">\(C_{feat}=64\)</span>，输出维度为<span class="math inline">\(Scale^2\times C_{out}\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，然后对卷积输出进行PixelShuffle</li>
-<li>对于真实世界图像SR，使用多层卷积
-<ul>
-<li>第一层进行特征降维，为输入维度为<span class="math inline">\(C_{embed}=96\)</span>，输出维度为<span class="math inline">\(C_{feat}=64\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，并对卷积输出进行LeakyReLu</li>
-<li>第二、三层进行上采样，先使用torch.nn.functional.interpolate函数进行指定<span class="math inline">\(Scale\)</span>的最近邻上采样，然后通过输入输出维度为<span class="math inline">\(C_{feat}=64\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，并对卷积输出进行LeakyReLU</li>
-<li>第四层为输入输出维度为<span class="math inline">\(C_{feat}=64\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，并对卷积输出进行LeakyReLU</li>
-<li>第五层为输入维度为<span class="math inline">\(C_{feat}=64\)</span>，输出维度为<span class="math inline">\(C_{out}=3\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络</li>
-</ul></li>
-</ol></li>
-</ul></li>
-</ul></li>
-</ul>
-<h3 id="其他细节">4） 其他细节：</h3>
-<p>​ 上述总的结构中看到的<strong>Skip-Connection</strong>，是能够将浅层特征直接输入到重建模块中，让深层特征提取模块专注于高频信息的提取以及能够获得更稳定的训练。</p>
-<h3 id="使用的损失函数根据任务情况略有不同">5） 使用的损失函数：（根据任务情况略有不同）</h3>
-<ul>
-<li><p>对于一般图像以及轻量图像SR，使用<strong>L1 Loss</strong>,<span class="math inline">\(I_{RHQ}\)</span>为重建的高质量图像，<span class="math inline">\(I_{HQ}\)</span>为Ground_Truth高质量图像</p>
-<ul>
-<li><span class="math inline">\(L = \sqrt{||I_{RHQ} - I_{HQ} ||_1}\)</span></li>
-</ul></li>
-<li><p>对于真实世界图像SR，会结合<strong>Pixel Loss</strong>和<strong>GAN Loss</strong>以及<strong>Percepture Loss</strong>来提升生成质量</p></li>
-<li><p>对于去噪和JPEG压缩任务而言，我们使用<strong>Charbonnier Loss</strong>进行优化</p>
-<ul>
-<li><span class="math inline">\(\sqrt{||I_{RHQ}-I_{HQ}||^2 + \varepsilon^2 }\)</span>, <span class="math inline">\(\varepsilon\)</span>是个常数，通常被设置为<span class="math inline">\(10^{-3}\)</span></li>
-</ul></li>
-</ul>
-]]></content>
-      <categories>
-        <category>论文阅读笔记</category>
-      </categories>
-      <tags>
-        <tag>Swin Transformer</tag>
-        <tag>Image Restoration</tag>
       </tags>
   </entry>
   <entry>
@@ -4953,12 +4801,185 @@ static class Inner &#123;
 </ul>
 ]]></content>
       <categories>
-        <category>论文阅读笔记</category>
+        <category>⓶ 论文阅读笔记</category>
+        <category>CV相关论文</category>
       </categories>
       <tags>
         <tag>Swin Transformer</tag>
         <tag>Image Restoration</tag>
         <tag>UNet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《SwinIR- Image Restoration Using Swin Transformer》论文笔记</title>
+    <url>/2022/01/13/Paper%E7%AC%94%E8%AE%B0/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94%E3%80%8ASwinIR-%20Image%20Restoration%20Using%20Swin%20Transformer%E3%80%8B/</url>
+    <content><![CDATA[<h3 id="论文名称swinir-image-restoration-using-swin-transformer">论文名称：《SwinIR: Image Restoration Using Swin Transformer》</h3>
+<h3 id="论文链接httpsopenaccess.thecvf.comcontenticcv2021waimhtmlliang_swinir_image_restoration_using_swin_transformer_iccvw_2021_paper.html">论文链接：https://openaccess.thecvf.com/content/ICCV2021W/AIM/html/Liang_SwinIR_Image_Restoration_Using_Swin_Transformer_ICCVW_2021_paper.html</h3>
+<h2 id="关键词">1、关键词：</h2>
+<p>​ 图像修复（Image Restoration）、Transformer</p>
+<h2 id="领域背景图像修复">2、领域背景—图像修复：</h2>
+<p>​ 图像修复是一个经典问题，一般而言其目标为从低分辨率的图像中恢复出高分辨率的图像。通常可以用于超分辨率、图像去噪，以及JPEG压缩鬼影去除等应用。此篇文章将Swin Transformer应用于图像修复领域中。</p>
+<h2 id="先前工作描述与比较">3、先前工作描述与比较：</h2>
+<p>​ 和CNN比起来，Transformer设计了Self-Attention机制来捕获全局内容之间的信息交互，也在一系列的任务重得到了比较好的结果。但是ViT用于图像恢复的话，因为Vit要划分patch，所以就会不可避免的导致恢复的图像在patch和patch之间有边界感，同时每一个patch邻近边界的像素也会因为缺少信息而没法做出更好的恢复效果。</p>
+<p>​ <strong>先前方法的问题</strong>：使用基于CNN的方法进行图像修复：会存在两个源于卷积层本身带来的基本的问题：</p>
+<p>1、图像和卷积核之间是内容无关的，我们用同一个卷积核去修复不同的图像区域，可能并不是一个好的选择</p>
+<p>2、由于CNN的local processing方案，卷积层是在局部邻域（ local neighborhood ）内建立像素关系，其长距离的依赖关系（long-range dependency）主要通过深度叠加卷积层来进行建模，有的时候可能并不是很有效</p>
+<p>​ 而Swin Transformer，结合了两者的优势。既能够像CNN那样处理大尺度的图像，也能弥补CNN在long-range dependency上的不足（使用SW-MSA机制）</p>
+<h2 id="主要设计思想">4、主要设计思想：</h2>
+<p>​ SwinIR由三部分组成。首先浅层特征提取部分是由卷积层组成的，输出结果将直接传输到重建模块中，为了保持图像本身的低频信息，而深层特征提取模块主要由RSTB（Residual Swin Transformer blocks）组成。同时，其在每一个block的后面还加了一层卷积层，来做特征加强，以及使用残差网络来为特征聚合提供捷径。最终，浅层和深层特征被输送到重建模块，进行高质量的图像重建。总体流程概括如下：</p>
+<ul>
+<li>浅层特征提取：<strong>低质量图像</strong> <span class="math inline">\(\to\)</span><strong>浅层特征图</strong></li>
+<li>深层特征提取：<strong>浅层特征图</strong><span class="math inline">\(\to\)</span><strong>深层特征图</strong></li>
+<li>高质量图片生成：<strong>浅层特征图</strong>+<strong>深层特征图</strong><span class="math inline">\(\to\)</span><strong>高质量图像</strong></li>
+</ul>
+<h2 id="具体方法与网络架构">5、具体方法与网络架构：</h2>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/network_swinir.png" /></p>
+<p>​ 首先，对于这一整个架构而言，分为3大块，分别是浅层特征提取、深层特征提取以及图像重建，<strong>对于不同的任务而言，我们使用相同的特征提取模块，但是会使用不同的图像重建模块</strong>。</p>
+<h3 id="浅层特征提取shallow-feature-extraction">1）浅层特征提取(Shallow Feature Extraction)</h3>
+<ul>
+<li><strong>概述</strong>：使用卷积网络从<strong>低质量图像</strong>中提取<strong>浅层特征图</strong></li>
+<li><strong>输入</strong>：<strong>低质量图像(LQ)</strong> <span class="math inline">\(I_{LQ}\in R^{H\times W\times C_{in}}\)</span></li>
+<li><strong>输出</strong>：<strong>浅层特征图</strong> <span class="math inline">\(F_{0}\in R^{H\times W\times C_{embed}}\)</span>，<span class="math inline">\(C_{embed}\)</span>为特征通道数目</li>
+<li><strong>网络结构</strong>：单层<span class="math inline">\(3\times3\)</span>卷积网络</li>
+<li><strong>公式表达</strong>：<span class="math inline">\(F_{0}=H_{SF}(I_{LQ})\)</span>，其中<span class="math inline">\(H_{SF}\)</span>为卷积网络</li>
+<li><strong>实现细节（官方代码）</strong>
+<ul>
+<li><span class="math inline">\(H_{SF}\)</span>为单层，输入图像通道<span class="math inline">\(C_{in}=3\)</span>，输出特征通道<span class="math inline">\(C=96\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络</li>
+</ul></li>
+<li><strong>意义</strong>：卷积层在前期的视觉处理中往往能起到较好的效果，能够导致一个较为稳定的结果，同时也提供了一个从图像空间映射到高维特征空间的手段。</li>
+</ul>
+<h3 id="深层特征提取deep-feature-extraction">2）深层特征提取(Deep Feature Extraction)：</h3>
+<ul>
+<li><p><strong>输入</strong>：<strong>浅层特征图</strong><span class="math inline">\(F_{0}\in R^{H\times W\times C_{embed}}\)</span></p></li>
+<li><p><strong>输出</strong>：<strong>深层特征图</strong><span class="math inline">\(F_{DF}\in R^{H\times W\times C_{embed}}\)</span></p></li>
+<li><p><strong>网络结构：</strong></p>
+<ul>
+<li><span class="math inline">\(K\)</span>个串联的Residual Swin Transformer Block（RSTB）和 <span class="math inline">\(1\)</span>个卷积层 构成</li>
+<li>每个RSTB（Residual Swin Transformer Block）内部由<span class="math inline">\(L\)</span>个串联的 Swin Transformer Layer（STL）和 一个卷积层构成（如上图a）</li>
+<li>STL（Swin Transformer Layer）结构为Layer Norm<span class="math inline">\(\to\)</span>MSA<span class="math inline">\(\to\)</span>Layer Norm<span class="math inline">\(\to\)</span>MLP 且 MSA和MLP后有残差连接（如上图b）</li>
+</ul></li>
+<li><p><strong>公式表达</strong>：</p>
+<ul>
+<li><strong>整体结构</strong>：
+<ul>
+<li><span class="math inline">\(F_i=H_{RSTB_i}(F_{i-1}),\ i=1,2,...,K\)</span></li>
+<li><span class="math inline">\(F_{DF}=H_{CONV}(F_{K})\)</span></li>
+</ul></li>
+<li><strong>RSTB</strong>：
+<ul>
+<li><span class="math inline">\(F_{i,j}=H_{Swin_{i,j}}(F_{i,j-1}),\ j=1,2,...,L\)</span></li>
+<li><span class="math inline">\(F_i=H_{CONV_i}(F_{i,L})\)</span></li>
+</ul></li>
+<li><strong>STL</strong>：
+<ul>
+<li><span class="math inline">\(H_{Swin_{i,j}}(X)=STL_2(STL_1(X))\)</span></li>
+<li><span class="math inline">\(STL_1(X)=MSA(LN(X))+X\)</span></li>
+<li><span class="math inline">\(STL_2(X)=MLP(LN(X))+X\)</span></li>
+</ul></li>
+</ul></li>
+<li><p><strong>实现细节（官方代码）</strong></p>
+<ul>
+<li><p><strong>PatchEmbed和PatchUnEmbed操作</strong></p>
+<ul>
+<li>代码中使用PatchEmbed操作将<span class="math inline">\(224\times224\)</span>的特征图拆分为<span class="math inline">\(16\times16\)</span>的Patch，并且有可选的LayerNorm操作</li>
+<li>对应的代码中使用PatchUnEmbed操作将<span class="math inline">\(16\times16\)</span>的Patch还原为<span class="math inline">\(224\times224\)</span>的特征图</li>
+<li>PatchEmbed和PatchUnEmbed操作的执行逻辑如下
+<ul>
+<li>每一个RSTB的开头，执行PatchEmbed操作</li>
+<li>每一个RSTB的卷积操作前，执行PatchUnEmbed操作</li>
+<li>只在第一个RSTB开头的PatchEmbed操作中，使用LayerNorm</li>
+</ul></li>
+</ul></li>
+<li><p><strong>RSTB的串联数量（<span class="math inline">\(K\)</span>的取值）</strong></p>
+<ul>
+<li>虽然论文图片中的RSTB有6个，但在代码中只有4个，即<span class="math inline">\(K=4\)</span></li>
+</ul></li>
+<li><p><strong>STL的串联数量（<span class="math inline">\(L\)</span>的取值）</strong></p>
+<ul>
+<li>代码中每个RSTB内部的STL的数目为6个，与论文图片中的一致，即<span class="math inline">\(L=6\)</span></li>
+</ul></li>
+<li><p><strong>配对的STL</strong></p>
+<ul>
+<li>如前述所说，每个RSTB中STL的数目为6个，其中每两个STL构成一组，第一个STL内的MSA为Swin中的W-MSA，第二个为Swin中的SW-MSA，这一操作与原版Swin中的一致</li>
+</ul></li>
+<li><p><strong>卷积操作</strong></p>
+<ul>
+<li>对于整个深层特征提取模块末尾和RSTB内部的卷积，代码根据任务不同分为两种
+<ol type="1">
+<li>对于小模型任务，如一般图片、轻量图片的SR、图片降噪和JPEG格式压缩图像修复，采用的是单层，输入输出维度为<span class="math inline">\(C_{embed}=96\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络</li>
+<li>对于大模型任务，如真实世界图片SR，采用的是一个多层卷积网络
+<ul>
+<li>第一层为输入维度为<span class="math inline">\(C_{embed}=96\)</span>，输出维度为<span class="math inline">\(C_{embed}/4\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，并对输出进行LeakyReLu</li>
+<li>第二层为输入维度为<span class="math inline">\(C_{embed}/4\)</span>，输出维度为<span class="math inline">\(C_{embed}/4\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，并对输出进行LeakyReLu</li>
+<li>第三层为输入维度为<span class="math inline">\(C_{embed}/4\)</span>，输出维度为<span class="math inline">\(C_{embed}\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络</li>
+</ul></li>
+</ol></li>
+</ul></li>
+</ul></li>
+<li><p><strong>意义</strong>：</p>
+<ul>
+<li>作者认为在所有RSTB后面，再加一层Conv层，能够将卷积操作的归纳偏置(inductive bias)带入这类基于Transformer骨架的网络中，为后续浅层和深层特征的融合打好基础。</li>
+<li><!--具体的作用需要通过实验验证，这个Conv层是否是必要的。--></li>
+<li>对于单个RSTB内部的卷积操作，论文认为卷积核在空间上的不变性可以增强提取出特征的平移不变性</li>
+<li>残差连接为不同的RSTB模块提供了一个到后续图像重建模块的短连接，允许不同级别的特征在最后一个重建模块中更好的进行聚合。</li>
+<li><!--同样，具体的作用需要通过实验验证，这个Conv层是否是必要的。--></li>
+</ul></li>
+</ul>
+<h3 id="高质量图像修复-hq-image-reconstruction">3）高质量图像修复 (HQ Image Reconstruction)：</h3>
+<ul>
+<li><strong>概述</strong>：根据<strong>浅层与深层特征图</strong>生成<strong>高质量图像</strong>，浅层特征负责包含低频信息，深层特征聚焦于恢复丢失的高频信息。</li>
+<li><strong>输入</strong>：<strong>浅层特征图</strong> <span class="math inline">\(F_{0}\in R^{H\times W\times C_{embed}}\)</span>和 <strong>深层特征图</strong> <span class="math inline">\(F_{DF}\in R^{H\times W\times C_{embed}}\)</span></li>
+<li><strong>输出</strong>：<strong>高质量重建图像(RHQ)</strong> <span class="math inline">\(I_{RHQ}\in R^{H&#39;\times W&#39;\times C_{out}}\)</span></li>
+<li><strong>网络结构</strong>：卷积网络</li>
+<li><strong>公式表达</strong>：<span class="math inline">\(I_{RHQ}=H_{REC}(F_{0}+F_{DF})\)</span>，其中<span class="math inline">\(H_{REC}\)</span>为重建模块函数，其实在实现上就是一个卷积模块</li>
+<li><strong>实现细节（官方代码）</strong>
+<ul>
+<li><span class="math inline">\(H_{REC}(F_{0}+F_{DF})\)</span>中的“+”号就是数学意义上的相加，本质上是残差连接</li>
+<li><strong>卷积操作</strong>
+<ul>
+<li>根据任务不同分为四种卷积操作：
+<ol type="1">
+<li>对于图像去噪和JPEG格式压缩图像修复，采用的是单层，输入维度为<span class="math inline">\(C_{embed}=96\)</span>，输出维度为<span class="math inline">\(C_{out}=3\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，同时卷积输出与输入使用残差连接，即<span class="math inline">\(H_{REC}(X)=H_{CONV}(X)+X\)</span></li>
+<li>对于一般图像SR，卷积分为三层
+<ul>
+<li>第一层进行特征降维，为输入维度为<span class="math inline">\(C_{embed}=96\)</span>，输出维度为<span class="math inline">\(C_{feat}=64\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，并对卷积输出进行LeakyReLU</li>
+<li>第二层进行上采样，先通过输入维度为<span class="math inline">\(C_{feat}=64\)</span>，输出维度为<span class="math inline">\(4\times C_{feat}\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，然后对卷积输出进行PixelShuffle</li>
+<li>第三层为输入维度为<span class="math inline">\(C_{feat}=64\)</span>，输出维度为<span class="math inline">\(C_{out}=3\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络</li>
+</ul></li>
+<li>对于轻量图像SR，为了减少参数，采用的是单层，输入维度为<span class="math inline">\(C_{feat}=64\)</span>，输出维度为<span class="math inline">\(Scale^2\times C_{out}\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，然后对卷积输出进行PixelShuffle</li>
+<li>对于真实世界图像SR，使用多层卷积
+<ul>
+<li>第一层进行特征降维，为输入维度为<span class="math inline">\(C_{embed}=96\)</span>，输出维度为<span class="math inline">\(C_{feat}=64\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，并对卷积输出进行LeakyReLu</li>
+<li>第二、三层进行上采样，先使用torch.nn.functional.interpolate函数进行指定<span class="math inline">\(Scale\)</span>的最近邻上采样，然后通过输入输出维度为<span class="math inline">\(C_{feat}=64\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，并对卷积输出进行LeakyReLU</li>
+<li>第四层为输入输出维度为<span class="math inline">\(C_{feat}=64\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络，并对卷积输出进行LeakyReLU</li>
+<li>第五层为输入维度为<span class="math inline">\(C_{feat}=64\)</span>，输出维度为<span class="math inline">\(C_{out}=3\)</span>，步长<span class="math inline">\(stride=1\)</span>，填充<span class="math inline">\(pading=1\)</span>的<span class="math inline">\(3\times3\)</span>卷积网络</li>
+</ul></li>
+</ol></li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="其他细节">4） 其他细节：</h3>
+<p>​ 上述总的结构中看到的<strong>Skip-Connection</strong>，是能够将浅层特征直接输入到重建模块中，让深层特征提取模块专注于高频信息的提取以及能够获得更稳定的训练。</p>
+<h3 id="使用的损失函数根据任务情况略有不同">5） 使用的损失函数：（根据任务情况略有不同）</h3>
+<ul>
+<li><p>对于一般图像以及轻量图像SR，使用<strong>L1 Loss</strong>,<span class="math inline">\(I_{RHQ}\)</span>为重建的高质量图像，<span class="math inline">\(I_{HQ}\)</span>为Ground_Truth高质量图像</p>
+<ul>
+<li><span class="math inline">\(L = \sqrt{||I_{RHQ} - I_{HQ} ||_1}\)</span></li>
+</ul></li>
+<li><p>对于真实世界图像SR，会结合<strong>Pixel Loss</strong>和<strong>GAN Loss</strong>以及<strong>Percepture Loss</strong>来提升生成质量</p></li>
+<li><p>对于去噪和JPEG压缩任务而言，我们使用<strong>Charbonnier Loss</strong>进行优化</p>
+<ul>
+<li><span class="math inline">\(\sqrt{||I_{RHQ}-I_{HQ}||^2 + \varepsilon^2 }\)</span>, <span class="math inline">\(\varepsilon\)</span>是个常数，通常被设置为<span class="math inline">\(10^{-3}\)</span></li>
+</ul></li>
+</ul>
+]]></content>
+      <categories>
+        <category>⓶ 论文阅读笔记</category>
+        <category>CV相关论文</category>
+      </categories>
+      <tags>
+        <tag>Swin Transformer</tag>
+        <tag>Image Restoration</tag>
       </tags>
   </entry>
   <entry>
@@ -5012,12 +5033,12 @@ static class Inner &#123;
 <p>​ 同时，需要注意的一点是：此处的skip-connection与ResNet中直接相加形式的skip-connection不同，ResNet中的跳跃连接可以有效的减少梯度消失和网络退化问题，使训练更容易。直观上理解可以认为BP的时候，深层的梯度可以更容易的传回浅层，因为这种结构的存在，对神经网络层数的设定可以更随意一些。</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
-        <tag>UNet</tag>
         <tag>Machine Learning</tag>
+        <tag>UNet</tag>
         <tag>FCN</tag>
       </tags>
   </entry>
@@ -5099,7 +5120,7 @@ static class Inner &#123;
 <p>​ 至于更为详细的可变形卷积思想以及实验，可以更深入的精读《Deformable Convolutional Networks》这篇论文。</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -5128,7 +5149,7 @@ static class Inner &#123;
 <p>​ Depthwise Separable Convolution是将一个完整的卷积运算分解为两步进行，即上面所述的Depthwise Convolution与Pointwise Convolution。</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -5160,7 +5181,7 @@ static class Inner &#123;
 <p>​ 所以严格来说，反卷积并不算卷积，只是另一种形式罢了。</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -5198,7 +5219,7 @@ static class Inner &#123;
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># function to compute the minimum ratio</span></span><br><span class="line"><span class="comment"># model 代表模型实例 ，例如为 MathRegressor()</span></span><br><span class="line"><span class="comment"># criterion为损失函数,例如为 nn.MSELoss()</span></span><br><span class="line"><span class="comment"># train 为训练数据feature 见上</span></span><br><span class="line"><span class="comment"># target为训练数据label 见上</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_minimum_ratio</span>(<span class="params">model, criterion, train, target</span>):</span></span><br><span class="line">    model.zero_grad() </span><br><span class="line">    <span class="comment"># 1、计算Hessian矩阵</span></span><br><span class="line">    <span class="keyword">with</span> autograd_lib.module_hook(save_activations):</span><br><span class="line">        output = model(train)</span><br><span class="line">        loss = criterion(output, target)</span><br><span class="line">    <span class="keyword">with</span> autograd_lib.module_hook(compute_hess):</span><br><span class="line">        autograd_lib.backward_hessian(output, loss=<span class="string">&#x27;LeastSquares&#x27;</span>)</span><br><span class="line">		</span><br><span class="line">    layer_hess = <span class="built_in">list</span>(hess.values())</span><br><span class="line">    <span class="comment"># 2、计算minimum_ratio</span></span><br><span class="line">    minimum_ratio = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> h <span class="keyword">in</span> layer_hess:</span><br><span class="line">        size = h.shape[<span class="number">0</span>] * h.shape[<span class="number">1</span>]</span><br><span class="line">        h = h.reshape(size, size)</span><br><span class="line">        h_eig = torch.symeig(h).eigenvalues </span><br><span class="line">        <span class="comment"># torch.symeig() returns eigenvalues and eigenvectors of a real symmetric matrix</span></span><br><span class="line">        num_greater = torch.<span class="built_in">sum</span>(h_eig &gt; <span class="number">0</span>).item()</span><br><span class="line">        minimum_ratio.append(num_greater / <span class="built_in">len</span>(h_eig))</span><br><span class="line"></span><br><span class="line">    ratio_mean = np.mean(minimum_ratio) <span class="comment"># compute mean of minimum ratio</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ratio_mean</span><br><span class="line">  </span><br><span class="line">activations = defaultdict(<span class="built_in">int</span>)</span><br><span class="line">hess = defaultdict(<span class="built_in">float</span>)</span><br><span class="line">gradient_norm = compute_gradient_norm(model, criterion, train, target)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">	在上述代码中，有些许部分与理论不同。代码实现中是分层计算海森矩阵的，即针对于神经网络的每个层计算海森矩阵，而后再求解特征值。然后将每层的结果做一个平均。而理论上，应当计算一个所有参数的大的海森矩阵，对其求解特征值。</span></span><br><span class="line"><span class="string">	即在上述的案例中，我们原本应该得到一个256*256的海森矩阵，但实际上得到了2个128*128的海森矩阵，并且应当是理论上256*256海森矩阵的左上角部分与右下角部分。即下述所示的A和B，剩下的两块的？是L对两层参数交叉求微分的部分，没有计算。</span></span><br><span class="line"><span class="string">	                              [ A   ? ]</span></span><br><span class="line"><span class="string">	                              [ ?   B ]</span></span><br><span class="line"><span class="string">	如此做的原因我思索了很久也没有得出一个结论，有两个合理的可能猜测：</span></span><br><span class="line"><span class="string">		可能1:完整的海森矩阵计算难度过大，故而我们单独计算L对每一层参数的海森矩阵，来作为近似。</span></span><br><span class="line"><span class="string">		可能2:由于某些性质，剩下的没有计算的两块的值，不会影响最终判定海森矩阵是否正定的结果，但是我并没有实际进行证实。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>ML2021课程系列笔记</category>
       </categories>
       <tags>
@@ -5273,12 +5294,12 @@ static class Inner &#123;
 <p>​ 所以Alpha Go的原论文中，在附件中阐述的网络结构中也提到了，其设计的网络结构中，已经没有Pooling层了，是非常合理的。</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>ML2021课程系列笔记</category>
       </categories>
       <tags>
-        <tag>CNN</tag>
         <tag>Machine Learning</tag>
+        <tag>CNN</tag>
       </tags>
   </entry>
   <entry>
@@ -5450,7 +5471,7 @@ static class Inner &#123;
 <p>​ 总而言之，Batch Normalization能让你的error surface 更加平滑，从而降低训练的难度，让网络拥有更好的性能，这样的解释无论是理论还是实验都已经被人所证实。具体可以参见这篇论文《How Does Batch Normalization Help Optimization?》。</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>ML2021课程系列笔记</category>
       </categories>
       <tags>
@@ -5535,7 +5556,7 @@ static class Inner &#123;
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">min_mse = <span class="number">1000.</span></span><br><span class="line">early_stop_cnt = <span class="number">0</span></span><br><span class="line">epoch = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> epoch &lt; n_epochs:</span><br><span class="line">	model.train() <span class="comment"># set model to training mode</span></span><br><span class="line">	<span class="keyword">for</span> x, y <span class="keyword">in</span> tr_set: <span class="comment"># iterate through the dataloader</span></span><br><span class="line">		optimizer.zero_grad() <span class="comment"># set gradient to zero</span></span><br><span class="line">		x, y = x.to(device), y.to(device) <span class="comment"># move data to device (cpu/cuda)</span></span><br><span class="line">		pred = model(x) <span class="comment"># forward pass (compute output)</span></span><br><span class="line">		mse_loss = model.cal_loss(pred, y) <span class="comment"># compute loss</span></span><br><span class="line">		mse_loss.backward() <span class="comment"># compute gradient (backpropagation)</span></span><br><span class="line">		optimizer.step() <span class="comment"># update model with optimizer</span></span><br><span class="line">	<span class="comment"># After each epoch, test your model on the validation (development) set.</span></span><br><span class="line">	dev_mse = dev(dv_set, model, device)</span><br><span class="line">	<span class="keyword">if</span> dev_mse &lt; min_mse:</span><br><span class="line">		<span class="comment"># Save model if your model improved</span></span><br><span class="line">		min_mse = dev_mse</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;Saving model (epoch = &#123;:4d&#125;, loss = &#123;:.4f&#125;)&#x27;</span>.<span class="built_in">format</span>(epoch + <span class="number">1</span>, min_mse))</span><br><span class="line">		torch.save(model.state_dict(), config[<span class="string">&#x27;save_path&#x27;</span>]) <span class="comment"># Save model to specified path</span></span><br><span class="line">		early_stop_cnt = <span class="number">0</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		early_stop_cnt += <span class="number">1</span></span><br><span class="line">	epoch += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Stop training if your model stops improving for &quot;config[&#x27;early_stop&#x27;]&quot; epochs.</span></span><br><span class="line">	<span class="keyword">if</span> early_stop_cnt &gt; config[<span class="string">&#x27;early_stop&#x27;</span>]:</span><br><span class="line">		<span class="keyword">break</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>ML2021课程系列笔记</category>
       </categories>
       <tags>
@@ -5559,7 +5580,7 @@ static class Inner &#123;
 <h4 id="section"></h4>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Pytorch系列笔记</category>
       </categories>
       <tags>
@@ -5713,7 +5734,7 @@ static class Inner &#123;
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Pytorch系列笔记</category>
       </categories>
       <tags>
@@ -5744,7 +5765,7 @@ static class Inner &#123;
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 实例化测试用的DataSet和DataLoader</span></span><br><span class="line">test_set = MyDataset(test, <span class="literal">None</span>)</span><br><span class="line">test_loader = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#  实例化模型，加载参数</span></span><br><span class="line">model = Classifier().to(device)</span><br><span class="line">model.load_state_dict(torch.load(model_path))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始进行预测， </span></span><br><span class="line">predict = []</span><br><span class="line">model.<span class="built_in">eval</span>() <span class="comment"># 将模型调整至评估状态（必备步骤）</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad(): <span class="comment"># 由于预测不需要跟踪梯度</span></span><br><span class="line">    <span class="keyword">for</span> i, data <span class="keyword">in</span> <span class="built_in">enumerate</span>(test_loader): <span class="comment"># 计算s</span></span><br><span class="line">        inputs = data</span><br><span class="line">        inputs = inputs.to(device)</span><br><span class="line">        outputs = model(inputs)</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> test_pred.cpu().numpy():</span><br><span class="line">            predict.append(y)</span><br><span class="line">           </span><br><span class="line"><span class="comment"># 输出预测的CSV文件</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;prediction.csv&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> i, y <span class="keyword">in</span> <span class="built_in">enumerate</span>(predict):</span><br><span class="line">        f.write(<span class="string">&#x27;&#123;&#125;,&#123;&#125;\n&#x27;</span>.<span class="built_in">format</span>(i, y))</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Pytorch系列笔记</category>
       </categories>
       <tags>
@@ -6117,7 +6138,7 @@ NotebookApp.rate_limit_window=3.0 (secs)</code></pre>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Pytorch系列笔记</category>
       </categories>
       <tags>
@@ -6164,7 +6185,7 @@ False</code></pre>
 </ul>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Pytorch系列笔记</category>
       </categories>
       <tags>
@@ -6242,7 +6263,7 @@ Layer: linear_relu_stack.4.bias | Size: torch.Size([10]) | Values : tensor([-0.0
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Pytorch系列笔记</category>
       </categories>
       <tags>
@@ -6264,7 +6285,7 @@ Layer: linear_relu_stack.4.bias | Size: torch.Size([10]) | Values : tensor([-0.0
 <p>scatter(dim, index, src) 的参数有 3 个，通过一个张量或标量 src 来修改另一个张量，哪个元素需要修改、用 src 中的哪个元素来修改由 dim 和 index 决定 - dim：沿着哪个维度进行索引 - index：用来 scatter 的元素索引 - src：用来 scatter 的源元素，可以是一个标量或一个张量</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Pytorch系列笔记</category>
       </categories>
       <tags>
@@ -6418,7 +6439,7 @@ Labels batch shape: torch.Size([64])</code></pre>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Pytorch系列笔记</category>
       </categories>
       <tags>
@@ -6596,7 +6617,7 @@ n: [1. 1. 1. 1. 1.]</code></pre>
 n: [2. 2. 2. 2. 2.]</code></pre>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Pytorch系列笔记</category>
       </categories>
       <tags>
@@ -6671,7 +6692,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/bvbcf123.png" /></p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Transformer系列笔记</category>
       </categories>
       <tags>
@@ -6728,7 +6749,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115120211640.png" /></p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Transformer系列笔记</category>
       </categories>
       <tags>
@@ -6857,7 +6878,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 </figure>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Transformer系列笔记</category>
       </categories>
       <tags>
@@ -6933,7 +6954,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 <p>​ 此处还有一些Self-Attention用于RNN和Graph领域的内容，由于与我所学习的领域相关性不大，所以就暂且忽略了，感兴趣可以去李宏毅老师的Attention的课程最后找到对应的论文内容。</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Transformer系列笔记</category>
       </categories>
       <tags>
@@ -6964,7 +6985,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105847271.png" /></p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>GAN系列笔记</category>
       </categories>
       <tags>
@@ -7010,7 +7031,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 <p>​ 所以在不是收敛到最优的情况下，BiGAN会比下面这个架构训练好很多。生成的图片会真实很多，会比AutoEncoder架构生成的图像清晰很多。两者的特性不太一样。举个例子，比如可能用BiGAN，你输入一个鸟的图片，经过Encoder，Decoder后生成的图像也会是一只清晰的真实的鸟，但可能跟输入的鸟不一样，而如果用AutoEncoder架构，输入一个鸟的图片，经过Encoder，Decoder后生成的图像会和原图像比较像，但是会比较模糊，是一个不是很清晰真实的图像。</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>GAN系列笔记</category>
       </categories>
       <tags>
@@ -7081,7 +7102,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105412942.png" /></p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>GAN系列笔记</category>
       </categories>
       <tags>
@@ -7164,7 +7185,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104707603.png" /></p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>GAN系列笔记</category>
       </categories>
       <tags>
@@ -7296,7 +7317,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003743216.png" /></p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>GAN系列笔记</category>
       </categories>
       <tags>
@@ -7418,7 +7439,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 <p>2、从生成器的角度而言，它虽然仍然是一个组件一个组件的生成对象，但是相比传统的计算L1,L2的损失而言，它会从Discriminator那边得到全局视野的反馈，更能理解组件与组件之间的关系。</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>GAN系列笔记</category>
       </categories>
       <tags>
@@ -7508,7 +7529,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 <p>2） 一文理解变分自编码器（VAE）https://zhuanlan.zhihu.com/p/64485020</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -7561,7 +7582,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 </ol>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
@@ -7609,7 +7630,7 @@ n: [2. 2. 2. 2. 2.]</code></pre>
 <p>​ 比较简单来说，就是控制变量法，来判断某一个模块是否真的有作用。</p>
 ]]></content>
       <categories>
-        <category>深度学习笔记</category>
+        <category>⓵ 深度学习笔记</category>
         <category>Basic系列笔记</category>
       </categories>
       <tags>
