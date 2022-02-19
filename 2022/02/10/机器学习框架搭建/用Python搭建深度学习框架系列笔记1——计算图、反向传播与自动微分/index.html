@@ -20,12 +20,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="本文是最近回顾深度学习的基础概念时，想要更深一步的了解框架内部的实现方法的实践，文中首先记录了一些之前不太深入了解过的概念，比如自动微分在计算机中是如何计算的，然后将深度学习中各个部分的内容做了梳理，参考一些资料，解析用python实现一个深度学习的框架。">
+<meta name="description" content="本文是最近回顾深度学习的基础概念时，想要更深一步的了解框架内部的实现方法的实践系列笔记1，该部分文中先对深度学习训练的逻辑框架做了简单的梳理，然后对计算图、反向传播、自动微分做了详细的介绍。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习基础系列笔记15——探究深度学习框架底层(使用Python搭建简单的深度学习框架)">
-<meta property="og:url" content="https://blog.slks.xyz/2022/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B015%E2%80%94%E6%8E%A2%E7%A9%B6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E5%BA%95%E5%B1%82(%E4%BD%BF%E7%94%A8Python%E6%90%AD%E5%BB%BA%E7%AE%80%E5%8D%95%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6)/index.html">
+<meta property="og:title" content="Python搭建深度学习框架系列笔记1——计算图、反向传播、自动微分">
+<meta property="og:url" content="https://blog.slks.xyz/2022/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA/%E7%94%A8Python%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
-<meta property="og:description" content="本文是最近回顾深度学习的基础概念时，想要更深一步的了解框架内部的实现方法的实践，文中首先记录了一些之前不太深入了解过的概念，比如自动微分在计算机中是如何计算的，然后将深度学习中各个部分的内容做了梳理，参考一些资料，解析用python实现一个深度学习的框架。">
+<meta property="og:description" content="本文是最近回顾深度学习的基础概念时，想要更深一步的了解框架内部的实现方法的实践系列笔记1，该部分文中先对深度学习训练的逻辑框架做了简单的梳理，然后对计算图、反向传播、自动微分做了详细的介绍。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-464ea7ee4475f3c7f08c389f65fd3e89_1440w.jpg">
 <meta property="og:image" content="https://pytorch.org/tutorials/_images/comp-graph.png">
@@ -37,29 +37,29 @@
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-4c305dc170d7a165aec1b5d7017828c7_1440w.jpg">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_10_17_31_03_38.png">
 <meta property="og:image" content="https://pic3.zhimg.com/80/v2-fb2923b77c6a8cbed2716e58e44f191e_1440w.jpg">
-<meta property="og:image" content="c:/Users/14012/Desktop/屏幕捕获_2022_02_11_15_51_51_228.png">
-<meta property="og:image" content="c:/Users/14012/Desktop/屏幕捕获_2022_02_11_15_56_22_981.png">
-<meta property="og:image" content="c:/Users/14012/Desktop/屏幕捕获_2022_02_11_15_56_29_570.png">
-<meta property="og:image" content="c:/Users/14012/Desktop/屏幕捕获_2022_02_11_15_58_05_680.png">
-<meta property="og:image" content="c:/Users/14012/Desktop/屏幕捕获_2022_02_11_15_58_34_369.png">
-<meta property="og:image" content="c:/Users/14012/Desktop/屏幕捕获_2022_02_11_15_59_42_707.png">
-<meta property="og:image" content="c:/Users/14012/Desktop/屏幕捕获_2022_02_11_16_00_40_821.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_15_51_51_228.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_15_56_22_981.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_15_56_29_570.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_15_58_05_680.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_15_58_34_369.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_15_59_42_707.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_16_00_40_821.png">
 <meta property="article:published_time" content="2022-02-10T04:19:19.000Z">
-<meta property="article:modified_time" content="2022-02-16T06:58:00.317Z">
+<meta property="article:modified_time" content="2022-02-19T14:07:44.878Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Framework">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-464ea7ee4475f3c7f08c389f65fd3e89_1440w.jpg">
 
 
-<link rel="canonical" href="https://blog.slks.xyz/2022/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B015%E2%80%94%E6%8E%A2%E7%A9%B6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E5%BA%95%E5%B1%82(%E4%BD%BF%E7%94%A8Python%E6%90%AD%E5%BB%BA%E7%AE%80%E5%8D%95%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6)/">
+<link rel="canonical" href="https://blog.slks.xyz/2022/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA/%E7%94%A8Python%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B015%E2%80%94%E6%8E%A2%E7%A9%B6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E5%BA%95%E5%B1%82(%E4%BD%BF%E7%94%A8Python%E6%90%AD%E5%BB%BA%E7%AE%80%E5%8D%95%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6)/","path":"2022/02/10/机器学习基础系列笔记/机器学习基础系列笔记15—探究深度学习框架底层(使用Python搭建简单的深度学习框架)/","title":"机器学习基础系列笔记15——探究深度学习框架底层(使用Python搭建简单的深度学习框架)"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA/%E7%94%A8Python%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86/","path":"2022/02/10/机器学习框架搭建/用Python搭建深度学习框架系列笔记1——计算图、反向传播与自动微分/","title":"Python搭建深度学习框架系列笔记1——计算图、反向传播、自动微分"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>机器学习基础系列笔记15——探究深度学习框架底层(使用Python搭建简单的深度学习框架) | Fantast's Blog</title>
+<title>Python搭建深度学习框架系列笔记1——计算图、反向传播、自动微分 | Fantast's Blog</title>
   
 
 
@@ -166,7 +166,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%AD%E7%BB%83%E9%80%BB%E8%BE%91%E6%A1%86%E6%9E%B6%E6%A2%B3%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">一、深度学习训练逻辑框架梳理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E8%AE%A1%E7%AE%97%E5%9B%BE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E8%AF%A6%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">二、计算图、反向传播、自动微分详解：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%9F%BA%E6%9C%AC%E7%9A%84%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="nav-number">2.1.</span> <span class="nav-text">1、最基本的计算图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%88%86%E9%9D%99%E6%80%81%E5%9B%BE%E5%92%8C%E5%8A%A8%E6%80%81%E5%9B%BE"><span class="nav-number">2.2.</span> <span class="nav-text">2、区分静态图和动态图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%92%8C%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86"><span class="nav-number">2.3.</span> <span class="nav-text">3、什么是反向传播和自动微分？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%97%B6%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E5%9C%A8%E5%93%AA%E9%87%8C%E5%BA%94%E7%94%A8"><span class="nav-number">2.3.1.</span> <span class="nav-text">1）训练时自动微分在哪里应用？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E6%89%A9%E5%B1%95"><span class="nav-number">2.3.2.</span> <span class="nav-text">2）反向传播的数学原理扩展：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="nav-number">2.3.3.</span> <span class="nav-text">3）自动微分的工作原理解析：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AE%A1%E7%AE%97%E5%9B%BE%E6%9E%84%E5%BB%BA%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E8%BF%87%E7%A8%8B"><span class="nav-number">2.4.</span> <span class="nav-text">4、利用代码实现计算图构建、反向传播、自动微分过程：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#graph%E8%AE%A1%E7%AE%97%E5%9B%BE%E7%B1%BB-%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0"><span class="nav-number">2.4.1.</span> <span class="nav-text">1）Graph计算图类 （一些基本函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#node%E7%B1%BB%E5%9F%BA%E7%B1%BB---%E9%9D%9E%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="nav-number">2.4.2.</span> <span class="nav-text">2）Node类（基类 - 非抽象类）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%8A%82%E7%82%B9%E7%BB%A7%E6%89%BF%E8%87%AAnode%E7%B1%BB"><span class="nav-number">2.4.3.</span> <span class="nav-text">3）变量节点（继承自Node类）：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E6%93%8D%E4%BD%9C%E5%AD%90%E8%8A%82%E7%82%B9%E7%BB%A7%E6%89%BF%E8%87%AAnode%E7%B1%BB%E9%9C%80%E8%A6%81%E8%A6%86%E5%86%99compute%E5%92%8Cget_jacobi%E4%B8%A4%E4%B8%AA%E5%87%BD%E6%95%B0"><span class="nav-number">2.4.4.</span> <span class="nav-text">4）运算符操作子节点（继承自Node类，需要覆写compute和get_jacobi两个函数）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E4%BC%98%E5%8C%96%E5%99%A8optimizer"><span class="nav-number">3.</span> <span class="nav-text">三、优化器Optimizer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E4%B8%8D%E5%B0%81%E8%A3%85%E4%BC%98%E5%8C%96%E5%99%A8%E7%9A%84%E6%97%B6%E5%80%99%E5%A6%82%E4%BD%95%E5%9C%A8%E8%AE%A1%E7%AE%97%E5%9B%BE%E4%B8%8A%E6%89%A7%E8%A1%8C%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">1、在不封装优化器的时候，如何在计算图上执行梯度下降法？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%99%A8%E7%9A%84%E5%B0%81%E8%A3%85"><span class="nav-number">3.2.</span> <span class="nav-text">2、优化器的封装</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%AD%E7%BB%83%E9%80%BB%E8%BE%91%E6%A1%86%E6%9E%B6%E6%A2%B3%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">一、深度学习训练逻辑框架梳理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E8%AE%A1%E7%AE%97%E5%9B%BE%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E8%AF%A6%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">二、计算图、反向传播、自动微分详解：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%9F%BA%E6%9C%AC%E7%9A%84%E8%AE%A1%E7%AE%97%E5%9B%BE"><span class="nav-number">2.1.</span> <span class="nav-text">1、最基本的计算图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%88%86%E9%9D%99%E6%80%81%E5%9B%BE%E5%92%8C%E5%8A%A8%E6%80%81%E5%9B%BE"><span class="nav-number">2.2.</span> <span class="nav-text">2、区分静态图和动态图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%92%8C%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86"><span class="nav-number">2.3.</span> <span class="nav-text">3、什么是反向传播和自动微分？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%97%B6%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E5%9C%A8%E5%93%AA%E9%87%8C%E5%BA%94%E7%94%A8"><span class="nav-number">2.3.1.</span> <span class="nav-text">1）训练时自动微分在哪里应用？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E6%89%A9%E5%B1%95"><span class="nav-number">2.3.2.</span> <span class="nav-text">2）反向传播的数学原理扩展：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="nav-number">2.3.3.</span> <span class="nav-text">3）自动微分的工作原理解析：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AE%A1%E7%AE%97%E5%9B%BE%E6%9E%84%E5%BB%BA%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86%E8%BF%87%E7%A8%8B"><span class="nav-number">2.4.</span> <span class="nav-text">4、利用代码实现计算图构建、反向传播、自动微分过程：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#graph%E8%AE%A1%E7%AE%97%E5%9B%BE%E7%B1%BB-%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0"><span class="nav-number">2.4.1.</span> <span class="nav-text">1）Graph计算图类 （一些基本函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#node%E7%B1%BB%E5%9F%BA%E7%B1%BB---%E9%9D%9E%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="nav-number">2.4.2.</span> <span class="nav-text">2）Node类（基类 - 非抽象类）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%8A%82%E7%82%B9%E7%BB%A7%E6%89%BF%E8%87%AAnode%E7%B1%BB"><span class="nav-number">2.4.3.</span> <span class="nav-text">3）变量节点（继承自Node类）：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E6%93%8D%E4%BD%9C%E5%AD%90%E8%8A%82%E7%82%B9%E7%BB%A7%E6%89%BF%E8%87%AAnode%E7%B1%BB%E9%9C%80%E8%A6%81%E8%A6%86%E5%86%99compute%E5%92%8Cget_jacobi%E4%B8%A4%E4%B8%AA%E5%87%BD%E6%95%B0"><span class="nav-number">2.4.4.</span> <span class="nav-text">4）运算符操作子节点（继承自Node类，需要覆写compute和get_jacobi两个函数）</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -187,7 +187,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -252,7 +252,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B015%E2%80%94%E6%8E%A2%E7%A9%B6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E5%BA%95%E5%B1%82(%E4%BD%BF%E7%94%A8Python%E6%90%AD%E5%BB%BA%E7%AE%80%E5%8D%95%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6)/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/02/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA/%E7%94%A8Python%E6%90%AD%E5%BB%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B01%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E5%9B%BE%E3%80%81%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E8%87%AA%E5%8A%A8%E5%BE%AE%E5%88%86/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -264,7 +264,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          机器学习基础系列笔记15——探究深度学习框架底层(使用Python搭建简单的深度学习框架)
+          Python搭建深度学习框架系列笔记1——计算图、反向传播、自动微分
         </h1>
 
         <div class="post-meta-container">
@@ -283,7 +283,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-16 14:58:00" itemprop="dateModified" datetime="2022-02-16T14:58:00+08:00">2022-02-16</time>
+      <time title="修改时间：2022-02-19 22:07:44" itemprop="dateModified" datetime="2022-02-19T22:07:44+08:00">2022-02-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -296,6 +296,10 @@
           ，
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Basic%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Basic系列笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Python%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Python搭建简易框架笔记</span></a>
         </span>
     </span>
 
@@ -313,18 +317,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>15k</span>
+      <span>14k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>41 分钟</span>
+      <span>40 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">本文是最近回顾深度学习的基础概念时，想要更深一步的了解框架内部的实现方法的实践，文中首先记录了一些之前不太深入了解过的概念，比如自动微分在计算机中是如何计算的，然后将深度学习中各个部分的内容做了梳理，参考一些资料，解析用python实现一个深度学习的框架。</div>
+            <div class="post-description">本文是最近回顾深度学习的基础概念时，想要更深一步的了解框架内部的实现方法的实践系列笔记1，该部分文中先对深度学习训练的逻辑框架做了简单的梳理，然后对计算图、反向传播、自动微分做了详细的介绍。</div>
             <div class="post-remind">Google Chrome is recommended, otherwise the image size may be wrong</div>
             <div class="post-remind">FireFox is not recommended,Because it does not support the image zoom property</div>
         </div>
@@ -387,15 +391,11 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loss = torch.nn.functional.binary_cross_entropy_with_logits(z, y)</span><br></pre></td></tr></table></figure>
 <p>​ Pytorch又将loss和z、y的节点关系加入计算图中了。</p>
 <p>​ 同时，截至此时，x,y,w,z,loss 的值都已经计算出来了，也就是说已经完成了一遍前向传播，这时候这些值都被记录在这一个个Tensor中。（下图是torch.Tensor内部的成员变量，我们可以看到，其内部是记录了非常多东西的，前向传播的值就是记录在Tensor.data中，也就是其表现出来的值）</p>
-<figure>
-<img src="https://pic2.zhimg.com/80/v2-3bc1ff0ab920582a3491111b81a32fe5_1440w.jpg" alt="img" /><figcaption aria-hidden="true">img</figcaption>
-</figure>
+<p><img src="https://pic2.zhimg.com/80/v2-3bc1ff0ab920582a3491111b81a32fe5_1440w.jpg" /></p>
 <p>然后当我们在外层调用如下函数的时候:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loss.backward()</span><br></pre></td></tr></table></figure>
 <p>​ Pytorch 内部实际上就是开始反向传播，利用自动微分引擎，链式法则计算loss对参数w的梯度值。对于我们人而言，是如下的一个过程：</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/dsa98uyc89dsahkj.jpg" alt="dsa98uyc89dsahkj" /><figcaption aria-hidden="true">dsa98uyc89dsahkj</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/dsa98uyc89dsahkj.jpg" /></p>
 <p>​ 那么，这个时候我们就需要思考了，对于电脑来说我们根本没有告诉它，loss对参数w的导数怎么求啊？即使是按照上述靠链式法则去求，但是我们也没告诉它链式法则中的每一项的导数是什么（比如说loss对z的导数，z对w的导数），那怎么求呢？其实，这个时候Pytorch内部就是利用其带的自动微分引擎，去解析函数，然后进行计算的。从外层看来，我们只知道只要设定一些参数，调用backward()函数，就能够获得loss对某个参数w的梯度，外层完全不用关心内部的事情。我们再详细的先拓展一下反向传播的具体数学原理，随后会记录自动微分。</p>
 <h5 id="反向传播的数学原理扩展">2）反向传播的数学原理扩展：</h5>
 <p>​ 反向传播写成上面的链式传播导数的形式十分好理解，但是不仅仅是上述这样子。我们应该需要知道，上面我们都默认所有的字母都只是一个常量，而不是一个变量，就比如说 w 是一个值， x 也仅是一个值，这些节点，我们通常称之为变量节点，它们没有父节点，它们的值不是被计算出来的，而是被赋予的。但其实，节点的值可以是一个数，也可以是一个向量，我们可以用一个节点保存输入向量(x1,x2,x3)，再用一个节点保存权值向量(w1,w2,w3)。</p>
@@ -405,9 +405,7 @@
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_10_15_15_14_456.png" /></p>
 <p>​ 我们可以知道，每一个<span class="math inline">\(f_i(w)\)</span>对 <span class="math inline">\(w\)</span>来说，应该都有一个梯度 <span class="math inline">\(\nabla f_i(w)\)</span> ,而每一个梯度都是一个n维向量（因为自变量是n维向量）。</p>
 <p>​ 以m个梯度作为行，每个梯度都是一个n维向量：</p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_10_15_19_20_861.png" alt="屏幕捕获_2022_02_10_15_19_20_861" /><figcaption aria-hidden="true">屏幕捕获_2022_02_10_15_19_20_861</figcaption>
-</figure>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_10_15_19_20_861.png" /></p>
 <p>​ 这个<span class="math inline">\(J_f(w)\)</span> 叫做映射 <span class="math inline">\(f(w)\)</span>在 w 处的雅可比矩阵。因为<span class="math inline">\(f(w)\)</span>是从n维到m维的映射，所以雅可比矩阵是一个$ m n$的矩阵。</p>
 <p>​ 故而，我们知道，<strong>对于计算图中的每一对父子节点，都可以计算出子节点对父节点的映射的雅可比矩阵。 雅克比矩阵其实也就是映射的每个分量对输入向量的每个分量的偏导数。</strong></p>
 <p>​ 在上述图2-1中的内积节点x = (x1,x2,x3) ， w = (w1,w2,w3)，它们的子节点 对 他们的映射，就是一个 n维(n=3)到1维的映射，故而，子节点到父节点的雅可比矩阵应当是 $ 1 n$矩阵。</p>
@@ -514,34 +512,22 @@
 <p>定义矩阵A： 形状为 M x N</p>
 <p>定义矩阵B： 形状为 N x K</p>
 <p>矩阵乘法得到的结果C： 形状为 M X K</p>
-<p><img src="C:\Users\14012\Desktop\屏幕捕获_2022_02_11_15_51_51_228.png" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_15_51_51_228.png" /></p>
 <p>​ 我们将矩阵乘法视为多到多映射，如下：以左矩阵A为自变量，以右矩阵B为常量，将映射的结果矩阵C视为 M x K维的向量。如下所示：</p>
-<p><img src="C:\Users\14012\Desktop\屏幕捕获_2022_02_11_15_56_22_981.png" style="zoom: 50%;" /></p>
-<p><img src="C:\Users\14012\Desktop\屏幕捕获_2022_02_11_15_56_29_570.png" style="zoom:50%;" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_15_56_22_981.png" style="zoom: 50%;" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_15_56_29_570.png" style="zoom:50%;" /></p>
 <p>​ 最终获得的雅可比矩阵的第一行，就是C矩阵的第1个元素，分别对A的mn个元素求导：得到的如下所示：</p>
-<p><img src="C:\Users\14012\Desktop\屏幕捕获_2022_02_11_15_58_05_680.png" style="zoom:50%;" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_15_58_05_680.png" style="zoom:50%;" /></p>
 <p>​ 第二行同理，如下所示：</p>
-<p><img src="C:\Users\14012\Desktop\屏幕捕获_2022_02_11_15_58_34_369.png" style="zoom:50%;" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_15_58_34_369.png" style="zoom:50%;" /></p>
 <p>​ 一直到雅可比矩阵的第K行，都是这样的规律。然后接下去雅可比矩阵的K+1行是这样的：</p>
-<p><img src="C:\Users\14012\Desktop\屏幕捕获_2022_02_11_15_59_42_707.png" alt="屏幕捕获_2022_02_11_15_59_42_707" style="zoom:50%;" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_15_59_42_707.png" alt="屏幕捕获_2022_02_11_15_59_42_707" style="zoom:50%;" /></p>
 <p>​ 我们会发现一个规律，如下所示，也就是最终的结论：C对A的雅可比矩阵如下所示：</p>
-<p><img src="C:\Users\14012\Desktop\屏幕捕获_2022_02_11_16_00_40_821.png" style="zoom:50%;" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_11_16_00_40_821.png" style="zoom:50%;" /></p>
 <p>​ <span class="math inline">\(B^T 是 B的转置\)</span>，我们把 m 个 形状为 <span class="math inline">\(k \times n\)</span>的<span class="math inline">\(B^T\)</span>矩阵放在对角线上，得到一个<span class="math inline">\(mk \times mn\)</span> 的矩阵。以下代码就是干了这样一个事情。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MatMul</span>(<span class="params">Operator</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    矩阵乘法</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">compute</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">assert</span> <span class="built_in">len</span>(self.parents) == <span class="number">2</span> <span class="keyword">and</span> self.parents[<span class="number">0</span>].shape()[</span><br><span class="line">            <span class="number">1</span>] == self.parents[<span class="number">1</span>].shape()[<span class="number">0</span>]</span><br><span class="line">        self.value = self.parents[<span class="number">0</span>].value * self.parents[<span class="number">1</span>].value</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_jacobi</span>(<span class="params">self, parent</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        将矩阵乘法视作映射，求映射对参与计算的矩阵的雅克比矩阵。</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        zeros = np.mat(np.zeros((self.dimension(), parent.dimension())))</span><br><span class="line">        <span class="keyword">if</span> parent <span class="keyword">is</span> self.parents[<span class="number">0</span>]:</span><br><span class="line">            <span class="keyword">return</span> fill_diagonal(zeros, self.parents[<span class="number">1</span>].value.T)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            jacobi = fill_diagonal(zeros, self.parents[<span class="number">0</span>].value)</span><br><span class="line">            row_sort = np.arange(self.dimension()).reshape(</span><br><span class="line">                self.shape()[::-<span class="number">1</span>]).T.ravel()</span><br><span class="line">            col_sort = np.arange(parent.dimension()).reshape(</span><br><span class="line">                parent.shape()[::-<span class="number">1</span>]).T.ravel()</span><br><span class="line">            <span class="keyword">return</span> jacobi[row_sort, :][:, col_sort]</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>定义ReLU操作符：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReLU</span>(<span class="params">Operator</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    对矩阵的元素施加ReLU函数</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    nslope = <span class="number">0.1</span>  <span class="comment"># 负半轴的斜率</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">compute</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.value = np.mat(np.where(</span><br><span class="line">            self.parents[<span class="number">0</span>].value &gt; <span class="number">0.0</span>,</span><br><span class="line">            self.parents[<span class="number">0</span>].value,</span><br><span class="line">            self.nslope * self.parents[<span class="number">0</span>].value)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_jacobi</span>(<span class="params">self, parent</span>):</span></span><br><span class="line">        <span class="keyword">return</span> np.diag(np.where(self.parents[<span class="number">0</span>].value.A1 &gt; <span class="number">0.0</span>, <span class="number">1.0</span>, self.nslope))</span><br></pre></td></tr></table></figure>
-<h3 id="三优化器optimizer">三、优化器Optimizer</h3>
-<h4 id="在不封装优化器的时候如何在计算图上执行梯度下降法">1、在不封装优化器的时候，如何在计算图上执行梯度下降法？</h4>
-<pre><code>当我们还没有明确提出优化器这个概念的时候，我们遵循如下过程去在计算图上执行梯度下降来优化损失函数：</code></pre>
-<ul>
-<li>1）对结果节点的上游变量节点(Variable)赋值或初始化【包括输入向量节点和训练参数节点】</li>
-<li>2）在结果节点上调用forward，计算出它的值，数据前向传播</li>
-<li>3）在所有需要训练的变量节点( Variable, trainable = True )上调用backward方法，梯度反向传播，计算出结果节点对该节点的雅可比矩阵。【仅包括训练参数节点】</li>
-<li>4）根据变量节点的jacobi属性中的值，从变量节点的当前值中减去 用学习率 * 梯度的值即为更新后的值。</li>
-<li>5）清除所有节点的value和jacobi属性，回到第2步</li>
-</ul>
-<h4 id="优化器的封装">2、优化器的封装</h4>
-<p>​ 其实，优化器所实现的功能就是上述训练过程中对可训练的变量节点的值进行优化的过程。但是由于，可能存在各种多种多样的优化器，为了便于外层用户使用，代码的整洁，我们需要将优化器的功能封装起来，然后进行使用。</p>
 <p><strong>参考资料：</strong></p>
 <p>代码实现参考：https://github.com/zc911/MatrixSlow</p>
 <p>1、《用python实现深度学习框架》张觉非、陈震</p>
@@ -556,6 +542,12 @@
     
     
       
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\02\19\机器学习框架搭建\用Python搭建深度学习框架系列笔记2——优化器\" rel="bookmark">Python搭建深度学习框架系列笔记2——优化器</a></div>
+    </li>
+  </ul>
 
 
     <footer class="post-footer">
@@ -627,7 +619,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:17</span>
+    <span title="站点阅读时长">19:18</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -678,7 +670,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"0d804b0dae64e5a8df62de5c4fdfeecb"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"b28a727069f6fc8ef1a54e8e9da86680"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
