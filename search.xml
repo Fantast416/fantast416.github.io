@@ -3781,9 +3781,9 @@ static class Inner &#123;
         <category>CV相关论文</category>
       </categories>
       <tags>
-        <tag>CNN</tag>
         <tag>Transformer</tag>
         <tag>Visual Recognition</tag>
+        <tag>CNN</tag>
       </tags>
   </entry>
   <entry>
@@ -5137,8 +5137,8 @@ static class Inner &#123;
         <category>Basic系列笔记</category>
       </categories>
       <tags>
-        <tag>Machine Learning</tag>
         <tag>UNet</tag>
+        <tag>Machine Learning</tag>
         <tag>FCN</tag>
       </tags>
   </entry>
@@ -5398,8 +5398,8 @@ static class Inner &#123;
         <category>ML2021课程系列笔记</category>
       </categories>
       <tags>
-        <tag>Machine Learning</tag>
         <tag>CNN</tag>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
