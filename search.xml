@@ -1,6 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>GAN系列笔记3——GAN的数学理论支撑</title>
+    <url>/2021/12/02/bcc8677f313f/</url>
+    <content><![CDATA[<h3 id="前言">前言：</h3>
+<p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了GAN的理论数学部分的支撑，将直观的GAN训练过程背后的原理，为什么能这么做，训练的时候又需要注意的点是为什么这些内容进行了讲解。</p>
+<h3 id="一我们通常说的生成问题从本质上来看是什么呢">一、我们通常说的生成问题，从本质上来看是什么呢？</h3>
+<p>​ 从生成一张图片x来说，图片x其实就是在图片高维空间中的一个点。比如说64 * 64的图像，其实质就是64*64维空间中的某一个点。</p>
+<h3 id="二gan训练的过程到底是在干什么呢">二、GAN训练的过程到底是在干什么呢？</h3>
+<p>​ 在1中，我们发现其实在图像的高维空间中，存在意义的图像的点其实是很稀疏的，那么训练的时候，其实是提供了一堆有意义的图像的高维点，然后想要通过GAN来找到这些点的分布情况，也就是说，找到在图像高维空间中，有意义的图像的点所遵循的分布是怎么样的。这种分布情况，我们人是无法直接找到的。</p>
+<p>​ 找到这种分布情况以后，其实生成的过程就是在概率分布中较高概率的位置进行取样，得到的可能就是能够令我们满意的图像。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104004253.png" /></p>
+<h3 id="三在gan之前我们的训练所依据的理论是什么">三、在GAN之前，我们的训练所依据的理论是什么？</h3>
+<p>​ 使用Maximum Likelihood Estimation 最大似然估计。整体的思想与过程如下图所示：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104025964.png" /></p>
+<p>​ 首先我们有一个数据集分布，也就是我们通常使用的训练集<span class="math inline">\(P_{data}\)</span>。</p>
+<p>​ 我们还有一个分布<span class="math inline">\(P_G\)</span>，其是θ的函数，就是我们要训练的用于生成的概率分布。我们的目标其实就是说想要找到一个θ值让<span class="math inline">\(P_G\)</span>去接近<span class="math inline">\(P_{data}\)</span>就可以了。但是怎样量化计算这个概率分布的接近呢？</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104038477.png" /></p>
+<p>​ 我们可以先从<span class="math inline">\(P_{data}\)</span>中采集m个样本，然后带入到<span class="math inline">\(P_{G}\)</span>这个概率分布里面，希望得到的对应的概率越大越好。然后我们可以将所有的几率相乘，就会得到L。最终目标就是要找最好的θ使得能够让这个L最大。</p>
+<p>​ 其实所谓的Maximum Likelihood 等同于机器学习中的 Minimize KL Divergence.下图的话是数学公式相关的推导过程，</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104119273.png" /></p>
+<p>​ 那么现在问题来了，我们怎么去定义一个general 的<span class="math inline">\(P_G\)</span>。如果这个<span class="math inline">\(P_G\)</span>是符合高斯分布或者其他简单分布的话，是没有问题的。但是如果<span class="math inline">\(P_G\)</span>要符合这些分布然后再去拟合<span class="math inline">\(P_{data}\)</span>的话，显然就会受到很多的限制。所以我们需要一个更general的分布来去拟合<span class="math inline">\(P_{data}\)</span>。但是如果<span class="math inline">\(P_{G}\)</span>不受限制，是一个很复杂的很general的分布的话，上述计算式子中<span class="math inline">\(P_{G}(X;\theta)\)</span>这一项就很难计算出来，所以我们才有了下述的想法。</p>
+<h3 id="四在gan中我们所依据的理论是什么">四、在GAN中，我们所依据的理论是什么？</h3>
+<p>​ GAN中的Generator是一个网络，我们假设输入的是一个符合正态分布的各种采样点，这些点通过G以后，会产生一个新的分布，这个新的分布其实就是<span class="math inline">\(P_G(x)\)</span>。随后我们的目标也是让这个<span class="math inline">\(P_G(x)\)</span>和<span class="math inline">\(P_{data}(x)\)</span>这两个分布越接近越好。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104254669.png" /></p>
+<p>​ 从公式来看，就是最小化<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>之间的某一种差异。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104316362.png" /></p>
+<p>​ 看到这里，如果我们知道<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的公式，那么我们是能够很方便的代入Divergence的公式中，然后用类似于梯度下降的方法，去最小化它。但是问题是，我们现在并不知道<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的公式，也就是根本无法计算这个Div。这就是GAN神奇之处：</p>
+<p>虽然我们没法知道<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的公式，但是我们是可以从中进行采样的。从<span class="math inline">\(P_{data}\)</span>中进行采样无非就是从我们的训练集中取数据出来，从<span class="math inline">\(P_G\)</span>中进行采样，无非就是从正态分布中采样然后丢到Generator中，得到的数据。如下所示</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104340643.png" /></p>
+<p>​ 那么其实GAN训练Discriminator的目的，就是为了能够通过Discriminator来计算出<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的Divergence。从宏观上来看，是怎么完成这样一件事情的呢？</p>
+<p>​ 我们前面说过训练的Discriminator在训练过程中，就是要学会给从<span class="math inline">\(P_{data}\)</span>的中采样出的数据高分，给从<span class="math inline">\(P_{G}\)</span>中采样出的数据低分。所以我们当时在训练Discriminator的时候，就写了一个目标函数，V(G,D)来完成上述的目标,然后要训练D的参数，找到一组D的参数使得V(D,G)最大。神奇的事情就是，这个V其实就是J-S Divergence有非常密切的关系。</p>
+<p>​ 从直观上讲，如果<span class="math inline">\(P_{data}\)</span>和<span class="math inline">\(P_G\)</span>采样出来的数据靠的很近，那Discriminator自然无法区分，也就是没有办法找到一个D使得V变得很大，这个时候其实意味着就是<span class="math inline">\(P_{data}\)</span>和<span class="math inline">\(P_G\)</span>很接近，也就是说这两个概率分布数据的Divergence其实是很小的。所以如何达到一个最大的V值，会跟这两堆数据的Divergence是肯定存在关系的。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104420420.png" /></p>
+<p>以下是详细的推导，证明为什么V会跟Divergence有关系？</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104429437.png" /></p>
+<p>​ 我们把积分里的每一项都分开来算，为每一项都找一个最好的D(x)。</p>
+<p>【因为D(X)假设可以是任何函数，也就是D(x)的输出可以是任意值】</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104440904.png" /></p>
+<p>​ 将这个公式回代到V中，将原来V中的D(x) 用我们得到的结果进行替代：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104448302.png" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104454398.png" /></p>
+<p>​ 所以推导到此，我们就得出了一个结论，当我们train一个Discriminator的时候，我们让目标函数最大化，让目标函数最大化其实就是让<span class="math inline">\(P_{data}\)</span>和<span class="math inline">\(P_G\)</span>这两个概率分布sample出来的数据之间的J-S Divergence最小。</p>
+<p>​ 所以整个问题的逻辑变成了现在这样子：我们本来是要使得<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的Div最小，现在的话呢，由于我们max V(D,G)和J-S Divergence相关，所以可以用max V(D,G)这一项把原来的Div 这一项替换掉。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104505340.png" /></p>
+<p>​ 于是乎就变成了我们要解的问题就是如下图所示的一个式子：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104513342.png" /></p>
+<p>​ 从直观上理解，我们可以从下面这个示例上来理解：我们假设现在只有G1，G2，G3这三个生成器可以选，D的横坐标变化我们假设就是选择了不同的Discriminator, V(G1,D)的函数如下所示：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104521610.png" /></p>
+<p>​ 我们先来以一个实例，来理解一下我们要实现的目标。首先就是当G固定的时候，要找到一个D，使得V(G,D)最大，所以按照我们的示例，可以在选择不同的G的时候，找到三个对应的点，这三个对应的点所对应的横坐标D，就是能够使得，在当前的G下，让V（G,D）最大的那个D。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104529086.png" /></p>
+<p>​ 然后我们要找一个G，最小化各种不同的G的最大V(G,D)，按照上图的示例，那么我们就应该选择G3，因为在三个V(G,D)的红点中，V(G3,D)对应的值最低，所以G3才是能够使得各种不同的G的最大V(G,D)最小。</p>
+<p>​ 从意义的角度来看，其实如下图所示，V(G,D)中的这个最大值的函数值，其实就是用这个<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>之间的Divergence。这也就很好理解，在这么多的G中，我们要选择那个最小的，来最小化Divergence.</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104536101.png" /></p>
+<p>​ 现在的话，就是要找到一个解决方案，怎么样去数学上或者是程序上，求解这个目标。其实这就是我们最开始讲过的迭代的训练GAN的这样一个过程。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104548084.png" /></p>
+<p>​ 接下去我们进一步的解释，为什么这样一个迭代训练的过程，就是在解上面提到的一个min max的问题。</p>
+<p>​ 为了简化min,max的求解，使得更好理解，我们先不想max V(G,D)里面的事情，我们直接设maxV(G,D) 为 L(G),因为外面那层min是跟D没关系的。</p>
+<p>​ 那问题就变成了如下图所示，那其实就很简单，就是用梯度下降去进行优化。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104602866.png" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104605809.png" /></p>
+<p>​ 所以整体的求解最优化问题的算法应该是像下图一样：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104613127.png" /></p>
+<p>​ 其实在这个迭代的过程中，并不是非常准确的在减少JS divergence,因为在求解的过程中，其实G是在一代一代变化的，也就是我们看到的从G0到G1到G2这样子，那么每次G变化以后呢，其实V(G,D)应该都会发生变化。我们说其完成了Decrease js divergence这件事呢，是基于一个默认近似的，就是我们默认D0* 和 D1* 近似相等，也就是说G0和G1之间不会有太大的变化，也就是说G的每一代的更新不会太大。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104624268.png" /></p>
+<p>​ <strong>也就是因为有这样一个假设，所以你每一轮迭代训练生成器的时候，不能够update太多次，而在train判别器的时候，理论上应该训练到底，使得判别器达到最优。</strong></p>
+<p>​ <strong>然后我们在实际做的时候，如下图所示，我们的目标函数其实和理论的V还有一定的区别，理论的V是期望值，但是实际上不太可能做的到这一点，所以我们其实是用离散的采样来进行代替的。</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104649400.png" /></p>
+<p>​ 所以最后回顾一下训练GAN的算法，对于有一些步骤其实可以理解的更为深入。比较重要的其实就是之前提过的，在每一轮迭代中，你其实可以使用梯度下降去更新很多遍的判别器的参数，但是在更新生成器参数的时候，只能更新一次，如果更新的太大了，G0 不约等于G1了，那么你在做的事情也就是不会在minimize js divergence了，就和理论不符合了。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104659145.png" /></p>
+<p>​ 最后还有一个需要提及的内容，在原论文中，其实训练Generator的参数的目标函数并不是我们上面所写的，而是会把某一项进行部分的改变如下所示。但其实两种参数都可以进行训练。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104707603.png" /></p>
+]]></content>
+      <categories>
+        <category>⓵ 深度学习笔记</category>
+        <category>GAN系列笔记</category>
+      </categories>
+      <tags>
+        <tag>GAN</tag>
+        <tag>Theoretical Basis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GAN系列笔记4——GAN训练过程中的一些Tips与改进的GAN网络（含LSGAN、WGAN、EBGAN）</title>
+    <url>/2021/12/03/b91e17a9fab9/</url>
+    <content><![CDATA[<h3 id="一tips1-有关如何更有效的训练判别器">一、Tips1 有关如何更有效的训练判别器</h3>
+<p>​ 在第三份笔记中，我们讲到其实在训练GAN的过程中，我们就是在计算最小化JS divergence的这样一个过程。但是其实JS divergence其实存在一个非常严重的问题，根源在于generation data的分布和real data的分布往往是没有任何重叠的，这个没有任何重叠的问题是由以下两个因素导致的：</p>
+<p>1、data本质导致。Data本身，我们认为是一个图像是一个高维空间中的一个点，<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>在这个高维空间中都是属于low-dim manifold。所以基本是不存在重叠的部分的。</p>
+<p>2、实际操作的时候，我们是先进行的采样，然后再用discriminator去量他们之间的divergence，而且采样的样例也不会太多。所以离散的采样也会导致，两堆采样的点基本上是不可能重叠的，应该是没有交集的。</p>
+<p>​ 那么，为什么当<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>没有重合部分的时候，用JS divergence衡量会出问题呢？精确一点来说，应该是会对你训练时候，造成比较大的障碍。首先我们你需要知道一个事实，有关JS divergence，就是如果两个分布没有任何重合，那么计算出来的JS divergence值就是log2，无论其相距多远。如下图所示，更直观一些：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104959639.png" /></p>
+<p>​ 对于这三组数据而言，因为算出来的目标函数都是一样的，所以判别器会认为G0跟G1是一样差的，也就没法把G0更新到G1.这样子的话就会给判别器的训练带来一定的困难</p>
+<p>​ 这个问题，其实以一个直观的方法来讲就如下图所示：假设蓝点是generated data，绿色是real data，两组点没有交集，我们现在训练一个判别器（其实就是一个binary classifier）,如果这个判别器训练的太好的话呢，就会导致如下图所示的红色实线的情况，蓝色点上方的区域导数都是零，这就会使的Generator在梯度下降的时候，没法继续下去，generated data也就没法像real data靠近。如果这个判别器训练的不行的话，又很容易导致分辨不出两组data。所以，在原始GAN早期，训练是比较不容易的一件事情。因为你没有办法去分辨，到底什么是训练的太好，什么是训练的不行。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105009691.png" /></p>
+<h3 id="二least-square-gan-lsgan">二、Least Square GAN ( LSGAN )</h3>
+<p>​ 承接上一段落的内容，为了使得上述描述的梯度为0，最后导致蓝色点不会像绿色点靠近情况出现，所以就出现了LSGAN。它就是将之前Discriminator所作的classifier分类问题，改变成了regression回归问题。从操作上来讲，就是将输出的sigmoid激活函数，变成了linear函数。这样的话，就会使得我们的判别器的得分曲线如下图所示：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105022595.png" /></p>
+<h3 id="三wasserstein-gan-wgan">三、Wasserstein GAN ( WGAN )</h3>
+<p>​ 相比于原始的GAN，就是把原来用来衡量的JS divergence换成了Earth Mover’s Distance.</p>
+<p>​ 首先我们来介绍一下Earth Mover’s Distance是什么东西，如下所示：下图是一个最简单的示例，我们有两个概率分布P和Q，然后你要想办法把概率分布P移到Q的地方去。如果P和Q如下图所示，都是一个一维空间上的分布，那非常简单，Earth Mover’s Distance就是它们之间的距离d。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105043352.png" /></p>
+<p>​ 然后让我们再来考虑一个更为复杂的情形：现在P和Q的概率分布如图所示，那么你会发现我要想把P变成Q，我会有许多种挪动的方式。左边是一种挪动方式，右边是一种挪动方式，每一种挪动方式都会算出一个不同的距离，每一种挪动方式，我们就称之为一种“moving plan”。那么，我们会使用所有的moving plan中计算出最小的那个距离，来将其定义为Earth Mover’s Distance。（通俗一点就是，所有方案算一遍，要最小的那个方案）</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105052710.png" /></p>
+<p>​ 比如说，同一堆东西我们用同样的颜色来表示，下图所示的P到Q的挪动方式，就是该示例最佳的一个moving plan。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105101411.png" /></p>
+<p>​ 下面这张图是一个更为官方与公式化的定义，我们可以把一个moving plan表示成像左图一样的一个矩阵，对应的交叉的区域就表示该块挪动的量。那么你会发现，左边矩阵中每一行值相加应该都会等于其对应的P的那一条区域的值，每一列值相加起来都会等于其对应的Q的那一条区域的值。所以，给定这样一个moving plan，应该怎么去计算这个方案对应的移动距离呢？就用到下图中B(γ)的公式，遍历所有的xp和xq，其实就是遍历矩阵的每一个值，然后做乘积、求和。</p>
+<p>​ 最终，如果我们想要求解P和Q的Earth Mover’s Distance，那么就需要穷举所有的moving plan，然后找到所有B(γ)最小的那一个值,就是P和Q的Earth Mover’s Distance.所以你会发现求解这样一个距离还需要解一个最优化问题.</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105115495.png" /></p>
+<p>​ OK,到此为止,我们已经知道了Earth Mover’s Distance是怎么样一个东西,那么就先来讨论一下,为什么我们用这个距离来进行衡量?有什么样的好处? 如下图所示,原来的JS Divergence计算出来的,对于G0, G50来说,两个差距一致,生成器就没法从G0 Update到G50,但是如果我们使用W Distance,d50是会比d0好的,那也就是说对于Generator来说,会慢慢的从G0 Update 到G50,也就是之前导致训练不起来的因素会被规避掉.</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105125389.png" /></p>
+<p>​ 那么在训练过程中,WGAN到底应该如何使用Earth Mover’s Distance呢? 我们将原来的V(G,D)函数替换成如下公式即可:</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105135075.png" /></p>
+<p>​ 这个公式其实比较好理解,推导过程非常复杂我们再次略过.就是我们需要让从real data中产生出来的值越大越好,generate 中产生的值越小越好.同时,会有一个额外的constrain,就是D这个函数必须是一个 1-Lipschitz函数,我们暂时先不管这个 名词是什么,只需要先知道,这个代表的就是说D需要是一个非常平滑的函数.从直观的角度,为什么需要增加这个限制呢?如下图所示,如果不增加这个限制,就会像下图所示的红色曲线一样,Discriminator永远都不会收敛,两边分化会越来越大.generated data部分会变成无穷小,real data 就会变得无穷大.</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105142990.png" /></p>
+<p>​ 那么实际上1-Lipschitz函数是什么呢?定义如下: 右边蓝色函数就不是,而绿色函数就是.</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105150180.png" /></p>
+<p>​ 那我们应该怎么去进行训练呢? 原始的方法就是使用Weight Clipping 方法,但是其实这个方法并没有完全能够限制住D是一个1-Lipschitz函数,但可以相对来说让你的D变得平滑一些.</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105158514.png" /></p>
+<p>​ 所以后面就出现了 Improved WGAN ( WGAN-GP )来解决这个问题: 它的作者提出了这样一个观察: 就是说D是一个1-Lipschitz函数是和右侧的不等式等价的，也就是说要对于所有网络可能的输入x来说，如果将它给判别起求它的梯度的Norm范式是小于等于1的话，就可以。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105204998.png" /></p>
+<p>​ 那么我们现在的方法，就是在整个的式子后面近似补上一项，</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105211649.png" /></p>
+<p>​ 在我们的目标函数中加上这样一项以后，在网络训练的过程中，网络就会希望尽可能的满足下面这个式子，但是问题又来了，我们没办法对所有的x做积分，但是如果想要D是一个1-Lipschitz函数，是需要对所有的x来说的。所以我们又进行了部分的近似：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105219880.png" /></p>
+<p>​ 如下所示，将最后补充的那一项变更成如下的一项，意思是我们只从一个叫做<span class="math inline">\(P_{penalty}\)</span>的分布中进行取样，我们只保证从这个分布中取出来的x能够满足，其他的就先不保证了。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105229709.png" /></p>
+<p>​ 那么<span class="math inline">\(P_{penalty}\)</span>长什么样子呢？如下图所示，我们从<span class="math inline">\(P_{data}\)</span>中取一个点，从<span class="math inline">\(P_{G}\)</span>中随机取一个点，然后在两点的直线上随机采样一个点。这样子采出得到的点所形成的一个分布我们就认为是<span class="math inline">\(P_{penalty}\)</span>。如图所示，其实就是大概是图中蓝色部分区域。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105307969.png" /></p>
+<p>​ 那为什么我们不用考虑整个Image Space空间中的x，只需要考虑<span class="math inline">\(P_{penalty}\)</span>分布上的x了呢？原因其实只是通过实验做出来，这样子效果是好的。其实从直观的角度上也可以有理解，因为我们之前说过其实训练过程就是<span class="math inline">\(P_{G}\)</span>向<span class="math inline">\(P_{data}\)</span>慢慢靠近的这么一个过程，那么也就是说其实只有<span class="math inline">\(P_{penalty}\)</span>这块部分区域的点的梯度才会影响。</p>
+<p>​ 同时，我们还要再做一个改进。我们刚才目标函数补充的那一项，将其进一步修改。我们希望训练过程中，梯度越接近1越好。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105332353.png" /></p>
+<p>​ 其实在刚才的WGAN-GP的过程中，做了很多的近似，很多结果也是由实验得出的，那么Spectrum Norm提出了一种方法，真的可以限制判别器学习完以后，在每一个位置的Gradient Norm都是可以小于1的。</p>
+<p>​ 在最后，我们回到WGAN的算法，看看在实际的过程中，怎么从GAN变成WGAN：整体而言就是修改下图中黑框框的四个部分，1个是在LearningD的过程中，将目标函数部分的sigmoid输出移除掉，同时要记得使用weight cliipping 获得gradient penalty来进行限制。再就是在Learning G的过程中，将目标函数进行部分的修改，就可以了。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105348387.png" /></p>
+<h3 id="四energy-based-gan-ebgan">四、Energy-Based GAN ( EBGAN )</h3>
+<p>​ 其与原始GAN唯一的不同在于其修改了DIscriminator的架构，Discriminator原本来说是一个Binary Classifier，但是在EBGAN中，将其变成了一个Auto Encoder自动编码器，Generator是跟原来一样的。架构如下图所示：</p>
+<p>​ 整一个Discriminator仍旧会输出一个Scalar分数，但现在这个分数是从何而来的呢？他是基于Auto Encoder的重建误差得到的。之所以这样做，EBGAN是基于以下一个假设的：越真实的Image它经过AutoEncoder以后，重建误差越小，越虚假的Image重建误差越大。那么EBGAN的好处在于这个Discriminator是可以预训练的，因为AutoEncoder的训练并不需要用到negative的样例。只需要给positive的样例，然后最小化重建误差就可以了。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105401559.png" /></p>
+<p>​ 相比于原来的GAN来说，因为Origin GAN它不能预训练Discriminator，所以一开始DIscriminator就会很弱，训练起来就会很慢。而EBGAN的Discriminator一开始就相对比较强。</p>
+<p>​ 在训练EBGAN的时候，需要注意以下一点：以下图为示例，我们会想要让real data最后得到的值比较大，generate data得到的值比较小，但是我们不能让generate data得到的值无限小，不加限制。因为这样的话就会让Discriminator对于generate data的输入而言，其全部输出noise，这样的话既可以把输出分数压的很低。所以我们需要一个margin，让genrate data对应的分数，只要小于margin以下的值就可以，不需要再变得更小。而至于margin的值就是一个我们需要调整的超参数。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105412942.png" /></p>
+]]></content>
+      <categories>
+        <category>⓵ 深度学习笔记</category>
+        <category>GAN系列笔记</category>
+      </categories>
+      <tags>
+        <tag>GAN</tag>
+        <tag>LSGAN</tag>
+        <tag>WGAN</tag>
+        <tag>EBGAN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GAN系列笔记5——GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）</title>
+    <url>/2021/12/04/0454d09a1cec/</url>
+    <content><![CDATA[<h3 id="前言">前言：</h3>
+<p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了InfoGAN、VAEGAN、BiGAN，以及GAN在特征提取领域相关的应用。</p>
+<h3 id="一infogan">一、InfoGAN</h3>
+<p>​ 我们在先前的GAN的介绍中说到过，对于一个训练好的GAN，我们是希望输入一个向量，然后GAN会给我们生成一个Object（图像或者是序列等）。然后我们期望，我们输入的向量，每一个维度可能就会代表输出的图像的某一个特征。这其实是非常理想的情况，但实际上，可能当你改变输入向量某一个维度的值的时候，输出的内容并没有按照某个特征进行变化。如果用图示意的话，如下图所示：两幅图是在低维空间中高维特征的分布示意图，我们本身期望其应该是左图的分布，这样当某个纵轴不变，横轴的数值变化时，高维某个相对应特征也会随之变化，但实际上分布可能像右图一样。InfoGAN就是想要解决这样一个问题。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105527683.png" /></p>
+<p>​ InfoGAN的框架如下图所示：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105540261.png" /></p>
+<p>​ 首先会将输入向量z，拆成两部分，一部分是向量c，一部分是向量z’，然后输入G后产生图像x，同时，我们需要训练一个分类器，这个分类器要能从x中识别出，产生这个x所使用的向量c的部分的编码，原本需要训练的判别器也是需要训练的缺一不可。然后我们宏观的看一下这一个架构，Generator和Classifier这一套就像是一个类AutoEncoder的东西，只不过其和正常的AutoEncoder刚好相反。正常的AutoEncoder的编码器是输入图片，输出特征编码向量，然后解码器是再反解回图片。而此处的编码器部分是GAN的Generator部分，输入向量，生成图片，然后decoder部分需要从图片中识别出code。在这个架构中，Discriminator是必须的，不然的话训练Generator的结果很有可能就是会把向量c直接附在图片x的信息中间，这样的话Classifier必定能够反解出c，但是这样的话生成的x是不是一张真实的图片就尚未可知了。有了Discriminator就可以保证生成的x是真实。</p>
+<p>​ 同时，Discriminator和Classifier在实际训练时往往共享参数，因为它们的输入都是x，只是最后一层输出层不一样而已。</p>
+<p>​ 那么，加上这样一个Classifier以后，为什么先前的原先GAN的输入对输出的影响不明确这个问题就能解决了呢？如下图所示：</p>
+<p>​ 因为我们需要分类器能从x中恢复出编码c，所以向量c这一部分必定需要对x的图像的某些维度有明确的影响。也就是说，完成GAN训练以后，c部分的每一个维度，都会对x的图像的某一个特征有明确的影响对应，那么z'部分相对应的可能就是那些较为随机的维度。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105550729.png" /></p>
+<p>​ 在这里可能会存在一个疑问，我们怎么划分向量z到c和z’呢？哪些维度应该被划分为c？哪些应该被划分为z’？此处要注意：我们并不是先对z进行手动划分的，是在训练完成之后，那部分能被恢复的向量编码维度，才会被称为c。</p>
+<h3 id="二vae-gan">二、VAE GAN</h3>
+<p>​ VAE GAN可以看作用GAN强化VAE AutoEncoder。网络架构如下图所示：这样的网络架构完成了两件事，一个是原本的希望重构损失越小越好，另一个是Discriminator会保证Generator生成的图片越真实越好。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105607065.png" /></p>
+<p>​ 从VAE角度，因为我们如果只考虑VAE的重建损失，往往产生的图片是不真实的，是会很模糊的。新增了Discriminator可以让输出图像更加真实。</p>
+<p>​ 从GAN角度，其不只考虑判别器的反馈，因为其知道真实图片长什么样，需要最小化生成图像和原图的误差，所以VAE GAN训练起来会更加稳定。</p>
+<p>​ 如下所示是VAE GAN训练的算法：整体的算法如下所示，在每一轮迭代中，首先是图像的生成：有三类x需要生成：1、第一类x是从数据库中直接采样出来的图片。2、第二类是由数据库中采样出的图片经过Encoder再经过Decoder后重建的图片3、第三类图片是，由随机的概率分布生成的编码z通过Encoder以后产生的图像。（注意图中第10行公式En应为De，图片有误）</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105620194.png" /></p>
+<p>​ 然后我们先更新训练EN的参数，希望重建误差越小越好，同时也希望x经过Encoder产生出来的z跟P(z)产生出来的z越接近越好，也就是两者KL散度越小越好。</p>
+<p>​ 然后更新训练De的参数，希望重建误差越小越好，同时也希望将第2类和第3类图片，丢入判别器以后，得到的值越大越好。</p>
+<p>​ 最后更新训练Discriminator的参数，希望第1类图像进入判别器以后值越大越好，同时也希望将第2类和第3类图片，丢入判别器以后，得到的值越小越好。</p>
+<h3 id="三bigan">三、BiGAN</h3>
+<p>​ BiGAN的架构如下所示：它修改了传统AutoEncoder的部分，然后新增了判别器。在这个网络中有一个Encoder，输入一张图片x，输出code z。有一个Decoder，输入一个code z，输出一张图片。但是这个输入的code z并不是先前Encoder输出的z，而是从一个事先准备好的分布中取样得到的z。然后我们有一个判别器，输入 向量z和 图像x，要让判别器判断，这一对 （向量z，图像x）是来自于编码器的输入输出，还是来自于解码器的输入输出。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105637394.png" /></p>
+<p>​ 训练算法如下所示，整体而言描述和其他的描述语言比较一致，比较好理解，此处就不多赘述，</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105645100.png" /></p>
+<p>​ 那么为什么BiGAN能够这样子去进行训练呢？其实BiGAN就是干了一件这样的事情：如果我们把Encoder的输入输出看作是一个Join起来的分布，Decoder的输入输出看作是一个Join起来的分布，那么判别器所干的事情就是区分P和Q之间的分布的差距。想要尽可能的去优化Encoder和Decoder，使得P和Q逐渐变得接近。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105653272.png" /></p>
+<p>​ 如果这个模型训练到最优，就应当是Encoder和Decoder可以互相解。那其实你会发现就是做了如下这么一件事情：训练一个AutoEncoder和一个Inverse的AutoEncoder。确实没错，如果如下所示的这样一个网络训练到最优，其和使用BiGAN训练到最优的结果是一样的，但是实际上BiGAN和AutoEncoder都没法训练到最优。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105700505.png" /></p>
+<p>​ 所以在不是收敛到最优的情况下，BiGAN会比下面这个架构训练好很多。生成的图片会真实很多，会比AutoEncoder架构生成的图像清晰很多。两者的特性不太一样。举个例子，比如可能用BiGAN，你输入一个鸟的图片，经过Encoder，Decoder后生成的图像也会是一只清晰的真实的鸟，但可能跟输入的鸟不一样，而如果用AutoEncoder架构，输入一个鸟的图片，经过Encoder，Decoder后生成的图像会和原图像比较像，但是会比较模糊，是一个不是很清晰真实的图像。</p>
+]]></content>
+      <categories>
+        <category>⓵ 深度学习笔记</category>
+        <category>GAN系列笔记</category>
+      </categories>
+      <tags>
+        <tag>GAN</tag>
+        <tag>InfoGAN</tag>
+        <tag>VAEGAN</tag>
+        <tag>BiGAN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GAN系列笔记6——评估GAN的相关方法指标</title>
+    <url>/2021/12/05/244e1ac0278c/</url>
+    <content><![CDATA[<h3 id="前言">前言：</h3>
+<p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了如何对GAN生成的图像结果进行一个更为客观的评估的相关方法。</p>
+<h3 id="一传统方法如何评估结果好坏">一、传统方法如何评估结果好坏？</h3>
+<p>​ 在传统方法中，我们一般会采用计算<strong>Likelihood</strong>的方法来进行衡量。我们训练出了一个Generator，然后我们就会用生成器的生成分布概率去进行计算其生成真实数据的可能性。具体的执行步骤就是，先采样部分真实数据点，然后计算G想要生成每个真实图像数据点的概率，然后求和平均即可得到Likelihood。但是在GAN中，这种方法是行不通的，因为GAN训练好以后是一个网络，是没法算出其产生出某一张图像的概率的。（像传统，如果这个Generator是一个高斯生成模型，是可以进行计算的）</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105752191.png" /></p>
+<h3 id="二kernel-density-estimation">二、Kernel Density Estimation</h3>
+<p>​ 有一种解决方案如下：输入一堆数据Data，经过生成器后，会产生对应的一堆高维向量（其实就是图像），我们将每一个高维向量视为一个高斯分布的均值，这样一来每一个sample就被近似为了一个高斯分布。然后我们再将这些高斯分布进行融合，就能够得到一个高斯混合模型。这一高斯混合模型是可以计算形成某个图像的概率的。但是使用这次步骤做出来的也会有许多难点和问题，比如不知道需要用多少高斯分布去拟合，不知道需要采样多少点。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105815158.png" /></p>
+<p>​ 同时，退一万步讲，其实使用Likelihood来进行估计就不是一个很严谨的事情，Likelihood低，对应的图像质量也可能高。Likelihood高，对应的图像质量也可能低。如下图所示，就是两种可能的情况。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105822595.png" /></p>
+<h3 id="三常用评估方法">三、常用评估方法：</h3>
+<p>​ 现在的文献，大部分常常看到的用于评估GAN的方法是，使用一个已经训练好的Classifier（可以是一个VGG，也可以是Inception Net），来判断这个生成器生成的图像质量好坏。</p>
+<p>我们往往有以下两个评估原则，如下图所示：</p>
+<p>​ <strong>原则1</strong>:将一个generated image输入分类器，查看分类器输出的属于各个类的概率，如果概率比较集中，说明生成器生成的图片效果比较好，因为分类器可以很明确的分出来。</p>
+<p>​ <strong>原则2</strong>:将一系列generated image输入分类器，查看分类器输出的各个类各存在几张图像，如果分完类以后每个类别的实例差不多的话，说明生成器效果较好，如果数量偏向于某种类别，说明生成器会生成偏向于某一个类别的图像。所以我们希望分出来的分布能够尽量的平滑。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105839124.png" /></p>
+<p>​ 有了上述原则以后，我们就可以使用下图所示的Inception Score来进行指标的量化。其中的第一项代表原则1，第二项代表原则2.</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105847271.png" /></p>
+]]></content>
+      <categories>
+        <category>⓵ 深度学习笔记</category>
+        <category>GAN系列笔记</category>
+      </categories>
+      <tags>
+        <tag>GAN</tag>
+        <tag>GAN Evaluation</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java系列笔记10——java单元测试JUnit</title>
     <url>/2022/02/02/dfa689b2965b/</url>
     <content><![CDATA[<p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1304048154181666</p>
@@ -605,237 +836,6 @@
       </tags>
   </entry>
   <entry>
-    <title>GAN系列笔记3——GAN的数学理论支撑</title>
-    <url>/2021/12/02/bcc8677f313f/</url>
-    <content><![CDATA[<h3 id="前言">前言：</h3>
-<p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了GAN的理论数学部分的支撑，将直观的GAN训练过程背后的原理，为什么能这么做，训练的时候又需要注意的点是为什么这些内容进行了讲解。</p>
-<h3 id="一我们通常说的生成问题从本质上来看是什么呢">一、我们通常说的生成问题，从本质上来看是什么呢？</h3>
-<p>​ 从生成一张图片x来说，图片x其实就是在图片高维空间中的一个点。比如说64 * 64的图像，其实质就是64*64维空间中的某一个点。</p>
-<h3 id="二gan训练的过程到底是在干什么呢">二、GAN训练的过程到底是在干什么呢？</h3>
-<p>​ 在1中，我们发现其实在图像的高维空间中，存在意义的图像的点其实是很稀疏的，那么训练的时候，其实是提供了一堆有意义的图像的高维点，然后想要通过GAN来找到这些点的分布情况，也就是说，找到在图像高维空间中，有意义的图像的点所遵循的分布是怎么样的。这种分布情况，我们人是无法直接找到的。</p>
-<p>​ 找到这种分布情况以后，其实生成的过程就是在概率分布中较高概率的位置进行取样，得到的可能就是能够令我们满意的图像。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104004253.png" /></p>
-<h3 id="三在gan之前我们的训练所依据的理论是什么">三、在GAN之前，我们的训练所依据的理论是什么？</h3>
-<p>​ 使用Maximum Likelihood Estimation 最大似然估计。整体的思想与过程如下图所示：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104025964.png" /></p>
-<p>​ 首先我们有一个数据集分布，也就是我们通常使用的训练集<span class="math inline">\(P_{data}\)</span>。</p>
-<p>​ 我们还有一个分布<span class="math inline">\(P_G\)</span>，其是θ的函数，就是我们要训练的用于生成的概率分布。我们的目标其实就是说想要找到一个θ值让<span class="math inline">\(P_G\)</span>去接近<span class="math inline">\(P_{data}\)</span>就可以了。但是怎样量化计算这个概率分布的接近呢？</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104038477.png" /></p>
-<p>​ 我们可以先从<span class="math inline">\(P_{data}\)</span>中采集m个样本，然后带入到<span class="math inline">\(P_{G}\)</span>这个概率分布里面，希望得到的对应的概率越大越好。然后我们可以将所有的几率相乘，就会得到L。最终目标就是要找最好的θ使得能够让这个L最大。</p>
-<p>​ 其实所谓的Maximum Likelihood 等同于机器学习中的 Minimize KL Divergence.下图的话是数学公式相关的推导过程，</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104119273.png" /></p>
-<p>​ 那么现在问题来了，我们怎么去定义一个general 的<span class="math inline">\(P_G\)</span>。如果这个<span class="math inline">\(P_G\)</span>是符合高斯分布或者其他简单分布的话，是没有问题的。但是如果<span class="math inline">\(P_G\)</span>要符合这些分布然后再去拟合<span class="math inline">\(P_{data}\)</span>的话，显然就会受到很多的限制。所以我们需要一个更general的分布来去拟合<span class="math inline">\(P_{data}\)</span>。但是如果<span class="math inline">\(P_{G}\)</span>不受限制，是一个很复杂的很general的分布的话，上述计算式子中<span class="math inline">\(P_{G}(X;\theta)\)</span>这一项就很难计算出来，所以我们才有了下述的想法。</p>
-<h3 id="四在gan中我们所依据的理论是什么">四、在GAN中，我们所依据的理论是什么？</h3>
-<p>​ GAN中的Generator是一个网络，我们假设输入的是一个符合正态分布的各种采样点，这些点通过G以后，会产生一个新的分布，这个新的分布其实就是<span class="math inline">\(P_G(x)\)</span>。随后我们的目标也是让这个<span class="math inline">\(P_G(x)\)</span>和<span class="math inline">\(P_{data}(x)\)</span>这两个分布越接近越好。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104254669.png" /></p>
-<p>​ 从公式来看，就是最小化<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>之间的某一种差异。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104316362.png" /></p>
-<p>​ 看到这里，如果我们知道<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的公式，那么我们是能够很方便的代入Divergence的公式中，然后用类似于梯度下降的方法，去最小化它。但是问题是，我们现在并不知道<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的公式，也就是根本无法计算这个Div。这就是GAN神奇之处：</p>
-<p>虽然我们没法知道<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的公式，但是我们是可以从中进行采样的。从<span class="math inline">\(P_{data}\)</span>中进行采样无非就是从我们的训练集中取数据出来，从<span class="math inline">\(P_G\)</span>中进行采样，无非就是从正态分布中采样然后丢到Generator中，得到的数据。如下所示</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104340643.png" /></p>
-<p>​ 那么其实GAN训练Discriminator的目的，就是为了能够通过Discriminator来计算出<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的Divergence。从宏观上来看，是怎么完成这样一件事情的呢？</p>
-<p>​ 我们前面说过训练的Discriminator在训练过程中，就是要学会给从<span class="math inline">\(P_{data}\)</span>的中采样出的数据高分，给从<span class="math inline">\(P_{G}\)</span>中采样出的数据低分。所以我们当时在训练Discriminator的时候，就写了一个目标函数，V(G,D)来完成上述的目标,然后要训练D的参数，找到一组D的参数使得V(D,G)最大。神奇的事情就是，这个V其实就是J-S Divergence有非常密切的关系。</p>
-<p>​ 从直观上讲，如果<span class="math inline">\(P_{data}\)</span>和<span class="math inline">\(P_G\)</span>采样出来的数据靠的很近，那Discriminator自然无法区分，也就是没有办法找到一个D使得V变得很大，这个时候其实意味着就是<span class="math inline">\(P_{data}\)</span>和<span class="math inline">\(P_G\)</span>很接近，也就是说这两个概率分布数据的Divergence其实是很小的。所以如何达到一个最大的V值，会跟这两堆数据的Divergence是肯定存在关系的。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104420420.png" /></p>
-<p>以下是详细的推导，证明为什么V会跟Divergence有关系？</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104429437.png" /></p>
-<p>​ 我们把积分里的每一项都分开来算，为每一项都找一个最好的D(x)。</p>
-<p>【因为D(X)假设可以是任何函数，也就是D(x)的输出可以是任意值】</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104440904.png" /></p>
-<p>​ 将这个公式回代到V中，将原来V中的D(x) 用我们得到的结果进行替代：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104448302.png" /></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104454398.png" /></p>
-<p>​ 所以推导到此，我们就得出了一个结论，当我们train一个Discriminator的时候，我们让目标函数最大化，让目标函数最大化其实就是让<span class="math inline">\(P_{data}\)</span>和<span class="math inline">\(P_G\)</span>这两个概率分布sample出来的数据之间的J-S Divergence最小。</p>
-<p>​ 所以整个问题的逻辑变成了现在这样子：我们本来是要使得<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的Div最小，现在的话呢，由于我们max V(D,G)和J-S Divergence相关，所以可以用max V(D,G)这一项把原来的Div 这一项替换掉。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104505340.png" /></p>
-<p>​ 于是乎就变成了我们要解的问题就是如下图所示的一个式子：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104513342.png" /></p>
-<p>​ 从直观上理解，我们可以从下面这个示例上来理解：我们假设现在只有G1，G2，G3这三个生成器可以选，D的横坐标变化我们假设就是选择了不同的Discriminator, V(G1,D)的函数如下所示：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104521610.png" /></p>
-<p>​ 我们先来以一个实例，来理解一下我们要实现的目标。首先就是当G固定的时候，要找到一个D，使得V(G,D)最大，所以按照我们的示例，可以在选择不同的G的时候，找到三个对应的点，这三个对应的点所对应的横坐标D，就是能够使得，在当前的G下，让V（G,D）最大的那个D。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104529086.png" /></p>
-<p>​ 然后我们要找一个G，最小化各种不同的G的最大V(G,D)，按照上图的示例，那么我们就应该选择G3，因为在三个V(G,D)的红点中，V(G3,D)对应的值最低，所以G3才是能够使得各种不同的G的最大V(G,D)最小。</p>
-<p>​ 从意义的角度来看，其实如下图所示，V(G,D)中的这个最大值的函数值，其实就是用这个<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>之间的Divergence。这也就很好理解，在这么多的G中，我们要选择那个最小的，来最小化Divergence.</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104536101.png" /></p>
-<p>​ 现在的话，就是要找到一个解决方案，怎么样去数学上或者是程序上，求解这个目标。其实这就是我们最开始讲过的迭代的训练GAN的这样一个过程。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104548084.png" /></p>
-<p>​ 接下去我们进一步的解释，为什么这样一个迭代训练的过程，就是在解上面提到的一个min max的问题。</p>
-<p>​ 为了简化min,max的求解，使得更好理解，我们先不想max V(G,D)里面的事情，我们直接设maxV(G,D) 为 L(G),因为外面那层min是跟D没关系的。</p>
-<p>​ 那问题就变成了如下图所示，那其实就很简单，就是用梯度下降去进行优化。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104602866.png" /></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104605809.png" /></p>
-<p>​ 所以整体的求解最优化问题的算法应该是像下图一样：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104613127.png" /></p>
-<p>​ 其实在这个迭代的过程中，并不是非常准确的在减少JS divergence,因为在求解的过程中，其实G是在一代一代变化的，也就是我们看到的从G0到G1到G2这样子，那么每次G变化以后呢，其实V(G,D)应该都会发生变化。我们说其完成了Decrease js divergence这件事呢，是基于一个默认近似的，就是我们默认D0* 和 D1* 近似相等，也就是说G0和G1之间不会有太大的变化，也就是说G的每一代的更新不会太大。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104624268.png" /></p>
-<p>​ <strong>也就是因为有这样一个假设，所以你每一轮迭代训练生成器的时候，不能够update太多次，而在train判别器的时候，理论上应该训练到底，使得判别器达到最优。</strong></p>
-<p>​ <strong>然后我们在实际做的时候，如下图所示，我们的目标函数其实和理论的V还有一定的区别，理论的V是期望值，但是实际上不太可能做的到这一点，所以我们其实是用离散的采样来进行代替的。</strong></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104649400.png" /></p>
-<p>​ 所以最后回顾一下训练GAN的算法，对于有一些步骤其实可以理解的更为深入。比较重要的其实就是之前提过的，在每一轮迭代中，你其实可以使用梯度下降去更新很多遍的判别器的参数，但是在更新生成器参数的时候，只能更新一次，如果更新的太大了，G0 不约等于G1了，那么你在做的事情也就是不会在minimize js divergence了，就和理论不符合了。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104659145.png" /></p>
-<p>​ 最后还有一个需要提及的内容，在原论文中，其实训练Generator的参数的目标函数并不是我们上面所写的，而是会把某一项进行部分的改变如下所示。但其实两种参数都可以进行训练。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104707603.png" /></p>
-]]></content>
-      <categories>
-        <category>⓵ 深度学习笔记</category>
-        <category>GAN系列笔记</category>
-      </categories>
-      <tags>
-        <tag>GAN</tag>
-        <tag>Theoretical Basis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GAN系列笔记4——GAN训练过程中的一些Tips与改进的GAN网络（含LSGAN、WGAN、EBGAN）</title>
-    <url>/2021/12/03/b91e17a9fab9/</url>
-    <content><![CDATA[<h3 id="一tips1-有关如何更有效的训练判别器">一、Tips1 有关如何更有效的训练判别器</h3>
-<p>​ 在第三份笔记中，我们讲到其实在训练GAN的过程中，我们就是在计算最小化JS divergence的这样一个过程。但是其实JS divergence其实存在一个非常严重的问题，根源在于generation data的分布和real data的分布往往是没有任何重叠的，这个没有任何重叠的问题是由以下两个因素导致的：</p>
-<p>1、data本质导致。Data本身，我们认为是一个图像是一个高维空间中的一个点，<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>在这个高维空间中都是属于low-dim manifold。所以基本是不存在重叠的部分的。</p>
-<p>2、实际操作的时候，我们是先进行的采样，然后再用discriminator去量他们之间的divergence，而且采样的样例也不会太多。所以离散的采样也会导致，两堆采样的点基本上是不可能重叠的，应该是没有交集的。</p>
-<p>​ 那么，为什么当<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>没有重合部分的时候，用JS divergence衡量会出问题呢？精确一点来说，应该是会对你训练时候，造成比较大的障碍。首先我们你需要知道一个事实，有关JS divergence，就是如果两个分布没有任何重合，那么计算出来的JS divergence值就是log2，无论其相距多远。如下图所示，更直观一些：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104959639.png" /></p>
-<p>​ 对于这三组数据而言，因为算出来的目标函数都是一样的，所以判别器会认为G0跟G1是一样差的，也就没法把G0更新到G1.这样子的话就会给判别器的训练带来一定的困难</p>
-<p>​ 这个问题，其实以一个直观的方法来讲就如下图所示：假设蓝点是generated data，绿色是real data，两组点没有交集，我们现在训练一个判别器（其实就是一个binary classifier）,如果这个判别器训练的太好的话呢，就会导致如下图所示的红色实线的情况，蓝色点上方的区域导数都是零，这就会使的Generator在梯度下降的时候，没法继续下去，generated data也就没法像real data靠近。如果这个判别器训练的不行的话，又很容易导致分辨不出两组data。所以，在原始GAN早期，训练是比较不容易的一件事情。因为你没有办法去分辨，到底什么是训练的太好，什么是训练的不行。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105009691.png" /></p>
-<h3 id="二least-square-gan-lsgan">二、Least Square GAN ( LSGAN )</h3>
-<p>​ 承接上一段落的内容，为了使得上述描述的梯度为0，最后导致蓝色点不会像绿色点靠近情况出现，所以就出现了LSGAN。它就是将之前Discriminator所作的classifier分类问题，改变成了regression回归问题。从操作上来讲，就是将输出的sigmoid激活函数，变成了linear函数。这样的话，就会使得我们的判别器的得分曲线如下图所示：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105022595.png" /></p>
-<h3 id="三wasserstein-gan-wgan">三、Wasserstein GAN ( WGAN )</h3>
-<p>​ 相比于原始的GAN，就是把原来用来衡量的JS divergence换成了Earth Mover’s Distance.</p>
-<p>​ 首先我们来介绍一下Earth Mover’s Distance是什么东西，如下所示：下图是一个最简单的示例，我们有两个概率分布P和Q，然后你要想办法把概率分布P移到Q的地方去。如果P和Q如下图所示，都是一个一维空间上的分布，那非常简单，Earth Mover’s Distance就是它们之间的距离d。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105043352.png" /></p>
-<p>​ 然后让我们再来考虑一个更为复杂的情形：现在P和Q的概率分布如图所示，那么你会发现我要想把P变成Q，我会有许多种挪动的方式。左边是一种挪动方式，右边是一种挪动方式，每一种挪动方式都会算出一个不同的距离，每一种挪动方式，我们就称之为一种“moving plan”。那么，我们会使用所有的moving plan中计算出最小的那个距离，来将其定义为Earth Mover’s Distance。（通俗一点就是，所有方案算一遍，要最小的那个方案）</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105052710.png" /></p>
-<p>​ 比如说，同一堆东西我们用同样的颜色来表示，下图所示的P到Q的挪动方式，就是该示例最佳的一个moving plan。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105101411.png" /></p>
-<p>​ 下面这张图是一个更为官方与公式化的定义，我们可以把一个moving plan表示成像左图一样的一个矩阵，对应的交叉的区域就表示该块挪动的量。那么你会发现，左边矩阵中每一行值相加应该都会等于其对应的P的那一条区域的值，每一列值相加起来都会等于其对应的Q的那一条区域的值。所以，给定这样一个moving plan，应该怎么去计算这个方案对应的移动距离呢？就用到下图中B(γ)的公式，遍历所有的xp和xq，其实就是遍历矩阵的每一个值，然后做乘积、求和。</p>
-<p>​ 最终，如果我们想要求解P和Q的Earth Mover’s Distance，那么就需要穷举所有的moving plan，然后找到所有B(γ)最小的那一个值,就是P和Q的Earth Mover’s Distance.所以你会发现求解这样一个距离还需要解一个最优化问题.</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105115495.png" /></p>
-<p>​ OK,到此为止,我们已经知道了Earth Mover’s Distance是怎么样一个东西,那么就先来讨论一下,为什么我们用这个距离来进行衡量?有什么样的好处? 如下图所示,原来的JS Divergence计算出来的,对于G0, G50来说,两个差距一致,生成器就没法从G0 Update到G50,但是如果我们使用W Distance,d50是会比d0好的,那也就是说对于Generator来说,会慢慢的从G0 Update 到G50,也就是之前导致训练不起来的因素会被规避掉.</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105125389.png" /></p>
-<p>​ 那么在训练过程中,WGAN到底应该如何使用Earth Mover’s Distance呢? 我们将原来的V(G,D)函数替换成如下公式即可:</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105135075.png" /></p>
-<p>​ 这个公式其实比较好理解,推导过程非常复杂我们再次略过.就是我们需要让从real data中产生出来的值越大越好,generate 中产生的值越小越好.同时,会有一个额外的constrain,就是D这个函数必须是一个 1-Lipschitz函数,我们暂时先不管这个 名词是什么,只需要先知道,这个代表的就是说D需要是一个非常平滑的函数.从直观的角度,为什么需要增加这个限制呢?如下图所示,如果不增加这个限制,就会像下图所示的红色曲线一样,Discriminator永远都不会收敛,两边分化会越来越大.generated data部分会变成无穷小,real data 就会变得无穷大.</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105142990.png" /></p>
-<p>​ 那么实际上1-Lipschitz函数是什么呢?定义如下: 右边蓝色函数就不是,而绿色函数就是.</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105150180.png" /></p>
-<p>​ 那我们应该怎么去进行训练呢? 原始的方法就是使用Weight Clipping 方法,但是其实这个方法并没有完全能够限制住D是一个1-Lipschitz函数,但可以相对来说让你的D变得平滑一些.</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105158514.png" /></p>
-<p>​ 所以后面就出现了 Improved WGAN ( WGAN-GP )来解决这个问题: 它的作者提出了这样一个观察: 就是说D是一个1-Lipschitz函数是和右侧的不等式等价的，也就是说要对于所有网络可能的输入x来说，如果将它给判别起求它的梯度的Norm范式是小于等于1的话，就可以。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105204998.png" /></p>
-<p>​ 那么我们现在的方法，就是在整个的式子后面近似补上一项，</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105211649.png" /></p>
-<p>​ 在我们的目标函数中加上这样一项以后，在网络训练的过程中，网络就会希望尽可能的满足下面这个式子，但是问题又来了，我们没办法对所有的x做积分，但是如果想要D是一个1-Lipschitz函数，是需要对所有的x来说的。所以我们又进行了部分的近似：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105219880.png" /></p>
-<p>​ 如下所示，将最后补充的那一项变更成如下的一项，意思是我们只从一个叫做<span class="math inline">\(P_{penalty}\)</span>的分布中进行取样，我们只保证从这个分布中取出来的x能够满足，其他的就先不保证了。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105229709.png" /></p>
-<p>​ 那么<span class="math inline">\(P_{penalty}\)</span>长什么样子呢？如下图所示，我们从<span class="math inline">\(P_{data}\)</span>中取一个点，从<span class="math inline">\(P_{G}\)</span>中随机取一个点，然后在两点的直线上随机采样一个点。这样子采出得到的点所形成的一个分布我们就认为是<span class="math inline">\(P_{penalty}\)</span>。如图所示，其实就是大概是图中蓝色部分区域。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105307969.png" /></p>
-<p>​ 那为什么我们不用考虑整个Image Space空间中的x，只需要考虑<span class="math inline">\(P_{penalty}\)</span>分布上的x了呢？原因其实只是通过实验做出来，这样子效果是好的。其实从直观的角度上也可以有理解，因为我们之前说过其实训练过程就是<span class="math inline">\(P_{G}\)</span>向<span class="math inline">\(P_{data}\)</span>慢慢靠近的这么一个过程，那么也就是说其实只有<span class="math inline">\(P_{penalty}\)</span>这块部分区域的点的梯度才会影响。</p>
-<p>​ 同时，我们还要再做一个改进。我们刚才目标函数补充的那一项，将其进一步修改。我们希望训练过程中，梯度越接近1越好。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105332353.png" /></p>
-<p>​ 其实在刚才的WGAN-GP的过程中，做了很多的近似，很多结果也是由实验得出的，那么Spectrum Norm提出了一种方法，真的可以限制判别器学习完以后，在每一个位置的Gradient Norm都是可以小于1的。</p>
-<p>​ 在最后，我们回到WGAN的算法，看看在实际的过程中，怎么从GAN变成WGAN：整体而言就是修改下图中黑框框的四个部分，1个是在LearningD的过程中，将目标函数部分的sigmoid输出移除掉，同时要记得使用weight cliipping 获得gradient penalty来进行限制。再就是在Learning G的过程中，将目标函数进行部分的修改，就可以了。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105348387.png" /></p>
-<h3 id="四energy-based-gan-ebgan">四、Energy-Based GAN ( EBGAN )</h3>
-<p>​ 其与原始GAN唯一的不同在于其修改了DIscriminator的架构，Discriminator原本来说是一个Binary Classifier，但是在EBGAN中，将其变成了一个Auto Encoder自动编码器，Generator是跟原来一样的。架构如下图所示：</p>
-<p>​ 整一个Discriminator仍旧会输出一个Scalar分数，但现在这个分数是从何而来的呢？他是基于Auto Encoder的重建误差得到的。之所以这样做，EBGAN是基于以下一个假设的：越真实的Image它经过AutoEncoder以后，重建误差越小，越虚假的Image重建误差越大。那么EBGAN的好处在于这个Discriminator是可以预训练的，因为AutoEncoder的训练并不需要用到negative的样例。只需要给positive的样例，然后最小化重建误差就可以了。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105401559.png" /></p>
-<p>​ 相比于原来的GAN来说，因为Origin GAN它不能预训练Discriminator，所以一开始DIscriminator就会很弱，训练起来就会很慢。而EBGAN的Discriminator一开始就相对比较强。</p>
-<p>​ 在训练EBGAN的时候，需要注意以下一点：以下图为示例，我们会想要让real data最后得到的值比较大，generate data得到的值比较小，但是我们不能让generate data得到的值无限小，不加限制。因为这样的话就会让Discriminator对于generate data的输入而言，其全部输出noise，这样的话既可以把输出分数压的很低。所以我们需要一个margin，让genrate data对应的分数，只要小于margin以下的值就可以，不需要再变得更小。而至于margin的值就是一个我们需要调整的超参数。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105412942.png" /></p>
-]]></content>
-      <categories>
-        <category>⓵ 深度学习笔记</category>
-        <category>GAN系列笔记</category>
-      </categories>
-      <tags>
-        <tag>GAN</tag>
-        <tag>LSGAN</tag>
-        <tag>WGAN</tag>
-        <tag>EBGAN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GAN系列笔记5——GAN应用于特征提取（InfoGAN，VAEGAN，BiGAN）</title>
-    <url>/2021/12/04/0454d09a1cec/</url>
-    <content><![CDATA[<h3 id="前言">前言：</h3>
-<p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了InfoGAN、VAEGAN、BiGAN，以及GAN在特征提取领域相关的应用。</p>
-<h3 id="一infogan">一、InfoGAN</h3>
-<p>​ 我们在先前的GAN的介绍中说到过，对于一个训练好的GAN，我们是希望输入一个向量，然后GAN会给我们生成一个Object（图像或者是序列等）。然后我们期望，我们输入的向量，每一个维度可能就会代表输出的图像的某一个特征。这其实是非常理想的情况，但实际上，可能当你改变输入向量某一个维度的值的时候，输出的内容并没有按照某个特征进行变化。如果用图示意的话，如下图所示：两幅图是在低维空间中高维特征的分布示意图，我们本身期望其应该是左图的分布，这样当某个纵轴不变，横轴的数值变化时，高维某个相对应特征也会随之变化，但实际上分布可能像右图一样。InfoGAN就是想要解决这样一个问题。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105527683.png" /></p>
-<p>​ InfoGAN的框架如下图所示：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105540261.png" /></p>
-<p>​ 首先会将输入向量z，拆成两部分，一部分是向量c，一部分是向量z’，然后输入G后产生图像x，同时，我们需要训练一个分类器，这个分类器要能从x中识别出，产生这个x所使用的向量c的部分的编码，原本需要训练的判别器也是需要训练的缺一不可。然后我们宏观的看一下这一个架构，Generator和Classifier这一套就像是一个类AutoEncoder的东西，只不过其和正常的AutoEncoder刚好相反。正常的AutoEncoder的编码器是输入图片，输出特征编码向量，然后解码器是再反解回图片。而此处的编码器部分是GAN的Generator部分，输入向量，生成图片，然后decoder部分需要从图片中识别出code。在这个架构中，Discriminator是必须的，不然的话训练Generator的结果很有可能就是会把向量c直接附在图片x的信息中间，这样的话Classifier必定能够反解出c，但是这样的话生成的x是不是一张真实的图片就尚未可知了。有了Discriminator就可以保证生成的x是真实。</p>
-<p>​ 同时，Discriminator和Classifier在实际训练时往往共享参数，因为它们的输入都是x，只是最后一层输出层不一样而已。</p>
-<p>​ 那么，加上这样一个Classifier以后，为什么先前的原先GAN的输入对输出的影响不明确这个问题就能解决了呢？如下图所示：</p>
-<p>​ 因为我们需要分类器能从x中恢复出编码c，所以向量c这一部分必定需要对x的图像的某些维度有明确的影响。也就是说，完成GAN训练以后，c部分的每一个维度，都会对x的图像的某一个特征有明确的影响对应，那么z'部分相对应的可能就是那些较为随机的维度。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105550729.png" /></p>
-<p>​ 在这里可能会存在一个疑问，我们怎么划分向量z到c和z’呢？哪些维度应该被划分为c？哪些应该被划分为z’？此处要注意：我们并不是先对z进行手动划分的，是在训练完成之后，那部分能被恢复的向量编码维度，才会被称为c。</p>
-<h3 id="二vae-gan">二、VAE GAN</h3>
-<p>​ VAE GAN可以看作用GAN强化VAE AutoEncoder。网络架构如下图所示：这样的网络架构完成了两件事，一个是原本的希望重构损失越小越好，另一个是Discriminator会保证Generator生成的图片越真实越好。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105607065.png" /></p>
-<p>​ 从VAE角度，因为我们如果只考虑VAE的重建损失，往往产生的图片是不真实的，是会很模糊的。新增了Discriminator可以让输出图像更加真实。</p>
-<p>​ 从GAN角度，其不只考虑判别器的反馈，因为其知道真实图片长什么样，需要最小化生成图像和原图的误差，所以VAE GAN训练起来会更加稳定。</p>
-<p>​ 如下所示是VAE GAN训练的算法：整体的算法如下所示，在每一轮迭代中，首先是图像的生成：有三类x需要生成：1、第一类x是从数据库中直接采样出来的图片。2、第二类是由数据库中采样出的图片经过Encoder再经过Decoder后重建的图片3、第三类图片是，由随机的概率分布生成的编码z通过Encoder以后产生的图像。（注意图中第10行公式En应为De，图片有误）</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105620194.png" /></p>
-<p>​ 然后我们先更新训练EN的参数，希望重建误差越小越好，同时也希望x经过Encoder产生出来的z跟P(z)产生出来的z越接近越好，也就是两者KL散度越小越好。</p>
-<p>​ 然后更新训练De的参数，希望重建误差越小越好，同时也希望将第2类和第3类图片，丢入判别器以后，得到的值越大越好。</p>
-<p>​ 最后更新训练Discriminator的参数，希望第1类图像进入判别器以后值越大越好，同时也希望将第2类和第3类图片，丢入判别器以后，得到的值越小越好。</p>
-<h3 id="三bigan">三、BiGAN</h3>
-<p>​ BiGAN的架构如下所示：它修改了传统AutoEncoder的部分，然后新增了判别器。在这个网络中有一个Encoder，输入一张图片x，输出code z。有一个Decoder，输入一个code z，输出一张图片。但是这个输入的code z并不是先前Encoder输出的z，而是从一个事先准备好的分布中取样得到的z。然后我们有一个判别器，输入 向量z和 图像x，要让判别器判断，这一对 （向量z，图像x）是来自于编码器的输入输出，还是来自于解码器的输入输出。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105637394.png" /></p>
-<p>​ 训练算法如下所示，整体而言描述和其他的描述语言比较一致，比较好理解，此处就不多赘述，</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105645100.png" /></p>
-<p>​ 那么为什么BiGAN能够这样子去进行训练呢？其实BiGAN就是干了一件这样的事情：如果我们把Encoder的输入输出看作是一个Join起来的分布，Decoder的输入输出看作是一个Join起来的分布，那么判别器所干的事情就是区分P和Q之间的分布的差距。想要尽可能的去优化Encoder和Decoder，使得P和Q逐渐变得接近。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105653272.png" /></p>
-<p>​ 如果这个模型训练到最优，就应当是Encoder和Decoder可以互相解。那其实你会发现就是做了如下这么一件事情：训练一个AutoEncoder和一个Inverse的AutoEncoder。确实没错，如果如下所示的这样一个网络训练到最优，其和使用BiGAN训练到最优的结果是一样的，但是实际上BiGAN和AutoEncoder都没法训练到最优。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105700505.png" /></p>
-<p>​ 所以在不是收敛到最优的情况下，BiGAN会比下面这个架构训练好很多。生成的图片会真实很多，会比AutoEncoder架构生成的图像清晰很多。两者的特性不太一样。举个例子，比如可能用BiGAN，你输入一个鸟的图片，经过Encoder，Decoder后生成的图像也会是一只清晰的真实的鸟，但可能跟输入的鸟不一样，而如果用AutoEncoder架构，输入一个鸟的图片，经过Encoder，Decoder后生成的图像会和原图像比较像，但是会比较模糊，是一个不是很清晰真实的图像。</p>
-]]></content>
-      <categories>
-        <category>⓵ 深度学习笔记</category>
-        <category>GAN系列笔记</category>
-      </categories>
-      <tags>
-        <tag>GAN</tag>
-        <tag>InfoGAN</tag>
-        <tag>VAEGAN</tag>
-        <tag>BiGAN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GAN系列笔记6——评估GAN的相关方法指标</title>
-    <url>/2021/12/05/244e1ac0278c/</url>
-    <content><![CDATA[<h3 id="前言">前言：</h3>
-<p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了如何对GAN生成的图像结果进行一个更为客观的评估的相关方法。</p>
-<h3 id="一传统方法如何评估结果好坏">一、传统方法如何评估结果好坏？</h3>
-<p>​ 在传统方法中，我们一般会采用计算<strong>Likelihood</strong>的方法来进行衡量。我们训练出了一个Generator，然后我们就会用生成器的生成分布概率去进行计算其生成真实数据的可能性。具体的执行步骤就是，先采样部分真实数据点，然后计算G想要生成每个真实图像数据点的概率，然后求和平均即可得到Likelihood。但是在GAN中，这种方法是行不通的，因为GAN训练好以后是一个网络，是没法算出其产生出某一张图像的概率的。（像传统，如果这个Generator是一个高斯生成模型，是可以进行计算的）</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105752191.png" /></p>
-<h3 id="二kernel-density-estimation">二、Kernel Density Estimation</h3>
-<p>​ 有一种解决方案如下：输入一堆数据Data，经过生成器后，会产生对应的一堆高维向量（其实就是图像），我们将每一个高维向量视为一个高斯分布的均值，这样一来每一个sample就被近似为了一个高斯分布。然后我们再将这些高斯分布进行融合，就能够得到一个高斯混合模型。这一高斯混合模型是可以计算形成某个图像的概率的。但是使用这次步骤做出来的也会有许多难点和问题，比如不知道需要用多少高斯分布去拟合，不知道需要采样多少点。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105815158.png" /></p>
-<p>​ 同时，退一万步讲，其实使用Likelihood来进行估计就不是一个很严谨的事情，Likelihood低，对应的图像质量也可能高。Likelihood高，对应的图像质量也可能低。如下图所示，就是两种可能的情况。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105822595.png" /></p>
-<h3 id="三常用评估方法">三、常用评估方法：</h3>
-<p>​ 现在的文献，大部分常常看到的用于评估GAN的方法是，使用一个已经训练好的Classifier（可以是一个VGG，也可以是Inception Net），来判断这个生成器生成的图像质量好坏。</p>
-<p>我们往往有以下两个评估原则，如下图所示：</p>
-<p>​ <strong>原则1</strong>:将一个generated image输入分类器，查看分类器输出的属于各个类的概率，如果概率比较集中，说明生成器生成的图片效果比较好，因为分类器可以很明确的分出来。</p>
-<p>​ <strong>原则2</strong>:将一系列generated image输入分类器，查看分类器输出的各个类各存在几张图像，如果分完类以后每个类别的实例差不多的话，说明生成器效果较好，如果数量偏向于某种类别，说明生成器会生成偏向于某一个类别的图像。所以我们希望分出来的分布能够尽量的平滑。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105839124.png" /></p>
-<p>​ 有了上述原则以后，我们就可以使用下图所示的Inception Score来进行指标的量化。其中的第一项代表原则1，第二项代表原则2.</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105847271.png" /></p>
-]]></content>
-      <categories>
-        <category>⓵ 深度学习笔记</category>
-        <category>GAN系列笔记</category>
-      </categories>
-      <tags>
-        <tag>GAN</tag>
-        <tag>GAN Evaluation</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++ 优先队列 PriorityQueue 容器使用</title>
     <url>/2022/02/08/0f44df02f654/</url>
     <content><![CDATA[<p><strong>定义</strong>：<code>priority_queue&lt;Type, Container, Functional&gt;</code></p>
@@ -979,6 +979,7 @@ res[i][j] = max(res[i-1][j],res[i][j-1])  \ \ \ \ \ (if \ \ \ \ text1[i-1] != te
 <script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
         <category>⓷ 算法类笔记</category>
+        <category>题集整理</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -1343,6 +1344,54 @@ dp[n+1]=max(dp[n],dp[n−1]+num)
       </tags>
   </entry>
   <entry>
+    <title>动态规划——最少回文分割问题</title>
+    <url>/2022/02/18/cb68a950b406/</url>
+    <content><![CDATA[<h4 id="剑指-offer-ii-094.-最少回文分割"><a href="https://leetcode-cn.com/problems/omKAoA/">剑指 Offer II 094. 最少回文分割</a></h4>
+<p>给定一个字符串 <code>s</code>，请将 <code>s</code> 分割成一些子串，使每个子串都是回文串。</p>
+<p>返回符合要求的 <strong>最少分割次数</strong> 。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：s = &quot;aab&quot;</span><br><span class="line">输出：1</span><br><span class="line">解释：只需一次分割就可将 s 分割成 [&quot;aa&quot;,&quot;b&quot;] 这样两个回文子串。</span><br></pre></td></tr></table></figure>
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：s = &quot;a&quot;</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
+<p><strong>解题思路</strong>：</p>
+<p>​ 其内部其实含有两个DP子问题：</p>
+<ul>
+<li>1、字符串所有的子串，它们是不是回文串。即 s[i, j] 这一段是不是回文字符串</li>
+<li>2、如何分割能够有最少的分割次数</li>
+</ul>
+<p><strong>子问题1：</strong></p>
+<p>​ 我们用一个二维数组 isPalindrome 来进行记录，初始化为false。按照len长度进行遍历：状态转移方程如下所示： <span class="math display">\[
+s[i][j] = true  \ \ \ \ \ (len = 1)
+\]</span></p>
+<p><span class="math display">\[
+s[i][j] = (s[i] == s[j])  \ \ \ \ \ (len = 2)
+\]</span></p>
+<p><span class="math display">\[
+s[i][j] = (s[i] == s[j] \ \ \ \&amp;\&amp; \ \ \ isPalindrome[i+1][j-1])  \ \ \ \ (len &gt; 2)
+\]</span></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> n = s.<span class="built_in">length</span>();</span><br><span class="line"><span class="comment">// 初始化全false</span></span><br><span class="line">vector&lt;vector&lt;<span class="keyword">bool</span>&gt;&gt; <span class="built_in">isPalindrome</span>(n, vector&lt;<span class="keyword">bool</span>&gt;(n, <span class="literal">false</span>));</span><br><span class="line"><span class="comment">// 长度为1的是回文串</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) isPalindrome[i][i] = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">// 从长度为2的子串开始枚举[left, right]</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> len = <span class="number">2</span>; len &lt;= n; ++len)&#123;</span><br><span class="line">    <span class="comment">// 左端点</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> left = <span class="number">0</span>; left + len &lt;= n; ++left) &#123;</span><br><span class="line">        <span class="comment">// 右端点</span></span><br><span class="line">        <span class="keyword">int</span> right = left + len - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 长度为2就是这俩是否相等</span></span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">2</span>) isPalindrome[left][right] = (s[left] == s[right]);</span><br><span class="line">        <span class="comment">// 长度大于2, 端点相同的同时，内侧也要是回文</span></span><br><span class="line">        <span class="keyword">if</span> (len &gt; <span class="number">2</span>) isPalindrome[left][right] = (s[left] == s[right]) &amp;&amp; isPalindrome[left + <span class="number">1</span>][right - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>子问题2：</strong></p>
+<p>​ 我们用一维数组存储，字符串前i个字符组成的子串，最少需要多少分割次数。dp[i] 为将 [0,i] 这一段字符分割为若干回文串的最小分割次数，状态转移方程如下：</p>
+<ul>
+<li><p>从「起点字符」到「第 i 个字符」能形成回文串。那么最小分割次数为 0，此时有 dp[i] = 0； <span class="math display">\[
+dp[i] = 0 \ \ \ \ \ ( isPalindrome[0][i] == true)
+\]</span></p></li>
+<li><p>从「起点字符」到「第 i 个字符」不能形成回文串。此时我们需要枚举左端点l，如果 [l, i] 这一段是回文串的话，那么有 dp[i] = dp[l- 1] + 1 ( 满足回文要求的左端点位置 l 可能有很多个，取最小 )</p></li>
+</ul>
+<p><span class="math display">\[
+dp[i] = min(dp[l_0-1],dp[l_1-1],……,dp[l_{i} - 1]  ) + 1 \ \ \ ( isPalindrome[0][i] == false)(l_i = i)
+\]</span></p>
+]]></content>
+      <categories>
+        <category>⓷ 算法类笔记</category>
+        <category>动态规划系列</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>dynamic programming</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>奇妙应用——日程表类的设计优化思想</title>
     <url>/2022/02/08/099533246c94/</url>
     <content><![CDATA[<h4 id="剑指-offer-ii-058.-日程表"><a href="https://leetcode-cn.com/problems/fi9suh/">剑指 Offer II 058. 日程表</a></h4>
@@ -1425,102 +1474,6 @@ dp[n+1]=max(dp[n],dp[n−1]+num)
       <tags>
         <tag>leetcode</tag>
         <tag>stack</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>动态规划——最少回文分割问题</title>
-    <url>/2022/02/18/cb68a950b406/</url>
-    <content><![CDATA[<h4 id="剑指-offer-ii-094.-最少回文分割"><a href="https://leetcode-cn.com/problems/omKAoA/">剑指 Offer II 094. 最少回文分割</a></h4>
-<p>给定一个字符串 <code>s</code>，请将 <code>s</code> 分割成一些子串，使每个子串都是回文串。</p>
-<p>返回符合要求的 <strong>最少分割次数</strong> 。</p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：s = &quot;aab&quot;</span><br><span class="line">输出：1</span><br><span class="line">解释：只需一次分割就可将 s 分割成 [&quot;aa&quot;,&quot;b&quot;] 这样两个回文子串。</span><br></pre></td></tr></table></figure>
-<p><strong>示例 2：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：s = &quot;a&quot;</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
-<p><strong>解题思路</strong>：</p>
-<p>​ 其内部其实含有两个DP子问题：</p>
-<ul>
-<li>1、字符串所有的子串，它们是不是回文串。即 s[i, j] 这一段是不是回文字符串</li>
-<li>2、如何分割能够有最少的分割次数</li>
-</ul>
-<p><strong>子问题1：</strong></p>
-<p>​ 我们用一个二维数组 isPalindrome 来进行记录，初始化为false。按照len长度进行遍历：状态转移方程如下所示： <span class="math display">\[
-s[i][j] = true  \ \ \ \ \ (len = 1)
-\]</span></p>
-<p><span class="math display">\[
-s[i][j] = (s[i] == s[j])  \ \ \ \ \ (len = 2)
-\]</span></p>
-<p><span class="math display">\[
-s[i][j] = (s[i] == s[j] \ \ \ \&amp;\&amp; \ \ \ isPalindrome[i+1][j-1])  \ \ \ \ (len &gt; 2)
-\]</span></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> n = s.<span class="built_in">length</span>();</span><br><span class="line"><span class="comment">// 初始化全false</span></span><br><span class="line">vector&lt;vector&lt;<span class="keyword">bool</span>&gt;&gt; <span class="built_in">isPalindrome</span>(n, vector&lt;<span class="keyword">bool</span>&gt;(n, <span class="literal">false</span>));</span><br><span class="line"><span class="comment">// 长度为1的是回文串</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) isPalindrome[i][i] = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">// 从长度为2的子串开始枚举[left, right]</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> len = <span class="number">2</span>; len &lt;= n; ++len)&#123;</span><br><span class="line">    <span class="comment">// 左端点</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> left = <span class="number">0</span>; left + len &lt;= n; ++left) &#123;</span><br><span class="line">        <span class="comment">// 右端点</span></span><br><span class="line">        <span class="keyword">int</span> right = left + len - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 长度为2就是这俩是否相等</span></span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">2</span>) isPalindrome[left][right] = (s[left] == s[right]);</span><br><span class="line">        <span class="comment">// 长度大于2, 端点相同的同时，内侧也要是回文</span></span><br><span class="line">        <span class="keyword">if</span> (len &gt; <span class="number">2</span>) isPalindrome[left][right] = (s[left] == s[right]) &amp;&amp; isPalindrome[left + <span class="number">1</span>][right - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>子问题2：</strong></p>
-<p>​ 我们用一维数组存储，字符串前i个字符组成的子串，最少需要多少分割次数。dp[i] 为将 [0,i] 这一段字符分割为若干回文串的最小分割次数，状态转移方程如下：</p>
-<ul>
-<li><p>从「起点字符」到「第 i 个字符」能形成回文串。那么最小分割次数为 0，此时有 dp[i] = 0； <span class="math display">\[
-dp[i] = 0 \ \ \ \ \ ( isPalindrome[0][i] == true)
-\]</span></p></li>
-<li><p>从「起点字符」到「第 i 个字符」不能形成回文串。此时我们需要枚举左端点l，如果 [l, i] 这一段是回文串的话，那么有 dp[i] = dp[l- 1] + 1 ( 满足回文要求的左端点位置 l 可能有很多个，取最小 )</p></li>
-</ul>
-<p><span class="math display">\[
-dp[i] = min(dp[l_0-1],dp[l_1-1],……,dp[l_{i} - 1]  ) + 1 \ \ \ ( isPalindrome[0][i] == false)(l_i = i)
-\]</span></p>
-]]></content>
-      <categories>
-        <category>⓷ 算法类笔记</category>
-        <category>动态规划系列</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>dynamic programming</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>链表系列——链表问题的常见技巧</title>
-    <url>/2022/02/04/eaf3f7544d56/</url>
-    <content><![CDATA[<h3 id="一剑指-offer-ii-022.-链表中环的入口节点">一、<a href="https://leetcode-cn.com/problems/c32eOV/">剑指 Offer II 022. 链表中环的入口节点</a></h3>
-<p><strong>题目简单描述</strong>：</p>
-<p>​ 给定一个链表，需要返回链表开始入环的第一个节点。 从链表的头节点开始沿着 next 指针进入环的第一个节点为环的入口节点。如果链表无环，则返回 null。</p>
-<p>​ 进阶：是否可以使用 O(1) 空间解决此题？</p>
-<p><strong>解题思路</strong>：</p>
-<p>​ 本题本身想要解答十分简单，将其放入博客中整理是想记录我们应该如何利用O(1)空间去解决这个题目呢？</p>
-<p>​ <strong>快慢指针法</strong>，我们使用两个指针，fast 与 slow。它们起始都位于链表的头部。随后，slow 指针每次向后移动一个位置，而 fast 指针向后移动两个位置。如果链表中存在环，则 fast 指针最终将再次与 slow 指针在环中相遇。</p>
-<p>​ 如下图所示，即可非常好的理解如下：那么，又该如何判断入环点的位置呢？我们先上结论：经过数学推断可以得知：</p>
-<p>​ <strong>假设快慢指针相遇时，fast指针已经走完了环的n圈，那么</strong></p>
-<p>​ <strong>从相遇点到入环点的距离加上 n−1 圈的环长，恰好等于从链表头部到入环点的距离。</strong></p>
-<p>​ <strong>根据此结论，我们只需要在快慢指针相遇时，再加一个ptr指针，让其指向链表头部；随后，它和 slow 指针每次向后移动一个位置。最终，它们会在入环点相遇。</strong></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/截屏2022-02-04 下午2.06.49.png" alt="截屏2022-02-04 下午2.06.49" style="zoom:33%;" /></p>
-<p>​ <strong>结论证明</strong>：设链表中环外部分的长度为 a。slow 指针进入环后，又走了 b 的距离与 fast 相遇。此时，fast 指针已经走完了环的 n 圈，因此它走过的总距离为 <span class="math inline">\(a + n \times (b+c) + b\)</span> ,而此时，slow指针走过的总距离为 <span class="math inline">\(a + b\)</span>。</p>
-<p>​ <strong>【此处需要解释一下：为何fast与slow相遇时，slow必定还在走第一圈？】</strong>（我们假设fast和slow如果同时从入环点出发，由于速度是2倍的关系，slow走完1圈的时候，fast刚好走完2圈，他们会在起点相遇。但是现在，fast比slow先入环，也就是说slow入环的时候，fast不管在环的哪里，肯定能在slow走完一圈前，将其追上。）</p>
-<p>​ 由于fast指针走的速度是slow指针的2倍，那么可以得到以下等式：$ a + n (b+c) = 2 (a + b)$ 所以可以得到如下结论： $ a = c + (n-1) (b+c)$ ,这也就意味着，最开始说的， 从相遇点到入环点的距离 + (n-1) 圈环的距离，等于链表头到入环点的距离。</p>
-<p>​ 那么为什么说，如果相遇的时候，ptr从链表头出发，ptr和slow必定在入环口相遇呢？因为a的距离是c加上许多圈环的距离，所以当ptr到达链表入环口的时候，时间经过了a，此时slow必定出现在入环口处。所以我们可以根据此来判断，入环口的位置是哪一个节点。</p>
-<h3 id="二剑指-offer-ii-023.-两个链表的第一个重合节点">二、<a href="https://leetcode-cn.com/problems/3u1WK4/">剑指 Offer II 023. 两个链表的第一个重合节点</a></h3>
-<p><strong>简单题目描述</strong>：</p>
-<p>​ 给定两个单链表的头节点 headA 和 headB ，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。详细见原网址</p>
-<p><strong>解题思路</strong>：</p>
-<p>参考：https://leetcode-cn.com/problems/3u1WK4/solution/liang-ge-lian-biao-de-di-yi-ge-zhong-he-0msfg/</p>
-<p>此题难点在于设计一个时间复杂度 O(n) 、仅用 O(1) 内存的解决方案？</p>
-<p>​ 我们可以考虑双指针的方法对两个链表进行求解，但是双指针的难点在于，两条链表的长度不同，无法做到一一对应。我们先给出<strong>解决方案</strong>：</p>
-<p>​ 当链表 headA 和 headB 都不为空时，创建两个指针 pA 和 pB ，初始时分别指向两个链表的头节点 headA和 headB ，然后将两个指针依次遍历两个链表的每个节点。具体做法如下：</p>
-<ul>
-<li>每步操作需要同时更新指针 pA 和 pB。</li>
-<li>如果指针 pA 不为空，则将指针 pA 移到下一个节点；如果指针 pB 不为空，则将指针 pB 移到下一个节点。</li>
-<li>如果指针 pA 为空，则将指针 pA 移到链表 headB 的头节点；如果指针 pB 为空，则将指针 pB 移到链表 headA 的头节点。</li>
-<li>当指针 pA 和 pB 指向同一个节点或者都为空时，返回它们指向的节点或者 null。</li>
-</ul>
-<p>​ <strong>乍一看，其中有一个非常奇怪的点</strong>，就是如果指针pA为空，那么将指针pA移动到链表headB的头节点。但其实仔细一想，这样子是没问题的。也正是因为这个操作，我们才能够得以解决两个链表长度不一致导致的不对应问题。较为详细的证明如下：</p>
-<p>​ 我们先考虑<strong>两链表相交的情况</strong>，如果两链表长度一致，那不需要想，pA和pB必定同时到达某一个节点。</p>
-<p>​ 如果两链表长度不一致，这样子的话，我们假设链表A、B长度为m和n，A、B的不相交部分节点数为a，b，相交部分节点数为c，那么m = a + c , n = b + c. pA和pB第一遍遍历完各自的链表后，他们不是同时到达尾部节点的，但是当pA遍历完 a + c + b个节点，当pB遍历完b + c + a个节点的时候，两者就会同时到达相交的节点。</p>
-<p>​ 再证明<strong>两链表不相交的情况</strong>，如果两链表长度一致，那不需要想，pA和pB必定同时到达最终的NULL节点。</p>
-<p>​ 如果两链表长度不一致，这样子的话，我们假设链表A、B的长度各位m和n，当pA 遍历完 m + n个节点，pB遍历完 n + m个节点的时候，必定同时到达尾部的NULL节点。</p>
-]]></content>
-      <categories>
-        <category>⓷ 算法类笔记</category>
-        <category>链表系列</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>linked list</tag>
       </tags>
   </entry>
   <entry>
@@ -1625,6 +1578,54 @@ dp[i] = min(dp[l_0-1],dp[l_1-1],……,dp[l_{i} - 1]  ) + 1 \ \ \ ( isPalindrome
       <tags>
         <tag>leetcode</tag>
         <tag>array</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>链表系列——链表问题的常见技巧</title>
+    <url>/2022/02/04/eaf3f7544d56/</url>
+    <content><![CDATA[<h3 id="一剑指-offer-ii-022.-链表中环的入口节点">一、<a href="https://leetcode-cn.com/problems/c32eOV/">剑指 Offer II 022. 链表中环的入口节点</a></h3>
+<p><strong>题目简单描述</strong>：</p>
+<p>​ 给定一个链表，需要返回链表开始入环的第一个节点。 从链表的头节点开始沿着 next 指针进入环的第一个节点为环的入口节点。如果链表无环，则返回 null。</p>
+<p>​ 进阶：是否可以使用 O(1) 空间解决此题？</p>
+<p><strong>解题思路</strong>：</p>
+<p>​ 本题本身想要解答十分简单，将其放入博客中整理是想记录我们应该如何利用O(1)空间去解决这个题目呢？</p>
+<p>​ <strong>快慢指针法</strong>，我们使用两个指针，fast 与 slow。它们起始都位于链表的头部。随后，slow 指针每次向后移动一个位置，而 fast 指针向后移动两个位置。如果链表中存在环，则 fast 指针最终将再次与 slow 指针在环中相遇。</p>
+<p>​ 如下图所示，即可非常好的理解如下：那么，又该如何判断入环点的位置呢？我们先上结论：经过数学推断可以得知：</p>
+<p>​ <strong>假设快慢指针相遇时，fast指针已经走完了环的n圈，那么</strong></p>
+<p>​ <strong>从相遇点到入环点的距离加上 n−1 圈的环长，恰好等于从链表头部到入环点的距离。</strong></p>
+<p>​ <strong>根据此结论，我们只需要在快慢指针相遇时，再加一个ptr指针，让其指向链表头部；随后，它和 slow 指针每次向后移动一个位置。最终，它们会在入环点相遇。</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/截屏2022-02-04 下午2.06.49.png" alt="截屏2022-02-04 下午2.06.49" style="zoom:33%;" /></p>
+<p>​ <strong>结论证明</strong>：设链表中环外部分的长度为 a。slow 指针进入环后，又走了 b 的距离与 fast 相遇。此时，fast 指针已经走完了环的 n 圈，因此它走过的总距离为 <span class="math inline">\(a + n \times (b+c) + b\)</span> ,而此时，slow指针走过的总距离为 <span class="math inline">\(a + b\)</span>。</p>
+<p>​ <strong>【此处需要解释一下：为何fast与slow相遇时，slow必定还在走第一圈？】</strong>（我们假设fast和slow如果同时从入环点出发，由于速度是2倍的关系，slow走完1圈的时候，fast刚好走完2圈，他们会在起点相遇。但是现在，fast比slow先入环，也就是说slow入环的时候，fast不管在环的哪里，肯定能在slow走完一圈前，将其追上。）</p>
+<p>​ 由于fast指针走的速度是slow指针的2倍，那么可以得到以下等式：$ a + n (b+c) = 2 (a + b)$ 所以可以得到如下结论： $ a = c + (n-1) (b+c)$ ,这也就意味着，最开始说的， 从相遇点到入环点的距离 + (n-1) 圈环的距离，等于链表头到入环点的距离。</p>
+<p>​ 那么为什么说，如果相遇的时候，ptr从链表头出发，ptr和slow必定在入环口相遇呢？因为a的距离是c加上许多圈环的距离，所以当ptr到达链表入环口的时候，时间经过了a，此时slow必定出现在入环口处。所以我们可以根据此来判断，入环口的位置是哪一个节点。</p>
+<h3 id="二剑指-offer-ii-023.-两个链表的第一个重合节点">二、<a href="https://leetcode-cn.com/problems/3u1WK4/">剑指 Offer II 023. 两个链表的第一个重合节点</a></h3>
+<p><strong>简单题目描述</strong>：</p>
+<p>​ 给定两个单链表的头节点 headA 和 headB ，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。详细见原网址</p>
+<p><strong>解题思路</strong>：</p>
+<p>参考：https://leetcode-cn.com/problems/3u1WK4/solution/liang-ge-lian-biao-de-di-yi-ge-zhong-he-0msfg/</p>
+<p>此题难点在于设计一个时间复杂度 O(n) 、仅用 O(1) 内存的解决方案？</p>
+<p>​ 我们可以考虑双指针的方法对两个链表进行求解，但是双指针的难点在于，两条链表的长度不同，无法做到一一对应。我们先给出<strong>解决方案</strong>：</p>
+<p>​ 当链表 headA 和 headB 都不为空时，创建两个指针 pA 和 pB ，初始时分别指向两个链表的头节点 headA和 headB ，然后将两个指针依次遍历两个链表的每个节点。具体做法如下：</p>
+<ul>
+<li>每步操作需要同时更新指针 pA 和 pB。</li>
+<li>如果指针 pA 不为空，则将指针 pA 移到下一个节点；如果指针 pB 不为空，则将指针 pB 移到下一个节点。</li>
+<li>如果指针 pA 为空，则将指针 pA 移到链表 headB 的头节点；如果指针 pB 为空，则将指针 pB 移到链表 headA 的头节点。</li>
+<li>当指针 pA 和 pB 指向同一个节点或者都为空时，返回它们指向的节点或者 null。</li>
+</ul>
+<p>​ <strong>乍一看，其中有一个非常奇怪的点</strong>，就是如果指针pA为空，那么将指针pA移动到链表headB的头节点。但其实仔细一想，这样子是没问题的。也正是因为这个操作，我们才能够得以解决两个链表长度不一致导致的不对应问题。较为详细的证明如下：</p>
+<p>​ 我们先考虑<strong>两链表相交的情况</strong>，如果两链表长度一致，那不需要想，pA和pB必定同时到达某一个节点。</p>
+<p>​ 如果两链表长度不一致，这样子的话，我们假设链表A、B长度为m和n，A、B的不相交部分节点数为a，b，相交部分节点数为c，那么m = a + c , n = b + c. pA和pB第一遍遍历完各自的链表后，他们不是同时到达尾部节点的，但是当pA遍历完 a + c + b个节点，当pB遍历完b + c + a个节点的时候，两者就会同时到达相交的节点。</p>
+<p>​ 再证明<strong>两链表不相交的情况</strong>，如果两链表长度一致，那不需要想，pA和pB必定同时到达最终的NULL节点。</p>
+<p>​ 如果两链表长度不一致，这样子的话，我们假设链表A、B的长度各位m和n，当pA 遍历完 m + n个节点，pB遍历完 n + m个节点的时候，必定同时到达尾部的NULL节点。</p>
+]]></content>
+      <categories>
+        <category>⓷ 算法类笔记</category>
+        <category>链表系列</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>linked list</tag>
       </tags>
   </entry>
   <entry>
@@ -3326,30 +3327,6 @@ False</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Pytorch学习笔记9——常用编码技巧（更新中）</title>
-    <url>/2021/12/17/2631c2e52e76/</url>
-    <content><![CDATA[<h3 id="task1">Task1：</h3>
-<h4 id="任务描述完成padding填充使得h和w为2的倍数同时实现下图所示的变换">任务描述：完成padding填充，使得H和W为2的倍数同时，实现下图所示的变换：</h4>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/image-20211229101356170.png" /></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入的x，维度size为[B,L,C] ,其中L = H * W</span></span><br><span class="line">x = x.view(B, H, W, C) <span class="comment"># 首先将其重新展为 [B,H,W,C]</span></span><br><span class="line"><span class="comment"># padding 然后，如果输入feature map的H，W不是2的整数倍，需要进行padding</span></span><br><span class="line">pad_input = (H % <span class="number">2</span> == <span class="number">1</span>) <span class="keyword">or</span> (W % <span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line"><span class="keyword">if</span> pad_input:</span><br><span class="line">   <span class="comment"># (C_front, C_back, W_left, W_right, H_top, H_bottom)</span></span><br><span class="line">   <span class="comment"># 注意这里的Tensor通道是[B, H, W, C]，所以会和官方文档有些不同</span></span><br><span class="line">   x = F.pad(x, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, W % <span class="number">2</span>, <span class="number">0</span>, H % <span class="number">2</span>)) <span class="comment"># 在右侧和底侧进行padding</span></span><br><span class="line">   </span><br><span class="line"><span class="comment"># 此时要开始进行下采样了，如何在H，W这个平面上进行下采样呢？ 非常关键的编码技巧！！</span></span><br><span class="line">x0 = x[:, <span class="number">0</span>::<span class="number">2</span>, <span class="number">0</span>::<span class="number">2</span>, :]  <span class="comment"># [B, H/2, W/2, C]   ::2 代表 步长</span></span><br><span class="line">x1 = x[:, <span class="number">1</span>::<span class="number">2</span>, <span class="number">0</span>::<span class="number">2</span>, :]  <span class="comment"># [B, H/2, W/2, C]</span></span><br><span class="line">x2 = x[:, <span class="number">0</span>::<span class="number">2</span>, <span class="number">1</span>::<span class="number">2</span>, :]  <span class="comment"># [B, H/2, W/2, C]</span></span><br><span class="line">x3 = x[:, <span class="number">1</span>::<span class="number">2</span>, <span class="number">1</span>::<span class="number">2</span>, :]  <span class="comment"># [B, H/2, W/2, C]</span></span><br><span class="line"><span class="comment"># 然后将四个子矩阵在channel维度[也就是最后一个维度]上进行拼接</span></span><br><span class="line">x = torch.cat([x0, x1, x2, x3], -<span class="number">1</span>)  <span class="comment"># [B, H/2, W/2, 4*C]</span></span><br><span class="line"><span class="comment"># 再重新将H/2,W/2平面展成1个维度</span></span><br><span class="line">x = x.view(B, -<span class="number">1</span>, <span class="number">4</span> * C)  <span class="comment"># [B, H/2*W/2, 4*C]</span></span><br></pre></td></tr></table></figure>
-<h3 id="task2">Task2:</h3>
-<h4 id="任务描述-python中的广播机制">任务描述： Python中的广播机制</h4>
-<p>​ 在python中使用numpy进行<strong>按位运算</strong>的时候，有一个小技巧可以帮助减少代码量——那就是broadcasting,广播机制。简单来说，broadcasting可以这样理解：如果你有一个m * n的矩阵，让它加减乘除一个1 * n的矩阵，它会被复制m次，成为一个m * n的矩阵，然后再逐元素地进行加减乘除操作。同样地对m * 1的矩阵成立。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/750.png" /></p>
-<p>代码示例：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A = numpy.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">result = A + <span class="number">100</span></span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">	[101 102 103]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># 就不再需要去书写 A + [100,100,100] 了</span></span><br><span class="line"></span><br><span class="line">A = np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])  <span class="comment"># [3,2]</span></span><br><span class="line">result = A + [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>]   <span class="comment"># [3,1]</span></span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">[[101 202 303]</span></span><br><span class="line"><span class="string"> [104 205 306]]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
-<p>### Task3:</p>
-<h4 id="section"></h4>
-]]></content>
-      <categories>
-        <category>⓵ 深度学习笔记</category>
-        <category>Pytorch系列笔记</category>
-      </categories>
-      <tags>
-        <tag>Pytorch</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Transformer系列笔记1——Self Attention机制</title>
     <url>/2021/12/06/b18f5bcea23b/</url>
     <content><![CDATA[<h3 id="一背景介绍问题引入">一、背景介绍问题引入</h3>
@@ -3559,6 +3536,28 @@ False</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>博文复习日志1</title>
+    <url>/2022/02/11/f9ce168b2bf7/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="5734a7de8e600d231091ff676bd42181369bfba87d201edfc5c14b2e92db6878">0b64cd3abe5b0a0a039a37d86c66d75eaeb9cde5c6dadc3c6d4d424e956e68e5859de93c067c256c245d75df485065102f6e2903c24acc225d3947c06b46eb863dd4b5852f98aab38803012f003c6c5ce6fff79afb10e1792ca7214d925987e0c717d406814885b789fb91e2e91f62e79489c1eb338c6615f677769d830ccf190fb9bbb686abd703322115c45664a457c7196ebc5128f0dbc61fa90adc2470af75105015c70e866cf9e65b8431b286f91724aada9a9fd5965d62719e3af60032aa7a2f77ed452eac7ab39f33c601c5d6de7df46cb4de25570ccbf95f141c0967a7b34c72683919d199358e5f05f83fc8af0d4a187180a67e0dfe958e0af9d66d33ab8d086e02df177e615e8042752039b5aa8ebbbf03fd595157a16f93e9d8aa7f0b856ccb5a1ec0ac5a77b1362d12bdc9c4ff39d2127ba4fa1a34736ed266b04fafccd0a982584b7e617ef2c7abee5c2cc4fbc96fa0391fe18bb0613a55fbdf71d01cafec27c0e41772b97d10dd173daa0e0dc1b05aa7b9d97e8244f9fba4f4018e4818e86e70f34c862bd69d9675ed15877d5449c4b7e8a6d6bc656ea82eba26ae72ad6ef75be44700be429e708bf43289740b82d67832194999149db733dd79f9775627aca1553102949d134429a4b5ec014c19965b51aacdd0b8af88faa8f0dd23ee465a91973610403e7f7015e27c4ca73425c835a103746324927ac9961a1fbbfa364ec6f09dca400884a8cd26d49df0e797f917bf5e1ddd4ce84f68c180d01f4a2b8fa7ffb12c378c27f7d149c0574024f6c7d997926a562382a75b7df0671abdb0741935b21dd625401ae2c8d83fe10f25ad46985c2442617293a87fa44bbe23878f5f0a341dd752b7d2f22ca0c80b746b4da56555f586c5ff770b6bc47b247939fd87fd97df54dee143d09a3572eb4097e5f0acb6a7c82b3d0bd31f0a92cb99e2c8c3cab16ed7b365b2a600a5fa080289d1d865a6b4c227ecbbb2fd1d2fdfd66082ef6074198a5aaa6aba8d4829da5c094a86176a0841491ccf4dc7ee545dd7a034ee8259f5f0011b7db9e433b4673050c085dd734b2e70a09f2866709876a15e124d99989ea943727a984ca6d5fc822e64d93de977821ab9d78a78ef14d4567d09ff69b40b6e6c01fc6b8680b5e704e23e00aedbcbea610a97288743de8f574fb680a2444d1c9d3f94bab3288a3ad504535c89a6c20f7dc83354a56877fb4beb4518dfce2d32f5293c16af8aa7f66eb6226c5fa93f423ffb44e166affdca16f9a05ffbdb05f1f2538680745a068f73f4f030afaf58b008316ecabc4bf15eeeed12b2a52f68c9ea007ac8768c5c6369f545833605181f6bac06257a122e6ffbee6c14cf2560e5a3b90604789144a509dcffc9236565ac7c26ffdac2199fbd3f470921f9c58fce79be41fd174f513de5530a298d2163c94cb7367570c6d709e3c6eedf24bc7f3e257d899a37ee636ba4fe04cb801f41d3c5b0716f199f23245ae06122c75a258215886896d8e941bf301108f3462f67f73121ea5b0aa5cabb8acfc32b4daa04a6014d2b05523627fb55d8b62b8565d6f2742035f260619cdae288d7b95e305a7b63421ceea761a047995e93ac206cdbf1fe479b687041f30d9083acd89f42d977a9257aa6f25950b3aeb3f06861ce31b9a0be69af54e637cb197c1238eb3fadd76adb0a97a323c64e2a34f9bdd00d779740449a5558edfc0187cd35c7a2ee95e0c21a0d27cd826e9416d9c405093e796a880a3a0cc20dec018e9c71f66aab54c8ebc7b2080498895a41512129103fa751121bd758cbd12e794685d1087a2844eb0494812bd86a5ca45157ca56a8e9451ea285e0f4c4aa3fcf8ea8af6c5021bba6fd67f9c2e3fc9aa5ac9f3c02a1cb57ce09b545d81b93cf3a9ed1c9cea76e5f2c8324a405e21bec4f37dd50b47d82cf68e0be38d9c8abcb3dfdf7086e46fe9a474e8253fc2d4a50b1ea681c53f39eb8051d3d1d7100b6184437a37ff53f34faf3f2b2e76e117ce47273c0fe4f75873df7fc377e1c3b7e8a180207ec326f2caaa79e5e672744f6795f10a78abef27b27e0953f29e2feb01fd6200284d0fb97e16534f8a234e4cc3134f5a103d2143b40523d277cda610eb3ebb53cce25b589fb3202da36018584b201f0efa38ec2d614a655cf21a56a0cbf67f439514f3445a07592f65ade23ac22f420830df90c395561b29e21156abd5e8af33cfd468013c1f04c0e3220820eeb86cc17d45798140c744c786b738ba23ae99675f189ee70dcf02cf5744c19b5c1084f3400caf5fc6b6456c8832e41d92cb1b664fd0297157d64629fd388961ee389a5226b60068a0eb0a78d48af553412d2e0866a1acbb5fb1f1754dd617e9f97b7c8f52cf8f2e76ec50e6c35ab04a5db2145b09344ec548405ca26274d6ac8471a1cb6dfbb1b616c26b2e45c85e87bd1a542563eb2b0c0d8f1ba79af341c4734c93cda4e93e05a8e1963c7ed0d320281388e552965dd33ac8f4e7ab0e38b7eb506e41b123c270fba5731b62372f40e5a4723155543790496c3e13e8999601978f9b51cfeffd3384b131367ea10bf445e905999513d0fae7f1293d91824a27fd8ebac8a0d614838ffbeb5d96f92522291435daba7c4fd34641136cc74009ce4da35484a180b2cf738d560196729705a95fc6e4a0a131e7ad1f6e58c6a5509fc0d193db3581f1529c91ba368f33d8d436d1c57eeb9efc2222b43f9c05ef45ef9cc7af5d44d73b8eee95061490f3755d80b7401f215ed7d358736f9e39b8664b73b50b8f6928a09bb3e3ec9f7f0b12dcb33638e684fb1ea23e182002d69213033ff32081f3677d4da9f4da9a6200d32af6345611f43a811b90c14b113e7efe51db0ffa66c63d8c7ef4b8f8c4c18346de3ebc2904386dc5909f3fcf87c3e538f98362ebc9ce8a2b9a3f1ee4e98c79ffe505049bf3ecb03d052e3c9005687ce224189a0a7b2cad32cd6e833f8d5bb900d08735398e5b930bce023d6700a90d05ee7774743910920e9e3127b35043485ca0fba788a988c514c45f8771f704a5c934f4ea0f6bee0a9dd76d8b493f470fb2e321558b3ef19151eb97ea08471a0b12c6ecadf139849d1609986cb0dafe576df189a60085cd29ade011e7cf9c7b63c5f4ed81c9bd40c26fef4b225d8b26ed8ec94338e3a651d4f2573204f1488c488aed9af338a630e02ee8b4ab8727adfc060d3c1dd2ae37f8c589666037a6718cccae93b8f3b976b4b5a17affd40008cae1689ee249ef445d8a5315cd21a1b957efffd6524bf3645cdc95869f2a43dfce4d6bb71ba4008f2ae005ecdb12f9bea4722ad836b1f6abd424ad3f02a02c048567c3bdcf7f489566d44c5f3a21877698bf9163989c22dcc3647e3340e114266381801df786c6fde82b052c4a521fb2b26565c0c5ccb2569dde84414de256a78df1118cbb08cfdb14bb87ec1ded2f0b7e718e31e7288850d76205ab005d98a8374a0b8f55645919e7cc4380538b0079f8f97a3568c338015907111df6c0e490ee582677d72b80b33f01aac61326d41897a9d56dff2b683c7624b4bb4e71cd22e78f8d73d7a99607cef2ad26379416f969a7aa52ad973121799a09771d8c6e53787477eb859168e7a1b0705df97724abce2aba5d1b56616715438c4340e26268622e3b36c0fcd21b2fd51b0ef6b9489a6abc6299b6589ac3b59bcd182369968bce00bc7499b75faba475e52194c0d7351be37c8b220308c3aa04af599c19818cf275ff8409f84d3ed6846706f63b57c0520e3d3914f32bf9daceed10d3923508aad66e5468cdef671d6521c001af5d1056db3a104ad7eda6df050b83fdb74b20ccb7d2e55d060e3e13e41bfc5c1768305bfcf8b2a2e42eedb1f7d4c36b3ec4e182c858f6935e0659eef7cb687f654e27c4194c9690f8913e66a1df9f524b93faf1789cd5aa85d303f47e741041046f82f08bd7c186492824236abd0e446e6668669e787aec7195a62c0775beae4a1e902b976bf92055a89300f02a909011cab0c27d2796204280c654837ae9c8f9122a7004b475c557bc45c80dc58806692cd0fd0d31efef3b0b78a034bd978ed5eac292439b347619017aa2e96d1e3f4325baa0c72ec635a6e5f52164cde2d4e9640539292bb73e7f5ee283b22c89d8b5b047a7e835e5ae71f23f7a1391a735b7eaceb8006a384090ae9c60a55e646c29d9f7141c65360a2b6c14b8756fc4b1aa57b0b508e790ea9aa9ee476cfeda4b335003a1506e077a46819ae03478c3328fa711e339f8a83d194f3f271d284cf56410a66913032300b1660600e9d4cb1ccca83ba64e82aebe7ed490752ea7f85b452bc926b29c274d7976e84b14b96d60b6103de6990eceba1785cc968ba8bf003632b5c42bd8d7bc428d575a0dfc28434f04a008fe3571db357061ce0a52686f153fc95b1163722a42484c46a50227bcc61fa812e4fcf1f8deb5164206ef0a5d6976c81b28888be0ebe0b15d4186a084d0442e090406df08a6449ed0400e4c275d266ce520441fbbc7a72c6f23767c2c6cf1eb12c2b6c574679cc6e2ed3e4c4c8203828aac4e811fac757e2eb640aee657e2c2df6b747ba2148964098a70616aee179d08afa935f4013a7d8a8747d20759588abf3420ad24950aa867d50d54fe2e1c25df5dddaa8b528013e82ff13ff3d6a94e2453a3f1c44024d3daf08477e62ea9494b1fd37fe96baf126122816ac7becc18721535254e657e5f5194e4698f87626ad56ba7ac6d7a13a8818bf2bc6b293b1a93979836ded825d23e77f0d8d13a333851c0897c56edff76e90d5cd6f3956da857ad6c4538dbdcbdfb83c4d307961b4c7f4d9dcc59ad2994bfced36a2d4f54a43d18272c3de1ffe3806d6206fd3a81df1558f3f5f6e2b52aa631c999cf7b9758f9fdb60bf553ebd7430ecc62e7d888f1c0be56df04b55189b8292f93d809ee1ce46aea0cea359105d122c8e9be28a1a796440d7b125590e949dc1665e3e1a17a7c7322012999d1ab5bcb3710d376765c9cba6bff8fbf79b894b3c6ce0ea8ce3072f4de8584e353395aeeb46c9504e3357c6b8b5fc2e6e71b19a70374b926af0f3b49843f49c1254e53e7c4257c56752ecde0bb756a828c05be23127cdd6afa7ee7d611b832c10e8e51d63e6d4f1947eb2808e8ec48fa1340e8742dc9d7523cb6c18d6e96b1e3b70051fa908557652d98ba77317c8af4adfbcc54cd6783861d5e8965a073aee61401856f454ae1dc0abad74d98d23ae757bc5368be0fcc3ea6366fe6dc7bcde2c86491e16d40a7463202d272b42efa0a38a41d53523eb75a17ce0379a09ed353a15d29d2885ff58df61ddb082a8082377e471a85ff6c3ae1a9a4924d08aef7d7980d972f5686d4be2185f70d1df8cb4b152df63e07784d0f0ea4c7b606770c042a40e6aca834e3c6846f064a7bb99d7167833bd40ab4786766d4527e8474936d56853f84d9f2097551789cc804655229011a5b202cd2c95046074484c93e60b4e4f635145290743188dca22011b75d539aa09a98fd37de1d62f8eff7dc45563090b4684b6bcef6f6eeb7e486d916cbde2ed84eb34a23f0c62b98fa37be5f3b883202230217d5b9b6e3bd897b845defebd0977afa5f702fffd0a8e29978d86ac1ca2751946261a7c9afd189853f30a5a183bc7fd9c63b466544d5afe730e77f920caf673f019c762f1f2d3b4d58fdc6b7f115433f60518d1944a780a4668cd5a08cdd4769f8d810a8434f90c281abef969cb6730b0f9a5a34bad2625135c0cd7474976557df8bdbd276fe6d6970f928e4845ef852323f390ade0728b721567926287b68830edd81c1bdebf325dd73e6536feb100516cbbe02b61009856a42089bc0b670acb1d988606150ff32529bd16987d8fbc8aba08d8f04a4955a1f529ba8285b5db99ab0f77dc5365b629c11f1479fa8ec4e8556b171c4b5a53cd63189b0791d67eb304f8b5517e2e0cde44d4cb2d78638835ad4235276411c14415e401c08f1842efae0f459858907f4131876be1c32f823cbc2910990994d5862257490b08351180fcc0feb0e68cbc5d84e4c75d187fbfa8b3dbe8660561521cc1f19c7ffc79d1e998f2a3702121054aa7374600551166a2dda64f3bd682f0ec606b9741816d5d258385cffef3ee87e7f7275c0ce5270a4d7855b8ee545a79149a79f6ac212688dd43e963edf51369938a1ae026f216bfa621b2894ea35bcfc7a303380d310758862ad2d72871669d6494fac26c04a1b6e1ae73e5c1cf2d45677363ec956baea1eea23b00fdbc77f8d4e1a87e84cea7fa79b68a16be064cc23b8dab2aa0d1e356853b60b392bee92296292e42df1950d2a9c14b4815ec5e3d95fe462d52e7556075141e4cc08ed512f89a7f112a5665655e6640cbb057711f63aa5d823faa41ea40ffc088bf7947dd2ffee21b42e21c1c2c865fc752d2010bdcdbb5f4f487b9f54ea6dced854039bb67ad0b22a1fb64cb13d63d29eba83cee898c7e51b53ab8f24313c0d52663387b3a98e57ba7d37b4da339648af591e7afc228e34df64ab1aede31157ee67cef4daf1e2b3dd414bbc0684189c042d24c0da3653aa71343c015506391ddfc52548b5a5a1b8e46de5fbb405306d6e0af078eb0e221250a58968b07189b6ff60b53ff9c5a4b1a02e13b00bf5afeffc747baff22f3f91b547abbc2444a73ac5380c35bad2f4be96e4cafdd85caf55b73ad8ffb66838dbe982577a2d3078defe26f0f4b81d8ba1953c918d0be4b692490d21e0b327c8a5d19efba8152fc976eba198597c36ae69cd579ec088cf0e23e4e57edc7903d5674168248a2245ed45cdc4f4a9d00c88c2f5c3d94fd74b0fcde5ad73bad8f3596e8b6d9028edd38717e44c8b84ff505bbc386793ad97ec571ce2abbb26173bb7faaa270a821ec4e670a6e97b7eb278f6b479e40855dc8eb4b0c991bd23fe041835985747934435f4f38618f5bd5a6b487001ad4fb8a08853bf40920ee89792b8136b0e1d8b87bd7b8ddaf9a1c6900c546a1cb8a4460c53d2297eb93a418308c9c8a0b8ced525fbbbf5f4e8cfb025ced158b3054eb6bfa3fd647b2fea0fd06ea98bf57111a138eb2f5f4141417ad6da249429ce53842b694b8a730a87ec42ee46907e52e501812a15846f829b97cd95d72eef27856e7661f3453d7699eef0fea7a622b0cf94f8c6b4d0f6f0ff02d2bb265cebe52cfca7094387f404381f66f837b86dc4f7afa69d1291bb48304e78a073556b1f3a612bfd108163d6c798cece9c2d23268cf204bd602ee0cae3640292956dbea8eabe7095f69c44d976824e5244e411946f77ae9daf6f0d1bbb813dc9c1dee7a9fe7c1f2fb64d506e1ebbf423e4acf3579d82c0a50e69d87b8ada137b260730d57a82781bb894c66eb55a9565268ea956c70334b92572aafe49a27393a26aef71dc1eba3e3f8c68d38866d0314d95340779c645c18ede7d71eae6324c47165c19b4b93d530f0f541a649b81ca3166597405b0d08dd6fec64fcabf124618bb422694a73682d1bd30a686fe88d3c15fec4de474da92f07fa0400a9353bced7f2a9089faff3770acc39a1c38d65c37bb82298ab599f7c9963a852ff793afee1a40720d0d86a020585759a45f51d88a021221b6ed08d33ad1d07124de78815c7f434edf83e8515c9d3c4845801e97d1daadf7a2a4dfc99e0d1a0739c8efeb4b52ec3c9dfe666dc78b5b19a4de94e2d03f05476996f87e0adb4c3f8979293408fe880d425a822c3464633c459ecf51c3ddac57197d72565e3bfcfe3b31f1df863f0d1d169c6b687bc8462794ac1735e854b44cdd3503b5e229b0283dc5554aec4f24d4f6cf7cb3a28ce42e05e07c5789a1c1b59756a447da7602a4bd26c8be62ba7eb0933795e3fd794d8226d9008115f42b3191563fd5bd816d4da78e0392763781216c1fb2dc44d06f2925bce5cd79e11bd7565c57f86d4f5688bf3b00bc1ad4efeebd0b9b21e56d2dad5d2f35041ff8fac5ea170081e38e615893ddff1e112f2b572b73fe2fadbdbe4c07669a65000a306d6a7cf8e7f8e7005c4c4662529185393fb5e9200ce61933dc08e94b3e6df3c06afeca74582f66dd0cbb392bf573009b052da8c754c417d1359923b7c7c79c9b22ddcfcb4d7f745ce47c0ece455829c74494c23ebb55647a0850e6052a88212b41dc37992db9261debc9449fdf499b6123c61c2ea74f59967291c2af9abcefbdc0e86111358251a5630aa71d4097abd0eb20519121d6004884d3da80241b2460aea9046b4c5ec79097aab5bcf8f8ee12f347e16ae4cf85cf8f8399148eae86d16495cdcf0eff613ef627d2633dc3f33e9818a4e53140a5a1b2aaf9316b586f07a072ac4a3010852af9cefe803f46edd26a8c72185e2a12102b5a4f54fc6dc181ad6c4dea2be7791c1acae6854a8ceb8a060852fa44f828ee7c7b755e893eaeed5fca4092cee1e226ee6c858615b09db63f377e94af7248e7c138f1371ee9039a3bfb1b106de26da962cf7f6e638dadcfb9fd2accf2c7b09f16b0016a8f4e7f310fbf5b390110f71bd791a1f9eee41bab61c015e07889ed137ed288e87c9bde88314690a356d47467e75b970eb2075403920acc8ae1e041b1e0fd4ca620bb5a2d25c49f9322df6be3fb3b5db134f081ee2ed477f54cb3a7d342f9820dd</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>⓻ 博文复习日志</category>
+      </categories>
+      <tags>
+        <tag>Review</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Tmux常用命令</title>
     <url>/2022/01/26/636030b11533/</url>
     <content><![CDATA[<h3 id="tmux常用命令">Tmux常用命令</h3>
@@ -3586,25 +3585,52 @@ False</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>博文复习日志1</title>
-    <url>/2022/02/11/f9ce168b2bf7/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="5734a7de8e600d231091ff676bd42181369bfba87d201edfc5c14b2e92db6878">0b64cd3abe5b0a0a039a37d86c66d75eaeb9cde5c6dadc3c6d4d424e956e68e5859de93c067c256c245d75df485065102f6e2903c24acc225d3947c06b46eb863dd4b5852f98aab38803012f003c6c5ce6fff79afb10e1792ca7214d925987e0c717d406814885b789fb91e2e91f62e79489c1eb338c6615f677769d830ccf190fb9bbb686abd703322115c45664a457c7196ebc5128f0dbc61fa90adc2470af75105015c70e866cf9e65b8431b286f91724aada9a9fd5965d62719e3af60032aa7a2f77ed452eac7ab39f33c601c5d6de7df46cb4de25570ccbf95f141c0967a7b34c72683919d199358e5f05f83fc8af0d4a187180a67e0dfe958e0af9d66d33ab8d086e02df177e615e8042752039b5aa8ebbbf03fd595157a16f93e9d8aa7f0b856ccb5a1ec0ac5a77b1362d12bdc9c4ff39d2127ba4fa1a34736ed266b04fafccd0a982584b7e617ef2c7abee5c2cc4fbc96fa0391fe18bb0613a55fbdf71d01cafec27c0e41772b97d10dd173daa0e0dc1b05aa7b9d97e8244f9fba4f4018e4818e86e70f34c862bd69d9675ed15877d5449c4b7e8a6d6bc656ea82eba26ae72ad6ef75be44700be429e708bf43289740b82d67832194999149db733dd79f9775627aca1553102949d134429a4b5ec014c19965b51aacdd0b8af88faa8f0dd23ee465a91973610403e7f7015e27c4ca73425c835a103746324927ac9961a1fbbfa364ec6f09dca400884a8cd26d49df0e797f917bf5e1ddd4ce84f68c180d01f4a2b8fa7ffb12c378c27f7d149c0574024f6c7d997926a562382a75b7df0671abdb0741935b21dd625401ae2c8d83fe10f25ad46985c2442617293a87fa44bbe23878f5f0a341dd752b7d2f22ca0c80b746b4da56555f586c5ff770b6bc47b247939fd87fd97df54dee143d09a3572eb4097e5f0acb6a7c82b3d0bd31f0a92cb99e2c8c3cab16ed7b365b2a600a5fa080289d1d865a6b4c227ecbbb2fd1d2fdfd66082ef6074198a5aaa6aba8d4829da5c094a86176a0841491ccf4dc7ee545dd7a034ee8259f5f0011b7db9e433b4673050c085dd734b2e70a09f2866709876a15e124d99989ea943727a984ca6d5fc822e64d93de977821ab9d78a78ef14d4567d09ff69b40b6e6c01fc6b8680b5e704e23e00aedbcbea610a97288743de8f574fb680a2444d1c9d3f94bab3288a3ad504535c89a6c20f7dc83354a56877fb4beb4518dfce2d32f5293c16af8aa7f66eb6226c5fa93f423ffb44e166affdca16f9a05ffbdb05f1f2538680745a068f73f4f030afaf58b008316ecabc4bf15eeeed12b2a52f68c9ea007ac8768c5c6369f545833605181f6bac06257a122e6ffbee6c14cf2560e5a3b90604789144a509dcffc9236565ac7c26ffdac2199fbd3f470921f9c58fce79be41fd174f513de5530a298d2163c94cb7367570c6d709e3c6eedf24bc7f3e257d899a37ee636ba4fe04cb801f41d3c5b0716f199f23245ae06122c75a258215886896d8e941bf301108f3462f67f73121ea5b0aa5cabb8acfc32b4daa04a6014d2b05523627fb55d8b62b8565d6f2742035f260619cdae288d7b95e305a7b63421ceea761a047995e93ac206cdbf1fe479b687041f30d9083acd89f42d977a9257aa6f25950b3aeb3f06861ce31b9a0be69af54e637cb197c1238eb3fadd76adb0a97a323c64e2a34f9bdd00d779740449a5558edfc0187cd35c7a2ee95e0c21a0d27cd826e9416d9c405093e796a880a3a0cc20dec018e9c71f66aab54c8ebc7b2080498895a41512129103fa751121bd758cbd12e794685d1087a2844eb0494812bd86a5ca45157ca56a8e9451ea285e0f4c4aa3fcf8ea8af6c5021bba6fd67f9c2e3fc9aa5ac9f3c02a1cb57ce09b545d81b93cf3a9ed1c9cea76e5f2c8324a405e21bec4f37dd50b47d82cf68e0be38d9c8abcb3dfdf7086e46fe9a474e8253fc2d4a50b1ea681c53f39eb8051d3d1d7100b6184437a37ff53f34faf3f2b2e76e117ce47273c0fe4f75873df7fc377e1c3b7e8a180207ec326f2caaa79e5e672744f6795f10a78abef27b27e0953f29e2feb01fd6200284d0fb97e16534f8a234e4cc3134f5a103d2143b40523d277cda610eb3ebb53cce25b589fb3202da36018584b201f0efa38ec2d614a655cf21a56a0cbf67f439514f3445a07592f65ade23ac22f420830df90c395561b29e21156abd5e8af33cfd468013c1f04c0e3220820eeb86cc17d45798140c744c786b738ba23ae99675f189ee70dcf02cf5744c19b5c1084f3400caf5fc6b6456c8832e41d92cb1b664fd0297157d64629fd388961ee389a5226b60068a0eb0a78d48af553412d2e0866a1acbb5fb1f1754dd617e9f97b7c8f52cf8f2e76ec50e6c35ab04a5db2145b09344ec548405ca26274d6ac8471a1cb6dfbb1b616c26b2e45c85e87bd1a542563eb2b0c0d8f1ba79af341c4734c93cda4e93e05a8e1963c7ed0d320281388e552965dd33ac8f4e7ab0e38b7eb506e41b123c270fba5731b62372f40e5a4723155543790496c3e13e8999601978f9b51cfeffd3384b131367ea10bf445e905999513d0fae7f1293d91824a27fd8ebac8a0d614838ffbeb5d96f92522291435daba7c4fd34641136cc74009ce4da35484a180b2cf738d560196729705a95fc6e4a0a131e7ad1f6e58c6a5509fc0d193db3581f1529c91ba368f33d8d436d1c57eeb9efc2222b43f9c05ef45ef9cc7af5d44d73b8eee95061490f3755d80b7401f215ed7d358736f9e39b8664b73b50b8f6928a09bb3e3ec9f7f0b12dcb33638e684fb1ea23e182002d69213033ff32081f3677d4da9f4da9a6200d32af6345611f43a811b90c14b113e7efe51db0ffa66c63d8c7ef4b8f8c4c18346de3ebc2904386dc5909f3fcf87c3e538f98362ebc9ce8a2b9a3f1ee4e98c79ffe505049bf3ecb03d052e3c9005687ce224189a0a7b2cad32cd6e833f8d5bb900d08735398e5b930bce023d6700a90d05ee7774743910920e9e3127b35043485ca0fba788a988c514c45f8771f704a5c934f4ea0f6bee0a9dd76d8b493f470fb2e321558b3ef19151eb97ea08471a0b12c6ecadf139849d1609986cb0dafe576df189a60085cd29ade011e7cf9c7b63c5f4ed81c9bd40c26fef4b225d8b26ed8ec94338e3a651d4f2573204f1488c488aed9af338a630e02ee8b4ab8727adfc060d3c1dd2ae37f8c589666037a6718cccae93b8f3b976b4b5a17affd40008cae1689ee249ef445d8a5315cd21a1b957efffd6524bf3645cdc95869f2a43dfce4d6bb71ba4008f2ae005ecdb12f9bea4722ad836b1f6abd424ad3f02a02c048567c3bdcf7f489566d44c5f3a21877698bf9163989c22dcc3647e3340e114266381801df786c6fde82b052c4a521fb2b26565c0c5ccb2569dde84414de256a78df1118cbb08cfdb14bb87ec1ded2f0b7e718e31e7288850d76205ab005d98a8374a0b8f55645919e7cc4380538b0079f8f97a3568c338015907111df6c0e490ee582677d72b80b33f01aac61326d41897a9d56dff2b683c7624b4bb4e71cd22e78f8d73d7a99607cef2ad26379416f969a7aa52ad973121799a09771d8c6e53787477eb859168e7a1b0705df97724abce2aba5d1b56616715438c4340e26268622e3b36c0fcd21b2fd51b0ef6b9489a6abc6299b6589ac3b59bcd182369968bce00bc7499b75faba475e52194c0d7351be37c8b220308c3aa04af599c19818cf275ff8409f84d3ed6846706f63b57c0520e3d3914f32bf9daceed10d3923508aad66e5468cdef671d6521c001af5d1056db3a104ad7eda6df050b83fdb74b20ccb7d2e55d060e3e13e41bfc5c1768305bfcf8b2a2e42eedb1f7d4c36b3ec4e182c858f6935e0659eef7cb687f654e27c4194c9690f8913e66a1df9f524b93faf1789cd5aa85d303f47e741041046f82f08bd7c186492824236abd0e446e6668669e787aec7195a62c0775beae4a1e902b976bf92055a89300f02a909011cab0c27d2796204280c654837ae9c8f9122a7004b475c557bc45c80dc58806692cd0fd0d31efef3b0b78a034bd978ed5eac292439b347619017aa2e96d1e3f4325baa0c72ec635a6e5f52164cde2d4e9640539292bb73e7f5ee283b22c89d8b5b047a7e835e5ae71f23f7a1391a735b7eaceb8006a384090ae9c60a55e646c29d9f7141c65360a2b6c14b8756fc4b1aa57b0b508e790ea9aa9ee476cfeda4b335003a1506e077a46819ae03478c3328fa711e339f8a83d194f3f271d284cf56410a66913032300b1660600e9d4cb1ccca83ba64e82aebe7ed490752ea7f85b452bc926b29c274d7976e84b14b96d60b6103de6990eceba1785cc968ba8bf003632b5c42bd8d7bc428d575a0dfc28434f04a008fe3571db357061ce0a52686f153fc95b1163722a42484c46a50227bcc61fa812e4fcf1f8deb5164206ef0a5d6976c81b28888be0ebe0b15d4186a084d0442e090406df08a6449ed0400e4c275d266ce520441fbbc7a72c6f23767c2c6cf1eb12c2b6c574679cc6e2ed3e4c4c8203828aac4e811fac757e2eb640aee657e2c2df6b747ba2148964098a70616aee179d08afa935f4013a7d8a8747d20759588abf3420ad24950aa867d50d54fe2e1c25df5dddaa8b528013e82ff13ff3d6a94e2453a3f1c44024d3daf08477e62ea9494b1fd37fe96baf126122816ac7becc18721535254e657e5f5194e4698f87626ad56ba7ac6d7a13a8818bf2bc6b293b1a93979836ded825d23e77f0d8d13a333851c0897c56edff76e90d5cd6f3956da857ad6c4538dbdcbdfb83c4d307961b4c7f4d9dcc59ad2994bfced36a2d4f54a43d18272c3de1ffe3806d6206fd3a81df1558f3f5f6e2b52aa631c999cf7b9758f9fdb60bf553ebd7430ecc62e7d888f1c0be56df04b55189b8292f93d809ee1ce46aea0cea359105d122c8e9be28a1a796440d7b125590e949dc1665e3e1a17a7c7322012999d1ab5bcb3710d376765c9cba6bff8fbf79b894b3c6ce0ea8ce3072f4de8584e353395aeeb46c9504e3357c6b8b5fc2e6e71b19a70374b926af0f3b49843f49c1254e53e7c4257c56752ecde0bb756a828c05be23127cdd6afa7ee7d611b832c10e8e51d63e6d4f1947eb2808e8ec48fa1340e8742dc9d7523cb6c18d6e96b1e3b70051fa908557652d98ba77317c8af4adfbcc54cd6783861d5e8965a073aee61401856f454ae1dc0abad74d98d23ae757bc5368be0fcc3ea6366fe6dc7bcde2c86491e16d40a7463202d272b42efa0a38a41d53523eb75a17ce0379a09ed353a15d29d2885ff58df61ddb082a8082377e471a85ff6c3ae1a9a4924d08aef7d7980d972f5686d4be2185f70d1df8cb4b152df63e07784d0f0ea4c7b606770c042a40e6aca834e3c6846f064a7bb99d7167833bd40ab4786766d4527e8474936d56853f84d9f2097551789cc804655229011a5b202cd2c95046074484c93e60b4e4f635145290743188dca22011b75d539aa09a98fd37de1d62f8eff7dc45563090b4684b6bcef6f6eeb7e486d916cbde2ed84eb34a23f0c62b98fa37be5f3b883202230217d5b9b6e3bd897b845defebd0977afa5f702fffd0a8e29978d86ac1ca2751946261a7c9afd189853f30a5a183bc7fd9c63b466544d5afe730e77f920caf673f019c762f1f2d3b4d58fdc6b7f115433f60518d1944a780a4668cd5a08cdd4769f8d810a8434f90c281abef969cb6730b0f9a5a34bad2625135c0cd7474976557df8bdbd276fe6d6970f928e4845ef852323f390ade0728b721567926287b68830edd81c1bdebf325dd73e6536feb100516cbbe02b61009856a42089bc0b670acb1d988606150ff32529bd16987d8fbc8aba08d8f04a4955a1f529ba8285b5db99ab0f77dc5365b629c11f1479fa8ec4e8556b171c4b5a53cd63189b0791d67eb304f8b5517e2e0cde44d4cb2d78638835ad4235276411c14415e401c08f1842efae0f459858907f4131876be1c32f823cbc2910990994d5862257490b08351180fcc0feb0e68cbc5d84e4c75d187fbfa8b3dbe8660561521cc1f19c7ffc79d1e998f2a3702121054aa7374600551166a2dda64f3bd682f0ec606b9741816d5d258385cffef3ee87e7f7275c0ce5270a4d7855b8ee545a79149a79f6ac212688dd43e963edf51369938a1ae026f216bfa621b2894ea35bcfc7a303380d310758862ad2d72871669d6494fac26c04a1b6e1ae73e5c1cf2d45677363ec956baea1eea23b00fdbc77f8d4e1a87e84cea7fa79b68a16be064cc23b8dab2aa0d1e356853b60b392bee92296292e42df1950d2a9c14b4815ec5e3d95fe462d52e7556075141e4cc08ed512f89a7f112a5665655e6640cbb057711f63aa5d823faa41ea40ffc088bf7947dd2ffee21b42e21c1c2c865fc752d2010bdcdbb5f4f487b9f54ea6dced854039bb67ad0b22a1fb64cb13d63d29eba83cee898c7e51b53ab8f24313c0d52663387b3a98e57ba7d37b4da339648af591e7afc228e34df64ab1aede31157ee67cef4daf1e2b3dd414bbc0684189c042d24c0da3653aa71343c015506391ddfc52548b5a5a1b8e46de5fbb405306d6e0af078eb0e221250a58968b07189b6ff60b53ff9c5a4b1a02e13b00bf5afeffc747baff22f3f91b547abbc2444a73ac5380c35bad2f4be96e4cafdd85caf55b73ad8ffb66838dbe982577a2d3078defe26f0f4b81d8ba1953c918d0be4b692490d21e0b327c8a5d19efba8152fc976eba198597c36ae69cd579ec088cf0e23e4e57edc7903d5674168248a2245ed45cdc4f4a9d00c88c2f5c3d94fd74b0fcde5ad73bad8f3596e8b6d9028edd38717e44c8b84ff505bbc386793ad97ec571ce2abbb26173bb7faaa270a821ec4e670a6e97b7eb278f6b479e40855dc8eb4b0c991bd23fe041835985747934435f4f38618f5bd5a6b487001ad4fb8a08853bf40920ee89792b8136b0e1d8b87bd7b8ddaf9a1c6900c546a1cb8a4460c53d2297eb93a418308c9c8a0b8ced525fbbbf5f4e8cfb025ced158b3054eb6bfa3fd647b2fea0fd06ea98bf57111a138eb2f5f4141417ad6da249429ce53842b694b8a730a87ec42ee46907e52e501812a15846f829b97cd95d72eef27856e7661f3453d7699eef0fea7a622b0cf94f8c6b4d0f6f0ff02d2bb265cebe52cfca7094387f404381f66f837b86dc4f7afa69d1291bb48304e78a073556b1f3a612bfd108163d6c798cece9c2d23268cf204bd602ee0cae3640292956dbea8eabe7095f69c44d976824e5244e411946f77ae9daf6f0d1bbb813dc9c1dee7a9fe7c1f2fb64d506e1ebbf423e4acf3579d82c0a50e69d87b8ada137b260730d57a82781bb894c66eb55a9565268ea956c70334b92572aafe49a27393a26aef71dc1eba3e3f8c68d38866d0314d95340779c645c18ede7d71eae6324c47165c19b4b93d530f0f541a649b81ca3166597405b0d08dd6fec64fcabf124618bb422694a73682d1bd30a686fe88d3c15fec4de474da92f07fa0400a9353bced7f2a9089faff3770acc39a1c38d65c37bb82298ab599f7c9963a852ff793afee1a40720d0d86a020585759a45f51d88a021221b6ed08d33ad1d07124de78815c7f434edf83e8515c9d3c4845801e97d1daadf7a2a4dfc99e0d1a0739c8efeb4b52ec3c9dfe666dc78b5b19a4de94e2d03f05476996f87e0adb4c3f8979293408fe880d425a822c3464633c459ecf51c3ddac57197d72565e3bfcfe3b31f1df863f0d1d169c6b687bc8462794ac1735e854b44cdd3503b5e229b0283dc5554aec4f24d4f6cf7cb3a28ce42e05e07c5789a1c1b59756a447da7602a4bd26c8be62ba7eb0933795e3fd794d8226d9008115f42b3191563fd5bd816d4da78e0392763781216c1fb2dc44d06f2925bce5cd79e11bd7565c57f86d4f5688bf3b00bc1ad4efeebd0b9b21e56d2dad5d2f35041ff8fac5ea170081e38e615893ddff1e112f2b572b73fe2fadbdbe4c07669a65000a306d6a7cf8e7f8e7005c4c4662529185393fb5e9200ce61933dc08e94b3e6df3c06afeca74582f66dd0cbb392bf573009b052da8c754c417d1359923b7c7c79c9b22ddcfcb4d7f745ce47c0ece455829c74494c23ebb55647a0850e6052a88212b41dc37992db9261debc9449fdf499b6123c61c2ea74f59967291c2af9abcefbdc0e86111358251a5630aa71d4097abd0eb20519121d6004884d3da80241b2460aea9046b4c5ec79097aab5bcf8f8ee12f347e16ae4cf85cf8f8399148eae86d16495cdcf0eff613ef627d2633dc3f33e9818a4e53140a5a1b2aaf9316b586f07a072ac4a3010852af9cefe803f46edd26a8c72185e2a12102b5a4f54fc6dc181ad6c4dea2be7791c1acae6854a8ceb8a060852fa44f828ee7c7b755e893eaeed5fca4092cee1e226ee6c858615b09db63f377e94af7248e7c138f1371ee9039a3bfb1b106de26da962cf7f6e638dadcfb9fd2accf2c7b09f16b0016a8f4e7f310fbf5b390110f71bd791a1f9eee41bab61c015e07889ed137ed288e87c9bde88314690a356d47467e75b970eb2075403920acc8ae1e041b1e0fd4ca620bb5a2d25c49f9322df6be3fb3b5db134f081ee2ed477f54cb3a7d342f9820dd</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+    <title>Python搭建深度学习框架系列笔记2——优化器</title>
+    <url>/2022/02/19/ae16c36098c7/</url>
+    <content><![CDATA[<h3 id="三优化器optimizer">三、优化器Optimizer</h3>
+<h4 id="在不封装优化器的时候如何在计算图上执行梯度下降法">1、在不封装优化器的时候，如何在计算图上执行梯度下降法？</h4>
+<pre><code>当我们还没有明确提出优化器这个概念的时候，我们遵循如下过程去在计算图上执行梯度下降来优化损失函数：</code></pre>
+<ul>
+<li>1）对结果节点的上游变量节点(Variable)赋值或初始化【包括输入向量节点和训练参数节点】</li>
+<li>2）在结果节点上调用forward，计算出它的值，数据前向传播</li>
+<li>3）在所有需要训练的变量节点( Variable, trainable = True )上调用backward方法，梯度反向传播，计算出结果节点对该节点的雅可比矩阵。【仅包括训练参数节点】</li>
+<li>4）根据变量节点的jacobi属性中的值，从变量节点的当前值中减去 用学习率 * 梯度的值即为更新后的值。</li>
+<li>5）清除所有节点的value和jacobi属性，回到第2步</li>
+</ul>
+<h4 id="优化器的封装">2、优化器的封装</h4>
+<p>​ 其实，优化器所实现的功能就是上述训练过程中对可训练的变量节点的值进行优化的过程。但是由于，可能存在各种多种多样的优化器，为了便于外层用户使用，代码的整洁，我们需要将优化器的功能封装起来，然后进行使用。</p>
+]]></content>
       <categories>
-        <category>⓻ 博文复习日志</category>
+        <category>⓵ 深度学习笔记</category>
+        <category>Basic系列笔记</category>
+        <category>Python搭建简易框架笔记</category>
       </categories>
       <tags>
-        <tag>Review</tag>
+        <tag>Framework</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Pytorch学习笔记9——常用编码技巧（更新中）</title>
+    <url>/2021/12/17/2631c2e52e76/</url>
+    <content><![CDATA[<h3 id="task1">Task1：</h3>
+<h4 id="任务描述完成padding填充使得h和w为2的倍数同时实现下图所示的变换">任务描述：完成padding填充，使得H和W为2的倍数同时，实现下图所示的变换：</h4>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/image-20211229101356170.png" /></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入的x，维度size为[B,L,C] ,其中L = H * W</span></span><br><span class="line">x = x.view(B, H, W, C) <span class="comment"># 首先将其重新展为 [B,H,W,C]</span></span><br><span class="line"><span class="comment"># padding 然后，如果输入feature map的H，W不是2的整数倍，需要进行padding</span></span><br><span class="line">pad_input = (H % <span class="number">2</span> == <span class="number">1</span>) <span class="keyword">or</span> (W % <span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line"><span class="keyword">if</span> pad_input:</span><br><span class="line">   <span class="comment"># (C_front, C_back, W_left, W_right, H_top, H_bottom)</span></span><br><span class="line">   <span class="comment"># 注意这里的Tensor通道是[B, H, W, C]，所以会和官方文档有些不同</span></span><br><span class="line">   x = F.pad(x, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, W % <span class="number">2</span>, <span class="number">0</span>, H % <span class="number">2</span>)) <span class="comment"># 在右侧和底侧进行padding</span></span><br><span class="line">   </span><br><span class="line"><span class="comment"># 此时要开始进行下采样了，如何在H，W这个平面上进行下采样呢？ 非常关键的编码技巧！！</span></span><br><span class="line">x0 = x[:, <span class="number">0</span>::<span class="number">2</span>, <span class="number">0</span>::<span class="number">2</span>, :]  <span class="comment"># [B, H/2, W/2, C]   ::2 代表 步长</span></span><br><span class="line">x1 = x[:, <span class="number">1</span>::<span class="number">2</span>, <span class="number">0</span>::<span class="number">2</span>, :]  <span class="comment"># [B, H/2, W/2, C]</span></span><br><span class="line">x2 = x[:, <span class="number">0</span>::<span class="number">2</span>, <span class="number">1</span>::<span class="number">2</span>, :]  <span class="comment"># [B, H/2, W/2, C]</span></span><br><span class="line">x3 = x[:, <span class="number">1</span>::<span class="number">2</span>, <span class="number">1</span>::<span class="number">2</span>, :]  <span class="comment"># [B, H/2, W/2, C]</span></span><br><span class="line"><span class="comment"># 然后将四个子矩阵在channel维度[也就是最后一个维度]上进行拼接</span></span><br><span class="line">x = torch.cat([x0, x1, x2, x3], -<span class="number">1</span>)  <span class="comment"># [B, H/2, W/2, 4*C]</span></span><br><span class="line"><span class="comment"># 再重新将H/2,W/2平面展成1个维度</span></span><br><span class="line">x = x.view(B, -<span class="number">1</span>, <span class="number">4</span> * C)  <span class="comment"># [B, H/2*W/2, 4*C]</span></span><br></pre></td></tr></table></figure>
+<h3 id="task2">Task2:</h3>
+<h4 id="任务描述-python中的广播机制">任务描述： Python中的广播机制</h4>
+<p>​ 在python中使用numpy进行<strong>按位运算</strong>的时候，有一个小技巧可以帮助减少代码量——那就是broadcasting,广播机制。简单来说，broadcasting可以这样理解：如果你有一个m * n的矩阵，让它加减乘除一个1 * n的矩阵，它会被复制m次，成为一个m * n的矩阵，然后再逐元素地进行加减乘除操作。同样地对m * 1的矩阵成立。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/750.png" /></p>
+<p>代码示例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A = numpy.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">result = A + <span class="number">100</span></span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">	[101 102 103]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># 就不再需要去书写 A + [100,100,100] 了</span></span><br><span class="line"></span><br><span class="line">A = np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])  <span class="comment"># [3,2]</span></span><br><span class="line">result = A + [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>]   <span class="comment"># [3,1]</span></span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">[[101 202 303]</span></span><br><span class="line"><span class="string"> [104 205 306]]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>### Task3:</p>
+<h4 id="section"></h4>
+]]></content>
+      <categories>
+        <category>⓵ 深度学习笔记</category>
+        <category>Pytorch系列笔记</category>
+      </categories>
+      <tags>
+        <tag>Pytorch</tag>
       </tags>
   </entry>
   <entry>
@@ -4185,6 +4211,35 @@ False</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>机器学习基础系列笔记4——Depth-wise卷积 &amp; Point-wise卷积</title>
+    <url>/2022/01/05/60775df9d62e/</url>
+    <content><![CDATA[<p><strong>提示：阅读本文前需要你掌握卷积相关操作概念</strong></p>
+<h3 id="normal-convolution">1、Normal Convolution</h3>
+<p>​ 输入一张3通道的图像，我们有4个3<strong>3</strong>3的卷积核，卷完以后，会生成4个特征图。特征图的数量等于卷积核的数量。每个卷积核的通道数与图像的通道数一致，一一对应相乘。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114211015420.png" /></p>
+<h3 id="depth-wise-convolution">2、Depth-Wise Convolution</h3>
+<p>​ Depthwise Convolution的一个卷积核负责一个通道，一个通道只被一个卷积核卷积。上面所提到的常规卷积每个卷积核是同时操作输入图片的每个通道。</p>
+<p>​ 同样是对于一张三通道输入图像，Depthwise Convolution不同于上面的常规卷积，其完全是在二维平面内进行。卷积核的数量应当与输入的图像的通道数相同（因为通道和卷积核是一一对应的）。所以一个三通道的图像经过运算后生成了3个Feature Map。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114211022892.png" /></p>
+<p>​ 总结而言：Depthwise Convolution完成后的Feature map数量与输入的通道数相同，无法扩展。且这种运算对输入层的每个通道独立进行卷积运算，没有有效的利用不同通道在相同空间位置上的特征信息。</p>
+<p>​ 但是，Depthwise通过深度以及广度的操作能很好的保留各个通道信息的同时，降低了计算开销。而这一思想也逐渐应用到了移动端神经网络。</p>
+<h3 id="point-wise-convolution1x1卷积">3、Point-Wise Convolution(1x1卷积)</h3>
+<p>​ Pointwise Convolution的运算的卷积核的尺寸为 1×1×M，M为输入的图像的通道数。如下图所示：输入图像为3通道，经过4个1x1x3的卷积核以后，生成4个特征图，特征图大小并不会变化，故而这里的卷积运算其实就是将输入的图像在深度方向上进行加权组合，生成新的Feature map。</p>
+<p>​ 详见：<a href="https://blog.slks.xyz/2022/01/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B05%E2%80%941x1%E5%8D%B7%E7%A7%AF&amp;%E9%83%A8%E5%88%86%E5%8D%B7%E7%A7%AF&amp;%E7%A9%BA%E6%B4%9E%E5%8D%B7%E7%A7%AF&amp;%E5%8F%AF%E5%8F%98%E6%80%A7%E5%8D%B7%E7%A7%AF/">机器学习基础系列笔记5——1x1卷积 &amp; 部分卷积 &amp; 空洞卷积 &amp; 可变形卷积</a></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114211035827.png" /></p>
+<h3 id="depth-wise-separable-convolution">4、Depth-Wise Separable Convolution</h3>
+<p>​ Depthwise Separable Convolution是将一个完整的卷积运算分解为两步进行，即上面所述的Depthwise Convolution与Pointwise Convolution。</p>
+]]></content>
+      <categories>
+        <category>⓵ 深度学习笔记</category>
+        <category>Basic系列笔记</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Convolution</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习基础系列笔记3——反卷积Deconvolution</title>
     <url>/2022/01/04/358236d3ae54/</url>
     <content><![CDATA[<p><strong>提示：在观看此篇文章前，需要你掌握卷积操作。</strong></p>
@@ -4214,35 +4269,6 @@ False</code></pre>
       <tags>
         <tag>Machine Learning</tag>
         <tag>Deconvolution</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习基础系列笔记4——Depth-wise卷积 &amp; Point-wise卷积</title>
-    <url>/2022/01/05/60775df9d62e/</url>
-    <content><![CDATA[<p><strong>提示：阅读本文前需要你掌握卷积相关操作概念</strong></p>
-<h3 id="normal-convolution">1、Normal Convolution</h3>
-<p>​ 输入一张3通道的图像，我们有4个3<strong>3</strong>3的卷积核，卷完以后，会生成4个特征图。特征图的数量等于卷积核的数量。每个卷积核的通道数与图像的通道数一致，一一对应相乘。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114211015420.png" /></p>
-<h3 id="depth-wise-convolution">2、Depth-Wise Convolution</h3>
-<p>​ Depthwise Convolution的一个卷积核负责一个通道，一个通道只被一个卷积核卷积。上面所提到的常规卷积每个卷积核是同时操作输入图片的每个通道。</p>
-<p>​ 同样是对于一张三通道输入图像，Depthwise Convolution不同于上面的常规卷积，其完全是在二维平面内进行。卷积核的数量应当与输入的图像的通道数相同（因为通道和卷积核是一一对应的）。所以一个三通道的图像经过运算后生成了3个Feature Map。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114211022892.png" /></p>
-<p>​ 总结而言：Depthwise Convolution完成后的Feature map数量与输入的通道数相同，无法扩展。且这种运算对输入层的每个通道独立进行卷积运算，没有有效的利用不同通道在相同空间位置上的特征信息。</p>
-<p>​ 但是，Depthwise通过深度以及广度的操作能很好的保留各个通道信息的同时，降低了计算开销。而这一思想也逐渐应用到了移动端神经网络。</p>
-<h3 id="point-wise-convolution1x1卷积">3、Point-Wise Convolution(1x1卷积)</h3>
-<p>​ Pointwise Convolution的运算的卷积核的尺寸为 1×1×M，M为输入的图像的通道数。如下图所示：输入图像为3通道，经过4个1x1x3的卷积核以后，生成4个特征图，特征图大小并不会变化，故而这里的卷积运算其实就是将输入的图像在深度方向上进行加权组合，生成新的Feature map。</p>
-<p>​ 详见：<a href="https://blog.slks.xyz/2022/01/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B05%E2%80%941x1%E5%8D%B7%E7%A7%AF&amp;%E9%83%A8%E5%88%86%E5%8D%B7%E7%A7%AF&amp;%E7%A9%BA%E6%B4%9E%E5%8D%B7%E7%A7%AF&amp;%E5%8F%AF%E5%8F%98%E6%80%A7%E5%8D%B7%E7%A7%AF/">机器学习基础系列笔记5——1x1卷积 &amp; 部分卷积 &amp; 空洞卷积 &amp; 可变形卷积</a></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114211035827.png" /></p>
-<h3 id="depth-wise-separable-convolution">4、Depth-Wise Separable Convolution</h3>
-<p>​ Depthwise Separable Convolution是将一个完整的卷积运算分解为两步进行，即上面所述的Depthwise Convolution与Pointwise Convolution。</p>
-]]></content>
-      <categories>
-        <category>⓵ 深度学习笔记</category>
-        <category>Basic系列笔记</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-        <tag>Convolution</tag>
       </tags>
   </entry>
   <entry>
@@ -4450,61 +4476,6 @@ False</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>机器学习基础系列笔记9——归一化方法FRN(Filter Response Normalization)</title>
-    <url>/2022/01/18/c1558b6e2199/</url>
-    <content><![CDATA[<h4 id="一简介">一、简介</h4>
-<p>​ <strong>在先前的文章中，链接：https://blog.slks.xyz/2022/01/16/basic7/，讲解了BN、LN、IN、CIN、GN等多种不同的Normalization，由于在DG-Font的阅读过程中，又发现了一个新的归一化方法叫做FRN，故而在此篇略做记录。</strong></p>
-<p>​ <strong>FRN</strong>是谷歌提出的一种新的归一化方法，和GN一样不依赖batch，故而FRN层不仅消除了模型训练过程中对batch的依赖，而且当batch size较大时性能优于BN。</p>
-<p>​ <strong>原论文名称：</strong>《Filter Response Normalization Layer: Eliminating Batch Dependence in the Training of Deep Neural Networks》</p>
-<p>​ <strong>原论文地址：</strong>https://arxiv.org/abs/1911.09737</p>
-<h4 id="二结构">二、结构：</h4>
-<p>​ 如下所示，FRN层整体结构包括归一化层FRN（Filter Response Normalization）和激活层TLU（Thresholded Linear Unit）。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220118102128474.png" /></p>
-<p>​ 整个结构并不复杂，就是通过一个公式计算，最后经过一个阈值限制输出</p>
-<p>​ 其中FRN的操作是对每个样例的每个channel单独进行归一化的，这里<span class="math inline">\(x\)</span>就是一个N（=HxW）维度的向量，所以FRN没有BN层对batch依赖的问题。BN层采用归一化方法是减去均值然后除以标准差，而FRN却不同，这里没有减去均值操作，公式中的<span class="math inline">\(v^2\)</span>是<span class="math inline">\({x}\)</span>的二次范数的平均值。这种归一化方式类似BN可以用来消除中间操作（卷积和非线性激活）带来的尺度问题，有助于模型训练。 公式里的<span class="math inline">\({\epsilon}\)</span>是一个很小的正常量，一般为<span class="math inline">\(1^{-6}\)</span>以防止除0。</p>
-<p>​ 一般情况下网络的特征图大小N(=HxW)较大，但是有时候可能会出现1x1的特征图的情况，比如InceptionV3和VGG网络，此时就<span class="math inline">\({\epsilon}\)</span>比较关键，</p>
-<p>​ 归一化之后同样需要进行缩放和平移变换，这里的<span class="math inline">\(\gamma\)</span>和<span class="math inline">\(\beta\)</span>也是可学习的参数（参数为长度是C的向量, 即为特征数目，也就是通道数):</p>
-<p>​ <span class="math display">\[{y = \gamma \hat{x} + \beta}\]</span></p>
-<p>​ FRN缺少去均值的操作，这可能使得归一化的结果任意地偏移0，如果FRN之后是ReLU激活层，可能产生很多0值，这对于模型训练和性能是不利的。为了解决这个问题，FRN之后采用的阈值化的ReLU，即TLU：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_01_18_10_32_35_986.png" /></p>
-<p>​ 这里的<span class="math inline">\(\tau\)</span>是一个可学习的参数。原论文中发现FRN之后采用TLU对于提升性能是至关重要的。</p>
-<h4 id="三代码实现coding">三、代码实现Coding</h4>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FRN</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_features, eps=<span class="number">1e-6</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>(FRN, self).__init__()</span><br><span class="line">        self.tau = nn.Parameter(torch.zeros(<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.gamma = nn.Parameter(torch.ones(<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.beta = nn.Parameter(torch.zeros(<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.eps = eps</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        <span class="comment">## input x  shape [B,C,H,W] (batch_size , channel , height , width)</span></span><br><span class="line">        x1 = torch.mean(x**<span class="number">2</span>, dim=[<span class="number">2</span>, <span class="number">3</span>], keepdim=<span class="literal">True</span>)</span><br><span class="line">        <span class="comment">## x1       shape [B,C,1,1] (batch_size , channel , 1 , 1)</span></span><br><span class="line">        x2 = x1 + self.eps</span><br><span class="line">        <span class="comment">## x2 	    shape [B,C,1,1] (batch_size , channel , 1 , 1),  【+ 为逐元素相加，不改变维度】</span></span><br><span class="line">        x3 = torch.rsqrt(x2)</span><br><span class="line">        <span class="comment">## x3       shape [B,C,1,1] (batch_size , channel , 1 , 1),  【sqrt 为逐元素操作，不改变为维度】</span></span><br><span class="line">        x4 = x * x3</span><br><span class="line">        <span class="comment">## x4       shape [B,C,H,W] (batch_size , channel , height , width)  </span></span><br><span class="line">        <span class="comment">##          广播机制,逐元素相乘  [B,C,H,W] * [B,C,1,1] = [B,C,H,W]</span></span><br><span class="line">        output = torch.<span class="built_in">max</span>(self.gamma * x4 + self.beta, self.tau)</span><br><span class="line">        <span class="comment">## output   shape [B,C,H,W] (batch_size , channel , height , width)  torch.max 逐元素操作</span></span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line"><span class="comment">## 相关注解：</span></span><br><span class="line"><span class="comment">## 输入的 x.shape = [B,C,H,W] ( Batch_Size \ Channel \ Height \ Width )</span></span><br><span class="line"><span class="comment">## torch.rsqrt()  对每个元素取平方根后再取倒数，并不会影响如维度等因素。</span></span><br><span class="line"><span class="comment">## torch.mean() 其中dim=[2,3] 代表按第2、3维求平均值, 即在单个实例、单个Channel上求平均</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>⓵ 深度学习笔记</category>
-        <category>Basic系列笔记</category>
-      </categories>
-      <tags>
-        <tag>Normalization</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python搭建深度学习框架系列笔记2——优化器</title>
-    <url>/2022/02/19/ae16c36098c7/</url>
-    <content><![CDATA[<h3 id="三优化器optimizer">三、优化器Optimizer</h3>
-<h4 id="在不封装优化器的时候如何在计算图上执行梯度下降法">1、在不封装优化器的时候，如何在计算图上执行梯度下降法？</h4>
-<pre><code>当我们还没有明确提出优化器这个概念的时候，我们遵循如下过程去在计算图上执行梯度下降来优化损失函数：</code></pre>
-<ul>
-<li>1）对结果节点的上游变量节点(Variable)赋值或初始化【包括输入向量节点和训练参数节点】</li>
-<li>2）在结果节点上调用forward，计算出它的值，数据前向传播</li>
-<li>3）在所有需要训练的变量节点( Variable, trainable = True )上调用backward方法，梯度反向传播，计算出结果节点对该节点的雅可比矩阵。【仅包括训练参数节点】</li>
-<li>4）根据变量节点的jacobi属性中的值，从变量节点的当前值中减去 用学习率 * 梯度的值即为更新后的值。</li>
-<li>5）清除所有节点的value和jacobi属性，回到第2步</li>
-</ul>
-<h4 id="优化器的封装">2、优化器的封装</h4>
-<p>​ 其实，优化器所实现的功能就是上述训练过程中对可训练的变量节点的值进行优化的过程。但是由于，可能存在各种多种多样的优化器，为了便于外层用户使用，代码的整洁，我们需要将优化器的功能封装起来，然后进行使用。</p>
-]]></content>
-      <categories>
-        <category>⓵ 深度学习笔记</category>
-        <category>Basic系列笔记</category>
-        <category>Python搭建简易框架笔记</category>
-      </categories>
-      <tags>
-        <tag>Framework</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>机器学习基础系列笔记7——各种归一化Normalization方法（含BN、LN、IN、CIN、GN）</title>
     <url>/2022/01/16/8d896f318ee5/</url>
     <content><![CDATA[<p><strong>本文介绍了常见的几种 <a href="机器学习基础系列笔记2—数据表征与自动编码器.md">机器学习基础系列笔记2—数据表征与自动编码器.md</a> Normaliza <a href="机器学习基础系列笔记0—常见概念与函数（更新中）.md">机器学习基础系列笔记0—常见概念与函数（更新中）.md</a> tion方式，如BatchNorm、LayerNorm、InstanceNorm、Conditional Instance Norm、Group Norm。 各种Normalization在理论上都能够起到平滑损失函数平面的效果，加速函数的收敛效果，但是它们在机器学习的各个领域上，各有偏重与优势。</strong></p>
@@ -4602,6 +4573,36 @@ False</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>机器学习基础系列笔记9——归一化方法FRN(Filter Response Normalization)</title>
+    <url>/2022/01/18/c1558b6e2199/</url>
+    <content><![CDATA[<h4 id="一简介">一、简介</h4>
+<p>​ <strong>在先前的文章中，链接：https://blog.slks.xyz/2022/01/16/basic7/，讲解了BN、LN、IN、CIN、GN等多种不同的Normalization，由于在DG-Font的阅读过程中，又发现了一个新的归一化方法叫做FRN，故而在此篇略做记录。</strong></p>
+<p>​ <strong>FRN</strong>是谷歌提出的一种新的归一化方法，和GN一样不依赖batch，故而FRN层不仅消除了模型训练过程中对batch的依赖，而且当batch size较大时性能优于BN。</p>
+<p>​ <strong>原论文名称：</strong>《Filter Response Normalization Layer: Eliminating Batch Dependence in the Training of Deep Neural Networks》</p>
+<p>​ <strong>原论文地址：</strong>https://arxiv.org/abs/1911.09737</p>
+<h4 id="二结构">二、结构：</h4>
+<p>​ 如下所示，FRN层整体结构包括归一化层FRN（Filter Response Normalization）和激活层TLU（Thresholded Linear Unit）。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220118102128474.png" /></p>
+<p>​ 整个结构并不复杂，就是通过一个公式计算，最后经过一个阈值限制输出</p>
+<p>​ 其中FRN的操作是对每个样例的每个channel单独进行归一化的，这里<span class="math inline">\(x\)</span>就是一个N（=HxW）维度的向量，所以FRN没有BN层对batch依赖的问题。BN层采用归一化方法是减去均值然后除以标准差，而FRN却不同，这里没有减去均值操作，公式中的<span class="math inline">\(v^2\)</span>是<span class="math inline">\({x}\)</span>的二次范数的平均值。这种归一化方式类似BN可以用来消除中间操作（卷积和非线性激活）带来的尺度问题，有助于模型训练。 公式里的<span class="math inline">\({\epsilon}\)</span>是一个很小的正常量，一般为<span class="math inline">\(1^{-6}\)</span>以防止除0。</p>
+<p>​ 一般情况下网络的特征图大小N(=HxW)较大，但是有时候可能会出现1x1的特征图的情况，比如InceptionV3和VGG网络，此时就<span class="math inline">\({\epsilon}\)</span>比较关键，</p>
+<p>​ 归一化之后同样需要进行缩放和平移变换，这里的<span class="math inline">\(\gamma\)</span>和<span class="math inline">\(\beta\)</span>也是可学习的参数（参数为长度是C的向量, 即为特征数目，也就是通道数):</p>
+<p>​ <span class="math display">\[{y = \gamma \hat{x} + \beta}\]</span></p>
+<p>​ FRN缺少去均值的操作，这可能使得归一化的结果任意地偏移0，如果FRN之后是ReLU激活层，可能产生很多0值，这对于模型训练和性能是不利的。为了解决这个问题，FRN之后采用的阈值化的ReLU，即TLU：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_01_18_10_32_35_986.png" /></p>
+<p>​ 这里的<span class="math inline">\(\tau\)</span>是一个可学习的参数。原论文中发现FRN之后采用TLU对于提升性能是至关重要的。</p>
+<h4 id="三代码实现coding">三、代码实现Coding</h4>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FRN</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_features, eps=<span class="number">1e-6</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>(FRN, self).__init__()</span><br><span class="line">        self.tau = nn.Parameter(torch.zeros(<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.gamma = nn.Parameter(torch.ones(<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.beta = nn.Parameter(torch.zeros(<span class="number">1</span>, num_features, <span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        self.eps = eps</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        <span class="comment">## input x  shape [B,C,H,W] (batch_size , channel , height , width)</span></span><br><span class="line">        x1 = torch.mean(x**<span class="number">2</span>, dim=[<span class="number">2</span>, <span class="number">3</span>], keepdim=<span class="literal">True</span>)</span><br><span class="line">        <span class="comment">## x1       shape [B,C,1,1] (batch_size , channel , 1 , 1)</span></span><br><span class="line">        x2 = x1 + self.eps</span><br><span class="line">        <span class="comment">## x2 	    shape [B,C,1,1] (batch_size , channel , 1 , 1),  【+ 为逐元素相加，不改变维度】</span></span><br><span class="line">        x3 = torch.rsqrt(x2)</span><br><span class="line">        <span class="comment">## x3       shape [B,C,1,1] (batch_size , channel , 1 , 1),  【sqrt 为逐元素操作，不改变为维度】</span></span><br><span class="line">        x4 = x * x3</span><br><span class="line">        <span class="comment">## x4       shape [B,C,H,W] (batch_size , channel , height , width)  </span></span><br><span class="line">        <span class="comment">##          广播机制,逐元素相乘  [B,C,H,W] * [B,C,1,1] = [B,C,H,W]</span></span><br><span class="line">        output = torch.<span class="built_in">max</span>(self.gamma * x4 + self.beta, self.tau)</span><br><span class="line">        <span class="comment">## output   shape [B,C,H,W] (batch_size , channel , height , width)  torch.max 逐元素操作</span></span><br><span class="line">        <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line"><span class="comment">## 相关注解：</span></span><br><span class="line"><span class="comment">## 输入的 x.shape = [B,C,H,W] ( Batch_Size \ Channel \ Height \ Width )</span></span><br><span class="line"><span class="comment">## torch.rsqrt()  对每个元素取平方根后再取倒数，并不会影响如维度等因素。</span></span><br><span class="line"><span class="comment">## torch.mean() 其中dim=[2,3] 代表按第2、3维求平均值, 即在单个实例、单个Channel上求平均</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>⓵ 深度学习笔记</category>
+        <category>Basic系列笔记</category>
+      </categories>
+      <tags>
+        <tag>Normalization</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>科研方法经验整理帖（待更新）</title>
     <url>/2022/02/11/7063ed2ac049/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
@@ -4621,6 +4622,260 @@ False</code></pre>
       </categories>
       <tags>
         <tag>Methods</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GAN系列笔记1——GAN的基本理念与思想</title>
+    <url>/2021/11/30/37e68eb92563/</url>
+    <content><![CDATA[<h3 id="前言">前言：</h3>
+<p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文按照李宏毅老师讲课的逻辑进行记录，先从GAN的基本理论概念讲起，中间提及了Structure Learning的问题，然后回答了GAN中的两个经典的问题，然后对VAE和GAN的结果做了简单的比较，最后做了总结，看完以后应该会对GAN有一个完整的概念与理解。全文共4800字左右。</p>
+<h3 id="一basic-idea-基本概念">一、Basic Idea 基本概念</h3>
+<p>​ GAN是完成了一个Generation的任务，从目标上而言，其实就是我们要训练一个NN的generator，这个generator可以完成下述任务：你给机器一个随机的向量，机器就可以给你输出你想要的物体（可以是图像也可以是其他）。（当然，这种类型的generator看上去是没什么用的，因为你不知道随机向量到底会生成什么样子的东西，但通常向量的每个维度可能就是用于控制输出图像的一个特征部分，现在暂时我们只专注于完成这样一个随机的任务部分）。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214941737.png" /></p>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214945273.png" alt="image-20220114214945273" /><figcaption aria-hidden="true">image-20220114214945273</figcaption>
+</figure>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214948402.png" alt="image-20220114214948402" /><figcaption aria-hidden="true">image-20220114214948402</figcaption>
+</figure>
+<p>​ GAN比较神奇的点在于其还会同时训练一个Discriminator，即判别器。从目标上而言，其要完成如下任务:输入一个图像，输出一个值，这个值越大，代表图像越真实。值越小，代表图像越虚假。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214959500.png" /></p>
+<p>​ 那么在GAN中，Generator和Discriminator的关系其实就是对抗竞争，或者说互相帮助互相进步的关系。如下图所示：第一代的生成器生成的东西，交给第一代判别器。第一代生成器在第一代判别器的反馈下，进化为第二代的生成器，然后判别器也随之进化为第二代，循环往复下去（有一种道高一尺，魔高一丈的感觉）</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215010569.png" /></p>
+<p>​ 一个更好的比方，下图中，Generator和Discriminator就像是学生和老师在对话一样，在这个过程中，学生逐渐进步。老师的要求标准也越来越高。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215031820.png" /></p>
+<p>​ 在这样一个过程中，留下两个疑问：Generator做生成为什么不自己学提高水平呢？Discriminator这么会批评，为什么不自己做生成呢？【解释与回答见第四章】</p>
+<p>​ 现在我们先来讨论一下整个训练的算法伪代码过程，如下所示：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215049291.png" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215052840.png" /></p>
+<p>​ 首先我们初始化生成器和判别器，然后在每一个训练迭代阶段，进行两件事：</p>
+<p>​ 1、我们将Generator固定住，训练Discriminator的参数。具体而言，我们首先随机的输入一些向量，通过G生成一些随机的generated objects，然后再从真实数据库中取出一些objects，将这两部分图片作为D的输入，来训练D。目的是要让D看到generated objects 就给出尽可能接近0的分数，让D看到真实的objects就给出尽可能接近1的分数。(其实就是给两部分图片打个标，然后训练一个分类器，如上图所示)</p>
+<p>​ 2、固定住Discriminator的参数，调整生成器的参数。具体而言就是：将一个随机的vector丢入生成器里，生成一张图片，将图片放入判别器中，得到一个分数，我们训练此步的目标是要使最后输出的那个分数越接近1越好。从代码上，这个要怎么进行操作呢？我们往往会将生成器的NN和判别器的NN合并成一个大的网络，锁住判别器部分层的参数，这相当于这个大的网络中间有一层很宽的隐藏层（就是输出图片那一层），然后我们要使得最后生成的结果越大越好，就是Gradient Ascent，其实就是在Objective Function上加一个负号，就可以完成这个任务。</p>
+<p>​ 下述是更为正式的算法伪代码：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215114053.png" /></p>
+<p>要注意，在这个算法中，有一些超参数是需要手工去调整以找到最佳效果的：</p>
+<p>​ 1、输入的向量的维度，5维、10维、……</p>
+<p>​ 2、在每一个迭代过程中：更新判别器的次数，可以是1~n次。</p>
+<p><strong>算法中的一些解释：</strong></p>
+<p>​ 1、更新判别器参数的时候的Objective Function：</p>
+<p>​ 第一项：<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215147446.png" />代表真实数据集的图像进到判别器中的分数均值。</p>
+<p>​ 第二项：<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215201515.png" />代表生成的图像进到判别器中的分数被1减去后的均值。</p>
+<p>​ 我们要让这个目标函数最大，其实就是完成了最开始说的，真实数据集图像进到判别器中，分数越接近1越好，生成图像进入，分数越接近0越好。</p>
+<p>​ 2、更新生成器参数的时候的Objective Function：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215238651.png" /></p>
+<p>​ 其实就是随机向量通过生成器，再通过判别器后，得到的均值越大越好。然后用梯度上升方法，去最大化这个目标函数。</p>
+<h3 id="二structure-learning">二、Structure Learning</h3>
+<p>​ 首先，什么是Structure Learning？机器学习本身其实就是找到一个函数f，去完成X-&gt;Y这样一件事情。回归问题，其实就是输出一个分数。分类问题就是输出一个类别，结构化学习其实就是输出一个更复杂的比如说一个序列，一个矩阵，一个图，一个树等等这样的问题。往往这种复杂的结构是由很多个组件组成，并且这些组件之间是有关联关系的。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215309664.png" /></p>
+<p>​ 为什么Structure Learning是很Challenging的呢？其实就是如下图所说的，一个的话是它可以被视为One-shot Learning或者是Zero-shot Learning。那什么是One-Shot Learning 或者说Zero-shot Learning呢？例如，在分类作业中，我们如果需要训练，每个类别都需要给出一系列的数据范例。而One-Shot Learning 或者Zero-shot Learning就是指，可能有些类别完全没有范例，或者说只有很少的范例。</p>
+<p>​ Structure Learning里面，输出的是一个结构体，也就是说很有可能训练的句子里面是完全不会有重复的东西的。如果我们把所有的可能输出都视为一个类的话，输出的空间是很巨大的。并且大多数的类都是没有任何训练数据的。所以机器需要一定的创造性。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215320786.png" /></p>
+<p>​ 第二点的话，在Structure Learning中，机器必须学会规划。机器可以一个个组件的去产生，但是它一定要学会组件和组件之间的关系与限制。需要全局的去进行考虑。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215331213.png" /></p>
+<h3 id="三structure-learning的一些解决方案">三、Structure Learning的一些解决方案</h3>
+<p>​ 在传统的方法分类中，其实有两类：一类是Bottom Up的方法，一类是Top Down的方法。自底而上的方法主要是学习怎么去生成Component，然后再进行合并，这个很像Generator做的事情，但是这样很容易失去大局观。自上而下的方法是学会评估一个物体，然后找到最好的那个，这个很像Discriminator做的事情，但是这样做的问题是很难做生成。【为什么这么说见第四章】其实GAN就是解决Structure Learning的一个解决方案，他就像是把两种方法做了结合。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215356504.png" /></p>
+<h3 id="四为什么generator不能自己学为什么discriminator不能自己生成">四、为什么Generator不能自己学？为什么Discriminator不能自己生成？</h3>
+<h4 id="generator为什么不能自己学">1、Generator为什么不能自己学？</h4>
+<p>​ 在传统的有监督学习中，我们只要有大量的真实图片数据，以及他们对应的标签，我就可以完成生成图片这样一个任务。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215423815.png" /></p>
+<p>​ 但是问题就来了，我们怎么给这些真实图片数据打标签呢？如果是随机赋给他们一些向量标签，那最后的训练是会很困难的。因为比如说我们看两个1的图片比较相似，当然希望向量中有一部分的标签内容是类似的，而不是说这两个1的图片对应的向量标签完全不一致。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215433669.png" /></p>
+<p>​ 也就是说，我们总是希望这个input和output的内容是存在一些联系的，而不是毫无联系。说到这里，其实问题还是可以解决的，怎么去解决这个编码问题呢？</p>
+<p>​ 正巧，我的上一篇文章中讲了各种自动编码器的相关知识，这个编码问题，我们可以训练一个NN编码器来进行解决。这个编码器完成一件什么事呢？给它一个图片，它输出一个向量，来表示这个图片的相关特征。具体而言，自动编码器怎么进行训练，详见自动编码器的文章，如下：这里的话也给一张李宏毅老师课程的截图示意：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215447872.png" /></p>
+<p>​ 仔细想来，其实这个Decoder干的是不是就是Generator的事情？是的！因为它也是接收一个Vector向量，输出一张图片，如下图所示：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215456226.png" /></p>
+<p>​ 这样看来，其实理论上来讲，只要我们训练好了一个自动编码器，把Decoder部分拿出来，就是一个生成器。然后我们随便给一个向量，他就会输出一个对应的图像。</p>
+<p>​ 但是Auto-Encoder存在什么样的问题呢？如下图所示：比如说，我们已知a向量可以产生一个图片，b向量可以产生一个图片，那么0.5<em>a+0.5</em>b会产生什么呢？很有可能会产生Noise，因为这样的生成器本身是一个神经网络，不是线性的。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215508501.png" /></p>
+<p>​ 说到这里，其实还没有正面回答Generator为什么不能自己学这个问题，但大家不要着急。我们继续说，这个问题其实我们可以用VAE来解决，也就是上篇文章末尾重点讲过的变分自动编码器。</p>
+<p>​ 如下图所示：有了变分编码器，因为变分自动编码器是对一个概率分布进行了编码，而不是固定的。所以我们能够将这个decoder训练的更为稳定。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215517660.png" /></p>
+<p>​ 那么，现在看来，好像Auto-Encoder就能解决Structure Learning这样一个任务了，那为什么我们还需要GAN这个技术呢？接下去要说的就是Auto-Encoder这套技术所缺少的内容。</p>
+<p>​ 在Auto-Encoder的技术中，我们实现的目标是：让生成的图片和目标图像越像越好。那么问题来了，什么叫越像越好？正常来说，我们就是把这个图像展开成一个vector，然后逐像素的计算距离差。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215528542.png" /></p>
+<p>​ 我们先前说过，自动编码器是不能让它完整的保留所有的信息的，不然就失去了编码的意义，机器只要学习复制就可以了。所以自动编码器的生成器部分，生成的目标总是和源图像会有一些差距，会有一些取舍。这个时候，取舍在哪里就很重要！如下图所示：右上角是目标图像，下面四个是生成的图像。生成图像第一排，只偏差了1个像素，第二排，偏差了6个像素。从计算相似度而言，第一排优于第二排，但是从人的感知而言，第二排优于第一排。所以我们如果只是单纯的计算距离差，让两者越像越好，就有可能会产生第一排的结果。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215538491.png" /></p>
+<p>​ 在做Structure Learning的过程中，我们说过组件和组件之间的关系是很重要的，需要考虑全局观念。这个偏差出来的多的像素本身没有错误，有错的是它如果是有像素值的，那么它周边的组件，也应当是有填充的，而不是空白的。这个像素要和周围的像素一致，这个其实就是组件和组件的一种关联。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215546546.png" /></p>
+<p>​ 但是我们训练一个生成器的时候，当我们训练一个网络的时候，是很难把组件和组件的关系放进去的。因为在NN网络这个架构里面，如果前一层的权重都已经确定了，最后的输出之间是独立的。每个输出神经元之间没法互相进行配合。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215603961.png" /></p>
+<p>​ 其实像这种也可以解决，只不过需要更深的网络结构。更深的网络结构能够帮助你把这种组件与组件之间的相关性考虑进去。所以，如果有一个GAN网络，一个Auto-Encoder网络，要完成一个目标，往往Auto-Encoder的网络需要更深，才能达到和GAN类似的效果。</p>
+<p>​ 其实讲到这里，都没有明确的回答Generator为什么不能自己学这个问题，但是其实已经回答掉了。因为我们刚才讲的，Auto-Encoder就是训练了一个单的Generator，是抛弃了Discriminator的一个架构。如果这样子让Generator自己学，当然可以，只不过会存在上述所说的种种问题和难处。</p>
+<h4 id="discriminator为什么不能自己产生image">2、Discriminator为什么不能自己产生Image？</h4>
+<p>​ Discriminator总的来说干了一件什么事呢？它其实就是输入一个对象，输出一个分数，这个分数表示这个对象多好或多差，进行评估。对于Discriminator来说，它要考虑组件和组件之间的关系就很容易了，因为他是看到整个图片的。</p>
+<p>​ 那么我们其实是可以用Discriminator来产生Image的，只不过会非常的卡，非常的慢，为什么这么说呢，我们先看，如果硬要用Discriminator来产生Image，步骤应该是怎样的：</p>
+<p>​ 假设我们已经训练好了一个好的判别器，那么我们只需要执行如下公式即可：</p>
+<p>​ 穷举所有的x，然后一个个丢到判别器里，让它看是不是高分。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215739478.png" /></p>
+<p>​ 虽然这看上去不是很合理，对于穷举而言。但是这其实并不是关键所在。我们现在先假设这个方法确实可行，那难道就可以了吗？别忘了，我们先前的假设：“假设我们已经训练好了一个好的判别器”，那么我们怎么训练这个判别器呢？这才是问题的关键！</p>
+<p>​ 理论上讲很简单，我给他好的样例，让他输出高分，烂的样例，让他输出低分。但是实际上呢，我们手上只有好的样例。如果只有这样的训练实例，会导致网络看到啥都给高分。所以，怎么去产生不好的样例，产生怎样不好的样例，就是一个很关键的问题：</p>
+<p>​ 如果不好的样例就只是一些噪音，那其实机器很容易会给一些尚可的模糊的图片打高分，这并不是我们希望看到的。如下图所示。所以<strong>只有差的样例足够的好，才能让机器真正的学会评判好的图片和坏的图片</strong>，</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215749015.png" /></p>
+<p>​ 所以现在如何生成足够好的 差的样例就很重要，那么我们就需要一个生成差的样例的过程，在没有Generator的前提下，这就是一个鸡生蛋蛋生鸡的循环问题了。所以如果真的想要完成这件事情，只能通过一个迭代的形式去完成：</p>
+<p>​ 我先学一个最差的Discriminator出来，然后用这个去做生成，生成出来的样例用来训练更好的Discriminator，循环往复。你会发现这个过程好像跟GAN差不多，但是如果没有generator，要比GAN累好多，慢很多。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215808954.png" /></p>
+<p>​ 这时候再来看如果我们把Generator加上，GAN就是利用Generator来求解这个argmax的问题，用于生成一些负面的样例。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215815222.png" /></p>
+<h3 id="五比较vae和gan的结果">五、比较VAE和GAN的结果：</h3>
+<p>​ 下图是各个GAN和VAE在不同参数下，所表现出来的性能分数的值的区间。还附带了一个VAE和GAN生成人物头像的直观结果。</p>
+<p>1、VAE比较稳定，给它不同的参数，所表现出来的性能相差不大。</p>
+<p>2、GAN相对而言比较吃参数，但是只要参数正确，所生成的最好结果也是远远优于VAE产生的结果的。<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/2222sdsa.png" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215842339.png" /></p>
+<h3 id="六总结">六、总结</h3>
+<p>1）生成器：</p>
+<p>​ 优势：很快就能生成一个东西</p>
+<p>​ 劣势：很难察觉组件和组件之间的关系，只是模仿一个表象</p>
+<p>2）判别器：</p>
+<p>​ 优势：可以考虑大局观</p>
+<p>​ 劣势：生成一个东西非常的困难</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114222543440.png" /></p>
+<p>3）GAN的优势：</p>
+<p>1、从判别器的角度而言，使用Generator来进行negative example的生成，更为高效。</p>
+<p>2、从生成器的角度而言，它虽然仍然是一个组件一个组件的生成对象，但是相比传统的计算L1,L2的损失而言，它会从Discriminator那边得到全局视野的反馈，更能理解组件与组件之间的关系。</p>
+]]></content>
+      <categories>
+        <category>⓵ 深度学习笔记</category>
+        <category>GAN系列笔记</category>
+      </categories>
+      <tags>
+        <tag>GAN</tag>
+        <tag>Deep Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GAN系列笔记2——常见GAN变种（ConditionalGAN，PatchGAN，CycleGAN等）</title>
+    <url>/2021/12/01/f2f6972db794/</url>
+    <content><![CDATA[<h3 id="前言">前言：</h3>
+<p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了一些常见的GAN的变种，以及它们的一些核心的思想，包括Conditional GAN用于Text-To-Image和Image-To-Image的任务，期间有提及一些改进诸如Patch GAN。然后简单讲述了StackGAN的思想以及应用场景。之后，是对非监督学习条件生成领域的一些探讨，这一部分最常见的就是风格迁移的应用。讲述了两大类实现非监督学习条件生成的方法思想，第一类是直接生成，其中介绍了CycleGAN和变体StarGAN。第二类是投射至相同公共空间的方法，其中包含了解决此方法中一个关键问题的各种思想方案。看完本篇笔记，你应当会对Conditinal GAN和Unsupervised Conditional Generation领域及该领域下的CycleGAN思想有一个大概的了解，随后你可以选择感兴趣的GAN网络，再去详细的阅读原论文，研究细节部分。</p>
+<h3 id="一conditional-gan">一、Conditional GAN</h3>
+<p>​ 条件GAN所要完成的目标就是你可以通过一些限制条件，来让GAN网络生成的图像符合你的要求。比较经典的就是Text-To-Image和Image-To-Image两种任务。</p>
+<h4 id="text-to-image任务">1、Text-To-Image任务</h4>
+<p>​ 该任务目标是，你输入一段话，然后根据输入的语义来生成一张图片。这样一个任务其实我们可以用传统的监督学习方法来完成它，如下所示：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114223140981.png" /></p>
+<p>​ 但是使用这种传统的方法，会出现一些问题，比如说，训练网络完成以后你输入文字"train"，而在我们的训练集里面，关于"train"的图片有很多种，比如说一些正面的火车照片，或者是一些侧面的火车照片。最后会导致的结果就是，这个监督学习生成的结果又要像正面的火车，又要像侧面的火车，最后就会变成一个很多图片的平均，也就是会生成一个非常模糊的图像。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114223153376.png" /></p>
+<p>​ 所以我们需要用到Conditional GAN的技术。在前一篇文章中讲过，GAN本身最后实现的一个效果是，输入一个随机的分布向量，或者说Noise，然后其会生成一个对象（图片或其他）。那么在Conditional GAN中呢，从最终实现的效果而言，其实就是多吃了一个内容c，这个内容c也就是我们所指定的条件。在Text-To-Image的任务中，内容c也就是我们所指定的文本信息。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114223205025.png" /></p>
+<p>​ 那么Discriminator方面，跟普通的GAN又需要有啥区别呢？如下图所示，对于判别器而言，其输入也需要新增一个内容，也就是我们指定的条件c。</p>
+<p>​ 我们为什么需要这么干呢？如果判别器仍然和原来一样，那么其实你会发现，因为判别器只会看生成的图片x是否够真实，而不会看x和内容c匹不匹配。也就是说，如果你输入”cat“作为内容c，但是生成器画了一个很好很真实的火车图片，判别器仍然会给高分。这样到最后的结果其实就是，你会发现你指定的条件c和生成出来的图片完全不匹配，虽然这些生成的图片都很真实。</p>
+<p>​ Ok，所以我们回到Conditional GAN判别器的架构，最后输出的值里面，其实含有两部分信息的含义。一个是图像x是不是够真实，一个是内容条件c和图像x是否匹配。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114223223659.png" /></p>
+<p>​ 所以在这种判定条件下，什么样的情况要给高分呢？什么样的情况要给低分呢？</p>
+<p>​ Case1 : x真实 + c 和 x 匹配 【高分】</p>
+<p>​ Case2 : x虚假 【低分】</p>
+<p>​ Case3 : x真实 + c 和 x 不匹配 【低分】</p>
+<p>​ 所以你会发现，相比普通GAN中的判别器，它多了一种要给低分的情况，这个在之后整个的伪代码中会有所体会。伪代码如下所示：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114223235243.png" /></p>
+<p>​ 整体而言整个过程还是比较好理解的，首先也是从数据库里拿m个正面的样例，然后采样m个noise信号，将这m个信号和生成器生成的数据组合成一组数据。然后再随机的从数据库中取m个图片。注意，这一步目的是取一组真实的图片，但是给这些图片贴上不正确的标签c，后面在目标函数中会有所体现。</p>
+<p>​ 整个目标函数有3项，第一项和第二项与GAN类似，也就是刚才上面提到的Case1和Case2。第三项其实就是对应上面提到的Case3，如果向Discriminator中投入ci和随机取的与ci并不匹配的图像，那么判别器也应当给其低分。然后用梯度上升，最大化目标函数即可，这就完成了训练判别器的部分。</p>
+<p>​ 在训练生成器的部分，就和GAN几乎一样了，我们就此省略不再细谈。</p>
+<p>​ 说完Conditional GAN的整体的训练算法伪代码，再来讨论一下Conditinal GAN 的判别器部分的网络架构应该如何搭建，Conditinal GAN的判别器部分有以下两种常见的网络架构：</p>
+<h5 id="架构1最为常见">1、架构1：最为常见</h5>
+<p>​ 如下图所示的架构是最为常见的一种架构，先有两个网络，分别将x和c做embedding编码，然后将两个编码输入判别器网络中，其会输出一个分数，就代表我们先前说的x是否真实，或者c和x是否匹配。但是这种架构其实并不能分清楚，到底是因为哪种问题，所以才导致了低分。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115002938439.png" /></p>
+<h5 id="架构2有部分论文采用但是也是蛮有道理的一个架构">2、架构2：有部分论文采用，但是也是蛮有道理的一个架构</h5>
+<p>​ 此种架构，先把对象x输入一个判别器网络中，然后直接输出一个分数，这个分数代表x是否真实。然后再将条件c和对象x输入另一个判别器网络中，输出一个分数，代表c和x是否匹配。最后再将两个分数综合起来，得到最终判别器的分数。这样子的话，我们就可以知道，到底导致低分是什么原因。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115002950662.png" /></p>
+<h4 id="image-to-image-任务">2、Image-To-Image 任务</h4>
+<p>​ 和这个任务相关的一篇论文其实是非常经典的一篇论文，CVPR 2017的《Image-to-Image Translation with Conditional Adversarial NetWorks》，有兴趣也可以去阅读原论文。下图是原论文中的一些应用的截图：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003023803.png" /></p>
+<p>​ 和先前的Text-To-Image的任务一样，如果采用传统的监督学习的方法，很有可能产生的图像会非常模糊，所以就需要Conditional GAN来完成。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003031956.png" /></p>
+<p>​ 如下所示就是使用Conditional GAN的生成器和判别器的一个示意结果图，其实跟Text-To-Image是一样的，此处就不多赘述了。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003040918.png" /></p>
+<p>​ 但是其实以这种方法生成出来的图片，也会存在一些小的问题，参见之后的第二幅图。就是比如说它可能会在图像的某些地方产生奇奇怪怪的内容。你可以仔细观察GAN生成图像的左上角，出现了奇怪的内容。这是由于什么产生的呢？就是Generator其实只关心一个是我产生出来的图像好不好，另一个是和输入图像是不是匹配，但不太会关心一个点：就是说和产生的图片和原来的有监督学习中的目标图像是不是相似。</p>
+<p>​ 所以，我们往往会加上一个额外的限制，就是我们希望Generator生成的图片和原来的图像越接近越好，也就是说既考虑了原来监督学习中的as close as possible，也考虑了GAN的评分机制。如下所示：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003054587.png" /></p>
+<p>​ 下面这个就是上面所讲的三种方法不同的生成效果示意图</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003103515.png" /></p>
+<p>​ 同时，在《Image-to-Image Translation with Conditional Adversarial NetWorks》这篇论文中，它的Discriminator经过了一些额外的设计。这就是其引入的Patch GAN。Patch GAN解决了一件什么事情呢？</p>
+<p>​ 如果你要用Conditional GAN产生的图片非常的大，很有可能产生的结果会很差。原因是什么呢？如果图片很大，代表其展开后维度非常的高，那就需要有非常多的参数去训练它，参数一旦非常多，训练以后很容易导致过拟合的情况发生。所以，作者提出了PatchGAN的想法，如下图所示，左边是传统的Discriminator，右边是PatchGAN的。</p>
+<p>​ PatchGAN的Discriminator并不是直接检查整张图像，而是只检查一个小窗口内的图像。得出一个分数。然后再综合所有窗口得出的分数。至于检查的小窗口的尺寸为多大，是一个需要调整的超参数，原论文中也对其有一定的分析，此处不多赘述。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003123825.png" /></p>
+<h3 id="二stack-gan">二、Stack GAN</h3>
+<p>​ StackGAN来源于这篇论文：ICCV2017《StackGAN: Text to Photo-Realistic Image Synthesis with Stacked Generative Adversarial Networks》。简单而言，其只是将Conditional GAN的生成分成了好几个阶段，用于能够生成分辨率更高的图片。这是原论文中所显示的流程图</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003145750.png" /></p>
+<p>​ 简单而言，步骤如下，首先输入一段文本描述，通过Embedding嵌入层后，经过一系列的Conditioning Augmentation的处理，将各种信息连接在一起，然后在生成器部分，首先生成第一阶段的结果图片。然后在输入到第一阶段的判别器中。当第一阶段的生成器和判别器完成训练以后，我们再将第一阶段的生成结果，与描述文本作为输入，开始训练第二阶段的GAN网络。步骤与第一阶段的GAN网络类似，最终可以得到更高分辨率的第二阶段的结果图像。具体细节部分，我暂时也没有完整的阅读过原论文，暂且只是领会一下这种方法的大致思路。</p>
+<h3 id="三unsupervised-conditional-generation">三、Unsupervised Conditional Generation</h3>
+<p>​ 非监督的条件生成，通常用于风格迁移。在风格迁移的应用场景中，我们往往能够收集到许多Domain X的信息，也能收集到许多Domain Y的信息，但是不一定能够拥有Domian X和Domain Y的一一对应的pair 数据。像类似这样子的场景中，非监督的条件生成就是一个非常好的解决方案。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003209328.png" /></p>
+<p>​ 非监督的条件生成，我们往往会有两种方法思路去完成，如下所示：</p>
+<p>​ 方法1是Direct Transformation 直接转换，此种直接通过一个生成器进行转换的方法，往往两个域内的图像不能够有太过巨大的差距，通常用于做纹理或者颜色上的一些改变，以达到风格的变化。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003225024.png" /></p>
+<p>​ 方法2是Projection to Common Space 投射到公共空间，此种方法通过将两个Domain投射到一个公共空间中，完成转换。具体而言，对于下述的任务来说，先将DomainX真实人脸的信息通过一个Domain X的编码器转换到公共空间，也就是我们的脸部属性空间，然后再将脸部属性空间，通过一个Domain Y的解码器，解码出我们的DomainY动漫人脸的信息。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003237748.png" /></p>
+<p>接下去我们会对两种方法进行详细的讨论：</p>
+<h4 id="direct-transformation内含cyclegan网络讲解"><strong>1、Direct Transformation（内含CycleGAN网络讲解）</strong></h4>
+<p>​ 我们要训练一个生成器，能够完成将图片从DomainX直接转换至DomainY的任务，但是该生成器产生的图片我们怎么去评价呢？在有监督学习中，我们有一对一的数据，但是在无监督学习中，对于这个输入而言，我们并没有pair可以提供给它。所以此时，我们需要一个Discriminator，这个判别器用于判断一个图片，是否属于DomainY，然后输出一个分数。</p>
+<p>​ 那么这样一来，Generator的目标就是如何将DomainX的图片转换成一个新的图片，能够骗过Discriminator，而Discriminator也要努力鉴别这个图像到底是不是属于DomainY。下图，就是整个过程的一个直观的示意图。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003304210.png" /></p>
+<p>​ 在这样一个过程中，好像问题已经解决了，实则不然。你会发现，生成器只学会了怎么生成一个DomainY的图片去骗过判别器，但是我们并没有给它限制，说要让这个生成器生成的DomainY的图片和原来的DomainX的图片要相似啊。那万一，输入是一张DomainX的风景图，生成器输出了一张DomainY的人像图，不照样能够获得很高的分数，这当然就不对啦。</p>
+<p>​ 所以，我们就希望生成器生成的DomainY的输出，应该和DomainX的输入应当会存在一定的关系才对，而不是毫无关系可言。针对于这个问题而言，有许多解决方案，叙述如下，其中最著名的就是熟知的cycleGAN。</p>
+<h5 id="解决方案1不管这个问题">1）解决方案1：不管这个问题</h5>
+<p>​ 听上去这个解决方案非常的扯淡，但其实在某种条件下它确实work。具体而言是什么意思呢？当我们的网络层数不是很深的时候，其实网络本身也倾向于不对input做太大的改变，有人也做过实验，不去管这个问题，在某些情况下也不会得到太差的结果，得到的结果和input其实也类似。</p>
+<p>​ 但是，如果我们的网络比较深的话，经过非常多的非线性变换与线性变换，其实就并不好说，最后输出的output，会和input相差不大了。这个时候的话，我们可能就需要其他的解决方案。</p>
+<h5 id="解决方案2利用预训练的编码器网络如下图所示">2）解决方案2：利用预训练的编码器网络，如下图所示：</h5>
+<p>​ 我们利用两个预训练好的DomainX和DomainY的编码器网络，在GAN训练的时候呢，生成器训练的目标任务又多了一项。之前生成器只需要生成图片，努力的去骗过Discriminator就可以，也就是说只要生成的图片越来越像DomainY的图片就可以，但是我现在希望生成器生成的图片，经过DomainY预训练的编码器网络后，生成的特征向量A，和原图经过DomainX预训练的编码器网络后生成的特征向量B，也尽可能地相似。这样一来，你会发现，如果两个编码后的内容越接近越好的话，DomainX在转换至DomainY的时候，产生的图片，应该是保留了原来DomainX图片的某些特征的。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003341802.png" /></p>
+<h5 id="解决方案3cyclegan">3）解决方案3：CycleGAN</h5>
+<p>​ 原论文题目为《Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks》，有兴趣的同学可以看原论文，其主要大致思想如下图所示：</p>
+<p>​ 我们不仅训练一个DomainX到DomainY的生成器，同时也训练一个DomainY到DomainX的生成器，生成器X-&gt;Y在原有的需要骗过Dy的基础上，还需要使得原始输入图像和经过两个生成器后产生的图像越接近越好，这也就是我们常说的Cycle consistency，循环一致性。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003358128.png" /></p>
+<p>​ 对于CycleGAN来说，我们可以训练双向的一个网络，两个一起去做训练。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003406257.png" /></p>
+<p>​ 其实CycleGAN也存在一些问题，在论文《CycleGAN, a Master of Steganography》中，其作者提到，在DomianX的输入图像经过两个生成器的过程中，出现问题。具体而言，输入的图像的有些信息会在经过第一个生成器的时候被隐藏起来，此处的被隐藏起来也就是指人肉眼观察不到，而当其经过第二个生成器的时候，又会被还原出来。如下图红色方框中所示。这就意味着，生成器网络有隐藏信息的能力，我们如果只控制input和经过两个生成器的output的一致性，中间产生的我们真正要的图像还是有可能丢失原图的部分信息。这是一个尚待研究的问题。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003414078.png" /></p>
+<p>​ 此处的话补充一下另外一个网络，是在CycleGAN的基础上进行的一个升级，叫做StarGAN。其应用领域在于，当你需要多个Domain的信息风格互相转换的时候，怎么进行网络的学习与处理。</p>
+<p>​ 按照之前CycleGAN的思路，如果我们想要在4个Domain内做互相转换，需要在两两之间训练一组生成器。StarGAN就是可以之训练一个生成器，就完成在多个Domain之间的信息互相转换。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003422218.png" /></p>
+<p>​ 原论文为《StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-to-Image Translation》，其主要思想及训练过程如下：</p>
+<ul>
+<li><p>A)步骤，首先训练判别器，判别器会完成两件事，一是要判别这个图像他是真实的还是虚假的，二是要做一个分类的问题，它是属于哪一个Domain，给出两个结果。</p></li>
+<li><p>B)C)步骤, 在训练生成器时，要完成这样一个任务。首先输入我们的输入图片，以及目标Domain，然后生成器会生成一个Fake Image，我们将这个Fake Image和原来的Domain作为输入，再次送入生成器中，会得到一张Reconstructed Image，我们希望这张重建的图像和输入的图像之间的差距越小越好，其实这就是Cycle Consistency类似的思想。</p></li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003432585.png" /></p>
+<ul>
+<li><ol start="4" type="A">
+<li>步骤，同时在训练生成器的时候，还有一个目标，就是要让这个Fake Image骗过我们之前训练好的Discriminator，使得Discriminator的输出越大越好。</li>
+</ol></li>
+</ul>
+<p>​ 下图是一个训练应用实例的示意图，在StarGAN的实际训练过程中，其实域可以是由一组编码决定的。就比如说00101代表一个域，10011也代表一个域。然后00101有一个参照表，也就是label，代表相对的含义。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003446510.png" /></p>
+<h4 id="projection-to-common-space">2、Projection to Common Space</h4>
+<p>​ 在此类方法，如果我们想要完成DomainX和DomainY两种风格的互相转换，我们其实需要的就是如下图所示的2个Encoder和2个Decoder。例如，如果要从X转换至Y，那么图像应当先通过EncoderX，得到一个Face Attribute，应该是一个Latent Vector，然后再经过DecoderY，最终得到DomainY的图像。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003534380.png" /></p>
+<p>​ 这样来看，如果我们拥有一对一的pair数据，那么其实完成这个任务非常的容易，只需要正常的监督学习训练即可。但是我们现在是无监督场景下的训练，应当如何完成训练呢？</p>
+<p>​ 我们可以像下图所示这样进行训练，其实就是训练了两个自动编码器，通过最小化重建误差来进行优化。然后在此基础上我们可以加两个判别器。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003544456.png" /></p>
+<p>​ 如此而言，我们确实可以得到2个Encoder和2个Decoder。但是这两组AutoEncoder（VAEGAN）是完全没有关系的。这意味着什么呢？你看上图中，中间的这个Latent vector，两边共用一个，其实来说，两边训练出来以后，得到的中间的这个特征向量，每一个维度所代表的含义会是完全不同的。其实就变成了如下图所示的这样子一个效果。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003552083.png" /></p>
+<p>​ 所以最终导致的结果就是：你将一个DomainX的图片丢入X编码器，得到一个向量，然后将向量丢入Y解码器，可能生成的是一个完全不相关的DomainY的图片。</p>
+<p>​ 接下来我们就是要解决这个问题，也会有比较多的文献解决方案：</p>
+<h5 id="解决方案1共用部分隐藏层参数">1）解决方案1：共用部分隐藏层参数</h5>
+<p>​ 共用EncoderX和EncoderY的后面几层，同时也共用DecoderX和DecoderY的前面几层。这样子做其实就是希望，接近中间这个特征向量的层共用参数以后，两边的编码能够在中间的特征向量的维度上达成一致。</p>
+<p>​ 这种解决方案比较极端的情况时，可以让EncoderX和EncoderY共用所有参数，DecoderX和DecoderY共用所有参数，只是在训练和使用的时候，我输入一个标签，代表这个是X Domain还是Y Domain。这个方法用于CoupleGAN和UNIT</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003616483.png" /></p>
+<h5 id="解决方案2domain-discriminator">2）解决方案2：Domain Discriminator</h5>
+<p>​ 我们在网络架构中，新增一个Domain Discriminator。在训练的过程中，EncoderX和EncoderY还有一个任务，就是说他们所生成的中间的特征向量，还要能骗过Domain Discriminator，让这个判别器无法鉴别，这个特征向量到底是从EncoderX来的，还是从EncoderY来的。如此一来，完成训练后，相当于说是两个编码器产生的中间的特征向量应该遵循着类似的分布，能够在中间的特征向量的维度表示上达成一致。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003651260.png" /></p>
+<h5 id="解决方案3利用cycle-consistency的类似思想">3）解决方案3：利用Cycle Consistency的类似思想</h5>
+<p>​ 如图红线路径所示，图像经过EncoderX，产生特征向量，经过DecoderY产生Image，再将这个Image作为输入进入EncoderY，产生特征向量，经过DecoderX产生output，然后最小化input和output的重建误差即可。该方法被用于ComboGAN。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003717264.png" /></p>
+<h5 id="解决方案4利用semantic-consistency的类似思想">4）解决方案4：利用Semantic Consistency的类似思想</h5>
+<p>​ 按照图中红线路径，input输入经过EncoderX，产生特征向量A，经过DecoderY产生Image，再将这个Image作为输入进入EncoderY，产生特征向量B。然后最小化A和B的差别即可。相比于CycleConsistency，此种思想直接在特征向量的空间中去考虑相似度，避免了比如说可能input和output表象上很像，但其实中间特征向量代表维度仍然不同这种问题。该种思想在DTN和XGAN网络中使用。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003743216.png" /></p>
+]]></content>
+      <categories>
+        <category>⓵ 深度学习笔记</category>
+        <category>GAN系列笔记</category>
+      </categories>
+      <tags>
+        <tag>GAN</tag>
+        <tag>ConditionalGAN</tag>
+        <tag>PatchGAN</tag>
+        <tag>CycleGAN</tag>
       </tags>
   </entry>
   <entry>
@@ -5554,260 +5809,6 @@ False</code></pre>
       </categories>
       <tags>
         <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GAN系列笔记1——GAN的基本理念与思想</title>
-    <url>/2021/11/30/37e68eb92563/</url>
-    <content><![CDATA[<h3 id="前言">前言：</h3>
-<p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文按照李宏毅老师讲课的逻辑进行记录，先从GAN的基本理论概念讲起，中间提及了Structure Learning的问题，然后回答了GAN中的两个经典的问题，然后对VAE和GAN的结果做了简单的比较，最后做了总结，看完以后应该会对GAN有一个完整的概念与理解。全文共4800字左右。</p>
-<h3 id="一basic-idea-基本概念">一、Basic Idea 基本概念</h3>
-<p>​ GAN是完成了一个Generation的任务，从目标上而言，其实就是我们要训练一个NN的generator，这个generator可以完成下述任务：你给机器一个随机的向量，机器就可以给你输出你想要的物体（可以是图像也可以是其他）。（当然，这种类型的generator看上去是没什么用的，因为你不知道随机向量到底会生成什么样子的东西，但通常向量的每个维度可能就是用于控制输出图像的一个特征部分，现在暂时我们只专注于完成这样一个随机的任务部分）。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214941737.png" /></p>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214945273.png" alt="image-20220114214945273" /><figcaption aria-hidden="true">image-20220114214945273</figcaption>
-</figure>
-<figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214948402.png" alt="image-20220114214948402" /><figcaption aria-hidden="true">image-20220114214948402</figcaption>
-</figure>
-<p>​ GAN比较神奇的点在于其还会同时训练一个Discriminator，即判别器。从目标上而言，其要完成如下任务:输入一个图像，输出一个值，这个值越大，代表图像越真实。值越小，代表图像越虚假。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114214959500.png" /></p>
-<p>​ 那么在GAN中，Generator和Discriminator的关系其实就是对抗竞争，或者说互相帮助互相进步的关系。如下图所示：第一代的生成器生成的东西，交给第一代判别器。第一代生成器在第一代判别器的反馈下，进化为第二代的生成器，然后判别器也随之进化为第二代，循环往复下去（有一种道高一尺，魔高一丈的感觉）</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215010569.png" /></p>
-<p>​ 一个更好的比方，下图中，Generator和Discriminator就像是学生和老师在对话一样，在这个过程中，学生逐渐进步。老师的要求标准也越来越高。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215031820.png" /></p>
-<p>​ 在这样一个过程中，留下两个疑问：Generator做生成为什么不自己学提高水平呢？Discriminator这么会批评，为什么不自己做生成呢？【解释与回答见第四章】</p>
-<p>​ 现在我们先来讨论一下整个训练的算法伪代码过程，如下所示：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215049291.png" /></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215052840.png" /></p>
-<p>​ 首先我们初始化生成器和判别器，然后在每一个训练迭代阶段，进行两件事：</p>
-<p>​ 1、我们将Generator固定住，训练Discriminator的参数。具体而言，我们首先随机的输入一些向量，通过G生成一些随机的generated objects，然后再从真实数据库中取出一些objects，将这两部分图片作为D的输入，来训练D。目的是要让D看到generated objects 就给出尽可能接近0的分数，让D看到真实的objects就给出尽可能接近1的分数。(其实就是给两部分图片打个标，然后训练一个分类器，如上图所示)</p>
-<p>​ 2、固定住Discriminator的参数，调整生成器的参数。具体而言就是：将一个随机的vector丢入生成器里，生成一张图片，将图片放入判别器中，得到一个分数，我们训练此步的目标是要使最后输出的那个分数越接近1越好。从代码上，这个要怎么进行操作呢？我们往往会将生成器的NN和判别器的NN合并成一个大的网络，锁住判别器部分层的参数，这相当于这个大的网络中间有一层很宽的隐藏层（就是输出图片那一层），然后我们要使得最后生成的结果越大越好，就是Gradient Ascent，其实就是在Objective Function上加一个负号，就可以完成这个任务。</p>
-<p>​ 下述是更为正式的算法伪代码：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215114053.png" /></p>
-<p>要注意，在这个算法中，有一些超参数是需要手工去调整以找到最佳效果的：</p>
-<p>​ 1、输入的向量的维度，5维、10维、……</p>
-<p>​ 2、在每一个迭代过程中：更新判别器的次数，可以是1~n次。</p>
-<p><strong>算法中的一些解释：</strong></p>
-<p>​ 1、更新判别器参数的时候的Objective Function：</p>
-<p>​ 第一项：<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215147446.png" />代表真实数据集的图像进到判别器中的分数均值。</p>
-<p>​ 第二项：<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215201515.png" />代表生成的图像进到判别器中的分数被1减去后的均值。</p>
-<p>​ 我们要让这个目标函数最大，其实就是完成了最开始说的，真实数据集图像进到判别器中，分数越接近1越好，生成图像进入，分数越接近0越好。</p>
-<p>​ 2、更新生成器参数的时候的Objective Function：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215238651.png" /></p>
-<p>​ 其实就是随机向量通过生成器，再通过判别器后，得到的均值越大越好。然后用梯度上升方法，去最大化这个目标函数。</p>
-<h3 id="二structure-learning">二、Structure Learning</h3>
-<p>​ 首先，什么是Structure Learning？机器学习本身其实就是找到一个函数f，去完成X-&gt;Y这样一件事情。回归问题，其实就是输出一个分数。分类问题就是输出一个类别，结构化学习其实就是输出一个更复杂的比如说一个序列，一个矩阵，一个图，一个树等等这样的问题。往往这种复杂的结构是由很多个组件组成，并且这些组件之间是有关联关系的。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215309664.png" /></p>
-<p>​ 为什么Structure Learning是很Challenging的呢？其实就是如下图所说的，一个的话是它可以被视为One-shot Learning或者是Zero-shot Learning。那什么是One-Shot Learning 或者说Zero-shot Learning呢？例如，在分类作业中，我们如果需要训练，每个类别都需要给出一系列的数据范例。而One-Shot Learning 或者Zero-shot Learning就是指，可能有些类别完全没有范例，或者说只有很少的范例。</p>
-<p>​ Structure Learning里面，输出的是一个结构体，也就是说很有可能训练的句子里面是完全不会有重复的东西的。如果我们把所有的可能输出都视为一个类的话，输出的空间是很巨大的。并且大多数的类都是没有任何训练数据的。所以机器需要一定的创造性。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215320786.png" /></p>
-<p>​ 第二点的话，在Structure Learning中，机器必须学会规划。机器可以一个个组件的去产生，但是它一定要学会组件和组件之间的关系与限制。需要全局的去进行考虑。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215331213.png" /></p>
-<h3 id="三structure-learning的一些解决方案">三、Structure Learning的一些解决方案</h3>
-<p>​ 在传统的方法分类中，其实有两类：一类是Bottom Up的方法，一类是Top Down的方法。自底而上的方法主要是学习怎么去生成Component，然后再进行合并，这个很像Generator做的事情，但是这样很容易失去大局观。自上而下的方法是学会评估一个物体，然后找到最好的那个，这个很像Discriminator做的事情，但是这样做的问题是很难做生成。【为什么这么说见第四章】其实GAN就是解决Structure Learning的一个解决方案，他就像是把两种方法做了结合。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215356504.png" /></p>
-<h3 id="四为什么generator不能自己学为什么discriminator不能自己生成">四、为什么Generator不能自己学？为什么Discriminator不能自己生成？</h3>
-<h4 id="generator为什么不能自己学">1、Generator为什么不能自己学？</h4>
-<p>​ 在传统的有监督学习中，我们只要有大量的真实图片数据，以及他们对应的标签，我就可以完成生成图片这样一个任务。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215423815.png" /></p>
-<p>​ 但是问题就来了，我们怎么给这些真实图片数据打标签呢？如果是随机赋给他们一些向量标签，那最后的训练是会很困难的。因为比如说我们看两个1的图片比较相似，当然希望向量中有一部分的标签内容是类似的，而不是说这两个1的图片对应的向量标签完全不一致。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215433669.png" /></p>
-<p>​ 也就是说，我们总是希望这个input和output的内容是存在一些联系的，而不是毫无联系。说到这里，其实问题还是可以解决的，怎么去解决这个编码问题呢？</p>
-<p>​ 正巧，我的上一篇文章中讲了各种自动编码器的相关知识，这个编码问题，我们可以训练一个NN编码器来进行解决。这个编码器完成一件什么事呢？给它一个图片，它输出一个向量，来表示这个图片的相关特征。具体而言，自动编码器怎么进行训练，详见自动编码器的文章，如下：这里的话也给一张李宏毅老师课程的截图示意：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215447872.png" /></p>
-<p>​ 仔细想来，其实这个Decoder干的是不是就是Generator的事情？是的！因为它也是接收一个Vector向量，输出一张图片，如下图所示：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215456226.png" /></p>
-<p>​ 这样看来，其实理论上来讲，只要我们训练好了一个自动编码器，把Decoder部分拿出来，就是一个生成器。然后我们随便给一个向量，他就会输出一个对应的图像。</p>
-<p>​ 但是Auto-Encoder存在什么样的问题呢？如下图所示：比如说，我们已知a向量可以产生一个图片，b向量可以产生一个图片，那么0.5<em>a+0.5</em>b会产生什么呢？很有可能会产生Noise，因为这样的生成器本身是一个神经网络，不是线性的。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215508501.png" /></p>
-<p>​ 说到这里，其实还没有正面回答Generator为什么不能自己学这个问题，但大家不要着急。我们继续说，这个问题其实我们可以用VAE来解决，也就是上篇文章末尾重点讲过的变分自动编码器。</p>
-<p>​ 如下图所示：有了变分编码器，因为变分自动编码器是对一个概率分布进行了编码，而不是固定的。所以我们能够将这个decoder训练的更为稳定。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215517660.png" /></p>
-<p>​ 那么，现在看来，好像Auto-Encoder就能解决Structure Learning这样一个任务了，那为什么我们还需要GAN这个技术呢？接下去要说的就是Auto-Encoder这套技术所缺少的内容。</p>
-<p>​ 在Auto-Encoder的技术中，我们实现的目标是：让生成的图片和目标图像越像越好。那么问题来了，什么叫越像越好？正常来说，我们就是把这个图像展开成一个vector，然后逐像素的计算距离差。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215528542.png" /></p>
-<p>​ 我们先前说过，自动编码器是不能让它完整的保留所有的信息的，不然就失去了编码的意义，机器只要学习复制就可以了。所以自动编码器的生成器部分，生成的目标总是和源图像会有一些差距，会有一些取舍。这个时候，取舍在哪里就很重要！如下图所示：右上角是目标图像，下面四个是生成的图像。生成图像第一排，只偏差了1个像素，第二排，偏差了6个像素。从计算相似度而言，第一排优于第二排，但是从人的感知而言，第二排优于第一排。所以我们如果只是单纯的计算距离差，让两者越像越好，就有可能会产生第一排的结果。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215538491.png" /></p>
-<p>​ 在做Structure Learning的过程中，我们说过组件和组件之间的关系是很重要的，需要考虑全局观念。这个偏差出来的多的像素本身没有错误，有错的是它如果是有像素值的，那么它周边的组件，也应当是有填充的，而不是空白的。这个像素要和周围的像素一致，这个其实就是组件和组件的一种关联。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215546546.png" /></p>
-<p>​ 但是我们训练一个生成器的时候，当我们训练一个网络的时候，是很难把组件和组件的关系放进去的。因为在NN网络这个架构里面，如果前一层的权重都已经确定了，最后的输出之间是独立的。每个输出神经元之间没法互相进行配合。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215603961.png" /></p>
-<p>​ 其实像这种也可以解决，只不过需要更深的网络结构。更深的网络结构能够帮助你把这种组件与组件之间的相关性考虑进去。所以，如果有一个GAN网络，一个Auto-Encoder网络，要完成一个目标，往往Auto-Encoder的网络需要更深，才能达到和GAN类似的效果。</p>
-<p>​ 其实讲到这里，都没有明确的回答Generator为什么不能自己学这个问题，但是其实已经回答掉了。因为我们刚才讲的，Auto-Encoder就是训练了一个单的Generator，是抛弃了Discriminator的一个架构。如果这样子让Generator自己学，当然可以，只不过会存在上述所说的种种问题和难处。</p>
-<h4 id="discriminator为什么不能自己产生image">2、Discriminator为什么不能自己产生Image？</h4>
-<p>​ Discriminator总的来说干了一件什么事呢？它其实就是输入一个对象，输出一个分数，这个分数表示这个对象多好或多差，进行评估。对于Discriminator来说，它要考虑组件和组件之间的关系就很容易了，因为他是看到整个图片的。</p>
-<p>​ 那么我们其实是可以用Discriminator来产生Image的，只不过会非常的卡，非常的慢，为什么这么说呢，我们先看，如果硬要用Discriminator来产生Image，步骤应该是怎样的：</p>
-<p>​ 假设我们已经训练好了一个好的判别器，那么我们只需要执行如下公式即可：</p>
-<p>​ 穷举所有的x，然后一个个丢到判别器里，让它看是不是高分。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215739478.png" /></p>
-<p>​ 虽然这看上去不是很合理，对于穷举而言。但是这其实并不是关键所在。我们现在先假设这个方法确实可行，那难道就可以了吗？别忘了，我们先前的假设：“假设我们已经训练好了一个好的判别器”，那么我们怎么训练这个判别器呢？这才是问题的关键！</p>
-<p>​ 理论上讲很简单，我给他好的样例，让他输出高分，烂的样例，让他输出低分。但是实际上呢，我们手上只有好的样例。如果只有这样的训练实例，会导致网络看到啥都给高分。所以，怎么去产生不好的样例，产生怎样不好的样例，就是一个很关键的问题：</p>
-<p>​ 如果不好的样例就只是一些噪音，那其实机器很容易会给一些尚可的模糊的图片打高分，这并不是我们希望看到的。如下图所示。所以<strong>只有差的样例足够的好，才能让机器真正的学会评判好的图片和坏的图片</strong>，</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215749015.png" /></p>
-<p>​ 所以现在如何生成足够好的 差的样例就很重要，那么我们就需要一个生成差的样例的过程，在没有Generator的前提下，这就是一个鸡生蛋蛋生鸡的循环问题了。所以如果真的想要完成这件事情，只能通过一个迭代的形式去完成：</p>
-<p>​ 我先学一个最差的Discriminator出来，然后用这个去做生成，生成出来的样例用来训练更好的Discriminator，循环往复。你会发现这个过程好像跟GAN差不多，但是如果没有generator，要比GAN累好多，慢很多。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215808954.png" /></p>
-<p>​ 这时候再来看如果我们把Generator加上，GAN就是利用Generator来求解这个argmax的问题，用于生成一些负面的样例。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215815222.png" /></p>
-<h3 id="五比较vae和gan的结果">五、比较VAE和GAN的结果：</h3>
-<p>​ 下图是各个GAN和VAE在不同参数下，所表现出来的性能分数的值的区间。还附带了一个VAE和GAN生成人物头像的直观结果。</p>
-<p>1、VAE比较稳定，给它不同的参数，所表现出来的性能相差不大。</p>
-<p>2、GAN相对而言比较吃参数，但是只要参数正确，所生成的最好结果也是远远优于VAE产生的结果的。<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/2222sdsa.png" /></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114215842339.png" /></p>
-<h3 id="六总结">六、总结</h3>
-<p>1）生成器：</p>
-<p>​ 优势：很快就能生成一个东西</p>
-<p>​ 劣势：很难察觉组件和组件之间的关系，只是模仿一个表象</p>
-<p>2）判别器：</p>
-<p>​ 优势：可以考虑大局观</p>
-<p>​ 劣势：生成一个东西非常的困难</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114222543440.png" /></p>
-<p>3）GAN的优势：</p>
-<p>1、从判别器的角度而言，使用Generator来进行negative example的生成，更为高效。</p>
-<p>2、从生成器的角度而言，它虽然仍然是一个组件一个组件的生成对象，但是相比传统的计算L1,L2的损失而言，它会从Discriminator那边得到全局视野的反馈，更能理解组件与组件之间的关系。</p>
-]]></content>
-      <categories>
-        <category>⓵ 深度学习笔记</category>
-        <category>GAN系列笔记</category>
-      </categories>
-      <tags>
-        <tag>GAN</tag>
-        <tag>Deep Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GAN系列笔记2——常见GAN变种（ConditionalGAN，PatchGAN，CycleGAN等）</title>
-    <url>/2021/12/01/f2f6972db794/</url>
-    <content><![CDATA[<h3 id="前言">前言：</h3>
-<p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了一些常见的GAN的变种，以及它们的一些核心的思想，包括Conditional GAN用于Text-To-Image和Image-To-Image的任务，期间有提及一些改进诸如Patch GAN。然后简单讲述了StackGAN的思想以及应用场景。之后，是对非监督学习条件生成领域的一些探讨，这一部分最常见的就是风格迁移的应用。讲述了两大类实现非监督学习条件生成的方法思想，第一类是直接生成，其中介绍了CycleGAN和变体StarGAN。第二类是投射至相同公共空间的方法，其中包含了解决此方法中一个关键问题的各种思想方案。看完本篇笔记，你应当会对Conditinal GAN和Unsupervised Conditional Generation领域及该领域下的CycleGAN思想有一个大概的了解，随后你可以选择感兴趣的GAN网络，再去详细的阅读原论文，研究细节部分。</p>
-<h3 id="一conditional-gan">一、Conditional GAN</h3>
-<p>​ 条件GAN所要完成的目标就是你可以通过一些限制条件，来让GAN网络生成的图像符合你的要求。比较经典的就是Text-To-Image和Image-To-Image两种任务。</p>
-<h4 id="text-to-image任务">1、Text-To-Image任务</h4>
-<p>​ 该任务目标是，你输入一段话，然后根据输入的语义来生成一张图片。这样一个任务其实我们可以用传统的监督学习方法来完成它，如下所示：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114223140981.png" /></p>
-<p>​ 但是使用这种传统的方法，会出现一些问题，比如说，训练网络完成以后你输入文字"train"，而在我们的训练集里面，关于"train"的图片有很多种，比如说一些正面的火车照片，或者是一些侧面的火车照片。最后会导致的结果就是，这个监督学习生成的结果又要像正面的火车，又要像侧面的火车，最后就会变成一个很多图片的平均，也就是会生成一个非常模糊的图像。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114223153376.png" /></p>
-<p>​ 所以我们需要用到Conditional GAN的技术。在前一篇文章中讲过，GAN本身最后实现的一个效果是，输入一个随机的分布向量，或者说Noise，然后其会生成一个对象（图片或其他）。那么在Conditional GAN中呢，从最终实现的效果而言，其实就是多吃了一个内容c，这个内容c也就是我们所指定的条件。在Text-To-Image的任务中，内容c也就是我们所指定的文本信息。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114223205025.png" /></p>
-<p>​ 那么Discriminator方面，跟普通的GAN又需要有啥区别呢？如下图所示，对于判别器而言，其输入也需要新增一个内容，也就是我们指定的条件c。</p>
-<p>​ 我们为什么需要这么干呢？如果判别器仍然和原来一样，那么其实你会发现，因为判别器只会看生成的图片x是否够真实，而不会看x和内容c匹不匹配。也就是说，如果你输入”cat“作为内容c，但是生成器画了一个很好很真实的火车图片，判别器仍然会给高分。这样到最后的结果其实就是，你会发现你指定的条件c和生成出来的图片完全不匹配，虽然这些生成的图片都很真实。</p>
-<p>​ Ok，所以我们回到Conditional GAN判别器的架构，最后输出的值里面，其实含有两部分信息的含义。一个是图像x是不是够真实，一个是内容条件c和图像x是否匹配。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114223223659.png" /></p>
-<p>​ 所以在这种判定条件下，什么样的情况要给高分呢？什么样的情况要给低分呢？</p>
-<p>​ Case1 : x真实 + c 和 x 匹配 【高分】</p>
-<p>​ Case2 : x虚假 【低分】</p>
-<p>​ Case3 : x真实 + c 和 x 不匹配 【低分】</p>
-<p>​ 所以你会发现，相比普通GAN中的判别器，它多了一种要给低分的情况，这个在之后整个的伪代码中会有所体会。伪代码如下所示：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114223235243.png" /></p>
-<p>​ 整体而言整个过程还是比较好理解的，首先也是从数据库里拿m个正面的样例，然后采样m个noise信号，将这m个信号和生成器生成的数据组合成一组数据。然后再随机的从数据库中取m个图片。注意，这一步目的是取一组真实的图片，但是给这些图片贴上不正确的标签c，后面在目标函数中会有所体现。</p>
-<p>​ 整个目标函数有3项，第一项和第二项与GAN类似，也就是刚才上面提到的Case1和Case2。第三项其实就是对应上面提到的Case3，如果向Discriminator中投入ci和随机取的与ci并不匹配的图像，那么判别器也应当给其低分。然后用梯度上升，最大化目标函数即可，这就完成了训练判别器的部分。</p>
-<p>​ 在训练生成器的部分，就和GAN几乎一样了，我们就此省略不再细谈。</p>
-<p>​ 说完Conditional GAN的整体的训练算法伪代码，再来讨论一下Conditinal GAN 的判别器部分的网络架构应该如何搭建，Conditinal GAN的判别器部分有以下两种常见的网络架构：</p>
-<h5 id="架构1最为常见">1、架构1：最为常见</h5>
-<p>​ 如下图所示的架构是最为常见的一种架构，先有两个网络，分别将x和c做embedding编码，然后将两个编码输入判别器网络中，其会输出一个分数，就代表我们先前说的x是否真实，或者c和x是否匹配。但是这种架构其实并不能分清楚，到底是因为哪种问题，所以才导致了低分。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115002938439.png" /></p>
-<h5 id="架构2有部分论文采用但是也是蛮有道理的一个架构">2、架构2：有部分论文采用，但是也是蛮有道理的一个架构</h5>
-<p>​ 此种架构，先把对象x输入一个判别器网络中，然后直接输出一个分数，这个分数代表x是否真实。然后再将条件c和对象x输入另一个判别器网络中，输出一个分数，代表c和x是否匹配。最后再将两个分数综合起来，得到最终判别器的分数。这样子的话，我们就可以知道，到底导致低分是什么原因。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115002950662.png" /></p>
-<h4 id="image-to-image-任务">2、Image-To-Image 任务</h4>
-<p>​ 和这个任务相关的一篇论文其实是非常经典的一篇论文，CVPR 2017的《Image-to-Image Translation with Conditional Adversarial NetWorks》，有兴趣也可以去阅读原论文。下图是原论文中的一些应用的截图：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003023803.png" /></p>
-<p>​ 和先前的Text-To-Image的任务一样，如果采用传统的监督学习的方法，很有可能产生的图像会非常模糊，所以就需要Conditional GAN来完成。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003031956.png" /></p>
-<p>​ 如下所示就是使用Conditional GAN的生成器和判别器的一个示意结果图，其实跟Text-To-Image是一样的，此处就不多赘述了。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003040918.png" /></p>
-<p>​ 但是其实以这种方法生成出来的图片，也会存在一些小的问题，参见之后的第二幅图。就是比如说它可能会在图像的某些地方产生奇奇怪怪的内容。你可以仔细观察GAN生成图像的左上角，出现了奇怪的内容。这是由于什么产生的呢？就是Generator其实只关心一个是我产生出来的图像好不好，另一个是和输入图像是不是匹配，但不太会关心一个点：就是说和产生的图片和原来的有监督学习中的目标图像是不是相似。</p>
-<p>​ 所以，我们往往会加上一个额外的限制，就是我们希望Generator生成的图片和原来的图像越接近越好，也就是说既考虑了原来监督学习中的as close as possible，也考虑了GAN的评分机制。如下所示：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003054587.png" /></p>
-<p>​ 下面这个就是上面所讲的三种方法不同的生成效果示意图</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003103515.png" /></p>
-<p>​ 同时，在《Image-to-Image Translation with Conditional Adversarial NetWorks》这篇论文中，它的Discriminator经过了一些额外的设计。这就是其引入的Patch GAN。Patch GAN解决了一件什么事情呢？</p>
-<p>​ 如果你要用Conditional GAN产生的图片非常的大，很有可能产生的结果会很差。原因是什么呢？如果图片很大，代表其展开后维度非常的高，那就需要有非常多的参数去训练它，参数一旦非常多，训练以后很容易导致过拟合的情况发生。所以，作者提出了PatchGAN的想法，如下图所示，左边是传统的Discriminator，右边是PatchGAN的。</p>
-<p>​ PatchGAN的Discriminator并不是直接检查整张图像，而是只检查一个小窗口内的图像。得出一个分数。然后再综合所有窗口得出的分数。至于检查的小窗口的尺寸为多大，是一个需要调整的超参数，原论文中也对其有一定的分析，此处不多赘述。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003123825.png" /></p>
-<h3 id="二stack-gan">二、Stack GAN</h3>
-<p>​ StackGAN来源于这篇论文：ICCV2017《StackGAN: Text to Photo-Realistic Image Synthesis with Stacked Generative Adversarial Networks》。简单而言，其只是将Conditional GAN的生成分成了好几个阶段，用于能够生成分辨率更高的图片。这是原论文中所显示的流程图</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003145750.png" /></p>
-<p>​ 简单而言，步骤如下，首先输入一段文本描述，通过Embedding嵌入层后，经过一系列的Conditioning Augmentation的处理，将各种信息连接在一起，然后在生成器部分，首先生成第一阶段的结果图片。然后在输入到第一阶段的判别器中。当第一阶段的生成器和判别器完成训练以后，我们再将第一阶段的生成结果，与描述文本作为输入，开始训练第二阶段的GAN网络。步骤与第一阶段的GAN网络类似，最终可以得到更高分辨率的第二阶段的结果图像。具体细节部分，我暂时也没有完整的阅读过原论文，暂且只是领会一下这种方法的大致思路。</p>
-<h3 id="三unsupervised-conditional-generation">三、Unsupervised Conditional Generation</h3>
-<p>​ 非监督的条件生成，通常用于风格迁移。在风格迁移的应用场景中，我们往往能够收集到许多Domain X的信息，也能收集到许多Domain Y的信息，但是不一定能够拥有Domian X和Domain Y的一一对应的pair 数据。像类似这样子的场景中，非监督的条件生成就是一个非常好的解决方案。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003209328.png" /></p>
-<p>​ 非监督的条件生成，我们往往会有两种方法思路去完成，如下所示：</p>
-<p>​ 方法1是Direct Transformation 直接转换，此种直接通过一个生成器进行转换的方法，往往两个域内的图像不能够有太过巨大的差距，通常用于做纹理或者颜色上的一些改变，以达到风格的变化。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003225024.png" /></p>
-<p>​ 方法2是Projection to Common Space 投射到公共空间，此种方法通过将两个Domain投射到一个公共空间中，完成转换。具体而言，对于下述的任务来说，先将DomainX真实人脸的信息通过一个Domain X的编码器转换到公共空间，也就是我们的脸部属性空间，然后再将脸部属性空间，通过一个Domain Y的解码器，解码出我们的DomainY动漫人脸的信息。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003237748.png" /></p>
-<p>接下去我们会对两种方法进行详细的讨论：</p>
-<h4 id="direct-transformation内含cyclegan网络讲解"><strong>1、Direct Transformation（内含CycleGAN网络讲解）</strong></h4>
-<p>​ 我们要训练一个生成器，能够完成将图片从DomainX直接转换至DomainY的任务，但是该生成器产生的图片我们怎么去评价呢？在有监督学习中，我们有一对一的数据，但是在无监督学习中，对于这个输入而言，我们并没有pair可以提供给它。所以此时，我们需要一个Discriminator，这个判别器用于判断一个图片，是否属于DomainY，然后输出一个分数。</p>
-<p>​ 那么这样一来，Generator的目标就是如何将DomainX的图片转换成一个新的图片，能够骗过Discriminator，而Discriminator也要努力鉴别这个图像到底是不是属于DomainY。下图，就是整个过程的一个直观的示意图。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003304210.png" /></p>
-<p>​ 在这样一个过程中，好像问题已经解决了，实则不然。你会发现，生成器只学会了怎么生成一个DomainY的图片去骗过判别器，但是我们并没有给它限制，说要让这个生成器生成的DomainY的图片和原来的DomainX的图片要相似啊。那万一，输入是一张DomainX的风景图，生成器输出了一张DomainY的人像图，不照样能够获得很高的分数，这当然就不对啦。</p>
-<p>​ 所以，我们就希望生成器生成的DomainY的输出，应该和DomainX的输入应当会存在一定的关系才对，而不是毫无关系可言。针对于这个问题而言，有许多解决方案，叙述如下，其中最著名的就是熟知的cycleGAN。</p>
-<h5 id="解决方案1不管这个问题">1）解决方案1：不管这个问题</h5>
-<p>​ 听上去这个解决方案非常的扯淡，但其实在某种条件下它确实work。具体而言是什么意思呢？当我们的网络层数不是很深的时候，其实网络本身也倾向于不对input做太大的改变，有人也做过实验，不去管这个问题，在某些情况下也不会得到太差的结果，得到的结果和input其实也类似。</p>
-<p>​ 但是，如果我们的网络比较深的话，经过非常多的非线性变换与线性变换，其实就并不好说，最后输出的output，会和input相差不大了。这个时候的话，我们可能就需要其他的解决方案。</p>
-<h5 id="解决方案2利用预训练的编码器网络如下图所示">2）解决方案2：利用预训练的编码器网络，如下图所示：</h5>
-<p>​ 我们利用两个预训练好的DomainX和DomainY的编码器网络，在GAN训练的时候呢，生成器训练的目标任务又多了一项。之前生成器只需要生成图片，努力的去骗过Discriminator就可以，也就是说只要生成的图片越来越像DomainY的图片就可以，但是我现在希望生成器生成的图片，经过DomainY预训练的编码器网络后，生成的特征向量A，和原图经过DomainX预训练的编码器网络后生成的特征向量B，也尽可能地相似。这样一来，你会发现，如果两个编码后的内容越接近越好的话，DomainX在转换至DomainY的时候，产生的图片，应该是保留了原来DomainX图片的某些特征的。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003341802.png" /></p>
-<h5 id="解决方案3cyclegan">3）解决方案3：CycleGAN</h5>
-<p>​ 原论文题目为《Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks》，有兴趣的同学可以看原论文，其主要大致思想如下图所示：</p>
-<p>​ 我们不仅训练一个DomainX到DomainY的生成器，同时也训练一个DomainY到DomainX的生成器，生成器X-&gt;Y在原有的需要骗过Dy的基础上，还需要使得原始输入图像和经过两个生成器后产生的图像越接近越好，这也就是我们常说的Cycle consistency，循环一致性。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003358128.png" /></p>
-<p>​ 对于CycleGAN来说，我们可以训练双向的一个网络，两个一起去做训练。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003406257.png" /></p>
-<p>​ 其实CycleGAN也存在一些问题，在论文《CycleGAN, a Master of Steganography》中，其作者提到，在DomianX的输入图像经过两个生成器的过程中，出现问题。具体而言，输入的图像的有些信息会在经过第一个生成器的时候被隐藏起来，此处的被隐藏起来也就是指人肉眼观察不到，而当其经过第二个生成器的时候，又会被还原出来。如下图红色方框中所示。这就意味着，生成器网络有隐藏信息的能力，我们如果只控制input和经过两个生成器的output的一致性，中间产生的我们真正要的图像还是有可能丢失原图的部分信息。这是一个尚待研究的问题。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003414078.png" /></p>
-<p>​ 此处的话补充一下另外一个网络，是在CycleGAN的基础上进行的一个升级，叫做StarGAN。其应用领域在于，当你需要多个Domain的信息风格互相转换的时候，怎么进行网络的学习与处理。</p>
-<p>​ 按照之前CycleGAN的思路，如果我们想要在4个Domain内做互相转换，需要在两两之间训练一组生成器。StarGAN就是可以之训练一个生成器，就完成在多个Domain之间的信息互相转换。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003422218.png" /></p>
-<p>​ 原论文为《StarGAN: Unified Generative Adversarial Networks for Multi-Domain Image-to-Image Translation》，其主要思想及训练过程如下：</p>
-<ul>
-<li><p>A)步骤，首先训练判别器，判别器会完成两件事，一是要判别这个图像他是真实的还是虚假的，二是要做一个分类的问题，它是属于哪一个Domain，给出两个结果。</p></li>
-<li><p>B)C)步骤, 在训练生成器时，要完成这样一个任务。首先输入我们的输入图片，以及目标Domain，然后生成器会生成一个Fake Image，我们将这个Fake Image和原来的Domain作为输入，再次送入生成器中，会得到一张Reconstructed Image，我们希望这张重建的图像和输入的图像之间的差距越小越好，其实这就是Cycle Consistency类似的思想。</p></li>
-</ul>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003432585.png" /></p>
-<ul>
-<li><ol start="4" type="A">
-<li>步骤，同时在训练生成器的时候，还有一个目标，就是要让这个Fake Image骗过我们之前训练好的Discriminator，使得Discriminator的输出越大越好。</li>
-</ol></li>
-</ul>
-<p>​ 下图是一个训练应用实例的示意图，在StarGAN的实际训练过程中，其实域可以是由一组编码决定的。就比如说00101代表一个域，10011也代表一个域。然后00101有一个参照表，也就是label，代表相对的含义。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003446510.png" /></p>
-<h4 id="projection-to-common-space">2、Projection to Common Space</h4>
-<p>​ 在此类方法，如果我们想要完成DomainX和DomainY两种风格的互相转换，我们其实需要的就是如下图所示的2个Encoder和2个Decoder。例如，如果要从X转换至Y，那么图像应当先通过EncoderX，得到一个Face Attribute，应该是一个Latent Vector，然后再经过DecoderY，最终得到DomainY的图像。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003534380.png" /></p>
-<p>​ 这样来看，如果我们拥有一对一的pair数据，那么其实完成这个任务非常的容易，只需要正常的监督学习训练即可。但是我们现在是无监督场景下的训练，应当如何完成训练呢？</p>
-<p>​ 我们可以像下图所示这样进行训练，其实就是训练了两个自动编码器，通过最小化重建误差来进行优化。然后在此基础上我们可以加两个判别器。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003544456.png" /></p>
-<p>​ 如此而言，我们确实可以得到2个Encoder和2个Decoder。但是这两组AutoEncoder（VAEGAN）是完全没有关系的。这意味着什么呢？你看上图中，中间的这个Latent vector，两边共用一个，其实来说，两边训练出来以后，得到的中间的这个特征向量，每一个维度所代表的含义会是完全不同的。其实就变成了如下图所示的这样子一个效果。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003552083.png" /></p>
-<p>​ 所以最终导致的结果就是：你将一个DomainX的图片丢入X编码器，得到一个向量，然后将向量丢入Y解码器，可能生成的是一个完全不相关的DomainY的图片。</p>
-<p>​ 接下来我们就是要解决这个问题，也会有比较多的文献解决方案：</p>
-<h5 id="解决方案1共用部分隐藏层参数">1）解决方案1：共用部分隐藏层参数</h5>
-<p>​ 共用EncoderX和EncoderY的后面几层，同时也共用DecoderX和DecoderY的前面几层。这样子做其实就是希望，接近中间这个特征向量的层共用参数以后，两边的编码能够在中间的特征向量的维度上达成一致。</p>
-<p>​ 这种解决方案比较极端的情况时，可以让EncoderX和EncoderY共用所有参数，DecoderX和DecoderY共用所有参数，只是在训练和使用的时候，我输入一个标签，代表这个是X Domain还是Y Domain。这个方法用于CoupleGAN和UNIT</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003616483.png" /></p>
-<h5 id="解决方案2domain-discriminator">2）解决方案2：Domain Discriminator</h5>
-<p>​ 我们在网络架构中，新增一个Domain Discriminator。在训练的过程中，EncoderX和EncoderY还有一个任务，就是说他们所生成的中间的特征向量，还要能骗过Domain Discriminator，让这个判别器无法鉴别，这个特征向量到底是从EncoderX来的，还是从EncoderY来的。如此一来，完成训练后，相当于说是两个编码器产生的中间的特征向量应该遵循着类似的分布，能够在中间的特征向量的维度表示上达成一致。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003651260.png" /></p>
-<h5 id="解决方案3利用cycle-consistency的类似思想">3）解决方案3：利用Cycle Consistency的类似思想</h5>
-<p>​ 如图红线路径所示，图像经过EncoderX，产生特征向量，经过DecoderY产生Image，再将这个Image作为输入进入EncoderY，产生特征向量，经过DecoderX产生output，然后最小化input和output的重建误差即可。该方法被用于ComboGAN。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003717264.png" /></p>
-<h5 id="解决方案4利用semantic-consistency的类似思想">4）解决方案4：利用Semantic Consistency的类似思想</h5>
-<p>​ 按照图中红线路径，input输入经过EncoderX，产生特征向量A，经过DecoderY产生Image，再将这个Image作为输入进入EncoderY，产生特征向量B。然后最小化A和B的差别即可。相比于CycleConsistency，此种思想直接在特征向量的空间中去考虑相似度，避免了比如说可能input和output表象上很像，但其实中间特征向量代表维度仍然不同这种问题。该种思想在DTN和XGAN网络中使用。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115003743216.png" /></p>
-]]></content>
-      <categories>
-        <category>⓵ 深度学习笔记</category>
-        <category>GAN系列笔记</category>
-      </categories>
-      <tags>
-        <tag>GAN</tag>
-        <tag>ConditionalGAN</tag>
-        <tag>PatchGAN</tag>
-        <tag>CycleGAN</tag>
       </tags>
   </entry>
   <entry>
