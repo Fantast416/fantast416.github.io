@@ -134,18 +134,18 @@
     
     <category term="⓷ 算法类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B7-%E7%AE%97%E6%B3%95%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="动态规划系列" scheme="https://blog.slks.xyz/categories/%E2%93%B7-%E7%AE%97%E6%B3%95%E7%B1%BB%E7%AC%94%E8%AE%B0/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%B3%BB%E5%88%97/"/>
+    <category term="DFS与BFS系列" scheme="https://blog.slks.xyz/categories/%E2%93%B7-%E7%AE%97%E6%B3%95%E7%B1%BB%E7%AC%94%E8%AE%B0/DFS%E4%B8%8EBFS%E7%B3%BB%E5%88%97/"/>
     
     <category term="图系列" scheme="https://blog.slks.xyz/categories/%E2%93%B7-%E7%AE%97%E6%B3%95%E7%B1%BB%E7%AC%94%E8%AE%B0/%E5%9B%BE%E7%B3%BB%E5%88%97/"/>
     
-    <category term="DFS与BFS系列" scheme="https://blog.slks.xyz/categories/%E2%93%B7-%E7%AE%97%E6%B3%95%E7%B1%BB%E7%AC%94%E8%AE%B0/DFS%E4%B8%8EBFS%E7%B3%BB%E5%88%97/"/>
+    <category term="动态规划系列" scheme="https://blog.slks.xyz/categories/%E2%93%B7-%E7%AE%97%E6%B3%95%E7%B1%BB%E7%AC%94%E8%AE%B0/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%B3%BB%E5%88%97/"/>
     
     
     <category term="leetcode" scheme="https://blog.slks.xyz/tags/leetcode/"/>
     
-    <category term="dynamic programming" scheme="https://blog.slks.xyz/tags/dynamic-programming/"/>
-    
     <category term="graph" scheme="https://blog.slks.xyz/tags/graph/"/>
+    
+    <category term="dynamic programming" scheme="https://blog.slks.xyz/tags/dynamic-programming/"/>
     
     <category term="BFS" scheme="https://blog.slks.xyz/tags/BFS/"/>
     
@@ -194,9 +194,9 @@
     
     <category term="⓷ 算法类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B7-%E7%AE%97%E6%B3%95%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="动态规划系列" scheme="https://blog.slks.xyz/categories/%E2%93%B7-%E7%AE%97%E6%B3%95%E7%B1%BB%E7%AC%94%E8%AE%B0/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%B3%BB%E5%88%97/"/>
-    
     <category term="字符串系列" scheme="https://blog.slks.xyz/categories/%E2%93%B7-%E7%AE%97%E6%B3%95%E7%B1%BB%E7%AC%94%E8%AE%B0/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B3%BB%E5%88%97/"/>
+    
+    <category term="动态规划系列" scheme="https://blog.slks.xyz/categories/%E2%93%B7-%E7%AE%97%E6%B3%95%E7%B1%BB%E7%AC%94%E8%AE%B0/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%B3%BB%E5%88%97/"/>
     
     
     <category term="leetcode" scheme="https://blog.slks.xyz/tags/leetcode/"/>
