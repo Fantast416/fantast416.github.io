@@ -47,7 +47,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Python搭建深度学习框架系列笔记2——优化器类的代码实现（更新中）</title>
+    <title>用Python搭建深度学习框架系列笔记3——优化器类的代码实现（更新中）</title>
     <url>/2022/02/23/bcff8db3f50b/</url>
     <content><![CDATA[<p><strong>前言</strong>： 优化器的理论部分以及各种常见的优化器可以参见如下博客：<a href="https://blog.slks.xyz/2022/02/11/ced858ce48dc/">机器学习基础系列笔记16——常见的梯度下降优化器整理</a></p>
 <p>本文所讲的是如何使用Python搭建优化器类，从而帮助实现整个机器学习的训练过程。</p>

@@ -6,7 +6,7 @@
   <link href="https://blog.slks.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.slks.xyz/"/>
-  <updated>2022-02-22T15:21:01.523Z</updated>
+  <updated>2022-02-22T15:24:52.752Z</updated>
   <id>https://blog.slks.xyz/</id>
   
   <author>
@@ -17,16 +17,16 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Python搭建深度学习框架系列笔记2——优化器类的代码实现（更新中）</title>
+    <title>用Python搭建深度学习框架系列笔记3——优化器类的代码实现（更新中）</title>
     <link href="https://blog.slks.xyz/2022/02/23/bcff8db3f50b/"/>
     <id>https://blog.slks.xyz/2022/02/23/bcff8db3f50b/</id>
     <published>2022-02-23T04:17:19.000Z</published>
-    <updated>2022-02-22T15:21:01.523Z</updated>
+    <updated>2022-02-22T15:24:52.752Z</updated>
     
     <content type="html"><![CDATA[<p><strong>前言</strong>： 优化器的理论部分以及各种常见的优化器可以参见如下博客：<a href="https://blog.slks.xyz/2022/02/11/ced858ce48dc/">机器学习基础系列笔记16——常见的梯度下降优化器整理</a></p><p>本文所讲的是如何使用Python搭建优化器类，从而帮助实现整个机器学习的训练过程。</p><h3 id="一优化器optimizer">一、优化器Optimizer</h3><h4 id="在不封装优化器的时候如何在计算图上执行梯度下降法">1、在不封装优化器的时候，如何在计算图上执行梯度下降法？</h4><p>当我们还没有明确提出优化器这个概念的时候，我们遵循如下过程去在计算图上执行梯度下降来优化损失函数：</p><ul><li>1）对结果节点的上游变量节点(Variable)赋值或初始化【包括输入向量节点和训练参数节点】</li><li>2）在结果节点上调用forward，计算出它的值，数据前向传播</li><li>3）在所有需要训练的变量节点( Variable, trainable = True )上调用backward方法，梯度反向传播，计算出结果节点对该节点的雅可比矩阵。【仅包括训练参数节点】</li><li>4）根据变量节点的jacobi属性中的值，从变量节点的当前值中减去 用学习率 * 梯度的值即为更新后的值。</li><li>5）清除所有节点的value和jacobi属性，回到第2步</li></ul><h4 id="优化器的封装">2、优化器的封装</h4><p>​ 其实，优化器所实现的功能就是上述训练过程中对可训练的变量节点的值进行优化的过程。但是由于，可能存在各种多种多样的优化器，为了便于外层用户使用，代码的整洁，我们需要将优化器的功能封装起来，然后进行使用。</p>]]></content>
     
     
-    <summary type="html">本文是</summary>
+    <summary type="html">本文记录使用Python搭建深度学习框架，实现其中优化器类的代码，包含优化器基类的抽象和需要执行的任务，以及一些常见的梯度下降优化器类的实现。</summary>
     
     
     
