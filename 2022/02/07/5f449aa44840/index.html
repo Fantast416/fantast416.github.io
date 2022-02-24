@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/09/15/serdeser.jpg">
 <meta property="article:published_time" content="2022-02-07T03:58:19.000Z">
-<meta property="article:modified_time" content="2022-02-20T13:32:48.000Z">
+<meta property="article:modified_time" content="2022-02-24T15:35:14.850Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="tree">
@@ -151,7 +151,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%91%E6%8C%87-offer-ii-048.-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">剑指 Offer II 048. 序列化与反序列化二叉树</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%91%E6%8C%87-offer-ii-048.-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">剑指 Offer II 048. 序列化与反序列化二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">题目描述：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.</span> <span class="nav-text">解题思路：</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -269,7 +269,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-20 21:32:48" itemprop="dateModified" datetime="2022-02-20T21:32:48+08:00">2022-02-20</time>
+      <time title="修改时间：2022-02-24 23:35:14" itemprop="dateModified" datetime="2022-02-24T23:35:14+08:00">2022-02-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -322,10 +322,10 @@
     
     <div class="post-body" itemprop="articleBody">
         <h4 id="剑指-offer-ii-048.-序列化与反序列化二叉树"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/h54YBf/">剑指 Offer II 048. 序列化与反序列化二叉树</a></h4>
-<p><strong>题目描述</strong>：</p>
+<h5 id="题目描述"><strong>题目描述</strong>：</h5>
 <p>​ 序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。</p>
 <p>​ 请设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。</p>
-<p><strong>解题思路</strong>：</p>
+<h5 id="解题思路"><strong>解题思路</strong>：</h5>
 <p>​ 我们都很清楚，<strong>一个前序序列（后序/层序序列）+中序序列可以确定恢复一颗二叉树结构。</strong>在这个题目里的话，我一开始的思路是记录前序+ 中序序列，将它们变成字符串，然后反序列化的时候，再通过前序和中序序列重构即可。思路整体而言也较为清晰，但是当我写完所有代码的时候，发现了一个令人窒息的问题：</p>
 <p>​ <strong>这个题目中树节点的值是可能重复的</strong>，这就会导致如果只记录节点的值，树的重构是会出问题的。如果，需要克服这个问题，我们还要给每个节点加上index，并且利用一个hash表记录节点index和值的对应关系。这是比较麻烦的。</p>
 <p>​ 此Blog就是为了记录另一种解题思路：<strong>在特定条件下，我们可以仅凭借树的前序序列就能够确定恢复一颗唯一的二叉树</strong>。</p>

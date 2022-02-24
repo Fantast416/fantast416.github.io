@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/截屏2022-02-04 下午2.06.49.png">
 <meta property="article:published_time" content="2022-02-04T05:52:19.000Z">
-<meta property="article:modified_time" content="2022-02-20T13:32:59.827Z">
+<meta property="article:modified_time" content="2022-02-24T15:34:27.087Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="linked list">
@@ -151,7 +151,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%89%91%E6%8C%87-offer-ii-022.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">一、剑指 Offer II 022. 链表中环的入口节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%89%91%E6%8C%87-offer-ii-023.-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%87%8D%E5%90%88%E8%8A%82%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">二、剑指 Offer II 023. 两个链表的第一个重合节点</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%89%91%E6%8C%87-offer-ii-022.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">一、剑指 Offer II 022. 链表中环的入口节点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.0.1.</span> <span class="nav-text">解题思路：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%89%91%E6%8C%87-offer-ii-023.-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%87%8D%E5%90%88%E8%8A%82%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">二、剑指 Offer II 023. 两个链表的第一个重合节点</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -269,7 +269,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-20 21:32:59" itemprop="dateModified" datetime="2022-02-20T21:32:59+08:00">2022-02-20</time>
+      <time title="修改时间：2022-02-24 23:34:27" itemprop="dateModified" datetime="2022-02-24T23:34:27+08:00">2022-02-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -325,7 +325,7 @@
 <p><strong>题目简单描述</strong>：</p>
 <p>​ 给定一个链表，需要返回链表开始入环的第一个节点。 从链表的头节点开始沿着 next 指针进入环的第一个节点为环的入口节点。如果链表无环，则返回 null。</p>
 <p>​ 进阶：是否可以使用 O(1) 空间解决此题？</p>
-<p><strong>解题思路</strong>：</p>
+<h5 id="解题思路"><strong>解题思路</strong>：</h5>
 <p>​ 本题本身想要解答十分简单，将其放入博客中整理是想记录我们应该如何利用O(1)空间去解决这个题目呢？</p>
 <p>​ <strong>快慢指针法</strong>，我们使用两个指针，fast 与 slow。它们起始都位于链表的头部。随后，slow 指针每次向后移动一个位置，而 fast 指针向后移动两个位置。如果链表中存在环，则 fast 指针最终将再次与 slow 指针在环中相遇。</p>
 <p>​ 如下图所示，即可非常好的理解如下：那么，又该如何判断入环点的位置呢？我们先上结论：经过数学推断可以得知：</p>
