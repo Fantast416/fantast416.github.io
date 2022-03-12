@@ -20,16 +20,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="���������γ̵�1�ڵ����ݣ�������ϵͳ�ĸ�����ܡ�Ŀ�ꡢ���л��ơ��ж��쳣��ϵͳ���á�">
+<meta name="description" content="包含王道课程第1节的内容，含操作系统的概念、功能、目标、运行机制、中断异常和系统调用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="����ϵͳ���������">
+<meta property="og:title" content="操作系统概念与基础">
 <meta property="og:url" content="https://blog.slks.xyz/2022/03/11/b81021e5a689/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
-<meta property="og:description" content="���������γ̵�1�ڵ����ݣ�������ϵͳ�ĸ�����ܡ�Ŀ�ꡢ���л��ơ��ж��쳣��ϵͳ���á�">
+<meta property="og:description" content="包含王道课程第1节的内容，含操作系统的概念、功能、目标、运行机制、中断异常和系统调用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220311205142106.png">
 <meta property="article:published_time" content="2022-03-11T12:48:19.000Z">
-<meta property="article:modified_time" content="2022-03-11T13:07:18.748Z">
+<meta property="article:modified_time" content="2022-03-12T15:11:43.641Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Operating System">
 <meta name="twitter:card" content="summary">
@@ -40,10 +40,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/03/11/b81021e5a689/","path":"2022/03/11/b81021e5a689/","title":"����ϵͳ���������"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/03/11/b81021e5a689/","path":"2022/03/11/b81021e5a689/","title":"操作系统概念与基础"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>����ϵͳ��������� | Fantast's Blog</title>
+<title>操作系统概念与基础 | Fantast's Blog</title>
   
 
 
@@ -150,7 +150,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%D2%BB%C5%80"><span class="nav-number">1.</span> <span class="nav-text">һ���������Ŀ��</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">1.1.</span> <span class="nav-text">1������</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%C5%80"><span class="nav-number">1.2.</span> <span class="nav-text">2��������Ŀ�꣺</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%CF%B5%CD%B3%D5%A4%C4%BA%DF%A3"><span class="nav-number">1.2.1.</span> <span class="nav-text">1) ϵͳ��Դ�Ĺ����ߣ�</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%CF%8A%C3%BB%CD%BC%D3%B3%C4%BE%D3%BF%DA%A3"><span class="nav-number">1.2.2.</span> <span class="nav-text">2����Ϊ�û��ͼ����Ӳ��֮��Ľӿڣ�</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%CF%8A%D3%BD%D3%B3%C4%B3%CF%83"><span class="nav-number">1.2.3.</span> <span class="nav-text">3�� ��Ϊ��ӽ�Ӳ���Ĳ�Σ�</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#section-1"><span class="nav-number">2.</span> <span class="nav-text">����</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E6%A6%82%E5%BF%B5%E5%8A%9F%E8%83%BD%E4%B8%8E%E7%9B%AE%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">一、概念功能与目标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">1、概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E4%B8%8E%E7%9B%AE%E6%A0%87"><span class="nav-number">1.2.</span> <span class="nav-text">2、功能与目标：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90%E7%9A%84%E7%AE%A1%E7%90%86%E8%80%85"><span class="nav-number">1.2.1.</span> <span class="nav-text">1) 系统资源的管理者：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA%E7%94%A8%E6%88%B7%E5%92%8C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A1%AC%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.2.2.</span> <span class="nav-text">2）作为用户和计算机硬件之间的接口：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA%E6%9C%80%E6%8E%A5%E8%BF%91%E7%A1%AC%E4%BB%B6%E7%9A%84%E5%B1%82%E6%AC%A1"><span class="nav-number">1.2.3.</span> <span class="nav-text">3） 作为最接近硬件的层次：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C"><span class="nav-number">2.</span> <span class="nav-text">二、</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -249,7 +249,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          ����ϵͳ���������
+          操作系统概念与基础
         </h1>
 
         <div class="post-meta-container">
@@ -260,9 +260,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-03-11 20:48:19 / 修改时间：21:07:18" itemprop="dateCreated datePublished" datetime="2022-03-11T20:48:19+08:00">2022-03-11</time>
+      <time title="创建时间：2022-03-11 20:48:19" itemprop="dateCreated datePublished" datetime="2022-03-11T20:48:19+08:00">2022-03-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-12 23:11:43" itemprop="dateModified" datetime="2022-03-12T23:11:43+08:00">2022-03-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -270,11 +276,11 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/object-Object/" itemprop="url" rel="index"><span itemprop="name">[object Object]</span></a>
+          <a href="/categories/%E2%93%BB-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓻ 基础类笔记</span></a>
         </span>
           ，
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/object-Object/%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%CF%B5%CD%B3/" itemprop="url" rel="index"><span itemprop="name">����ϵͳ</span></a>
+          <a href="/categories/%E2%93%BB-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
         </span>
     </span>
 
@@ -292,18 +298,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>701</span>
+      <span>470</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">���������γ̵�1�ڵ����ݣ�������ϵͳ�ĸ�����ܡ�Ŀ�ꡢ���л��ơ��ж��쳣��ϵͳ���á�</div>
+            <div class="post-description">包含王道课程第1节的内容，含操作系统的概念、功能、目标、运行机制、中断异常和系统调用。</div>
             <div class="post-remind">Google Chrome is recommended, otherwise the image size may be wrong</div>
             <div class="post-remind">FireFox is not recommended,Because it does not support the image zoom property</div>
         </div>
@@ -314,42 +320,42 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="һŀ">һ���������Ŀ��</h3>
-<h4 id="section">1������</h4>
-<p>? ����ϵͳ��Operating System��OS����ָ���ƺ͹���<strong>���������ϵͳ��Ӳ����������Դ</strong>������������֯���ȼ�����Ĺ�������Դ�ķ��䣬���ṩ���û���������������Ľӿںͻ��������Ǽ����ϵͳ���������<strong>ϵͳ����</strong>��</p>
+        <h3 id="一概念功能与目标">一、概念功能与目标</h3>
+<h4 id="概念">1、概念</h4>
+<p>操作系统（Operating System，OS）是指控制和管理<strong>整个计算机系统的硬件和软件资源</strong>，并合理地组织调度计算机的工作和资源的分配，以提供给用户和其他软件方便的接口和环境，它是计算机系统中最基本的<strong>系统软件</strong>。</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220311205142106.png" style="zoom: 67%;" /></p>
-<p>? ��Ϊֱ�۵����ӣ�Windows�����������</p>
-<h4 id="ŀ">2��������Ŀ�꣺</h4>
-<h5 id="ϵͳդĺߣ">1) ϵͳ��Դ�Ĺ����ߣ�</h5>
-<p>�ṩ4�����ܣ�</p>
+<p>较为直观的例子：Windows的任务管理器</p>
+<h4 id="功能与目标">2、功能与目标：</h4>
+<h5 id="系统资源的管理者">1) 系统资源的管理者：</h5>
+<p>提供4个功能：</p>
 <ul>
-<li>CPU����</li>
-<li>�洢���������ڴ�&amp;��棩</li>
-<li>�ļ�����</li>
-<li>Ӳ���豸����</li>
+<li>CPU管理</li>
+<li>存储器管理（内存&amp;外存）</li>
+<li>文件管理</li>
+<li>硬件设备管理</li>
 </ul>
-<p>? Ŀ�꣺��ȫ + ��Ч</p>
-<h5 id="ϊûͼӳľӿڣ">2����Ϊ�û��ͼ����Ӳ��֮��Ľӿڣ�</h5>
-<p>�ṩ3�����ܣ�</p>
+<p>目标：安全 + 高效</p>
+<h5 id="作为用户和计算机硬件之间的接口">2）作为用户和计算机硬件之间的接口：</h5>
+<p>提供3个功能：</p>
 <ul>
-<li>����ӿ�
+<li>命令接口
 <ul>
-<li>��������ӿڣ�����ʽ����ӿڣ����û�˵һ�䣬ϵͳ��һ�䡣����win�е�<code>cmd</code>���������</li>
-<li>�ѻ�����ӿڣ�����������ӿڣ����û�˵һ�ѣ�ϵͳ��һ�ѡ�win�е�<code>*.bat</code>�ļ�ִ��</li>
+<li>联机命令接口（交互式命令接口）：用户说一句，系统做一句。比如win中的<code>cmd</code>命令解释器</li>
+<li>脱机命令接口（批处理命令接口）：用户说一堆，系统做一堆。win中的<code>*.bat</code>文件执行</li>
 </ul></li>
-<li>����ӿ�
+<li>程序接口
 <ul>
-<li>��win�У�����Ա�ڳ����е���<code>*.dll</code>���õ��ù��̼�Ϊ<strong>ϵͳ����</strong>������ʵ��ĳЩ���ܡ�����ӿ�ֻ��ͨ���û�����<strong>���ʹ��</strong></li>
+<li>如win中，程序员在程序中调用<code>*.dll</code>（该调用过程即为<strong>系统调用</strong>）可以实现某些功能。这类接口只能通过用户程序<strong>间接使用</strong></li>
 </ul></li>
-<li>GUIͼ���û�����
+<li>GUI图形用户界面
 <ul>
-<li>ɾ���ļ�����ק������վ</li>
+<li>删除文件：拖拽至回收站</li>
 </ul></li>
 </ul>
-<h5 id="ϊӽӳĳσ">3�� ��Ϊ��ӽ�Ӳ���Ĳ�Σ�</h5>
-<p>? ��Ҫʵ�ֶ�Ӳ����������չ��û���κ�����֧�ֵļ������Ϊ<strong>���</strong>��</p>
-<p>? ͨ���Ѹ����������Ļ�����Ϊ<strong>�������</strong>���ֳ�֮Ϊ<strong>�����</strong></p>
-<h3 id="section-1">����</h3>
+<h5 id="作为最接近硬件的层次">3） 作为最接近硬件的层次：</h5>
+<p>需要实现堆硬件机器的拓展，没有任何软件支持的计算机称为<strong>裸机</strong>。</p>
+<p>通常把覆盖了软件的机器成为<strong>扩充机器</strong>，又称之为<strong>虚拟机</strong></p>
+<h3 id="二">二、</h3>
 
     </div>
 
@@ -428,7 +434,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">24:47</span>
+    <span title="站点阅读时长">24:46</span>
   </span>
 </div>
 <div class="busuanzi-count">

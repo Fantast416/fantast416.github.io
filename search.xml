@@ -106,48 +106,48 @@
       </tags>
   </entry>
   <entry>
-    <title>����ϵͳ���������</title>
+    <title>操作系统概念与基础</title>
     <url>/2022/03/11/b81021e5a689/</url>
-    <content><![CDATA[<h3 id="һŀ">һ���������Ŀ��</h3>
-<h4 id="section">1������</h4>
-<p>? ����ϵͳ��Operating System��OS����ָ���ƺ͹���<strong>���������ϵͳ��Ӳ����������Դ</strong>������������֯���ȼ�����Ĺ�������Դ�ķ��䣬���ṩ���û���������������Ľӿںͻ��������Ǽ����ϵͳ���������<strong>ϵͳ����</strong>��</p>
+    <content><![CDATA[<h3 id="一概念功能与目标">一、概念功能与目标</h3>
+<h4 id="概念">1、概念</h4>
+<p>操作系统（Operating System，OS）是指控制和管理<strong>整个计算机系统的硬件和软件资源</strong>，并合理地组织调度计算机的工作和资源的分配，以提供给用户和其他软件方便的接口和环境，它是计算机系统中最基本的<strong>系统软件</strong>。</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220311205142106.png" style="zoom: 67%;" /></p>
-<p>? ��Ϊֱ�۵����ӣ�Windows�����������</p>
-<h4 id="ŀ">2��������Ŀ�꣺</h4>
-<h5 id="ϵͳդĺߣ">1) ϵͳ��Դ�Ĺ����ߣ�</h5>
-<p>�ṩ4�����ܣ�</p>
+<p>较为直观的例子：Windows的任务管理器</p>
+<h4 id="功能与目标">2、功能与目标：</h4>
+<h5 id="系统资源的管理者">1) 系统资源的管理者：</h5>
+<p>提供4个功能：</p>
 <ul>
-<li>CPU����</li>
-<li>�洢���������ڴ�&amp;��棩</li>
-<li>�ļ�����</li>
-<li>Ӳ���豸����</li>
+<li>CPU管理</li>
+<li>存储器管理（内存&amp;外存）</li>
+<li>文件管理</li>
+<li>硬件设备管理</li>
 </ul>
-<p>? Ŀ�꣺��ȫ + ��Ч</p>
-<h5 id="ϊûͼӳľӿڣ">2����Ϊ�û��ͼ����Ӳ��֮��Ľӿڣ�</h5>
-<p>�ṩ3�����ܣ�</p>
+<p>目标：安全 + 高效</p>
+<h5 id="作为用户和计算机硬件之间的接口">2）作为用户和计算机硬件之间的接口：</h5>
+<p>提供3个功能：</p>
 <ul>
-<li>����ӿ�
+<li>命令接口
 <ul>
-<li>��������ӿڣ�����ʽ����ӿڣ����û�˵һ�䣬ϵͳ��һ�䡣����win�е�<code>cmd</code>���������</li>
-<li>�ѻ�����ӿڣ�����������ӿڣ����û�˵һ�ѣ�ϵͳ��һ�ѡ�win�е�<code>*.bat</code>�ļ�ִ��</li>
+<li>联机命令接口（交互式命令接口）：用户说一句，系统做一句。比如win中的<code>cmd</code>命令解释器</li>
+<li>脱机命令接口（批处理命令接口）：用户说一堆，系统做一堆。win中的<code>*.bat</code>文件执行</li>
 </ul></li>
-<li>����ӿ�
+<li>程序接口
 <ul>
-<li>��win�У�����Ա�ڳ����е���<code>*.dll</code>���õ��ù��̼�Ϊ<strong>ϵͳ����</strong>������ʵ��ĳЩ���ܡ�����ӿ�ֻ��ͨ���û�����<strong>���ʹ��</strong></li>
+<li>如win中，程序员在程序中调用<code>*.dll</code>（该调用过程即为<strong>系统调用</strong>）可以实现某些功能。这类接口只能通过用户程序<strong>间接使用</strong></li>
 </ul></li>
-<li>GUIͼ���û�����
+<li>GUI图形用户界面
 <ul>
-<li>ɾ���ļ�����ק������վ</li>
+<li>删除文件：拖拽至回收站</li>
 </ul></li>
 </ul>
-<h5 id="ϊӽӳĳσ">3�� ��Ϊ��ӽ�Ӳ���Ĳ�Σ�</h5>
-<p>? ��Ҫʵ�ֶ�Ӳ����������չ��û���κ�����֧�ֵļ������Ϊ<strong>���</strong>��</p>
-<p>? ͨ���Ѹ����������Ļ�����Ϊ<strong>�������</strong>���ֳ�֮Ϊ<strong>�����</strong></p>
-<h3 id="section-1">����</h3>
+<h5 id="作为最接近硬件的层次">3） 作为最接近硬件的层次：</h5>
+<p>需要实现堆硬件机器的拓展，没有任何软件支持的计算机称为<strong>裸机</strong>。</p>
+<p>通常把覆盖了软件的机器成为<strong>扩充机器</strong>，又称之为<strong>虚拟机</strong></p>
+<h3 id="二">二、</h3>
 ]]></content>
       <categories>
-        <category>[object Object]</category>
-        <category>����ϵͳ</category>
+        <category>⓻ 基础类笔记</category>
+        <category>操作系统</category>
       </categories>
       <tags>
         <tag>Operating System</tag>
@@ -822,13 +822,52 @@ wordList 中的所有字符串 互不相同</code></pre>
 ]]></content>
       <categories>
         <category>⓷ 算法类笔记</category>
-        <category>动态规划系列</category>
         <category>DFS与BFS系列</category>
+        <category>动态规划系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>dynamic programming</tag>
         <tag>DFS</tag>
+        <tag>dynamic programming</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图系列——矩阵中的距离</title>
+    <url>/2022/02/21/80b7b127a404/</url>
+    <content><![CDATA[<h4 id="剑指-offer-ii-107.-矩阵中的距离"><a href="https://leetcode-cn.com/problems/2bCMpM/">剑指 Offer II 107. 矩阵中的距离</a></h4>
+<p>​ 给定一个由 0 和 1 组成的矩阵 mat ，请输出一个大小相同的矩阵，其中每一个格子是 mat 中对应位置元素到最近的 0 的距离。</p>
+<p>​ 两个相邻元素间的距离为 1 。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/1626667201-NCWmuP-image.png" alt="img" style="zoom: 50%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：mat = [[0,0,0],[0,1,0],[0,0,0]]</span><br><span class="line">输出：[[0,0,0],[0,1,0],[0,0,0]]</span><br></pre></td></tr></table></figure>
+<h5 id="解题思路1多源bfs"><strong>解题思路1:多源BFS</strong></h5>
+<p>​ 一开始看这题，应当能够较快的反应使用BFS进行解答，但核心的问题在于，如果使用传统 的BFS进行解答，起点是任意一个节点，终点为任意一个值为0的节点，我们需要做很多遍BFS才能够解决问题。</p>
+<p>​ 故而，本题中所涉及到的是一个叫做<strong>多源BFS</strong>的方法，其实多源的BFS和单源BFS非常相似，在上述问题中，整体思路如下：首先我们遍历整个矩阵，将所有的值为0的节点得出结果，并加入到队列中去。我们采用逆向思维的方法，将这些值为0的节点全部放入队列中，且这些值为0的节点对应的结果距离也为0，后续经由它们扩散得到的别的点的距离，是在它们的距离0的基础上逐渐进行叠加的，直到扩散至全图范围，我们的多源BFS也就完成了。</p>
+<p>​ 有一个可能会令人担忧的问题：那就是如果某一个点一开始被遍历到，设定好值以后，后面再作为别人的领居北遍历到的时候，会不会要设定的值比之前设定的值小呢？这是不可能的，因为我们采用的是BFS，一层层像波纹一样向外扩散，后遍历到的设定的值，必定大于或等于先前设定的值。所以不需要担心。</p>
+<h5 id="解题代码"><strong>解题代码：</strong></h5>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; neighbor = &#123; &#123;<span class="number">-1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">1</span>&#125; &#125;;</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">updateMatrix</span>(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; mat) &#123;</span><br><span class="line">        <span class="keyword">int</span> m = mat.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> n = mat[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">res</span>(m,vector&lt;<span class="keyword">int</span>&gt;(n,<span class="number">-1</span>)); <span class="comment">//初始化为-1，代表未访问过的点</span></span><br><span class="line">        queue&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="comment">// 初始化那些0的点，res也应当为0，将他们入队</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(mat[i][j] == <span class="number">0</span>)&#123;</span><br><span class="line">                    q.<span class="built_in">push</span>(&#123;i,j&#125;);</span><br><span class="line">                    res[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            <span class="keyword">int</span> x = q.<span class="built_in">front</span>().first;</span><br><span class="line">            <span class="keyword">int</span> y = q.<span class="built_in">front</span>().second;</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> new_x = x + neighbor[i][<span class="number">0</span>];</span><br><span class="line">                <span class="keyword">int</span> new_y = y + neighbor[i][<span class="number">1</span>];</span><br><span class="line">              	<span class="comment">//如果节点不合法，或者节点已经访问过了，直接跳过</span></span><br><span class="line">                <span class="keyword">if</span>(new_x &lt; <span class="number">0</span> || new_x &gt;= m || new_y &lt; <span class="number">0</span> || new_y &gt;= n || res[new_x][new_y] != <span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">              	<span class="comment">//计算res，push进入</span></span><br><span class="line">                res[new_x][new_y] = res[x][y] + <span class="number">1</span>;</span><br><span class="line">                q.<span class="built_in">push</span>(&#123;new_x,new_y&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="解题思路2动态规划"><strong>解题思路2:动态规划</strong></h5>
+<p>​ <strong>采用DP，状态转移方程如下：</strong> <span class="math display">\[
+f(i,j) =  1 + min(\ f(i − 1, j),\  f(i, j − 1),\ f(i + 1, j), \ f(i, j + 1) \ \ )\ \ \ \ \  if (matrix[i][j] == 1)
+\]</span></p>
+<p><span class="math display">\[
+f(i,j)=  0 \ \ \ \ \ \   if (matrix[i][j] == 0)
+\]</span></p>
+<p>​ 此时，我们需要注意，按照上述状态转移方程，我们好像没有一个办法遍历<code>i，j</code>，能够保证满足，在计算<span class="math inline">\(f(i,j)\)</span>前，我们一定已经获知了<span class="math inline">\(f(i-1,j)\)</span> 和<span class="math inline">\(f(i+1,j)\)</span> 和<span class="math inline">\(f(i,j-1)\)</span> 和<span class="math inline">\(f(i,j+1)\)</span>这四个节点的状态。所以，我们需要分两步来进行计算遍历，先从左上角往右下角计算一遍，计算的时候仅考虑 <span class="math inline">\(f(i-1,j)\)</span> 和<span class="math inline">\(f(i,j-1)\)</span> 这两个节点。再从右下角往左上角计算一遍，计算的时候仅考虑 <span class="math inline">\(f(i+1,j)\)</span> 和<span class="math inline">\(f(i,j+1)\)</span> 这两个节点。由于在前面一遍遍历中，会将结果存在<span class="math inline">\(f(i,j)\)</span>中，再第二轮遍历的时候，只要将那两个节点和当前节点比较，就相当于完成了和上一轮遍历中的两个节点比较。故而能够达到和上述状态转移方程一致的效果，具体请看代码：</p>
+<h5 id="解题代码-1"><strong>解题代码：</strong></h5>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">updateMatrix</span>(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; mat) &#123;</span><br><span class="line">        <span class="keyword">int</span> m = mat.<span class="built_in">size</span>(), n = mat[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">dp</span>(m, vector&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) </span><br><span class="line">                dp[i][j] = mat[i][j] == <span class="number">0</span> ? <span class="number">0</span> : <span class="number">1e7</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 从左上角开始</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i - <span class="number">1</span> &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    dp[i][j] = <span class="built_in">min</span>(dp[i][j], dp[i - <span class="number">1</span>][j] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (j - <span class="number">1</span> &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    dp[i][j] = <span class="built_in">mibn</span>(dp[i][j], dp[i][j - <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 从右下角开始</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i + <span class="number">1</span> &lt; m) &#123;</span><br><span class="line">                    dp[i][j] = <span class="built_in">min</span>(dp[i][j], dp[i + <span class="number">1</span>][j] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (j + <span class="number">1</span> &lt; n) &#123;</span><br><span class="line">                    dp[i][j] = <span class="built_in">min</span>(dp[i][j], dp[i][j + <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>⓷ 算法类笔记</category>
+        <category>DFS与BFS系列</category>
+        <category>动态规划系列</category>
+        <category>图系列</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>BFS</tag>
+        <tag>dynamic programming</tag>
+        <tag>graph</tag>
       </tags>
   </entry>
   <entry>
@@ -860,45 +899,6 @@ wordList 中的所有字符串 互不相同</code></pre>
         <tag>leetcode</tag>
         <tag>graph</tag>
         <tag>DSU</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图系列——矩阵中的距离</title>
-    <url>/2022/02/21/80b7b127a404/</url>
-    <content><![CDATA[<h4 id="剑指-offer-ii-107.-矩阵中的距离"><a href="https://leetcode-cn.com/problems/2bCMpM/">剑指 Offer II 107. 矩阵中的距离</a></h4>
-<p>​ 给定一个由 0 和 1 组成的矩阵 mat ，请输出一个大小相同的矩阵，其中每一个格子是 mat 中对应位置元素到最近的 0 的距离。</p>
-<p>​ 两个相邻元素间的距离为 1 。</p>
-<p><strong>示例 1：</strong></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/1626667201-NCWmuP-image.png" alt="img" style="zoom: 50%;" /></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：mat = [[0,0,0],[0,1,0],[0,0,0]]</span><br><span class="line">输出：[[0,0,0],[0,1,0],[0,0,0]]</span><br></pre></td></tr></table></figure>
-<h5 id="解题思路1多源bfs"><strong>解题思路1:多源BFS</strong></h5>
-<p>​ 一开始看这题，应当能够较快的反应使用BFS进行解答，但核心的问题在于，如果使用传统 的BFS进行解答，起点是任意一个节点，终点为任意一个值为0的节点，我们需要做很多遍BFS才能够解决问题。</p>
-<p>​ 故而，本题中所涉及到的是一个叫做<strong>多源BFS</strong>的方法，其实多源的BFS和单源BFS非常相似，在上述问题中，整体思路如下：首先我们遍历整个矩阵，将所有的值为0的节点得出结果，并加入到队列中去。我们采用逆向思维的方法，将这些值为0的节点全部放入队列中，且这些值为0的节点对应的结果距离也为0，后续经由它们扩散得到的别的点的距离，是在它们的距离0的基础上逐渐进行叠加的，直到扩散至全图范围，我们的多源BFS也就完成了。</p>
-<p>​ 有一个可能会令人担忧的问题：那就是如果某一个点一开始被遍历到，设定好值以后，后面再作为别人的领居北遍历到的时候，会不会要设定的值比之前设定的值小呢？这是不可能的，因为我们采用的是BFS，一层层像波纹一样向外扩散，后遍历到的设定的值，必定大于或等于先前设定的值。所以不需要担心。</p>
-<h5 id="解题代码"><strong>解题代码：</strong></h5>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; neighbor = &#123; &#123;<span class="number">-1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">1</span>&#125; &#125;;</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">updateMatrix</span>(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; mat) &#123;</span><br><span class="line">        <span class="keyword">int</span> m = mat.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> n = mat[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">res</span>(m,vector&lt;<span class="keyword">int</span>&gt;(n,<span class="number">-1</span>)); <span class="comment">//初始化为-1，代表未访问过的点</span></span><br><span class="line">        queue&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="comment">// 初始化那些0的点，res也应当为0，将他们入队</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(mat[i][j] == <span class="number">0</span>)&#123;</span><br><span class="line">                    q.<span class="built_in">push</span>(&#123;i,j&#125;);</span><br><span class="line">                    res[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            <span class="keyword">int</span> x = q.<span class="built_in">front</span>().first;</span><br><span class="line">            <span class="keyword">int</span> y = q.<span class="built_in">front</span>().second;</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> new_x = x + neighbor[i][<span class="number">0</span>];</span><br><span class="line">                <span class="keyword">int</span> new_y = y + neighbor[i][<span class="number">1</span>];</span><br><span class="line">              	<span class="comment">//如果节点不合法，或者节点已经访问过了，直接跳过</span></span><br><span class="line">                <span class="keyword">if</span>(new_x &lt; <span class="number">0</span> || new_x &gt;= m || new_y &lt; <span class="number">0</span> || new_y &gt;= n || res[new_x][new_y] != <span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">              	<span class="comment">//计算res，push进入</span></span><br><span class="line">                res[new_x][new_y] = res[x][y] + <span class="number">1</span>;</span><br><span class="line">                q.<span class="built_in">push</span>(&#123;new_x,new_y&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h5 id="解题思路2动态规划"><strong>解题思路2:动态规划</strong></h5>
-<p>​ <strong>采用DP，状态转移方程如下：</strong> <span class="math display">\[
-f(i,j) =  1 + min(\ f(i − 1, j),\  f(i, j − 1),\ f(i + 1, j), \ f(i, j + 1) \ \ )\ \ \ \ \  if (matrix[i][j] == 1)
-\]</span></p>
-<p><span class="math display">\[
-f(i,j)=  0 \ \ \ \ \ \   if (matrix[i][j] == 0)
-\]</span></p>
-<p>​ 此时，我们需要注意，按照上述状态转移方程，我们好像没有一个办法遍历<code>i，j</code>，能够保证满足，在计算<span class="math inline">\(f(i,j)\)</span>前，我们一定已经获知了<span class="math inline">\(f(i-1,j)\)</span> 和<span class="math inline">\(f(i+1,j)\)</span> 和<span class="math inline">\(f(i,j-1)\)</span> 和<span class="math inline">\(f(i,j+1)\)</span>这四个节点的状态。所以，我们需要分两步来进行计算遍历，先从左上角往右下角计算一遍，计算的时候仅考虑 <span class="math inline">\(f(i-1,j)\)</span> 和<span class="math inline">\(f(i,j-1)\)</span> 这两个节点。再从右下角往左上角计算一遍，计算的时候仅考虑 <span class="math inline">\(f(i+1,j)\)</span> 和<span class="math inline">\(f(i,j+1)\)</span> 这两个节点。由于在前面一遍遍历中，会将结果存在<span class="math inline">\(f(i,j)\)</span>中，再第二轮遍历的时候，只要将那两个节点和当前节点比较，就相当于完成了和上一轮遍历中的两个节点比较。故而能够达到和上述状态转移方程一致的效果，具体请看代码：</p>
-<h5 id="解题代码-1"><strong>解题代码：</strong></h5>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">updateMatrix</span>(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; mat) &#123;</span><br><span class="line">        <span class="keyword">int</span> m = mat.<span class="built_in">size</span>(), n = mat[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">dp</span>(m, vector&lt;<span class="keyword">int</span>&gt;(n));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) </span><br><span class="line">                dp[i][j] = mat[i][j] == <span class="number">0</span> ? <span class="number">0</span> : <span class="number">1e7</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 从左上角开始</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i - <span class="number">1</span> &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    dp[i][j] = <span class="built_in">min</span>(dp[i][j], dp[i - <span class="number">1</span>][j] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (j - <span class="number">1</span> &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                    dp[i][j] = <span class="built_in">mibn</span>(dp[i][j], dp[i][j - <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 从右下角开始</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i + <span class="number">1</span> &lt; m) &#123;</span><br><span class="line">                    dp[i][j] = <span class="built_in">min</span>(dp[i][j], dp[i + <span class="number">1</span>][j] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (j + <span class="number">1</span> &lt; n) &#123;</span><br><span class="line">                    dp[i][j] = <span class="built_in">min</span>(dp[i][j], dp[i][j + <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>⓷ 算法类笔记</category>
-        <category>动态规划系列</category>
-        <category>DFS与BFS系列</category>
-        <category>图系列</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>dynamic programming</tag>
-        <tag>BFS</tag>
-        <tag>graph</tag>
       </tags>
   </entry>
   <entry>
