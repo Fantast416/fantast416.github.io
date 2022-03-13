@@ -143,7 +143,179 @@
 <h5 id="作为最接近硬件的层次">3） 作为最接近硬件的层次：</h5>
 <p>需要实现堆硬件机器的拓展，没有任何软件支持的计算机称为<strong>裸机</strong>。</p>
 <p>通常把覆盖了软件的机器成为<strong>扩充机器</strong>，又称之为<strong>虚拟机</strong></p>
-<h3 id="二">二、</h3>
+<h3 id="二操作系统的特征">二、操作系统的特征</h3>
+<h4 id="并发最基本的特征之一">1、并发（最基本的特征之一）</h4>
+<p>​ 指两个或多个事件在同一时间间隔内发生。<strong>这些事件宏观上是同时发生的，但微观上是交替发生的。</strong></p>
+<p>​ 操作系统的并发性指<strong>计算机系统中同时存在着多个运行着的程序</strong>。</p>
+<p>​ 一个单核处理机（CPU）同一时刻只能执行一个程序，因此<strong>操作系统会负责协调多个程序交替执行（这些程序微观上是交替执行的，但宏观上看起来就像在同时执行）</strong></p>
+<p>​ 我们现在的4核CPU处理器，意味着同一时刻可以有4个程序<strong>并行</strong>执行，但是操作系统的<strong>并发性</strong>必不可少。</p>
+<h4 id="共享最基本的特征之二">2、共享（最基本的特征之二）</h4>
+<p>​ 资源共享，是指<strong>系统中的资源可供内存中多个并发执行的进程共同使用。</strong></p>
+<ul>
+<li>互斥共享方式：系统中的<strong>某些资源，虽然可以提供给多个进程使用，但一个时间段内只允许一个进程访问该资源。</strong>比如说：使用QQ和微信视频，<strong>同一时间段摄像头只能分配给其中一个进程。</strong></li>
+<li>同时共享方式：系统中的某些资源，允许一个时间段内由多个进程<strong>“同时”</strong>对它们进行访问。比如说：使用QQ发送文件A，同时使用微信发送文件B。<strong>宏观上看，两边都在同时读取并发送文件，</strong>说明两个进程都在访问硬盘资源，从中读取数据。<strong>微观上看，两个进程是交替着访问硬盘的。</strong></li>
+</ul>
+<h4 id="虚拟">3、虚拟</h4>
+<p>​ 虚拟是指<strong>把一个物理上的实体变为若干个逻辑上的对应物</strong>：物理实体（前者）是实际存在的，而<strong>逻辑上对应物（后者）是用户感受到的。</strong></p>
+<h5 id="虚拟技术">1）虚拟技术</h5>
+<ul>
+<li><p>空分复用技术：如虚拟存储器技术</p></li>
+<li><p>时分复用技术：如虚拟处理器</p></li>
+<li><p>问题1：GTA5需要4GB的运行内存，QQ需要256MB的内存，迅雷需要256MB的内存，网易云音乐需要256MB的内存……而我的电脑只有4GB内存，这些程序同时运行需要的内存远大于4GB，那么为什么它们还可以在我的电脑上同时运行呢？</p></li>
+<li><p>答：这是虚拟存储器技术。实际只有4GB的内存，在用户看来似乎远远大于4GB。<strong>即空分复用技术</strong></p></li>
+<li><p>问题2：既然一个程序需要被分配CPU才能正常执行，那么为什么单核CPU的电脑中能同时运行这么多个程序呢？</p></li>
+<li><p>答：这是虚拟处理器技术。实际上只有一个单核CPU，在用户看来似乎有6个CPU在同时为自己服务。<strong>即时分复用技术</strong></p></li>
+</ul>
+<h4 id="异步">4、异步</h4>
+<p>​ 异步是指，在多道程序环境下，允许多个程序并发执行，<strong>但由于资源有限，进程的执行不是一贯到底的，而是走走停停，以不可预知的速度向前推进，</strong>这就是进程的异步性。</p>
+<h3 id="三操作系统的发展与分类">三、操作系统的发展与分类：</h3>
+<h4 id="手工操作阶段">1、手工操作阶段：</h4>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313105737330.png" alt="手工操作阶段" /><figcaption aria-hidden="true">手工操作阶段</figcaption>
+</figure>
+<p><strong>主要缺点：</strong>用户独占全机、人机速度矛盾导致资源利用率极低</p>
+<h4 id="批处理阶段">2、批处理阶段：</h4>
+<h5 id="单道批处理系统">1）单道批处理系统</h5>
+<p>​ 引入脱机输入输出技术（用磁带完成），并由监督程序负责控制作业的输入输出。</p>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313110520259.png" alt="单道批处理系统" /><figcaption aria-hidden="true">单道批处理系统</figcaption>
+</figure>
+<p><strong>主要优点：</strong>缓解了一定程度的人机速度矛盾，资源利用率有所提升。</p>
+<p><strong>主要缺点：</strong>内存中仅能有一道程序运行，只有该程序运行结束之后才能调入下一道程序。CPU有大量的时间是在空闲等待l/0完成。资源利用率依然很低。</p>
+<h5 id="多道批处理系统">2）多道批处理系统</h5>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313110759912.png" alt="多道批处理系统" /><figcaption aria-hidden="true">多道批处理系统</figcaption>
+</figure>
+<p><strong>主要优点：</strong>多道程序并发执行，共享计算机资源。资源利用率大幅提升，CPU和其他资源保持“忙碌”状态，系统吞吐量增大。</p>
+<p><strong>主要缺点：</strong>用户响应时间长，没有人机交互功能（用户提交自己的作业（程序）之后就只能等待计算机处理完成，中间不能控制自己的作业执行）</p>
+<h4 id="分时操作系统">3、分时操作系统：</h4>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313111132639.png" alt="分时操作系统" /><figcaption aria-hidden="true">分时操作系统</figcaption>
+</figure>
+<p>​ 计算机以<strong>时间片</strong>（例如50ms）为单位<strong>轮流为各个用户/作业服务</strong>，各个用户可通过终端与计算机进行交互。</p>
+<p><strong>王要优点：用户请求可以被即时响应，群决了人机交互问题。</strong>允许多个用尸同时使用一台计算机，并且用户对计算机的操作相互独立，感受不到别人的存在。</p>
+<p><strong>主要缺点：</strong>不能优先处理一些紧急任务。操作系统对各个用户/作业都是完全公平的，循环地为每个用户作业服务一个时间片，<strong>不区分任务的紧急性</strong>。</p>
+<h4 id="实时操作系统">4、实时操作系统：</h4>
+<ul>
+<li>硬实时系统：必须在绝对严格的规定时间内完成处理（如导弹控制系统、自动驾驶等）</li>
+<li>软实时系统：能接受偶尔违反时间规定</li>
+</ul>
+<p>主要优点：能够优先响应一些紧急任务，某些紧急任务不需时间片排队。</p>
+<p>在实时操作系统的控制下，计算机系统接收到外部信号后<strong>及时进行处理</strong>，并且要在严格的时限内处理完事件。实时操作系统的主要特点是<strong>及时性和可靠性</strong></p>
+<h4 id="其他操作系统">5、其他操作系统：</h4>
+<ul>
+<li>网络操作系统：是伴随着计算机网络的发展而诞生的，能把网络中各个计算机有机地结合起来，实现数据传送等功能，实现网络中各种资源的共享（如文件共享）和各台计算机之间的通信。（如：Windows NT就是一种典型的网络操作系统，网站服务器就可以使用）</li>
+<li>分布式操作系统：主要特点是<strong>分布性和并行性</strong>。系统中的各台计算机地位相同，任何工作都可以分布在这些计算机上，由它们并行、协同完成这个任务。</li>
+<li>个人计算机操作系统：如WindowsXP、MacOs，方便个人使用。</li>
+</ul>
+<h3 id="四操作系统的运行机制">四、操作系统的运行机制：</h3>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313111750626.png" alt="“指令”和&quot;代码&quot;的区别" /><figcaption aria-hidden="true">“指令”和"代码"的区别</figcaption>
+</figure>
+<h4 id="两种指令">1、两种指令：</h4>
+<h5 id="特权指令如内存清零指令不允许用户程序使用">1） 特权指令：如内存清零指令，不允许用户程序使用</h5>
+<h5 id="非特权指令如普通的运算指令">2） 非特权指令：如普通的运算指令</h5>
+<h4 id="两种处理器状态">2、两种处理器状态：</h4>
+<p>用于判断当前是否可以执行特权指令</p>
+<h5 id="用户态目态只能执行非特权指令">1） 用户态（目态）：只能执行非特权指令</h5>
+<h5 id="核心态管态两种指令都可以执行">2） 核心态（管态）：两种指令都可以执行</h5>
+<h4 id="两种程序">3、两种程序：</h4>
+<h5 id="内核程序">1）内核程序：</h5>
+<p>​ 操作系统的内核程序是系统的管理者，既可以执行特权指令，也可以执行非特权指令，运行在核心态。</p>
+<h5 id="应用程序">2）应用程序：</h5>
+<p>​ 为了保证系统能安全运行，普通应用程序只能执行非特权指令，运行在用户态</p>
+<h3 id="五操作系统内核">五、操作系统内核：</h3>
+<h4 id="内核总览示意图">1、内核总览示意图：</h4>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313112448980.png" alt="计算机系统的层次结构" /><figcaption aria-hidden="true">计算机系统的层次结构</figcaption>
+</figure>
+<p>​ <strong>原子性</strong>指该程序在开始执行后，中间不能被中断。</p>
+<p>​ 内核是计算机上配置的底层软件，是操作系统最基本、最核心的部分。实现操作系统内核功能的那些程序就是内核程序。</p>
+<h4 id="操作系统的体系结构">2、操作系统的体系结构：</h4>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313112907278.png" /></p>
+<h5 id="大内核">1） 大内核：</h5>
+<p>将操作系统的主要功能模块都作为系统内核，运行在核心态</p>
+<p>优点：高性能</p>
+<p>缺点：内核代码庞大，结构混乱，难以维护</p>
+<h5 id="微内核">2）微内核：</h5>
+<p>只把最基本的功能保留在内核</p>
+<p>优点：内核功能少，结构清晰，方便维护</p>
+<p>缺点：需要频繁地在核心态和用户态之间切换，性能低</p>
+<h3 id="六中断和异常">六、中断和异常：</h3>
+<h4 id="中断机制的诞生缘由">1、中断机制的诞生缘由：</h4>
+<p>​ 早期计算机各个程序只能串行执行程序，系统资源利用率会较低。为了解决该问题，就发明了操作系统，引入中断机制，实现了多道程序的并发执行。</p>
+<p><strong>本质</strong>： 发生中断，就意味着需要操作系统接入，进行管理.具体如下:</p>
+<p>​ 我们假设3个进程同时放入内存中进行执行,首先CPU执行进程1,一段时间后,CPU收到计时硬件发出的中断信号,就会切换至<strong>核心态</strong>,CPU知晓进程1的时间片已经用完了,就切换进程2运行.完成该系列操作后,CPU又会切换至<strong>用户态</strong>,然后开始运行进程2,在进程2运行过程中,进程2发出<strong>系统调用(内中断信号)</strong>,请求输出.<strong>(由于输入输出是特权指令,普通程序不能直接调用,只能通过向操作系统申请,即主动发出中断信号)</strong>,此时CPU将切换到<strong>核心态</strong>,<strong>由操作系统内核进行接管</strong>,负责执行输出内容,比如其让打印机IO设备开始工作,<strong>此时进程2就需要暂停运行等待IO完成,故而操作系统此时让进程3先运行</strong>.CPU重新切换为<strong>用户态,</strong>执行进程3.在CPU执行进程3的过程中,IO也在同步进行,当IO完成时,IO设备(打印机)就会向CPU发出中断信号,CPU收到IO设备发来的中断信号,又会切换至<strong>核心态</strong>,<strong>交由操作系统内核进行处理</strong>.此时,操作系统发现是进程2的IO结束了,就会让进程2恢复运行,CPU切换为用户态.进程2继续完成内容.</p>
+<h4 id="中断的概念和作用">2、中断的概念和作用：</h4>
+<ul>
+<li>当中断发生时，CPU立即进入核心态</li>
+<li>当中断发生后，当前运行的进程暂停运行，并由操作系统内核对中断进行处理</li>
+<li>对于不同的中断信号，会进行不同的处理</li>
+</ul>
+<p>​ 发生了中断，就意味着需要<strong>操作系统介入，开展管理工作。</strong>由于操作系统的管理工作（比如进程切换、分配I/O设备等）需要使用特权指令，因此CPU要从<strong>用户态转为核心态</strong>。<strong>中断可以使CPU从用户态切换为核心态，使操作系统获得计算机的控制权。</strong> <strong>有了中断，才能实现多道程序并发执行。</strong></p>
+<p><strong>用户态</strong>到<strong>核心态</strong>的切换是通过<strong>中断</strong>实现的，并且中断是唯一途径。</p>
+<p><strong>核心态</strong>到<strong>用户态</strong>的切换是通过<strong>执行一个特权指令，将PSW标志位设置</strong>实现的。</p>
+<h4 id="中断的分类">3、中断的分类:</h4>
+<p>两者的本质区别： 信号的来源是CPU内部还是CPU外部。与当前的执行的指令是否有关</p>
+<h5 id="内中断异常例外陷入-来源于cpu内部与当前执行的指令有关">1）内中断（异常、例外、陷入）： 来源于CPU内部，与当前执行的指令有关</h5>
+<ul>
+<li>指令中断：系统调用</li>
+<li>强迫中断
+<ul>
+<li>硬件故障</li>
+<li>软件中断（如整数除0）</li>
+</ul></li>
+</ul>
+<h5 id="外中断来源于cpu外部与当前执行的指令无关">2）外中断：来源于CPU外部，与当前执行的指令无关</h5>
+<ul>
+<li>外设请求：I/0操作完成发出的中断信号</li>
+<li>人工干预：用户强行终止一个进程</li>
+</ul>
+<p>另一种分类：</p>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313130033093.png" alt="另一种中断的分类" /><figcaption aria-hidden="true">另一种中断的分类</figcaption>
+</figure>
+<h4 id="外中断的处理过程">4、外中断的处理过程：</h4>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313130249004.png" alt="外中断的处理过程" /><figcaption aria-hidden="true">外中断的处理过程</figcaption>
+</figure>
+<ul>
+<li>Step1：执行完每个指令之后，CPU都要检查当前是否有外部中断信号</li>
+<li>Step2：如果检测到外部中断信号，则需要保护被中断进程的CPU环境（如程序状态字PSW、程序计数器PC、各种通用寄存器)</li>
+<li>Step3：根据中断信号类型转入相应的中断处理程序</li>
+<li>Step 4：恢复原进程的CPU环境并退出中断，返回原进程继续往下执行</li>
+</ul>
+<h3 id="七系统调用">七、系统调用：</h3>
+<h4 id="什么是系统调用">1、什么是系统调用：</h4>
+<p>​ 操作系统作为用户和计算机硬件之间的接口，需要向上提供一些简单易用的服务。主要包括命令接口和程序接口。其中，程序接口由<strong>一组系统调用组成</strong>。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313141435648.png" /></p>
+<p>​ “系统调用”是<strong>操作系统提供给应用程序</strong>（程序员/编程人员)使用的接口，可以理解为一种<strong>可供应用程序调用的特殊函数，应用程序可以发出系统调用请求来获得操作系统的服务</strong>。</p>
+<p>​</p>
+<h4 id="系统调用有什么作用">2、系统调用有什么作用？</h4>
+<p>​ <strong>应用程序通过系统调用请求操作系统的服务。系统中的各种共享资源都由操作系统统一掌管，因此在用户程序中，凡是与资源有关的操作（如存储分配、I/O操作、文件管理等），都必须通过系统调用的方式向操作系统提出服务请求，由操作系统代为完成。这样可以保证系统的稳定性和安全性，防止用户进行非法操作。</strong></p>
+<p><strong>系统调用</strong>会使得处理器从<strong>用户态</strong>进入<strong>核心态</strong>。</p>
+<h4 id="系统调用分类">3、系统调用分类：</h4>
+<p>​ 系统调用相关处理涉及到对系统资源的管理、对进程的控制，这些功能需要执行一些特权指令才能完成，因此系统调用的相关处理需要在核心态下进行。</p>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313142304849.png" alt="系统调用分类" /><figcaption aria-hidden="true">系统调用分类</figcaption>
+</figure>
+<h4 id="系统调用与库函数的区别">4、系统调用与库函数的区别：</h4>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313142453847.png" style="zoom:50%;" /></p>
+<p>从下层至上层如下：</p>
+<ul>
+<li><strong>裸机</strong></li>
+<li><strong>操作系统</strong>：向上提供系统调用</li>
+<li><strong>编程语言</strong>：向上提供库函数。有时会将系统调用封装成库函数，以隐藏系统调用的一些细节，使上层进行系统调用更加方便。</li>
+<li><strong>普通应用程序</strong>：可直接进行系统调用，也可使用库函数。</li>
+</ul>
+<p>注意：有的库函数涉及系统调用，有的不涉及</p>
+<h4 id="系统调用背后的过程">5、系统调用背后的过程：</h4>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220313142828536.png" alt="系统调用背后的过程" /><figcaption aria-hidden="true">系统调用背后的过程</figcaption>
+</figure>
+<p><code>int x</code>指令的参数x，指明了系统调用号。此处的int是interrupt的缩写，执行该指令后，权限就交给了操作系统来接管，切换至核心态处理系统调用相关代码。</p>
+<p><strong>注意：</strong></p>
+<p>1.陷入指令是在<strong>用户态执行的</strong>，执行陷入指令之后立即引发一个内中断，从而CPU进入核心态 2.<strong>发出系统调用请求是在用户态</strong>，而对系统调用的相应处理在核心态下进行 3.<strong>陷入指令是唯一一个只能在用户态执行，而不可在核心态执行的指令</strong></p>
 ]]></content>
       <categories>
         <category>⓻ 基础类笔记</category>
@@ -832,6 +1004,37 @@ wordList 中的所有字符串 互不相同</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>图系列——多余的边（DSU应用）</title>
+    <url>/2022/02/21/0f9e9b187c29/</url>
+    <content><![CDATA[<h4 id="剑指-offer-ii-118.-多余的边"><a href="https://leetcode-cn.com/problems/7LpjUW/">剑指 Offer II 118. 多余的边</a></h4>
+<p>​ 树可以看成是一个连通且 无环 的 无向 图。</p>
+<p>​ 给定往一棵 n 个节点 (节点值 1～n) 的树中添加一条边后的图。添加的边的两个顶点包含在 1 到 n 中间，且这条附加的边不属于树中已存在的边。图的信息记录于长度为 n 的二维数组 edges ，edges[i] = [ai, bi] 表示图中在 ai 和 bi 之间存在一条边。</p>
+<p>​ 请找出一条可以删去的边，删除后可使得剩余部分是一个有着 n 个节点的树。如果有多个答案，则返回数组 edges 中最后出现的边。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/1626676174-hOEVUL-image.png" style="zoom: 50%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: edges = [[1,2],[1,3],[2,3]]</span><br><span class="line">输出: [2,3]</span><br></pre></td></tr></table></figure>
+<h5 id="解题思路"><strong>解题思路</strong>：</h5>
+<p>​ 一开始，我的思路是找到一种方法，能够判断一个图有无环。毫无疑问，我们可以使用拓扑排序去进行这个思路，但是这样子的话，对于每删掉一条边就要进行一次拓扑排序来判断，时间复杂度无疑是比较高的。</p>
+<p>​ 这个时候，查看官方解答，原来这类题目还可以使用<strong>并查集</strong>来做：</p>
+<p>​ 初始时，每个节点都属于不同的连通分量。遍历每一条边，判断这条边连接的两个顶点是否属于相同的连通分量。</p>
+<ul>
+<li>如果两个顶点属于不同的连通分量，则说明在遍历到当前的边之前，这两个顶点之间不连通，因此当前的边不会导致环出现，合并这两个顶点的连通分量。</li>
+<li>如果两个顶点属于相同的连通分量，则说明在遍历到当前的边之前，这两个顶点之间已经连通，因此当前的边导致环出现，为多余的边，将当前的边作为答案返回。</li>
+</ul>
+<h5 id="解题代码"><strong>解题代码</strong>：</h5>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">findRedundantConnection</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">root</span><span class="params">(<span class="number">1001</span>,<span class="number">-1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">for</span>(i =<span class="number">0</span>;i&lt;edges.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">bool</span> res = <span class="built_in">unionTwo</span>(edges[i][<span class="number">0</span>],edges[i][<span class="number">1</span>],root);</span><br><span class="line">            <span class="keyword">if</span>(!res) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> edges[i]; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getRoot</span><span class="params">(<span class="keyword">int</span> index,vector&lt;<span class="keyword">int</span>&gt; &amp;root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(root[index] != <span class="number">-1</span>)&#123;</span><br><span class="line">            index = root[index];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">unionTwo</span><span class="params">(<span class="keyword">int</span> index1,<span class="keyword">int</span> index2,vector&lt;<span class="keyword">int</span>&gt; &amp;root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> root1 = <span class="built_in">getRoot</span>(index1,root);</span><br><span class="line">        <span class="keyword">int</span> root2 = <span class="built_in">getRoot</span>(index2,root);</span><br><span class="line">        <span class="keyword">if</span>(root1 != root2)&#123;</span><br><span class="line">            root[root1] = root2;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>⓷ 算法类笔记</category>
+        <category>图系列</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>graph</tag>
+        <tag>DSU</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>图系列——矩阵中的距离</title>
     <url>/2022/02/21/80b7b127a404/</url>
     <content><![CDATA[<h4 id="剑指-offer-ii-107.-矩阵中的距离"><a href="https://leetcode-cn.com/problems/2bCMpM/">剑指 Offer II 107. 矩阵中的距离</a></h4>
@@ -868,37 +1071,6 @@ f(i,j)=  0 \ \ \ \ \ \   if (matrix[i][j] == 0)
         <tag>BFS</tag>
         <tag>dynamic programming</tag>
         <tag>graph</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图系列——多余的边（DSU应用）</title>
-    <url>/2022/02/21/0f9e9b187c29/</url>
-    <content><![CDATA[<h4 id="剑指-offer-ii-118.-多余的边"><a href="https://leetcode-cn.com/problems/7LpjUW/">剑指 Offer II 118. 多余的边</a></h4>
-<p>​ 树可以看成是一个连通且 无环 的 无向 图。</p>
-<p>​ 给定往一棵 n 个节点 (节点值 1～n) 的树中添加一条边后的图。添加的边的两个顶点包含在 1 到 n 中间，且这条附加的边不属于树中已存在的边。图的信息记录于长度为 n 的二维数组 edges ，edges[i] = [ai, bi] 表示图中在 ai 和 bi 之间存在一条边。</p>
-<p>​ 请找出一条可以删去的边，删除后可使得剩余部分是一个有着 n 个节点的树。如果有多个答案，则返回数组 edges 中最后出现的边。</p>
-<p><strong>示例 1：</strong></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/1626676174-hOEVUL-image.png" style="zoom: 50%;" /></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: edges = [[1,2],[1,3],[2,3]]</span><br><span class="line">输出: [2,3]</span><br></pre></td></tr></table></figure>
-<h5 id="解题思路"><strong>解题思路</strong>：</h5>
-<p>​ 一开始，我的思路是找到一种方法，能够判断一个图有无环。毫无疑问，我们可以使用拓扑排序去进行这个思路，但是这样子的话，对于每删掉一条边就要进行一次拓扑排序来判断，时间复杂度无疑是比较高的。</p>
-<p>​ 这个时候，查看官方解答，原来这类题目还可以使用<strong>并查集</strong>来做：</p>
-<p>​ 初始时，每个节点都属于不同的连通分量。遍历每一条边，判断这条边连接的两个顶点是否属于相同的连通分量。</p>
-<ul>
-<li>如果两个顶点属于不同的连通分量，则说明在遍历到当前的边之前，这两个顶点之间不连通，因此当前的边不会导致环出现，合并这两个顶点的连通分量。</li>
-<li>如果两个顶点属于相同的连通分量，则说明在遍历到当前的边之前，这两个顶点之间已经连通，因此当前的边导致环出现，为多余的边，将当前的边作为答案返回。</li>
-</ul>
-<h5 id="解题代码"><strong>解题代码</strong>：</h5>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">findRedundantConnection</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">root</span><span class="params">(<span class="number">1001</span>,<span class="number">-1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">for</span>(i =<span class="number">0</span>;i&lt;edges.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">bool</span> res = <span class="built_in">unionTwo</span>(edges[i][<span class="number">0</span>],edges[i][<span class="number">1</span>],root);</span><br><span class="line">            <span class="keyword">if</span>(!res) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> edges[i]; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getRoot</span><span class="params">(<span class="keyword">int</span> index,vector&lt;<span class="keyword">int</span>&gt; &amp;root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(root[index] != <span class="number">-1</span>)&#123;</span><br><span class="line">            index = root[index];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">unionTwo</span><span class="params">(<span class="keyword">int</span> index1,<span class="keyword">int</span> index2,vector&lt;<span class="keyword">int</span>&gt; &amp;root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> root1 = <span class="built_in">getRoot</span>(index1,root);</span><br><span class="line">        <span class="keyword">int</span> root2 = <span class="built_in">getRoot</span>(index2,root);</span><br><span class="line">        <span class="keyword">if</span>(root1 != root2)&#123;</span><br><span class="line">            root[root1] = root2;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>⓷ 算法类笔记</category>
-        <category>图系列</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>graph</tag>
-        <tag>DSU</tag>
       </tags>
   </entry>
   <entry>
