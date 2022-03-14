@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="包含王道课程第2.1节的内容，含进程的定义、组成、组织方式、状态与转换，进程控制、进程通信、线程概念和多线程模型等内容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.1 进程与线程的基本概念">
+<meta property="og:url" content="https://blog.slks.xyz/2022/03/14/32aa5a2632ac/index.html">
+<meta property="og:site_name" content="Fantast&#39;s Blog">
+<meta property="og:description" content="包含王道课程第2.1节的内容，含进程的定义、组成、组织方式、状态与转换，进程控制、进程通信、线程概念和多线程模型等内容">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314212804178.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314221020998.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314221055019.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314223023656.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314223828760.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314224013167.png">
+<meta property="article:published_time" content="2022-03-14T13:04:19.000Z">
+<meta property="article:modified_time" content="2022-03-14T14:52:53.456Z">
+<meta property="article:author" content="Fantast">
+<meta property="article:tag" content="Operating System">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314212804178.png">
+
+
+<link rel="canonical" href="https://blog.slks.xyz/2022/03/14/32aa5a2632ac/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/03/14/32aa5a2632ac/","path":"2022/03/14/32aa5a2632ac/","title":"2.1 进程与线程的基本概念"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2.1 进程与线程的基本概念 | Fantast's Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Fantast's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Fantast's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89%E7%BB%84%E6%88%90%E5%92%8C%E7%BB%84%E7%BB%87%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">一、进程的定义、组成和组织方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%94%B1%E6%9D%A5"><span class="nav-number">1.1.</span> <span class="nav-text">1、进程的由来：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.</span> <span class="nav-text">2、进程的定义：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%BB%84%E6%88%90"><span class="nav-number">1.3.</span> <span class="nav-text">3、进程组成：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%94%B1%E4%BB%A5%E4%B8%8B%E4%B8%89%E9%83%A8%E5%88%86%E7%BB%84%E6%88%90"><span class="nav-number">1.3.1.</span> <span class="nav-text">1）进程由以下三部分组成：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pcb%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%AD%E5%8C%85%E5%90%AB%E5%A6%82%E4%B8%8B%E5%86%85%E5%AE%B9"><span class="nav-number">1.3.2.</span> <span class="nav-text">2）PCB结构体中包含如下内容：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87%E5%A4%9A%E4%B8%AA%E8%BF%9B%E7%A8%8B%E9%97%B4"><span class="nav-number">1.4.</span> <span class="nav-text">4、进程的组织：（多个进程间）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.1.</span> <span class="nav-text">1）链接方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">2）索引方式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-number">1.5.</span> <span class="nav-text">5、进程的特征：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81%E5%92%8C%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">二、进程的状态和转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E5%9F%BA%E6%9C%AC%E7%8A%B6%E6%80%81"><span class="nav-number">2.1.</span> <span class="nav-text">1、进程的三种基本状态：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%80%81%E5%8D%A0%E7%94%A8cpu%E5%B9%B6%E5%9C%A8cpu%E4%B8%8A%E8%BF%90%E8%A1%8C"><span class="nav-number">2.1.1.</span> <span class="nav-text">1）运行态：占用CPU，并在CPU上运行。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%B1%E7%BB%AA%E6%80%81%E5%B7%B2%E7%BB%8F%E5%85%B7%E5%A4%87%E8%BF%90%E8%A1%8C%E6%9D%A1%E4%BB%B6%E4%BD%86%E7%94%B1%E4%BA%8E%E6%B2%A1%E6%9C%89%E7%A9%BA%E9%97%B2cpu%E8%80%8C%E6%9A%82%E6%97%B6%E4%B8%8D%E8%83%BD%E8%BF%90%E8%A1%8C"><span class="nav-number">2.1.2.</span> <span class="nav-text">2）就绪态：已经具备运行条件，但由于没有空闲CPU，而暂时不能运行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E6%80%81%E5%9B%A0%E7%AD%89%E5%BE%85%E6%9F%90%E4%B8%80%E4%BA%8B%E4%BB%B6%E8%80%8C%E6%9A%82%E6%97%B6%E4%B8%8D%E8%83%BD%E8%BF%90%E8%A1%8C"><span class="nav-number">2.1.3.</span> <span class="nav-text">3）阻塞态：因等待某一事件而暂时不能运行</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%A4%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-number">2.2.</span> <span class="nav-text">2、进程的另外两种状态：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%80%81%E8%BF%9B%E7%A8%8B%E6%AD%A3%E5%9C%A8%E8%A2%AB%E5%88%9B%E5%BB%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%BA%E8%BF%9B%E7%A8%8B%E5%88%86%E9%85%8D%E8%B5%84%E6%BA%90%E5%88%9D%E5%A7%8B%E5%8C%96pcb%E8%BF%9B%E7%A8%8B%E6%AD%A3%E5%9C%A8%E8%A2%AB%E5%88%9B%E5%BB%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%BA%E8%BF%9B%E7%A8%8B%E5%88%86%E9%85%8D%E8%B5%84%E6%BA%90%E5%88%9D%E5%A7%8B%E5%8C%96pcb"><span class="nav-number">2.2.1.</span> <span class="nav-text">1）创建态：进程正在被创建，操作系统为进程分配资源、初始化PCB进程正在被创建，操作系统为进程分配资源、初始化PCB</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E6%80%81%E8%BF%9B%E7%A8%8B%E6%AD%A3%E5%9C%A8%E4%BB%8E%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%92%A4%E9%94%80%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BC%9A%E5%9B%9E%E6%94%B6%E8%BF%9B%E7%A8%8B%E6%8B%A5%E6%9C%89%E7%9A%84%E8%B5%84%E6%BA%90%E6%92%A4%E9%94%80pcb%E8%BF%9B%E7%A8%8B%E6%AD%A3%E5%9C%A8%E4%BB%8E%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%92%A4%E9%94%80%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BC%9A%E5%9B%9E%E6%94%B6%E8%BF%9B%E7%A8%8B%E6%8B%A5%E6%9C%89%E7%9A%84%E8%B5%84%E6%BA%90%E6%92%A4%E9%94%80pcb"><span class="nav-number">2.2.2.</span> <span class="nav-text">2）终止态：进程正在从系统中撤销，操作系统会回收进程拥有的资源、撤销PCB进程正在从系统中撤销，操作系统会回收进程拥有的资源、撤销PCB</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.3.</span> <span class="nav-text">2、进程状态的转换：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">三、进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">3.1.</span> <span class="nav-text">1、什么是进程控制：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">3.2.</span> <span class="nav-text">2、如何实现进程控制：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E8%AF%AD%E7%9A%84%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">3、原语的具体操作：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%BC%9A%E5%AF%BC%E8%87%B4%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E7%9A%84%E8%BD%AC%E6%8D%A2%E6%97%A0%E8%AE%BA%E5%93%AA%E4%B8%AA%E5%8E%9F%E8%AF%AD%E8%A6%81%E5%81%9A%E7%9A%84%E6%97%A0%E9%9D%9E%E4%B8%89%E7%B1%BB%E4%BA%8B%E6%83%85"><span class="nav-number">4.0.1.</span> <span class="nav-text">进程控制会导致进程状态的转换。无论哪个原语，要做的无非三类事情：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%8E%9F%E8%AF%AD%E6%97%A0%E5%88%9B%E5%BB%BA%E6%80%81%E5%B0%B1%E7%BB%AA%E6%80%81"><span class="nav-number">4.0.2.</span> <span class="nav-text">1）创建原语：（无→创建态→就绪态）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%A4%9F%E5%BC%95%E8%B5%B7%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A6%82%E4%B8%8B"><span class="nav-number">4.0.3.</span> <span class="nav-text">能够引起进程创建的事件如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%92%A4%E9%94%80%E5%8E%9F%E8%AF%AD%E5%B0%B1%E7%BB%AA%E6%80%81%E9%98%BB%E5%A1%9E%E6%80%81%E8%BF%90%E8%A1%8C%E6%80%81%E7%BB%88%E6%AD%A2%E6%80%81%E6%97%A0"><span class="nav-number">4.0.4.</span> <span class="nav-text">2）撤销原语：（就绪态&#x2F;阻塞态&#x2F;运行态→终止态→无）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%A4%9F%E5%BC%95%E8%B5%B7%E8%BF%9B%E7%A8%8B%E6%92%A4%E9%94%80%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A6%82%E4%B8%8B"><span class="nav-number">4.0.5.</span> <span class="nav-text">能够引起进程撤销的事件如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E5%8E%9F%E8%AF%AD%E8%BF%90%E8%A1%8C%E6%80%81%E9%98%BB%E5%A1%9E%E6%80%81"><span class="nav-number">4.0.6.</span> <span class="nav-text">3）阻塞原语：（运行态→阻塞态）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%94%A4%E9%86%92%E5%8E%9F%E8%AF%AD%E9%98%BB%E5%A1%9E%E6%80%81%E8%BF%90%E8%A1%8C%E6%80%81"><span class="nav-number">4.0.7.</span> <span class="nav-text">4）唤醒原语：（阻塞态→运行态）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%87%E6%8D%A2%E5%8E%9F%E8%AF%AD%E8%BF%90%E8%A1%8C%E6%80%81%E9%98%BB%E5%A1%9E%E6%80%81%E5%B0%B1%E7%BB%AA%E6%80%81-%E6%88%96-%E5%B0%B1%E7%BB%AA%E6%80%81%E8%BF%90%E8%A1%8C%E6%80%81"><span class="nav-number">4.0.8.</span> <span class="nav-text">5）切换原语：（运行态→阻塞态&#x2F;就绪态 或 就绪态→运行态）</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fantast"
+      src="/images/avatar.webp">
+  <p class="site-author-name" itemprop="name">Fantast</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fantast416" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fantast416" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fantast416@gmail.com" title="E-Mail → mailto:fantast416@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.zhihu.com/people/shuo-shuo-3-41" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;shuo-shuo-3-41" rel="noopener" target="_blank">ZhiHu</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.next.zju.edu.cn/" title="http:&#x2F;&#x2F;www.next.zju.edu.cn&#x2F;" rel="noopener" target="_blank">NextLab</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/03/14/32aa5a2632ac/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Fantast">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fantast's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2.1 进程与线程的基本概念
+        </h1>
+
+        <div class="post-meta-container">
+          
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-03-14 21:04:19 / 修改时间：22:52:53" itemprop="dateCreated datePublished" datetime="2022-03-14T21:04:19+08:00">2022-03-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E2%93%BB-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓻ 基础类笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E2%93%BB-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">包含王道课程第2.1节的内容，含进程的定义、组成、组织方式、状态与转换，进程控制、进程通信、线程概念和多线程模型等内容</div>
+            <div class="post-remind">Google Chrome is recommended, otherwise the image size may be wrong</div>
+            <div class="post-remind">FireFox is not recommended,Because it does not support the image zoom property</div>
+        </div>
+        
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="一进程的定义组成和组织方式">一、进程的定义、组成和组织方式</h3>
+<h4 id="进程的由来">1、进程的由来：</h4>
+<p>程序本身其实就是一个指令序列。</p>
+<p>早期的计算机只支持单道程序，程序运行时，内存中会分配两块区域：</p>
+<ul>
+<li>程序段：程序的代码放在程序段内</li>
+<li>数据段：程序运行过程处理的数据放在数据段内</li>
+</ul>
+<p>​ 引入多道程序技术后，内存中需要存放多道程序：</p>
+<p>​ <strong>为方便操作系统管理，完成个程序并发执行</strong>，故而操作系统为每个运行的程序配置一个数据结构，被称为<strong>进程控制块（PCB）</strong>，用于描述进程的各种信息（比如该进程程序代码存放位置等）。</p>
+<h4 id="进程的定义">2、进程的定义：</h4>
+<p>​ <strong>PCB、程序段、数据段</strong>三部分构成了<strong>进程实体</strong>。<strong>所谓创建进程，实质上是创建进程实体中的PCB；</strong>而撤销进程，实质上是撤销进程实体中的PCB。</p>
+<p>​ PCB是进程存在的唯一标志。</p>
+<p>​ 引入进程实体的概念后，可把进程定义为：<strong>进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。</strong>注：严格来说，进程实体和进程并不一样，进程实体是静态的，进程则是动态的。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314212804178.png" style="zoom:50%;" /></p>
+<h4 id="进程组成">3、进程组成：</h4>
+<h5 id="进程由以下三部分组成">1）进程由以下三部分组成：</h5>
+<ul>
+<li>PCB：进程的管理者所需的数据都在PCB中</li>
+<li>程序段：存放要执行的代码</li>
+<li>数据段：存放程序运行过程中处理的各种数据</li>
+</ul>
+<h5 id="pcb结构体中包含如下内容">2）PCB结构体中包含如下内容：</h5>
+<ul>
+<li>进程描述信息
+<ul>
+<li>进程标识符PID</li>
+<li>用户标识符UID</li>
+</ul></li>
+<li>进程控制和管理信息
+<ul>
+<li>进程当前状态</li>
+<li>进程优先级</li>
+</ul></li>
+<li>资源分配清单
+<ul>
+<li>程序段指针</li>
+<li>数据段指针</li>
+<li>键盘、鼠标</li>
+</ul></li>
+<li>处理机相关信息
+<ul>
+<li>各种寄存器的值</li>
+</ul></li>
+</ul>
+<h4 id="进程的组织多个进程间">4、进程的组织：（多个进程间）</h4>
+<h5 id="链接方式">1）链接方式</h5>
+<p>按照进程状态将PCB分为多个队列，操作系统持有指向各个队列的指针</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314221020998.png" alt="进程组织的链接方式" style="zoom: 50%;" /></p>
+<h5 id="索引方式">2）索引方式</h5>
+<p>​ 根据进程状态的不同，建立几张索引表，操作系统持有指向各个索引表的指针</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314221055019.png" alt="进程组织的索引方式" style="zoom:50%;" /></p>
+<h4 id="进程的特征">5、进程的特征：</h4>
+<ul>
+<li><strong>动态性（最基本特征）</strong>：进程是程序的一次执行过程，是动态地产生、变化和消亡的</li>
+<li><strong>并发性：</strong>内存中有多个进程实体，各进程可并发执行</li>
+<li><strong>独立性：</strong>进程是能独立运行、独立获得资源、独立接受调度的基本单位</li>
+<li><strong>异步性：</strong>各进程按各自独立的、不可预知的速度向前推进，操作系统要提供“进程同步机制"来解决异步问题。异步性可能会导致并发程序执行结果的不确定性。</li>
+<li><strong>结构性：</strong>每个进程都会配置一个PCB。结构上看，进程由程序段、数据段、PCB组成</li>
+</ul>
+<h3 id="二进程的状态和转换">二、进程的状态和转换</h3>
+<h4 id="进程的三种基本状态">1、进程的三种基本状态：</h4>
+<h5 id="运行态占用cpu并在cpu上运行">1）运行态：占用CPU，并在CPU上运行。</h5>
+<p>​ 注意：单核处理机环境下，每一时刻最多见有一个进程处于运行态。（双核环境下可以同时有两个进程处于运</p>
+<p>行态）。</p>
+<h5 id="就绪态已经具备运行条件但由于没有空闲cpu而暂时不能运行">2）就绪态：已经具备运行条件，但由于没有空闲CPU，而暂时不能运行</h5>
+<p>​ 进程已经拥有了除处理机之外所有需要的资源，一旦获得处理机，即可立即进入运行态开始运行。 即：万事俱备，只欠CPU即：万事俱备，只欠CPU</p>
+<h5 id="阻塞态因等待某一事件而暂时不能运行">3）阻塞态：因等待某一事件而暂时不能运行</h5>
+<p>​ 如：等待操作系统分配打印机、等待读磁盘操作的结果。CPU是计算机中最昂贵的部件，为了提高CPU的利用率，需要先将其他进程需要的资源分配到位，才能得到CPU的服务</p>
+<h4 id="进程的另外两种状态">2、进程的另外两种状态：</h4>
+<h5 id="创建态进程正在被创建操作系统为进程分配资源初始化pcb进程正在被创建操作系统为进程分配资源初始化pcb">1）创建态：进程正在被创建，操作系统为进程分配资源、初始化PCB进程正在被创建，操作系统为进程分配资源、初始化PCB</h5>
+<p>​ 操作系统需要完成创建进程。操作系统为该进程分配所需的内存空间等系统资源，并为其创建、初始化PCB（如：为进程分配PID）</p>
+<h5 id="终止态进程正在从系统中撤销操作系统会回收进程拥有的资源撤销pcb进程正在从系统中撤销操作系统会回收进程拥有的资源撤销pcb">2）终止态：进程正在从系统中撤销，操作系统会回收进程拥有的资源、撤销PCB进程正在从系统中撤销，操作系统会回收进程拥有的资源、撤销PCB</h5>
+<p>​ 进程运行结束（或者由于bug导致进程无法继续执行下去，比如数组越界错误），需要撤销进程。操作系统需要完成撤销进程相关的工作。完成将分配给进程的资源回收，撤销进程PCB等工作</p>
+<h4 id="进程状态的转换">2、进程状态的转换：</h4>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314223023656.png" alt="进程状态转换图" /><figcaption aria-hidden="true">进程状态转换图</figcaption>
+</figure>
+<ul>
+<li><p>运行态→阻塞态是一种进程自身做出的<strong>主动行为</strong></p></li>
+<li><p>阻塞态→就绪态是不是进程自身能控制的，是一种<strong>被动行为</strong>。</p></li>
+<li><p>注意：<strong>不能由阻塞态直接转换为运行态</strong>，<strong>也不能由就绪态直接转换为阻塞态</strong>（因为进入阻塞态是进程主动请求的，必然需要进程在运行时才能发出这种请求）</p></li>
+</ul>
+<h3 id="三进程控制">三、进程控制</h3>
+<h4 id="什么是进程控制">1、什么是进程控制：</h4>
+<p>​ 进程控制的主要功能是对系统中的所有进程实施有效的管理，它具有创建新进程、撤销已有进程、实现进程状态转换等功能。</p>
+<h4 id="如何实现进程控制">2、如何实现进程控制：</h4>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314223828760.png" style="zoom:50%;" /></p>
+<ul>
+<li>创建进程：需要初始化PCB、分配系统资源</li>
+<li>创建态→就绪态：需修改PCB内容和相应队列</li>
+<li>就绪态→运行态：需恢复进程运行环境、修改PCB内容和相应队列</li>
+<li>运行态→阻塞态：需保存进程运行环境、修改PCB内容和相应队列</li>
+<li>阻塞态→就绪态：需修改PCB内容和相应队列。如果等待的是资源，则还需为进程分配系统资源</li>
+<li>运行态→就绪态：（进程切换）需保存进程运行环境、修改PCB内容和相应队列</li>
+<li>运行态→终止态：需回收进程拥有的资源，撤销PCB的资源，撤销PCB</li>
+</ul>
+<p>​ 为了使得进程状态切换中，数据具有一致性（类似于事务的概念），用<strong>原语</strong>实现进程控制。原语的特点是执行期间不允许中断，只能一气呵成。</p>
+<p><strong>这种不可被中断的操作即原子操作。</strong></p>
+<p><strong>原语采用“关中断指令”和“开中断指令”实现，如下所示</strong>：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220314224013167.png" alt="" style="zoom: 67%;" /></p>
+<p>​ 当在关中断指令执行后，如果系统收到外部中断信号，此时会将该信号转至开中断指令结束后再进行处理，即再开中断指令执行结束后，才会启动中断处理程序。如此，原语部分的代码就不会被打断执行。</p>
+<p>​ 显然，<strong>关/开中断指令的权限非常大，必然是只允许在核心态下执行的特权指令</strong></p>
+<p>​</p>
+<h3 id="原语的具体操作">3、原语的具体操作：</h3>
+<h5 id="进程控制会导致进程状态的转换无论哪个原语要做的无非三类事情">进程控制会导致进程状态的转换。无论哪个原语，要做的无非三类事情：</h5>
+<ul>
+<li>1.更新PCB中的信息（如修改进程状态标志、将运行环境保存到PCB、从PCB恢复运行环境）
+<ul>
+<li>a.所有的进程控制原语一定都会修改进程状态标志</li>
+<li>b.剥夺当前运行进程的CPU使用权必然需要保存其运行环境</li>
+<li>c.某进程开始运行前必然要恢复期运行环境</li>
+</ul></li>
+<li>2.将PCB插入合适的队列</li>
+<li>3.分配/回收资源</li>
+</ul>
+<h5 id="创建原语无创建态就绪态">1）创建原语：（无→创建态→就绪态）</h5>
+<p>申请空白PCB、为新进程分配所需资源、初始化PCB、将PCB插入就绪队列</p>
+<h5 id="能够引起进程创建的事件如下">能够引起进程创建的事件如下：</h5>
+<ul>
+<li>用户登录：分时系统中，用户登录成功，系统会建立为其建立一个新的进程</li>
+<li>作业调度：多道批处理系统中，有新的作业放入内存时，会为其建立一个新的进程引起进程创建的事件 l引起进程创建的事件</li>
+<li>提供服务：用户向操作系统提出某些请求时，会新建一个进程处理该请求</li>
+<li>应用请求：由用户进程主动请求创建一个子进程</li>
+</ul>
+<h5 id="撤销原语就绪态阻塞态运行态终止态无">2）撤销原语：（就绪态/阻塞态/运行态→终止态→无）</h5>
+<p>​ 从PCB集合中找到终止进程的PCB，若进程正在运行，立即剥夺CPU，将CPU分配给其他进程。终止其所有子进程，将该进程拥有的所有资源归还给父进程或操作系统。删除PCB</p>
+<h5 id="能够引起进程撤销的事件如下">能够引起进程撤销的事件如下：</h5>
+<ul>
+<li>正常结束</li>
+<li>异常结束</li>
+<li>外界干预</li>
+</ul>
+<h5 id="阻塞原语运行态阻塞态">3）阻塞原语：（运行态→阻塞态）</h5>
+<p>​ 找到要阻塞的进程对应的PCB，保护进程运行现场，将PCB状态信息设置为“阻塞态”，暂时停止进程运行，将PCB插入相应事件的等待队列。</p>
+<p><strong>能够引起进程阻塞的事件如下：</strong></p>
+<ul>
+<li>需要等待系统分配某种资源</li>
+<li>需要等待相互合作的其他进程完成工作</li>
+</ul>
+<h5 id="唤醒原语阻塞态运行态">4）唤醒原语：（阻塞态→运行态）</h5>
+<p>​ 在事件等待队列中找到PCB，将PCB从等待队列移除，设置进程为就绪态，将PCB插入就绪队列，等待被调度</p>
+<p><strong>能够引起进程唤醒的事件如下：</strong></p>
+<ul>
+<li>正在等待的事件发生（因何事阻塞，就应当由何事唤醒，需与阻塞原语成对使用）</li>
+</ul>
+<h5 id="切换原语运行态阻塞态就绪态-或-就绪态运行态">5）切换原语：（运行态→阻塞态/就绪态 或 就绪态→运行态）</h5>
+<p>​ 将运行环境信息存入PCB，PCB移入相应队列。选择另一个进程执行，并更新其PCB，根据PCB恢复新进程所需的运行环境</p>
+<p><strong>能够引起进程切换的事件如下：</strong></p>
+<ul>
+<li>当前进程时间片到</li>
+<li>有更高优先级的进程到达</li>
+<li>当前进程主动阻塞</li>
+<li>当前进程终止</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\03\11\b7e4aac04426\" rel="bookmark">1.1 操作系统概念与基础</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="Fantast 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Operating-System/" rel="tag"># Operating System</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/12/6c6b30d1f672/" rel="prev" title="__call__方法">
+                  <i class="fa fa-chevron-left"></i> __call__方法
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fantast</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">542k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">25:07</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"df3c7a71d467dc6f4a4c5207e1d32509"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
