@@ -49,7 +49,8 @@
   <entry>
     <title>2.1 进程与线程的基本概念</title>
     <url>/2022/03/14/32aa5a2632ac/</url>
-    <content><![CDATA[<h3 id="一进程的定义组成和组织方式">一、进程的定义、组成和组织方式</h3>
+    <content><![CDATA[<p>笔记课程视频：https://www.bilibili.com/video/BV1YE411D7nH?p=12</p>
+<h3 id="一进程的定义组成和组织方式">一、进程的定义、组成和组织方式</h3>
 <h4 id="进程的由来">1、进程的由来：</h4>
 <p>程序本身其实就是一个指令序列。</p>
 <p>早期的计算机只支持单道程序，程序运行时，内存中会分配两块区域：</p>
@@ -153,7 +154,7 @@
 <p>​ 当在关中断指令执行后，如果系统收到外部中断信号，此时会将该信号转至开中断指令结束后再进行处理，即再开中断指令执行结束后，才会启动中断处理程序。如此，原语部分的代码就不会被打断执行。</p>
 <p>​ 显然，<strong>关/开中断指令的权限非常大，必然是只允许在核心态下执行的特权指令</strong></p>
 <p>​</p>
-<h3 id="原语的具体操作">3、原语的具体操作：</h3>
+<h4 id="原语的具体操作">3、原语的具体操作：</h4>
 <h5 id="进程控制会导致进程状态的转换无论哪个原语要做的无非三类事情">进程控制会导致进程状态的转换。无论哪个原语，要做的无非三类事情：</h5>
 <ul>
 <li>1.更新PCB中的信息（如修改进程状态标志、将运行环境保存到PCB、从PCB恢复运行环境）
@@ -204,6 +205,105 @@
 <li>当前进程主动阻塞</li>
 <li>当前进程终止</li>
 </ul>
+<h3 id="四进程通信">四、进程通信：</h3>
+<h4 id="什么是进程通信">1、什么是进程通信？</h4>
+<p>​ 进程通信就是指进程之间的信息交换。进程是分配系统资源的单位（包括内存地址空间），因此<strong>各进程拥有的内存地址空间相互独立。</strong>进程1可以访问进程1的地址空间，但不能直接访问进程2的地址空间。</p>
+<p>​ <strong>为了保证安全，一个进程不能直接访问另一个进程的地址空间，但是进程之间的信息交换是必须实现的，为了保证进程间的安全通信，操作系统提供了一些方法就是进程通信</strong></p>
+<h4 id="进程通信共享存储-方法">2、进程通信——共享存储 方法</h4>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315171055164.png" alt="共享存储" style="zoom: 67%;" /></p>
+<p>​ 两个进程对共享空间的访问必须是互斥的（互斥访问通过操作系统提供的工具实现）。</p>
+<p>​ 操作系统只负责提供共享空间和同步互斥工具（如P、V操作）</p>
+<p>​ <strong>其又有两种方式</strong>：</p>
+<ul>
+<li><p>基于数据结构的共享</p>
+<p>​ 基于数据结构的共享：比如共享空间里只能放一个长度为10的数组。这种共享方式<strong>速度慢、限制多，是一种低级通信方式</strong></p></li>
+<li><p>基于存储区的共享</p>
+<p>​ 基于存储区的共享：在内存中画出一块共享存储区，<strong>数据的形式、存放位置都由进程控制，而不是操作系统。</strong>相比之下，这种共享方式<strong>速度更快，是一种高级通信方式。</strong></p></li>
+</ul>
+<h4 id="进程通信管道通信-方法">3、进程通信——管道通信 方法</h4>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315171447871.png" alt="管道通信" /><figcaption aria-hidden="true">管道通信</figcaption>
+</figure>
+<p>​ “管道”是指用于连接读写进程的一个共享文件，又名pipe程的一个共享文件，又名pipe 文件。其实就是<strong>在内存中开辟一个大小固定的缓冲区 </strong></p>
+<ul>
+<li>管道只能采用半双工通信，某一时间段内只能实现单向的传输。如果要实现双向同时通信，则需要设置两个管道。</li>
+<li>各个进程需要互斥的访问管道</li>
+<li>数据以字符流的形式写入管道，<strong>当管道写满时，写进程的write（）系统调用将被阻塞</strong>，等待读进程将数据取走。<strong>当读进程将数据全部取走后，管道变空，此时读进程的read（）系统调用将被阻塞。</strong></li>
+<li><strong>如果没写满，就不允许读。如果没读空，就不允许写。</strong></li>
+<li><strong>数据一旦被读出，就从管道中被抛弃，这就意味着读进程最多只能有一个，否则可能会有读错数据的情</strong></li>
+</ul>
+<h4 id="进程通信消息传递-方法">4、进程通信——消息传递 方法</h4>
+<p>​ 进程间的数据交换<strong>以格式化的消息（Message）为单位</strong>。进程通过操作系统提供的<strong>“发送消息/接收消息”两个原语进行数据交换</strong>。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315180227145.png" /></p>
+<p>​ 消息头包括：发送进程ID、接受进程ID、消息类型、消息长度等格式化的信息</p>
+<p>​ 每个进程都会有一个消息缓冲队列：消息传递有以下两种方式：</p>
+<ul>
+<li>直接通信方式: 消息直接挂到接受进程的消息缓冲队列上
+<ul>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315180138885.png" /></li>
+</ul></li>
+<li>间接通信方式：消息先发送到中间实体中
+<ul>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315180217571.png" /></li>
+</ul></li>
+</ul>
+<h3 id="五线程概念和多线程模型">五、线程概念和多线程模型：</h3>
+<h4 id="什么是线程">1、什么是线程？</h4>
+<p>​ 在传统的机制中，<strong>进程是程序执行流的最小单位。</strong></p>
+<p>​ <strong>有的进程</strong>可能需要“同时”做很多事，而传统的进程只能串行地执行一系列程序。为此，引入了“线程”，来增加并发度。</p>
+<p>​ 一个进程中，被分为多个线程。CPU轮流为不同的线程服务。故而，引入线程后，<strong>线程是程序执行流的最小单位。</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315180730244.png" style="zoom:67%;" /></p>
+<p>​</p>
+<p><strong>官方定义：线程是一个基本的CPU执行单元，也是程序执行流的最小单位。</strong></p>
+<p>​ 引入线程之后，不仅是进程之间可以并发，进程内的各线程之间也可以并发，从而进一步提升了系统的并发度，使得一个进程内也可以并发处理各种任务</p>
+<p>​ 引入线程后，<strong>进程只作为除CPU之外的系统资源的分配单元</strong>（如打印机、内存地址空间等都是分配给进程的），<strong>线程才是CPU的执行单元</strong>（而CPU是分配给不同的线程的）</p>
+<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315181019487.png" alt="引入线程后的变化" /></p>
+<h4 id="线程的属性">2、线程的属性：</h4>
+<ul>
+<li>线程是处理机调度的单位</li>
+<li>多CPU计算机中，各个线程可占用不同的CPU</li>
+<li>每个线程都有一个线程ID、线程控制块（TCB）</li>
+<li>线程也有就绪、阻塞、运行三种基本状态</li>
+<li>线程几乎不拥有系统资源</li>
+<li><strong>同一进程的不同线程间共享进程的资源（例如打印机等）</strong></li>
+<li>由于共享内存地址空间，同一进程中的线程间通信甚至无需系统干预</li>
+<li>同一进程中的线程切换，不会引起进程切换</li>
+<li>不同进程中的线程切换，会引起进程切换</li>
+<li>切换同进程内的线程，系统开销很小</li>
+<li>切换进程，系统开销较大</li>
+</ul>
+<h4 id="线程的实现方式">3、线程的实现方式：</h4>
+<h5 id="用户级线程">1）用户级线程：</h5>
+<p>​ 用户级线程由应用程序通过线程库实现。</p>
+<p>​ 所有的线程管理工作都<strong>由应用程序负责（包括线程切换）</strong></p>
+<p>​ 用户级线程中，线程切换可以在用户态下即可完成，无需操作系统干预。</p>
+<p>​ <strong>在用户看来，是有多个线程。但是在操作系统内核看来，并意识不到线程的存在。</strong>（用户级线程对用户不透明，对操作系统透明）</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315181528334.png" alt="用户级线程" style="zoom: 67%;" /></p>
+<h5 id="内核级线程">2）内核级线程：</h5>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315181555209.png" alt="内核级线程" style="zoom:67%;" /></p>
+<p>​ 核级线程的管理工作由操作系统内核完成。</p>
+<p>​ 线程调度、切换等工作都由内核负责，因此内核级线程的切换必然需要在核心态下才能完成。</p>
+<h5 id="两者组合">3）两者组合：</h5>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315181640824.png" alt="" style="zoom:67%;" /></p>
+<p>​ 在同时支持用户级线程和内核级线程的系统中，可采用二者组合的方式：将n个用户级线程映射到m 个内核级线程上（n&gt;=m）</p>
+<p>​ 重点：<strong>操作系统只“看得见”内核级线程，因此只有内核级线程才是处理机分配的单位。</strong></p>
+<p>​ 例如：左边这个模型中，该进程由两个内核级线程，三个用户级线程，在用户看来，这个进程中有三个线程。但即使该进程在一个4核处理机的计算机上运行，<strong>也最多只能被分配到两个核，最多只能有两个用户线程并行执行。</strong></p>
+<h4 id="多线程模型">4、多线程模型：</h4>
+<p>​ 在同时支持用户级线程和内核级线程的系统中，由几个用户级线程映射到几个内核级线程的问题引出了“多线程模型”问题。</p>
+<h5 id="多对一模型">1）多对一模型：</h5>
+<p>​ 多个用户及线程映射到一个内核级线程。每个用户进程只对应一个内核级线程。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315182055006.png" style="zoom:67%;" /></p>
+<p>​ <strong>优点：</strong>用尸级线程的切换在用尸空间即可完成，不需要切换到核心态，线程管理的系统开销小，效率高</p>
+<p>​ <strong>缺点：</strong>当一个用户级线程被阻塞后，整个进程都会被阻塞，并发度不高。多个线程不可在多核处理机上并行运行</p>
+<h5 id="一对一模型">2）一对一模型：</h5>
+<p>​ 一个用户及线程映射到一个内核级线程。每个用户进程有与用户级线程同数量的内核级线程。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315182003606.png" alt="一对一模型" style="zoom:67%;" /></p>
+<p>​ <strong>优点</strong>：当一个线程被阻塞后，别的线程还可以继续执行，并发能力强。多线程可在多核处理机上并行执行。</p>
+<p>​ <strong>缺点</strong>：一个用户进程会占用多个内核级线程，线程切换由操作系统内核完成，需要切换到核心态，因此线程管理的成本高，开销大。</p>
+<h5 id="多对多模型">3）多对多模型：</h5>
+<p>​ n用户及线程映射到m个内核级线程（n&gt;=m）。每个用户进程对应m个内核级线程。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220315182148042.png" style="zoom:67%;" /></p>
+<p>​ 克服了多对一模型并发度不高的缺点，又克服了一对一模型中一个用户进程占用太多内核级线程，开销太大的缺点。</p>
 ]]></content>
       <categories>
         <category>⓻ 基础类笔记</category>
@@ -2252,6 +2352,36 @@ int add(int val) 将 val 插入数据流 nums 后，返回当前数据流中第 
       </tags>
   </entry>
   <entry>
+    <title>容器设计——LRU最近最少使用缓存的容器设计</title>
+    <url>/2022/02/05/4cd58a8a96c9/</url>
+    <content><![CDATA[<h3 id="剑指-offer-ii-031.-最近最少使用缓存"><a href="https://leetcode-cn.com/problems/OrIXps/">剑指 Offer II 031. 最近最少使用缓存</a></h3>
+<h5 id="题目简要描述"><strong>题目简要描述</strong>：</h5>
+<p>​ 运用所掌握的数据结构，设计和实现一个 LRU (Least Recently Used，最近最少使用) 缓存机制 。</p>
+<p><strong>实现 LRUCache 类：</strong></p>
+<ul>
+<li><p>LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存</p></li>
+<li><p>int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。</p></li>
+<li><p>void put(int key, int value) 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。</p></li>
+</ul>
+<p><strong>类模版</strong>：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">LRUCache</span>(<span class="keyword">int</span> capacity) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="解题思路"><strong>解题思路</strong>：</h5>
+<p>​ <strong>使用 双向链表 与 Hash 表</strong>，实现 LRU：将新插入的元素放在链表头部，或将最新访问的节点放在链表的头部。如果容量到达上限，去除链表最后的元素。在此期间，<strong>为了保证访问链表的头部和尾部都是O(1)时间，我们需要维护一个Head和一个Tail节点，分别指向双向链表的头部和尾部，这两个头部和尾部的节点中是不存放数据，留空的，仅为了进行指示。</strong>并且为了保证<strong>在O(1)时间内能够获取任意一个元素</strong>，我们还需要建立一个HashMap，将key值与对应的链表节点关联，以方便以O(1)时间进行访问。</p>
+<p><strong>代码</strong>：以下代码我并没有做任何的优化，比如说合并一些可复用的函数，因为这样看上去更简单明了一些，其实比如说像一些将Node插入到链表前方的操作，以及删除链表最后一个元素的操作，都是可以写成函数封装起来的。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Node* prev;</span><br><span class="line">	Node* next;</span><br><span class="line">	<span class="keyword">int</span> key;</span><br><span class="line">	<span class="keyword">int</span> value;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Node</span>() &#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;prev = <span class="literal">NULL</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">Node</span>(<span class="keyword">int</span> key, <span class="keyword">int</span> value) &#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;prev = <span class="literal">NULL</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;key = key;</span><br><span class="line">		<span class="keyword">this</span>-&gt;value = value;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> capacity;</span><br><span class="line">	<span class="keyword">int</span> curr_size;</span><br><span class="line">	Node* head; <span class="comment">//链表头节点</span></span><br><span class="line">	Node* tail; <span class="comment">//链表尾巴节点</span></span><br><span class="line">	unordered_map&lt;<span class="keyword">int</span>, Node*&gt; key2Node; <span class="comment">//key - Node 的转换</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">LRUCache</span>(<span class="keyword">int</span> capacity) &#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;curr_size = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;capacity = capacity;</span><br><span class="line">		<span class="keyword">this</span>-&gt;head = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">		<span class="keyword">this</span>-&gt;tail = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">		head-&gt;next = tail;</span><br><span class="line">		tail-&gt;prev = head;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (key2Node.<span class="built_in">find</span>(key) == key2Node.<span class="built_in">end</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		Node* curr = key2Node[key];</span><br><span class="line">		<span class="comment">//将curr先从链表中删掉</span></span><br><span class="line">		Node* prev = curr-&gt;prev;</span><br><span class="line">		<span class="keyword">if</span> (prev) prev-&gt;next = curr-&gt;next;</span><br><span class="line">		<span class="keyword">if</span> (curr-&gt;next) curr-&gt;next-&gt;prev = prev;</span><br><span class="line">		<span class="comment">//然后添加到链表的最前面</span></span><br><span class="line">		Node* next = <span class="keyword">this</span>-&gt;head-&gt;next;</span><br><span class="line">		curr-&gt;prev = head;</span><br><span class="line">		head-&gt;next = curr;</span><br><span class="line">		curr-&gt;next = next;</span><br><span class="line">		next-&gt;prev = curr;</span><br><span class="line">		<span class="keyword">return</span> curr-&gt;value;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (key2Node.<span class="built_in">find</span>(key) != key2Node.<span class="built_in">end</span>()) &#123;</span><br><span class="line">			<span class="comment">//修改值并将该元素插到最前面</span></span><br><span class="line">			Node* curr = key2Node[key];</span><br><span class="line">			curr-&gt;value = value;</span><br><span class="line">			<span class="comment">//将curr先从链表中删掉</span></span><br><span class="line">			Node* prev = curr-&gt;prev;</span><br><span class="line">			<span class="keyword">if</span> (prev) prev-&gt;next = curr-&gt;next;</span><br><span class="line">			<span class="keyword">if</span> (curr-&gt;next) curr-&gt;next-&gt;prev = prev;</span><br><span class="line">			<span class="comment">//然后添加到链表的最前面</span></span><br><span class="line">			Node* next = <span class="keyword">this</span>-&gt;head-&gt;next;</span><br><span class="line">			curr-&gt;prev = head;</span><br><span class="line">			head-&gt;next = curr;</span><br><span class="line">			curr-&gt;next = next;</span><br><span class="line">			next-&gt;prev = curr;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>-&gt;curr_size == <span class="keyword">this</span>-&gt;capacity) &#123;</span><br><span class="line">			<span class="comment">//如果容量满了,丢掉最尾巴的那个，然后插入到最前面</span></span><br><span class="line">			<span class="comment">//丢掉最尾巴那个</span></span><br><span class="line">			Node* prev = <span class="keyword">this</span>-&gt;tail-&gt;prev;</span><br><span class="line">			key2Node.<span class="built_in">erase</span>(prev-&gt;key); <span class="comment">//抹除key2Node里</span></span><br><span class="line">			<span class="keyword">if</span> (prev-&gt;prev) prev-&gt;prev-&gt;next = tail;</span><br><span class="line">			tail-&gt;prev = prev-&gt;prev;</span><br><span class="line">			prev-&gt;prev = prev-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">			<span class="comment">//插入该元素到最前面</span></span><br><span class="line">			Node* temp = <span class="keyword">new</span> <span class="built_in">Node</span>(key, value);</span><br><span class="line">			Node* next = <span class="keyword">this</span>-&gt;head-&gt;next;</span><br><span class="line">			temp-&gt;prev = head;</span><br><span class="line">			head-&gt;next = temp;</span><br><span class="line">			temp-&gt;next = next;</span><br><span class="line">			next-&gt;prev = temp;</span><br><span class="line">			key2Node[key] = temp;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">//如果容量没满，元素插入到最前面，并加载入map中</span></span><br><span class="line">			Node* temp = <span class="keyword">new</span> <span class="built_in">Node</span>(key, value);</span><br><span class="line">			Node* next = <span class="keyword">this</span>-&gt;head-&gt;next;</span><br><span class="line">			temp-&gt;prev = head;</span><br><span class="line">			head-&gt;next = temp;</span><br><span class="line">			temp-&gt;next = next;</span><br><span class="line">			next-&gt;prev = temp;</span><br><span class="line">			key2Node[key] = temp;</span><br><span class="line">			<span class="keyword">this</span>-&gt;curr_size++;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>运行结果</strong>:</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_06_11_41_37_32.png" /></p>
+]]></content>
+      <categories>
+        <category>⓷ 算法类笔记</category>
+        <category>容器设计系列</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>container</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>容器设计——前缀树容器设计</title>
     <url>/2022/02/05/06a3e97dc7c2/</url>
     <content><![CDATA[<h4 id="剑指-offer-ii-062.-实现前缀树"><a href="https://leetcode-cn.com/problems/QC3q1f/">剑指 Offer II 062. 实现前缀树</a></h4>
@@ -2305,36 +2435,6 @@ boolean startsWith(String prefix) 如果之前已经插入的字符串 word 的�
       <categories>
         <category>⓷ 算法类笔记</category>
         <category>字符串系列</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>container</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>容器设计——LRU最近最少使用缓存的容器设计</title>
-    <url>/2022/02/05/4cd58a8a96c9/</url>
-    <content><![CDATA[<h3 id="剑指-offer-ii-031.-最近最少使用缓存"><a href="https://leetcode-cn.com/problems/OrIXps/">剑指 Offer II 031. 最近最少使用缓存</a></h3>
-<h5 id="题目简要描述"><strong>题目简要描述</strong>：</h5>
-<p>​ 运用所掌握的数据结构，设计和实现一个 LRU (Least Recently Used，最近最少使用) 缓存机制 。</p>
-<p><strong>实现 LRUCache 类：</strong></p>
-<ul>
-<li><p>LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存</p></li>
-<li><p>int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。</p></li>
-<li><p>void put(int key, int value) 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。</p></li>
-</ul>
-<p><strong>类模版</strong>：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">LRUCache</span>(<span class="keyword">int</span> capacity) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h5 id="解题思路"><strong>解题思路</strong>：</h5>
-<p>​ <strong>使用 双向链表 与 Hash 表</strong>，实现 LRU：将新插入的元素放在链表头部，或将最新访问的节点放在链表的头部。如果容量到达上限，去除链表最后的元素。在此期间，<strong>为了保证访问链表的头部和尾部都是O(1)时间，我们需要维护一个Head和一个Tail节点，分别指向双向链表的头部和尾部，这两个头部和尾部的节点中是不存放数据，留空的，仅为了进行指示。</strong>并且为了保证<strong>在O(1)时间内能够获取任意一个元素</strong>，我们还需要建立一个HashMap，将key值与对应的链表节点关联，以方便以O(1)时间进行访问。</p>
-<p><strong>代码</strong>：以下代码我并没有做任何的优化，比如说合并一些可复用的函数，因为这样看上去更简单明了一些，其实比如说像一些将Node插入到链表前方的操作，以及删除链表最后一个元素的操作，都是可以写成函数封装起来的。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Node* prev;</span><br><span class="line">	Node* next;</span><br><span class="line">	<span class="keyword">int</span> key;</span><br><span class="line">	<span class="keyword">int</span> value;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Node</span>() &#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;prev = <span class="literal">NULL</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">Node</span>(<span class="keyword">int</span> key, <span class="keyword">int</span> value) &#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;prev = <span class="literal">NULL</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;key = key;</span><br><span class="line">		<span class="keyword">this</span>-&gt;value = value;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> capacity;</span><br><span class="line">	<span class="keyword">int</span> curr_size;</span><br><span class="line">	Node* head; <span class="comment">//链表头节点</span></span><br><span class="line">	Node* tail; <span class="comment">//链表尾巴节点</span></span><br><span class="line">	unordered_map&lt;<span class="keyword">int</span>, Node*&gt; key2Node; <span class="comment">//key - Node 的转换</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">LRUCache</span>(<span class="keyword">int</span> capacity) &#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;curr_size = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;capacity = capacity;</span><br><span class="line">		<span class="keyword">this</span>-&gt;head = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">		<span class="keyword">this</span>-&gt;tail = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">		head-&gt;next = tail;</span><br><span class="line">		tail-&gt;prev = head;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (key2Node.<span class="built_in">find</span>(key) == key2Node.<span class="built_in">end</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		Node* curr = key2Node[key];</span><br><span class="line">		<span class="comment">//将curr先从链表中删掉</span></span><br><span class="line">		Node* prev = curr-&gt;prev;</span><br><span class="line">		<span class="keyword">if</span> (prev) prev-&gt;next = curr-&gt;next;</span><br><span class="line">		<span class="keyword">if</span> (curr-&gt;next) curr-&gt;next-&gt;prev = prev;</span><br><span class="line">		<span class="comment">//然后添加到链表的最前面</span></span><br><span class="line">		Node* next = <span class="keyword">this</span>-&gt;head-&gt;next;</span><br><span class="line">		curr-&gt;prev = head;</span><br><span class="line">		head-&gt;next = curr;</span><br><span class="line">		curr-&gt;next = next;</span><br><span class="line">		next-&gt;prev = curr;</span><br><span class="line">		<span class="keyword">return</span> curr-&gt;value;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (key2Node.<span class="built_in">find</span>(key) != key2Node.<span class="built_in">end</span>()) &#123;</span><br><span class="line">			<span class="comment">//修改值并将该元素插到最前面</span></span><br><span class="line">			Node* curr = key2Node[key];</span><br><span class="line">			curr-&gt;value = value;</span><br><span class="line">			<span class="comment">//将curr先从链表中删掉</span></span><br><span class="line">			Node* prev = curr-&gt;prev;</span><br><span class="line">			<span class="keyword">if</span> (prev) prev-&gt;next = curr-&gt;next;</span><br><span class="line">			<span class="keyword">if</span> (curr-&gt;next) curr-&gt;next-&gt;prev = prev;</span><br><span class="line">			<span class="comment">//然后添加到链表的最前面</span></span><br><span class="line">			Node* next = <span class="keyword">this</span>-&gt;head-&gt;next;</span><br><span class="line">			curr-&gt;prev = head;</span><br><span class="line">			head-&gt;next = curr;</span><br><span class="line">			curr-&gt;next = next;</span><br><span class="line">			next-&gt;prev = curr;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>-&gt;curr_size == <span class="keyword">this</span>-&gt;capacity) &#123;</span><br><span class="line">			<span class="comment">//如果容量满了,丢掉最尾巴的那个，然后插入到最前面</span></span><br><span class="line">			<span class="comment">//丢掉最尾巴那个</span></span><br><span class="line">			Node* prev = <span class="keyword">this</span>-&gt;tail-&gt;prev;</span><br><span class="line">			key2Node.<span class="built_in">erase</span>(prev-&gt;key); <span class="comment">//抹除key2Node里</span></span><br><span class="line">			<span class="keyword">if</span> (prev-&gt;prev) prev-&gt;prev-&gt;next = tail;</span><br><span class="line">			tail-&gt;prev = prev-&gt;prev;</span><br><span class="line">			prev-&gt;prev = prev-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">			<span class="comment">//插入该元素到最前面</span></span><br><span class="line">			Node* temp = <span class="keyword">new</span> <span class="built_in">Node</span>(key, value);</span><br><span class="line">			Node* next = <span class="keyword">this</span>-&gt;head-&gt;next;</span><br><span class="line">			temp-&gt;prev = head;</span><br><span class="line">			head-&gt;next = temp;</span><br><span class="line">			temp-&gt;next = next;</span><br><span class="line">			next-&gt;prev = temp;</span><br><span class="line">			key2Node[key] = temp;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">//如果容量没满，元素插入到最前面，并加载入map中</span></span><br><span class="line">			Node* temp = <span class="keyword">new</span> <span class="built_in">Node</span>(key, value);</span><br><span class="line">			Node* next = <span class="keyword">this</span>-&gt;head-&gt;next;</span><br><span class="line">			temp-&gt;prev = head;</span><br><span class="line">			head-&gt;next = temp;</span><br><span class="line">			temp-&gt;next = next;</span><br><span class="line">			next-&gt;prev = temp;</span><br><span class="line">			key2Node[key] = temp;</span><br><span class="line">			<span class="keyword">this</span>-&gt;curr_size++;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><strong>运行结果</strong>:</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_06_11_41_37_32.png" /></p>
-]]></content>
-      <categories>
-        <category>⓷ 算法类笔记</category>
-        <category>容器设计系列</category>
       </categories>
       <tags>
         <tag>leetcode</tag>
@@ -8362,8 +8462,8 @@ n: [2. 2. 2. 2. 2.]</code></pre>
       </categories>
       <tags>
         <tag>Transformer</tag>
-        <tag>Swin Transformer</tag>
         <tag>Computer Vision</tag>
+        <tag>Swin Transformer</tag>
       </tags>
   </entry>
   <entry>
@@ -8419,8 +8519,8 @@ n: [2. 2. 2. 2. 2.]</code></pre>
       </categories>
       <tags>
         <tag>Transformer</tag>
-        <tag>Computer Vision</tag>
         <tag>Vision Transformer</tag>
+        <tag>Computer Vision</tag>
       </tags>
   </entry>
   <entry>
