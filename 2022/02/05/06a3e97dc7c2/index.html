@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 <meta name="description" content="前缀树 是一种树形数据结构，又称字典树，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补完和拼写检查。本文用于实现该数据结构，以及一道应用题目。当题目涉及到字符串寻找前缀，或者是字符串是否含有某字符串的任务，可以采用该数据结构，能够大幅降低算法时间复杂度">
 <meta property="og:type" content="article">
 <meta property="og:title" content="容器设计——前缀树容器设计">
@@ -169,18 +169,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-count">112</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-count">87</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -208,7 +208,6 @@
         </li>
     </ul>
   </div>
-
         </div>
       </div>
     </div>
@@ -422,13 +421,13 @@ boolean startsWith(String prefix) 如果之前已经插入的字符串 word 的�
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/02/05/233281550871/" rel="prev" title="容器设计——插入、删除和随机访问都是 O(1) 的容器设计">
-                  <i class="fa fa-chevron-left"></i> 容器设计——插入、删除和随机访问都是 O(1) 的容器设计
+                <a href="/2022/02/05/4cd58a8a96c9/" rel="prev" title="容器设计——LRU最近最少使用缓存的容器设计">
+                  <i class="fa fa-chevron-left"></i> 容器设计——LRU最近最少使用缓存的容器设计
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/02/05/4cd58a8a96c9/" rel="next" title="容器设计——LRU最近最少使用缓存的容器设计">
-                  容器设计——LRU最近最少使用缓存的容器设计 <i class="fa fa-chevron-right"></i>
+                <a href="/2022/02/06/36f0ee63db4b/" rel="next" title="树系列——当二叉树需要以层为单位计算时层序遍历的优化版本">
+                  树系列——当二叉树需要以层为单位计算时层序遍历的优化版本 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -462,13 +461,13 @@ boolean startsWith(String prefix) 如果之前已经插入的字符串 word 的�
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">545k</span>
+    <span title="站点总字数">548k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">25:14</span>
+    <span title="站点阅读时长">25:22</span>
   </span>
 </div>
 <div class="busuanzi-count">
