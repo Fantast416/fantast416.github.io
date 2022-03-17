@@ -47,6 +47,84 @@
       </tags>
   </entry>
   <entry>
+    <title>机器学习基础系列笔记19——EMA指数滑动平均原理</title>
+    <url>/2022/03/27/6de89f1d1ae9/</url>
+    <content><![CDATA[<p>​ 在训练神经网络时，通常会使用一个叫 Exponential Moving Average (EMA) 的方法，中文名叫指数滑动平均。它的意义在于利用滑动平均的参数来<strong>提高模型在测试数据上的健壮性</strong>。</p>
+<h4 id="一什么是滑动平均">一、什么是滑动平均？</h4>
+<p>​ 滑动平均(exponential moving average)，或者叫做指数加权平均(exponentially weighted moving average)，可以用来估计变量的局部均值，使得变量的更新与一段时间内的历史取值有关。</p>
+<p>​ 首先我们假设一个训练参数a，它在不同的epoch结束后的值分别为： <span class="math display">\[
+a_1,a_2,a_3,……,a_t
+\]</span> ​ <span class="math inline">\(a_1\)</span>代表第1轮epoch迭代结束后，可训练参数a的值，以此类推。</p>
+<p>​ 然后，我们假设不同的epoch结束后，滑动平均的值分别为： <span class="math display">\[
+ mv_1,mv_2,mv_3,……,mv_t
+\]</span> ​ <span class="math inline">\(mv_1\)</span>代表第1轮epoch迭代结束后，滑动平均mv的值，以此类推。</p>
+<p>​ 滑动平均计算的递推式如下： <span class="math display">\[
+mv_t = decay * mv_{t-1} + (1-decay)*a_t
+\]</span> ​ 其中，decay为衰减率，用于控制模型更新的速度。递推式中其实就是利用加权的思想，把新的a和先前的平均，做了一个相加。我们可以发现，再很多轮之后，有些离<span class="math inline">\(a_t\)</span>很远的a,它已经乘了很多遍decay，相当于权重为0，也就是不影响最新的<span class="math inline">\(mv_t\)</span>的值了。</p>
+<p>​ 从直观意义上来看，我们可以把<span class="math inline">\(a_1,a_2,a_3,……,a_t\)</span> 看作是t个位置，然后想象有一个长度为k的窗口，从最前面开始向后滑动。为了方便说明，我们先假设k=3。最开始的时候，窗口把<span class="math inline">\(a_1\)</span>涵括在内，然后一个epoch过后窗口右移，现在窗口内有<span class="math inline">\(a_1,a_2\)</span>，再一个epoch过后窗口再右移，现在窗口内有<span class="math inline">\(a_1,a_2,a_3\)</span>，再一个epoch过后窗口再右移，此时由于窗口长度为3，所以<span class="math inline">\(a_1\)</span>就不在窗口内了，窗口内的元素为<span class="math inline">\(a_2,a_3,a_4\)</span>，从公式上来讲就是在此时，由于<span class="math inline">\(a_1\)</span>已经乘了较多遍数的decay衰减系数了，所以其的系数接近于0了，不会再影响窗口内计算的值了。</p>
+<p>​ 故此称为滑动平均。</p>
+<h4 id="二更为公式化的解读">二、更为公式化的解读：</h4>
+<p>EMA 在实现时如下所述：</p>
+<p>​ Exponential Moving Average 对每一个变量（ <span class="math inline">\(variable\)</span> ）会维护一个影子变量（ <span class="math inline">\(shadow\_variable\)</span> ），这个影子变量的初始值就是相应变量的初始值，而每次运行变量更新时，影子变量的值会更新为： <span class="math display">\[
+shadow\_variable = decay * shadow\_variable + (1-decay) * variable
+\]</span> ​ 其中：<span class="math inline">\(variable\)</span>为每一轮结束时，训练参数的值；<span class="math inline">\(shadow\_variable\)</span>为影子变量；<span class="math inline">\(decay\)</span>为衰减速率。</p>
+<p>​ decay 决定了影子变量的更新速度，decay 越大影子变量越趋于稳定。在实际运用中，decay一般会设成非常接近 1 的数（比如0.999或0.9999）。</p>
+<p>​ 为了使得影子变量在训练前期可以更新更快，Exponential Moving Average 还提供了 num_updates 参数动态设置 decay 的大小。如果在初始化 Exponential Moving Average 时提供了 num_updates 参数，那么每次使用的衰减率将是： <span class="math display">\[
+decay = min\{decay,\frac{1+num\_updates}{10+num\_updates}\}
+\]</span></p>
+<h4 id="三什么时候用到ema">三、什么时候用到EMA？</h4>
+<p>请注意：</p>
+<p>​ <strong>EMA不参与实际的训练过程，是用在测试过程的</strong>！</p>
+<p>​ <strong>EMA不参与实际的训练过程，是用在测试过程的</strong>！</p>
+<p>​ <strong>EMA不参与实际的训练过程，是用在测试过程的</strong>！</p>
+<p>​ 在训练过程中，EMA只是以一个记录者的身份，在进行记录。实际的实现中，如果你在正常训练的网络是network['C']，那么你可以再实例化一个新的网络，叫做network['C_EMA'],其最初和network['C']一模一样，但是network['C_EMA']并不参与实际记录，其里面的参数只是用来记录滑动平均！！！<strong>（这就是DG-Font代码中，network['C_EMA']的作用）</strong></p>
+<p>​ EMA作用是<strong>使得模型在测试数据上更加健壮，有更好的鲁棒性。或者是最后save模型时存储ema的值，取最近n次的近似平均值，使模型具备更好的测试指标(accuracy)等，更强的泛化能力。</strong></p>
+<p>参考：</p>
+<p>https://zhuanlan.zhihu.com/p/51672655</p>
+<p>https://zhuanlan.zhihu.com/p/343210667</p>
+]]></content>
+      <categories>
+        <category>⓵ 深度学习笔记</category>
+        <category>Basic系列笔记</category>
+      </categories>
+      <tags>
+        <tag>EMA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SCI EI 核心期刊以及计算机领域CCF会议等级分类文件</title>
+    <url>/2022/03/17/58ef9be2b7d9/</url>
+    <content><![CDATA[<h4 id="一sci">一、SCI：</h4>
+<p>​ 美国《科学引文索引》，SCI(科学引文索引 )、EI(工程索引 )、ISTP(科技会议录索引 ) 是世界著名的三大科技文献检索系统，是国际公认的进行科学统计与科学评价的主要检索工具，其中以SCI最为重要。</p>
+<p>​ 一般SCI<strong>侧重科学前沿理论</strong>，审核标准严格，发稿周期也比较长。</p>
+<h4 id="二ei">二、EI：</h4>
+<p>​ 《工程索引》（The Engineering Index, 简称EI）是供查阅<strong>工程技术领域文献</strong>的综合性情报检索刊物。</p>
+<p>​ EI的主要特点是摘录质量较高，文摘直接按字顺排列，索引简便实用</p>
+<h4 id="三核心期刊">三、核心期刊</h4>
+<p>​ 在国内简单地说，核心期刊是学术界通过一整套科学的方法，对于期刊质量进行跟踪评价，并以情报学理论为基础，将期刊进行分类定级，把最为重要的一级称之为核心期刊。</p>
+<ul>
+<li>（1）北京大学图书馆“中文核心期刊”，这个的认可度一般最高。</li>
+<li>（2）南京大学“中文社会科学引文索引（CSSCI）来源期刊”。</li>
+<li>（3）中国科学院文献情报中心“中国科学引文数据库（CSCD）来源期刊”。</li>
+<li>（4）中国科学技术信息研究所“中国科技论文统计源期刊”（又称“中国科技核心期刊”）。</li>
+<li>（5）中国社会科学院文献信息中心“中国人文社会科学核心期刊”。</li>
+<li>（6）中国人文社会科学学报学会“中国人文社科学报核心期刊”。</li>
+</ul>
+<h4 id="四中国计算机学会ccf推荐中文科技期刊目录">四、中国计算机学会CCF推荐中文科技期刊目录</h4>
+<p>​ <a href="https://my-blog-fantast.oss-cn-hangzhou.aliyuncs.com/%E4%B8%AD%E5%9B%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%A6%E4%BC%9A%E6%8E%A8%E8%8D%90%E4%B8%AD%E6%96%87%E7%A7%91%E6%8A%80%E6%9C%9F%E5%88%8A%E7%9B%AE%E5%BD%95.pdf">点我下载 中国计算机学会推荐中文科技期刊目录PDF</a></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/1123qwdsa.jpg" /></p>
+<p>![中国计算机学会推荐中文科技期刊目录(1)_页面_3](https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/中国计算机学会推荐中文科技期刊目录(1)_页面_3.jpg)</p>
+<p>![中国计算机学会推荐中文科技期刊目录(1)_页面_4](https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/中国计算机学会推荐中文科技期刊目录(1)_页面_4.jpg)</p>
+<p>![中国计算机学会推荐中文科技期刊目录(1)_页面_5](https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/中国计算机学会推荐中文科技期刊目录(1)_页面_5.jpg)</p>
+<h4 id="五中国计算机学会ccf推荐国际学术会议和期刊目录">五、中国计算机学会CCF推荐国际学术会议和期刊目录</h4>
+<p>​ <a href="https://my-blog-fantast.oss-cn-hangzhou.aliyuncs.com/%E4%B8%AD%E5%9B%BD%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%A6%E4%BC%9A%E6%8E%A8%E8%8D%90%E5%9B%BD%E9%99%85%E5%AD%A6%E6%9C%AF%E4%BC%9A%E8%AE%AE%E5%92%8C%E6%9C%9F%E5%88%8A%E7%9B%AE%E5%BD%95.pdf">点我下载 中国计算机学会推荐国际学术会议和期刊目录 PDF</a></p>
+<p>参考：https://zhuanlan.zhihu.com/p/57932081</p>
+]]></content>
+      <categories>
+        <category>⓻ 经验整理类笔记</category>
+      </categories>
+  </entry>
+  <entry>
     <title>字体生成效果评价指标</title>
     <url>/2022/03/16/827639831232/</url>
     <content><![CDATA[<h4 id="一intersection-over-unioniou">一、Intersection-Over-Union（IOU）</h4>
