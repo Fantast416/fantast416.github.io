@@ -20,12 +20,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="title: 用Python搭建深度学习框架系列笔记2——计算图、前向传播、反向传播与自动微分的代码实现 date: 2022&#x2F;02&#x2F;22 23:11:19 categories: - [⓵ 深度学习笔记,Basic系列笔记] - [⓵ 深度学习笔记,Python搭建简易框架笔记] description: 本文结合上一节中的理论部分，使用Python搭建深度学习框架，实现其中最为基础核心的计算图">
+<meta name="description" content="本文结合上一节中的理论部分，使用Python搭建深度学习框架，实现其中最为基础核心的计算图、前向传播、反向传播以及自动微分的代码，对各个类以及其内的函数做了详细的介绍。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fantast&#39;s Blog">
-<meta property="og:url" content="https://blog.slks.xyz/2022/02/22/d7df43b9d92e/index.html">
+<meta property="og:title" content="用Python搭建深度学习框架系列笔记2——计算图、前向传播、反向传播与自动微分的代码实现">
+<meta property="og:url" content="https://blog.slks.xyz/2022/02/22/6bfa5496ebc4/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
-<meta property="og:description" content="title: 用Python搭建深度学习框架系列笔记2——计算图、前向传播、反向传播与自动微分的代码实现 date: 2022&#x2F;02&#x2F;22 23:11:19 categories: - [⓵ 深度学习笔记,Basic系列笔记] - [⓵ 深度学习笔记,Python搭建简易框架笔记] description: 本文结合上一节中的理论部分，使用Python搭建深度学习框架，实现其中最为基础核心的计算图">
+<meta property="og:description" content="本文结合上一节中的理论部分，使用Python搭建深度学习框架，实现其中最为基础核心的计算图、前向传播、反向传播以及自动微分的代码，对各个类以及其内的函数做了详细的介绍。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_10_15_03_30_21.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/92352E558AF386F3CEFAE57985019633.jpg">
@@ -38,21 +38,22 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/C165EA4E4C9DE67CF1EE6AF9551DB327.jpg">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/B504A835005C3AAF0BA61984E976F3F9.jpg">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/64F57EE82EDE412BA304CD345F290E57.jpg">
-<meta property="article:published_time" content="2022-02-22T15:10:11.560Z">
-<meta property="article:modified_time" content="2022-02-27T15:02:28.943Z">
+<meta property="article:published_time" content="2022-02-22T15:11:19.000Z">
+<meta property="article:modified_time" content="2022-03-19T01:21:19.412Z">
 <meta property="article:author" content="Fantast">
+<meta property="article:tag" content="Framework">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_10_15_03_30_21.png">
 
 
-<link rel="canonical" href="https://blog.slks.xyz/2022/02/22/d7df43b9d92e/">
+<link rel="canonical" href="https://blog.slks.xyz/2022/02/22/6bfa5496ebc4/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/02/22/d7df43b9d92e/","path":"2022/02/22/d7df43b9d92e/","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/02/22/6bfa5496ebc4/","path":"2022/02/22/6bfa5496ebc4/","title":"用Python搭建深度学习框架系列笔记2——计算图、前向传播、反向传播与自动微分的代码实现"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title> | Fantast's Blog</title>
+<title>用Python搭建深度学习框架系列笔记2——计算图、前向传播、反向传播与自动微分的代码实现 | Fantast's Blog</title>
   
 
 
@@ -245,7 +246,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/02/22/d7df43b9d92e/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/02/22/6bfa5496ebc4/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -257,7 +258,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          用Python搭建深度学习框架系列笔记2——计算图、前向传播、反向传播与自动微分的代码实现
         </h1>
 
         <div class="post-meta-container">
@@ -269,14 +270,31 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-02-22 23:10:11" itemprop="dateCreated datePublished" datetime="2022-02-22T23:10:11+08:00">2022-02-22</time>
+      <time title="创建时间：2022-02-22 23:11:19" itemprop="dateCreated datePublished" datetime="2022-02-22T23:11:19+08:00">2022-02-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-27 23:02:28" itemprop="dateModified" datetime="2022-02-27T23:02:28+08:00">2022-02-27</time>
+      <time title="修改时间：2022-03-19 09:21:19" itemprop="dateModified" datetime="2022-03-19T09:21:19+08:00">2022-03-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓵ 深度学习笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Basic%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Basic系列笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Python%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Python搭建简易框架笔记</span></a>
+        </span>
     </span>
 
   
@@ -293,17 +311,20 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>8.9k</span>
+      <span>8.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>25 分钟</span>
+      <span>24 分钟</span>
     </span>
 </div>
 
+            <div class="post-description">本文结合上一节中的理论部分，使用Python搭建深度学习框架，实现其中最为基础核心的计算图、前向传播、反向传播以及自动微分的代码，对各个类以及其内的函数做了详细的介绍。</div>
+            <div class="post-remind">Google Chrome is recommended, otherwise the image size may be wrong</div>
+            <div class="post-remind">FireFox is not recommended,Because it does not support the image zoom property</div>
         </div>
         
       </header>
@@ -312,8 +333,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>title: 用Python搭建深度学习框架系列笔记2——计算图、前向传播、反向传播与自动微分的代码实现 date: 2022/02/22 23:11:19 categories: - [⓵ 深度学习笔记,Basic系列笔记] - [⓵ 深度学习笔记,Python搭建简易框架笔记] description: 本文结合上一节中的理论部分，使用Python搭建深度学习框架，实现其中最为基础核心的计算图、前向传播、反向传播以及自动微分的代码，对各个类以及其内的函数做了详细的介绍。 tags: - Framework</p>
-<p>​ 首先，我们看完上一节的理论以后，应该需要知晓在上述过程中，我们需要在代码中实现的最核心的节点相关的类如下所示，我们以以下这张经典的计算图来分析：</p>
+        <p>​ 首先，我们看完上一节的理论以后，应该需要知晓在上述过程中，我们需要在代码中实现的最核心的节点相关的类如下所示，我们以以下这张经典的计算图来分析：</p>
 <p>​ 其中，存储整个图我们需要一个类，<strong>也就是计算图类</strong>，然后图中又有许多类型的节点，第一种类型的节点是<strong>变量节点</strong>，也就是x、w这种，是无父节点的，第二种类型是<strong>Op操作符节点</strong>，也就是+、x这种节点，剩下的就是普通的中间节点。故而我们需要实现的类如下所示：</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_10_15_03_30_21.png" /></p>
 <p>​</p>
@@ -411,6 +431,21 @@
     
     
       
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\03\02\c830e3a9e023\" rel="bookmark">用Python搭建深度学习框架系列笔记5——逻辑回归中的损失函数节点</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\02\28\d9d77f183b68\" rel="bookmark">用Python搭建深度学习框架系列笔记4——优化器类的代码实现（下）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\02\23\c051c3782dfb\" rel="bookmark">用Python搭建深度学习框架系列笔记3——优化器类的代码实现（上）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\02\10\f5cccb7aefe2\" rel="bookmark">Python搭建深度学习框架系列笔记1——计算图、梯度下降、反向传播、自动微分的理论部分</a></div>
+    </li>
+  </ul>
 
 
     <footer class="post-footer">
@@ -428,6 +463,9 @@
   </div>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/Framework/" rel="tag"># Framework</a>
+          </div>
 
         
 
@@ -479,7 +517,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">25:30</span>
+    <span title="站点阅读时长">25:29</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -530,7 +568,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"ba69a3d241e20239fd09237c3db40649"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"4a2afda72c2b069d999f00c51f327a99"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>

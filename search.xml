@@ -1240,10 +1240,9 @@ wordList 中的所有字符串 互不相同</code></pre>
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>/2022/02/22/d7df43b9d92e/</url>
-    <content><![CDATA[<p>title: 用Python搭建深度学习框架系列笔记2——计算图、前向传播、反向传播与自动微分的代码实现 date: 2022/02/22 23:11:19 categories: - [⓵ 深度学习笔记,Basic系列笔记] - [⓵ 深度学习笔记,Python搭建简易框架笔记] description: 本文结合上一节中的理论部分，使用Python搭建深度学习框架，实现其中最为基础核心的计算图、前向传播、反向传播以及自动微分的代码，对各个类以及其内的函数做了详细的介绍。 tags: - Framework</p>
-<p>​ 首先，我们看完上一节的理论以后，应该需要知晓在上述过程中，我们需要在代码中实现的最核心的节点相关的类如下所示，我们以以下这张经典的计算图来分析：</p>
+    <title>用Python搭建深度学习框架系列笔记2——计算图、前向传播、反向传播与自动微分的代码实现</title>
+    <url>/2022/02/22/6bfa5496ebc4/</url>
+    <content><![CDATA[<p>​ 首先，我们看完上一节的理论以后，应该需要知晓在上述过程中，我们需要在代码中实现的最核心的节点相关的类如下所示，我们以以下这张经典的计算图来分析：</p>
 <p>​ 其中，存储整个图我们需要一个类，<strong>也就是计算图类</strong>，然后图中又有许多类型的节点，第一种类型的节点是<strong>变量节点</strong>，也就是x、w这种，是无父节点的，第二种类型是<strong>Op操作符节点</strong>，也就是+、x这种节点，剩下的就是普通的中间节点。故而我们需要实现的类如下所示：</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_02_10_15_03_30_21.png" /></p>
 <p>​</p>
@@ -1335,6 +1334,14 @@ wordList 中的所有字符串 互不相同</code></pre>
 <p>代码实现参考：https://github.com/zc911/MatrixSlow</p>
 <p>1、《用python实现深度学习框架》张觉非、陈震</p>
 ]]></content>
+      <categories>
+        <category>⓵ 深度学习笔记</category>
+        <category>Basic系列笔记</category>
+        <category>Python搭建简易框架笔记</category>
+      </categories>
+      <tags>
+        <tag>Framework</tag>
+      </tags>
   </entry>
   <entry>
     <title>BFS系列——开密码锁</title>
