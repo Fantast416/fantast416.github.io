@@ -32,8 +32,13 @@
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220119151744473.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/屏幕捕获_2022_01_19_15_31_59_728.png">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220119155654674.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105213541.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105408955.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105551098.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105756227.png">
+<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105847411.png">
 <meta property="article:published_time" content="2022-01-20T10:12:19.000Z">
-<meta property="article:modified_time" content="2022-03-09T06:25:54.740Z">
+<meta property="article:modified_time" content="2022-03-22T03:00:00.310Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Font Generation">
 <meta property="article:tag" content="Deformable Convolution Skip Connection">
@@ -156,7 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E5%90%8D%E7%A7%B0dg-font-deformable-generative-networks-for-unsupervised-font-generationcvpr2021"><span class="nav-number">1.</span> <span class="nav-text">论文名称：《DG-Font: Deformable Generative Networks for Unsupervised Font Generation》CVPR2021</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E5%9C%B0%E5%9D%80-httpsopenaccess.thecvf.comcontentcvpr2021htmlxie_dg-font_deformable_generative_networks_for_unsupervised_font_generation_cvpr_2021_paper.html"><span class="nav-number">2.</span> <span class="nav-text">论文地址： https:&#x2F;&#x2F;openaccess.thecvf.com&#x2F;content&#x2F;CVPR2021&#x2F;html&#x2F;Xie_DG-Font_Deformable_Generative_Networks_for_Unsupervised_Font_Generation_CVPR_2021_paper.html</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="nav-number"></span> <span class="nav-text">1、关键词：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E8%83%8C%E6%99%AF"><span class="nav-number"></span> <span class="nav-text">2、领域背景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E5%89%8D%E5%B7%A5%E4%BD%9C%E6%8F%8F%E8%BF%B0%E4%B8%8E%E6%AF%94%E8%BE%83"><span class="nav-number"></span> <span class="nav-text">3、先前工作描述与比较：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#image-to-image-translation"><span class="nav-number">1.</span> <span class="nav-text">1) Image-To-Image Translation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#font-generation"><span class="nav-number">2.</span> <span class="nav-text">2) Font-Generation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deformable-convolution"><span class="nav-number">3.</span> <span class="nav-text">3) Deformable Convolution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number"></span> <span class="nav-text">4、主要设计思想：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%96%B9%E6%B3%95%E4%B8%8E%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number"></span> <span class="nav-text">5、具体方法与网络架构：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84overall-pipeline"><span class="nav-number"></span> <span class="nav-text">1) 整体架构（Overall Pipeline）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#style-encoder"><span class="nav-number"></span> <span class="nav-text">2) Style Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#content-encoder"><span class="nav-number"></span> <span class="nav-text">3) Content Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#feature-deformation-skip-connection-fdsc-module"><span class="nav-number"></span> <span class="nav-text">4) Feature Deformation Skip Connection ( FDSC Module)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mixer"><span class="nav-number"></span> <span class="nav-text">5) Mixer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multi-task-discriminator"><span class="nav-number"></span> <span class="nav-text">6) Multi-Task Discriminator</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dg-font%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%AD%E7%BB%83%E9%AA%8C%E8%AF%81%E4%BB%A5%E5%8F%8A%E4%B8%BB%E5%87%BD%E6%95%B0%E8%A7%81%E4%B8%8B%E4%B8%80%E7%AF%87dg-font%E4%BB%A3%E7%A0%81%E8%AF%A6%E8%A7%A3"><span class="nav-number"></span> <span class="nav-text">6、DG-Font网络的训练、验证以及主函数（见下一篇DG-Font代码详解）：</span></a></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E5%90%8D%E7%A7%B0dg-font-deformable-generative-networks-for-unsupervised-font-generationcvpr2021"><span class="nav-number">1.</span> <span class="nav-text">论文名称：《DG-Font: Deformable Generative Networks for Unsupervised Font Generation》CVPR2021</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E5%9C%B0%E5%9D%80-httpsopenaccess.thecvf.comcontentcvpr2021htmlxie_dg-font_deformable_generative_networks_for_unsupervised_font_generation_cvpr_2021_paper.html"><span class="nav-number">2.</span> <span class="nav-text">论文地址： https:&#x2F;&#x2F;openaccess.thecvf.com&#x2F;content&#x2F;CVPR2021&#x2F;html&#x2F;Xie_DG-Font_Deformable_Generative_Networks_for_Unsupervised_Font_Generation_CVPR_2021_paper.html</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="nav-number"></span> <span class="nav-text">1、关键词：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E8%83%8C%E6%99%AF"><span class="nav-number"></span> <span class="nav-text">2、领域背景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E5%89%8D%E5%B7%A5%E4%BD%9C%E6%8F%8F%E8%BF%B0%E4%B8%8E%E6%AF%94%E8%BE%83"><span class="nav-number"></span> <span class="nav-text">3、先前工作描述与比较：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#image-to-image-translation"><span class="nav-number">1.</span> <span class="nav-text">1) Image-To-Image Translation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#font-generation"><span class="nav-number">2.</span> <span class="nav-text">2) Font-Generation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deformable-convolution"><span class="nav-number">3.</span> <span class="nav-text">3) Deformable Convolution</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number"></span> <span class="nav-text">4、主要设计思想：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%96%B9%E6%B3%95%E4%B8%8E%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number"></span> <span class="nav-text">5、具体方法与网络架构：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84overall-pipeline"><span class="nav-number"></span> <span class="nav-text">1) 整体架构（Overall Pipeline）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#style-encoder"><span class="nav-number"></span> <span class="nav-text">2) Style Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#content-encoder"><span class="nav-number"></span> <span class="nav-text">3) Content Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#feature-deformation-skip-connection-fdsc-module"><span class="nav-number"></span> <span class="nav-text">4) Feature Deformation Skip Connection ( FDSC Module)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mixer"><span class="nav-number"></span> <span class="nav-text">5) Mixer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multi-task-discriminator"><span class="nav-number"></span> <span class="nav-text">6) Multi-Task Discriminator</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number"></span> <span class="nav-text">6、损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#adversarial-loss"><span class="nav-number">1.</span> <span class="nav-text">1） Adversarial loss</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#content-consistency"><span class="nav-number">2.</span> <span class="nav-text">2）Content Consistency</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reconstruction-loss"><span class="nav-number">3.</span> <span class="nav-text">3）Reconstruction Loss</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deformation-offset-normalization"><span class="nav-number">4.</span> <span class="nav-text">4）Deformation offset normalization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%BB%88loss%E5%8A%A0%E6%9D%83%E7%9B%B8%E5%8A%A0"><span class="nav-number">5.</span> <span class="nav-text">5）最终Loss：加权相加</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -171,7 +176,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">114</span>
+          <span class="site-state-item-count">116</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -273,7 +278,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-09 14:25:54" itemprop="dateModified" datetime="2022-03-09T14:25:54+08:00">2022-03-09</time>
+      <time title="修改时间：2022-03-22 11:00:00" itemprop="dateModified" datetime="2022-03-22T11:00:00+08:00">2022-03-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -303,14 +308,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7.3k</span>
+      <span>8.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>20 分钟</span>
+      <span>23 分钟</span>
     </span>
 </div>
 
@@ -491,8 +496,34 @@
 <li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220119155654674.png" /></li>
 </ul></li>
 </ul>
-<h2 id="dg-font网络的训练验证以及主函数见下一篇dg-font代码详解">6、DG-Font网络的训练、验证以及主函数（见下一篇DG-Font代码详解）：</h2>
-<p><strong>注：此部分结合了官方源码的内容，讲述训练的整体过程</strong></p>
+<h2 id="损失函数">6、损失函数</h2>
+<p>​ 该论文的模型旨在通过无监督方法实现字体的自动生成。为此，其采用四种损失。</p>
+<ul>
+<li>使用 Adversarial loss 来产生逼真的图像。</li>
+<li>引入Content Consistency损失，鼓励生成的图像内容与参考的内容图像一致;</li>
+<li>利用图像重建损失来保持图像的域不变特征</li>
+<li>Deformation offset 归一化，防止FDSC模块偏移量过大。</li>
+</ul>
+<h4 id="adversarial-loss">1） Adversarial loss</h4>
+<p>​ 该网络旨在通过求解一个极小极大优化问题来生成可信的图像。就是GAN常用的损失函数。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105213541.png" style="zoom: 80%;" /></p>
+<p>​ 其中<span class="math inline">\(D_s\)</span>表示对应类型<strong>判别器</strong>输出的<span class="math inline">\(logit\)</span>分数。</p>
+<h4 id="content-consistency">2）Content Consistency</h4>
+<p>​ 在忽略内容正确性的情况下，采用对抗性损失来帮助模型生成逼真的风格。为了防止模式崩溃，并确保从相同内容中提取的特征在经过内容编码器后得到的特征序列一致，论文设置了内容一致损失</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105408955.png" style="zoom:80%;" /></p>
+<p>​ 确保给定的内容图像<span class="math inline">\(I_c\)</span>和生成器生成的图像，经过内容编码器<span class="math inline">\(f_c\)</span>后是一致的。</p>
+<h4 id="reconstruction-loss">3）Reconstruction Loss</h4>
+<p>​ 为了确保在给定参考内容图像<span class="math inline">\(I_c\)</span>和参考风格图像也是<span class="math inline">\(I_c\)</span>时，生成器能够重构出源图像<span class="math inline">\(I_c\)</span>，我们施加了一个重构损失:</p>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105551098.png" alt="image-20220322105551098" /><figcaption aria-hidden="true">image-20220322105551098</figcaption>
+</figure>
+<p>​ 该损失有助于保持其输入图像<span class="math inline">\(I_c\)</span>的域不变特征(例如，内容)。</p>
+<h4 id="deformation-offset-normalization">4）Deformation offset normalization</h4>
+<p>​ 可变形的偏移使得卷积时候的采样网格可以自由变形。由于输入图像和生成图像之间存在大量相同颜色的区域(如背景色和字符色)，这使得问题难以优化，且偏移方案不唯一。 ​ 同时，字体生成主要关注内容字符图像与目标字符图像之间的笔画关系，如笔画的粗细、笔尖等。但是，对于内容相同但风格不同的图像，同一笔画在这两幅图像中的位置是相近的。为了有效地使用这个可变形的卷积网络，我们对偏移量施加了一个约束<span class="math inline">\(\delta_p\)</span>:</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105756227.png" /></p>
+<p>其中<span class="math inline">\(\delta_p\)</span>为可变形卷积核的偏移量，<span class="math inline">\(R\)</span>为卷积核的个数。</p>
+<h4 id="最终loss加权相加">5）最终Loss：加权相加</h4>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105847411.png" /></p>
 
     </div>
 
@@ -573,13 +604,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">551k</span>
+    <span title="站点总字数">569k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">25:29</span>
+    <span title="站点阅读时长">26:20</span>
   </span>
 </div>
 <div class="busuanzi-count">

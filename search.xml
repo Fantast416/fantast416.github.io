@@ -92,6 +92,172 @@ decay = min\{decay,\frac{1+num\_updates}{10+num\_updates}\}
       </tags>
   </entry>
   <entry>
+    <title>《StyTr2 Unbiased Image Style Transfer with Transformers》</title>
+    <url>/2022/03/21/5a98629a4dd3/</url>
+    <content><![CDATA[<h4 id="论文名称stytr2-unbiased-image-style-transfer-with-transformers">论文名称：《StyTr^2 Unbiased Image Style Transfer with Transformers》</h4>
+<h4 id="论文地址-httparxiv.orgabs2105.14576">论文地址： http://arxiv.org/abs/2105.14576</h4>
+<h2 id="关键词">1、关键词：</h2>
+<p>​ Image Style Transfer、Transformer</p>
+<h2 id="摘要">2、摘要：</h2>
+<p>​ 由于CNN的局部感知域性和空间不变性，输入图像的全局信息难以提取和维护。因此，传统的神经网络风格传递方法通常是有偏差的，对于同一幅参考风格图像，<strong>通过多次运行风格迁移过程可以观察到内容泄漏。</strong>为了解决这个关键问题，该文提出了一种基于Transformer的方法，即StyTr2，将输入图像的长期依赖关系考虑到无偏风格传输中。 ​ 与用于其他视觉任务的视觉转换器不同，我们的StyTr2包含两个不同的转换器编码器，分别为内容和样式生成特征序列。在编码器之后，采用多层Transformer解码器，根据样式序列对内容序列进行风格化。</p>
+<h2 id="领域背景style-transfer">3、领域背景—Style Transfer：</h2>
+<p>​ 经典的基于深度学习的图像风格迁移，样式转换方法使用多层cnn来学习样式和内容表示。由于卷积层的接收域有限，CNN无法处理长距离依赖关系。输入图像难以获得全局信息，这是图像风格传递任务的关键。将Transformer应用于计算机视觉的魅力在于:</p>
+<ul>
+<li><ol type="1">
+<li>它具有较强的表示能力，可以通过自注意机制自由地学习输入的全局信息，从而使每一层都能轻松获得整体的理解。</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>Transformer不包含局部性和空间不变性引起的归纳偏差，可以避免风格传递任务中的内容泄漏</li>
+</ol></li>
+</ul>
+<h2 id="先前工作描述与比较">4、先前工作描述与比较：</h2>
+<p>​ 暂略</p>
+<h2 id="主要设计思想">5、主要设计思想：</h2>
+<p>​ 在StyTr2框架中使用两个编码器来获取特定领域（Content &amp; Style）的信息。在编码器之后，使用Transformer解码器逐步生成输出序列。此外，针对自然语言处理中提出的位置编码方法，提出了两个方面的考虑:</p>
+<ul>
+<li><ol type="1">
+<li>不同于按逻辑顺序排列的句子，图像序列符号是通过图像内容的语义信息进行关联的;</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>对于风格迁移任务，目标是生成任意大小的风格化图像。输入图像大小的指数增长会导致位置编码的剧烈变化，从而导致较大的位置偏差和较差的输出质量。一般来说，视觉任务所需的位置编码应以输入内容为条件，而不受图像尺度变换的影响。</li>
+</ol></li>
+</ul>
+<p>为此，该文还提出了<strong>基于图像语义特征的位置编码</strong>，并根据图像大小动态扩展位置编码。</p>
+<p><strong>总结：主要贡献</strong></p>
+<ul>
+<li><ol type="a">
+<li>一个基于Transformer的风格转换框架，即StyTr2，以减少内容泄漏并实现无偏的风格化;</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>一种内容感知的位置编码机制，该机制是尺度不变的，适用于视觉生成任务;</li>
+</ol></li>
+</ul>
+<h2 id="具体方法与网络架构">6、具体方法与网络架构：</h2>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220321190212987.png" /></p>
+<h3 id="图像分割为patches-linear-embedding与vit类似">1) 图像分割为Patches + Linear Embedding【与ViT类似】</h3>
+<ul>
+<li><strong>输入：</strong><span class="math inline">\(I_c \in R^{H \times W \times 3}\)</span> 和 <span class="math inline">\(I_s \in R^{H \times W \times 3}\)</span></li>
+<li><strong>输出：</strong>一个特征序列：$ L C<span class="math inline">\(，\)</span>L = $ ，<span class="math inline">\(m\)</span>是PatchSize，<span class="math inline">\(L\)</span>是特征序列tokens长度，<span class="math inline">\(C\)</span>是单个Token的维度。</li>
+</ul>
+<h3 id="位置编码content-aware-positional-encoding">2) 位置编码（Content Aware Positional Encoding）：</h3>
+<ul>
+<li><p><strong>想法：</strong>当使用基于Transformer的模型时，需要在输入序列中加入位置编码(PE)以获取结构信息。此论文提出了基于图像语义的位置编码，这一改进基于以下两个想法：</p></li>
+<li><p>在传统的位置编码中：两个patch之间的位置相对关系仅仅与它们之间的距离有关。而对于图像生成任务，在计算位置编码时，我们应该考虑图像的语义</p></li>
+<li><p>当输入图像的尺寸呈指数增长时，传统的正弦位置编码是否仍然适用于视觉任务? 如下所示当调整输入图像的大小时，相同语义的patches (blue blocks)之间的相对关系会发生巨大的变化，这可能不适合视觉任务中多大小的输入。</p></li>
+<li><p><strong>主要做法：</strong>提出了内容感知的位置编码(CAPE)，该编码具有<strong>尺度不变特性</strong>，更适合于风格迁移任务。与正弦PE只考虑Patches的相对距离不同，CAPE以图像内容语义为条件。</p></li>
+<li><p>首先假设<span class="math inline">\(n \times n\)</span> 可以足够用于表示每幅图像的语义位置。</p></li>
+<li><p>假设输入图像为：<span class="math inline">\(I \in R^{H \times W \times 3}\)</span> ，我们将<span class="math inline">\(n \times n\)</span>的位置编码（依据实验结果，一般情况下<span class="math inline">\(n=18\)</span>），放缩至<span class="math inline">\(L = \frac{H}{m} \times \frac{W}{m}\)</span>的大小，这样就可以使得位置编码不受图像尺度的影响。即对于两个Image Patches而言，它们直接的位置关系不会受到图像尺度的影响。如下图所示：假设有两个不同分辨率的图像，在PatchSize大小一样的情况下，左图分辨率小，被分割后，成为<span class="math inline">\(2 \times 2\)</span>的Patch块，右图成为<span class="math inline">\(4 \times 4\)</span>的Patch块。当位置编码会进行放缩以适应的时候，其就可以自己匹配不同尺度的图像。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220321210140364.png" /></p></li>
+<li><p><strong>公式化表达</strong>：</p>
+<ul>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220321210523455.png" /></li>
+<li><span class="math inline">\(P_{CA}(x,y)\)</span>代表第<span class="math inline">\((x,y)\)</span>坐标的Patch的位置编码值</li>
+<li><span class="math inline">\(F_{pos}\)</span>是一个可学习的编码函数</li>
+<li><span class="math inline">\(P_L\)</span>是一个可学习的位置编码，是基于图像的token序列的</li>
+<li><span class="math inline">\(a_{ij}\)</span>为插值权重，<span class="math inline">\(s\)</span>是邻居的数量，其是由周围邻居加权差值计算得到的。</li>
+<li>对于token序列<span class="math inline">\(\epsilon\)</span>中的第i个Patch块，假设这个Patch块的坐标是<span class="math inline">\((x,y)\)</span>，那么我们将计算得到的<span class="math inline">\(P_{CAu}\)</span>值加到<span class="math inline">\(\epsilon_i\)</span>中，形成最后的序列。即，如果原来的token序列<span class="math inline">\(\epsilon\)</span>形状是<span class="math inline">\(L \times C\)</span>，那么新的也应当为<span class="math inline">\(L \times C\)</span></li>
+</ul></li>
+</ul>
+<h3 id="transformer-encoder">3) Transformer Encoder：</h3>
+<p>​ StyTr2有两个转换Encoder来编码特定于风格（内容图像 &amp;&amp; 风格图像）的特性，这些特性用于在下一阶段将序列从一个风格转换到另一个风格。</p>
+<h4 id="part1-content-image">Part1: Content Image</h4>
+<ul>
+<li><strong>输入：</strong>Tokens 序列 <span class="math inline">\(Z_c \in L \times C\)</span></li>
+<li><strong>输出：</strong>$Y_c L C $</li>
+<li><strong>网络结构：</strong>每个transformer encoder layer包含一个MSA和一个FFN，与Transformer结构一致，输入序列被编码至Q，K，V。
+<ul>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220321215744833.png" /></li>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220321215804639.png" /></li>
+<li><span class="math inline">\(W_q,W_k,W_v,W_o\)</span>是可学习参数矩阵。</li>
+<li>然后使用残差连接结构，每个模块后有LN归一化</li>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220321220112862.png" /></li>
+</ul></li>
+</ul>
+<h4 id="part2-style-image">Part2: Style Image：</h4>
+<p>​ 按照Content Image那样子进行处理，但是对于Style Image我们<strong>不需要进行位置编码，因为我们不需要保持它的图像结构。</strong></p>
+<ul>
+<li><strong>输入：</strong>风格图像Tokens 序列 <span class="math inline">\(Z_s \in L \times C\)</span></li>
+<li><strong>输出：</strong>$Y_s L C $</li>
+</ul>
+<h3 id="transformer-decoder">4）Transformer Decoder：</h3>
+<ul>
+<li><strong>输入：</strong>$Y_c L C $ ， $Y_s L C $ （<span class="math inline">\(\hat Y_c\)</span>是<span class="math inline">\(Y_c\)</span>增加了CAPE位置编码后的序列）</li>
+<li><strong>输出：</strong><span class="math inline">\(output \in \frac{HW}{64} \times C\)</span></li>
+</ul>
+<p>​ 根据参考的风格序列，用回归的方式来生成内容序列。和传统NLP任务不一样，我们使用序列中的所有Patches一次性输入来预测结果。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220321224013009.png" style="zoom: 80%;" /></p>
+<p>​ 由两个MSA和一个FNN模块组成。第一个MSA模块的K、V来源于Style序列，Q来源于Content序列。每个模块后面都有一个LN归一化。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220321232914140.png" /></p>
+<ul>
+<li><p>公式化表达：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220321232959747.png" /></p></li>
+</ul>
+<h3 id="decoder">5）Decoder：</h3>
+<p>​ 论文使用了一个三层的CNN解码器来细化后面的Transformer解码器的输出，而不是直接对输出进行上采样来构造结果。</p>
+<ul>
+<li>输入：<span class="math inline">\(input \in \frac{HW}{64} \times C\)</span></li>
+<li>输出：<span class="math inline">\(I_{out} \in H \times W \times 3\)</span></li>
+<li>网络结构组成：
+<ul>
+<li>$3  $ 卷积层</li>
+<li>ReLU</li>
+<li><span class="math inline">\(2 \times\)</span> 上采样操作</li>
+</ul></li>
+</ul>
+<h2 id="采用的损失函数">7、采用的损失函数：</h2>
+<h4 id="content-percepture-loss-感知内容损失-style-percepture-loss感知风格损失">1）Content Percepture Loss 感知内容损失 &amp;&amp; Style Percepture Loss感知风格损失</h4>
+<p>​ 优化结果应保持原有的内容结构，同时传递参考风格的模式。VGG提取的特征图可以作为内容特征来表示图像结构。<strong>Gram</strong>矩阵是两两向量的内积组成,所以<em>Gram</em>矩阵可以反映出该组向量中各个向量之间的某种关系。特征图的Gram矩阵可以作为风格特征来表示颜色、纹理等信息。因此，论文构建了<strong>感知内容损失</strong>来衡量生成图像<span class="math inline">\(I_{cs}\)</span>与参考风格图像<span class="math inline">\(I_c\)</span>之间的内容差异，构建<strong>感知风格损失</strong>来衡量生成图像<span class="math inline">\(I_{cs}\)</span>与参考风格图像<span class="math inline">\(I_s\)</span>之间的风格差异。</p>
+<ul>
+<li>Content Percepture Loss：</li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322103100728.png" /></p>
+<ul>
+<li>Style Percepture Loss:</li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322103340777.png" /></p>
+<p>​ 因为神经网络各层的统计量(如均值和方差)包含了不同领域的特征。<span class="math inline">\(\phi_i\)</span>代表使用预训练的VGG19网络，其第i层提取出的特征。<span class="math inline">\(\mu()\)</span>代表特征的均值，<span class="math inline">\(\sigma()\)</span>代表特征的方差。风格的感知损失可以书写如上。</p>
+<h4 id="identity-loss">2) Identity Loss</h4>
+<p>​ 自监督学习可以利用PreText从大规模的非监督数据中挖掘其监督信息。网络可以用这种构造的监督信息进行训练，以学习下游任务的有价值表示。 论文采用一个辅助的<strong>自我风格迁移任务</strong>来学习更丰富、更准确的语义和风格表达。<strong>该任务具体操作如下：</strong></p>
+<p>​ <strong>注</strong>：Pretext任务可以进一步理解为：<strong>对目标任务有帮助的辅助任务。</strong></p>
+<p>​ 论文在StyTr2中输入两个相同的<span class="math inline">\(内容/风格\)</span>图像，生成的图像<span class="math inline">\(I_{cc}/I_{ss}\)</span>应该与输入图像<span class="math inline">\(I_{c}/I_{s}\)</span>相同。因此，<span class="math inline">\(Identity Loss\)</span>模拟<span class="math inline">\(I_{c}/I_{s}\)</span>与<span class="math inline">\(I_{cc}/I_{ss}\)</span>之间的差异:</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322104028070.png" /></p>
+<h4 id="最终loss">3）最终Loss</h4>
+<p><img src="C:\Users\14012\AppData\Roaming\Typora\typora-user-images\image-20220322104224116.png" /></p>
+<p><span class="math inline">\(\lambda_c\)</span>、<span class="math inline">\(\lambda_s\)</span>、<span class="math inline">\(\lambda_{id1}\)</span>、<span class="math inline">\(\lambda_{id2}\)</span> = { 10 , 7 , 50 , 1 }</p>
+]]></content>
+      <categories>
+        <category>⓶ 论文阅读笔记</category>
+        <category>CV相关论文</category>
+      </categories>
+      <tags>
+        <tag>Transformer</tag>
+        <tag>Style Transfer</tag>
+        <tag>CNN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于文献综述、开题报告写作逻辑记录</title>
+    <url>/2022/03/21/70cfb7bd8141/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="7b9f124314e793a8ea4b25367429819e4db42db95545ee66f18eecfe80e01d16">0b64cd3abe5b0a0a039a37d86c66d75ed031bee0799e8ec352d0d5180826a0a50691d982f2be0c5f85267e748633a6bf94990a16c95008190a889750cecd7480a14477abc4a295eb514b8297cd2924e002a1c70812d056bcf0409e6fb92de26df0950a25ddafaeb99d1c3cf682cce4fc1226e9d0e6fb11561e2b615fc0eb9bac9ce2ad086a04463456aa373ccbe45d294bf436c7ac973af9bea0f2b9e447d448246d7c64ec3314b5e4baaaac014f5f2ff018c4ec4935ca0aa91b2bed76a66bf8a610827cb51bb660dc08067cfa0df4ba59f9bae520f9ce17fd1ff0a34505b0cc01663191ed701004f91d60e3605d8f50be8345dfd6f40431d3a6925178b63dd5331af544a52e572dbeb5ca133211a94a51b31273c2a07dad3a65d09f31bf7d650e8ff0228317ee19a107fadd4adaeea132918d286444c05aef91c1ef031637e1f1cb36e60e2f36b1cd22b684ebcbd44eebee5071662672485493e50a4f15ae933ab9734632c986e21d2323a20d60cac9c397fb888867c5e5b0c43a9c569457ab8bd5ec7619615cef9345aa701544e87d246731c9ffa9c07940386b29b0b14990f742cae9a254ad440ffe76d913bae62bc5f5418644c2d0f41f0c6593a5a4bf10577f9e2a01bf76eec279423298e44ba9a1aa3dd944ec6209d6b366bd5970d5693a0a3de247211917e24bf74a3a8649917f9725fef0a84c4751c9f17a47e06502b7e8eb94a0e3eb761ddb31cc04827bffbd071de865d5003de59ec9565d58b0bac3eeb984d2776667d4fdcec04b05fc0ef623774fce69b9e6c13f9bed5a33d948f4b7fe2e32c3ec9df3be76b1ec78510b0a165ef2f6d88e61d966361b5d2794c32ee337c0eb688febc00f6cd3231acfd239287d3a34eefe95c8385993f64a332688b73527f6e0a857b490df293cf96a4722e2d1457cf2f77024347da5650d24d691502e5103557e9fe814e44474ce09b015f2194eb312d794f1e416e394b2bad4c42786594b64076adf8d9451bcad12d8b31a005f2bc23788a5e937865336c6ddf4c2df44d3c0b2edd0348e31067bbb232d9b6e6eb582fe62b2a123aa1b5654da6507da228086736c76841e52d5c32f432331b58d64f2cb94ae874adfb2f663ba85a3c033064f95aa5e47daa60353de46c8b908b0824c61b76069a398f259c9cf350c583236e7c5d2af891445c2d16c01ed8d20da0ab66880c2fe32947625191ebeba3e3a65ee9397451cef6cc861c8367ad0f73980c8a5f937803f2f495374f1563c4720161c585394f17dcaf71e7788f13b9bfb55a7dde3ac31e10768d2cb175f40fe8257ead6a1564b24cf8519889cf65efcbab43d72a0876f2daf700aac7db122f60b919c7bf7d2cc127285295eed7393f1d4a57c94a6390ae0155af3bd93f203a540b0f5125c096841ea3f58cdc467f6d8aaf70da00df7b8dba5ab04d117e6cfe2a5ef9a371104e6674a85af50dd97aa17472e7bd367ee4ca1ce860d6cf234cad3ecbfacd08e09fcff12aa50e9935a77494daaa99d9a4faa4f89c18afa34767723858c4a707fea61f9030befb9e2d0108aaa9c052ada705d5b34ff28d03cace480a1776688cbafd1e00ae59947d163f1f28aa89e1ed3c6f4907e672919d214bf4973a4ea8249aa62924c9b34534a3736fecd73d94afd8982e569f2b953ebc005d6595bb943fb472dce2ffa324ab185bd8fa8153a1e600e3c1f628168917b25749094d0751a9be544414a7748cf4ac700167632441eafe1d761d6c29326cdfceefea229753b38072b01e23685570ac2b6d842cd00abd7e5a5ed0cf892388d2de0470e0aafbef91f53a85f63ddfc14d2eb45f4409d2cd946b5cca3089b211f302dbbf64410ddd9fea56e20f4ad5f794ad716d90badf1cbb8ad31adb765eb1330273e441ec0a2fa45e15016ea0f86b5c47ca451fa7b0af20c170d12408c424b761bc5a982a46d70ed005c692f322b36326d3bb3fdc9d7faacd1182155d9b3d1fb3ef4a4d38e1ff0370cbd2b1a339426c4a793a3819589017b566a8eacc3931253e5234822718fa3bbf34d5244fab4ee2fe9dd49d9c8e5a748179dad9f66e84a2595d69caa128908565b49c3b58bc60afc88660724b36e5394db0d37c2ebcb73bdf4d7669dc20e4c03a80aded961abfc88c1c6fce85b5a70f23ff4737e2d7f36b0dec664b376cfecf91468a064067227f0d9b00b329e7f2459787fe84ba1f8c311cffe8008e11eb8c579743bb21e2456fec4ddb031fdd6eed0d8f7b4dbb6f2696b086d3b6cf6afc4ea196f8f47e309f2dc00c62c53515656a4732c2f6185adfb39e876f87ecadc8ebb670d67afd160785568a4d8c3f4bb9cda58e6010755abb9ed12290e11ffa5daf4304b97c801d07faa4d4491444fcf9f1f784b4fdf8efc49a9ce02dd3735b3ff131fc7cd33c75549ffaaa492630fa0079a7af76b0abcf760d4d53162e870d99de380bbd17cc7d8267d365d67234f83834e628ff2e892a7e73c59205938a436b903464b6c34c68ed3147dd4980d6cfb64c57cec2b63afde06de5316aa9ce2b9e5c133f5272e38a3f5be02cec438e7ee77b6619152ae6c5a8337feac865895c5833741cef808f8503248e773fb841200c27d4861ec3f525fb6290c6ba054b7b14a34fc6bd7b316071ceacfb268006488b1472fc72dedfc5b50552ac56476a31b3078d2bb20d76a428bf28193ad47d653e53870b8f2e8b80e8cb767da78dac9ef6313947cd73785902df23cc9cbd0436a82a43eca7a9bd3aba83ae17aa5b9c7663ee3e17ec026272421598b372954c1fc5cfb3fab4b2c1d2c6c9c044c9a78026e5c03af1e25963cdd366d3de839428db45ac950d6a4f123a0c018e1c5137aa35836cbb9bd54c44d33039b16b9c7cb8283ef7084a9696c464a477488da63a4eeba06cc8616b55fa8d9ac5fe180451646d68317cccadb344092f8c2ad4d4ab45e4943b4900aa123afb0aa7f9dda7db168c047f3ce8b5b5e680cadc41bc7196e8249467563e711ace43d5f86ecb83eb300a4829af28cc2bd0a4572ed6c3dff507c035f269221967fc9b71b96d16f7ad2266f9b0e93b578cd31704c5213496e605701af575626a1b30aeb474d67f7b05215260c328c9880fbdeb24846e597ade1e0bfb77ef2842fb97321f8a2aee5d82bcf9fe9b000748a86f67a5e9188f6dc4f63bbf918f285276d2ed0ea7d3ce4db430db35026d168ad3833616e25b8335570fe70ebe90cb7baa3d5e34bed7d78eb868eec2786ed2dda6debb1fce6b0fb8d3e3258a247548f94eb235dd0cdf58c901dcfc011f9c098a90a18b08105758b267cafb815e07fad19680b1f044c88daa23e8a6b3294c83891068a5da5bee776bd26b36e390d37ac44cf978ffd90bc23a6924fd89e7657bcd3c92ad3dad42dab02cffd3b135dfed9329d17811c36fa405b343485ef7df2bf1dc9dd826c8ead29b2bb03a90738bcb76fec7146bcb1b6b65fc34c85c2b3dd6044ee4c47f55b35e3bca952bda7b3c2ae10a4f3eb21626427580c6739063636106e3b2c0eece813974a3bd1e05db9944e3e090d3370e247014144d5bc041bdf57fddd77a037197992368a942de5671b102f5fc971ff154e80c64760ec77af5b8284e9192e5bdeb77ab74f665b5b913d8f5f02b6b0a952dabd42ecbcf6ccd6ed450e7754b57eba01907a3aa26082454fb57cd8469b8fe0082395d5294b02d3085d1c587cd18c9bf69836167db4a28f56f3af972598624f71440f388a9be38548ebb9c0af3fc054be2f51e30e4857256f6751a4e77f719264b993dd8df596d84ff7a8720db0df392d260f38a34fab9151e2c7ec5f374fc5638c2cd30052f18cbfbfe015ae4585b3570f3864b09d55f8b190c4bd2723283ee1eec406f7c14efc72915942ffa919a9263f096819c121093373470192cfdceb17f255b3bb0b5c4c9add58997abf7fc6f17e35ea1110c4edb25972bfa22b3c9ec2ac31d01c038b34386edcb5e16270ea59924d22216789a8db2156998b900a1a6638cbf47d4dbc3a9d86b0ce8591538d50ffdd0a4c26de3902daff219a81f5ee1b4038adc81929dd7e6b480bd3e97ee6c5b848fa5c28fa59e688f6126f14146db0afe1fa483e61e6cc2b63217f0a0f877ee53ba39409eb170e157496fd93201d728b9d5a689e126a13ee418aec16c2ffa2d7d4f186d34fad2177312d427681abb6db88b4099ba681de508fd688732f969b69676a4f6627970c9e92726bfa927ffd25bb08cbc2795242ef852d0d2b6e1d792e96eee2566116859e66b7c80d55f635f6dd45b84bc5234b21e2f567be75b6ce77f62ea408a3f278dd768f6b80b4d00a61ffc4bc3daa67c253df340c229695de17f8fbe35310759d54fb87afd2c3c93e7e6a5a46911b6c2eed4305f25d4f4da6437a48e8ec468f5bfde5fac6fba9a64667d260173a83a3701334078e5378b13d4500df9861dde390ad3d9db23b516e9444849ea0e7acdd738832fd25c8153efb762e905619d7122ac271ad5f9450471a464060fe25fc2df8584b7282b16d3bc06678b3d05250d797b9c6e0328bd2e83e9943e0b1217a60a9e4ab2ca8b0ae0bced2211661ec7fd6cc1e0398245d5f9442a73abddd17328c3dfc2dccc73ea2c41af541379f15b436289e429f77ecc8859d645b56b5f78e0a8d264271eddaa26c02e1f9b013a7b230a7cda4b4c6b931688a6e4cc92b6ebd4692c7ca049e8e9b6c6ad8ae5e730c9bf2cf9acf86813cec873920c8d68ed3c0582a0fdc0c15ff15ad06381afe5a97d4f63217e4e17bedcaa6b78951c1beabf2baa573c54c7c0facde6ca71ee604047aa4a1f50e488d43a4b61bf42a8f00459ec7f77d2daf0a35ee3ca308c0c3b476fb0aac042456a90fe1c63fb1ee594e5fcd6e771dbf42710d6e6a993ad77313d99e5792489abd837d6efef5a6d008f5226f05493b722a363a1417097054719d6b5196efec818d05895ed5dee5ebd61d55cf5e5a27ea5a7d0ad9bcb1ec80137702f651572f16eae83c6c61cb618c37c5048e6ddffb087d6b8242e5d95bb290b805b8acfb65262d39cea1bbb681052723006f009743f09cc8bec11f1a34526141b597700bbac962d9101bb5bf5e065ad752a31b789ff79773bc2394c460fefe9574c63786523a4a8533334c7a1bfd71c0791c78e7285a57e4a326d65de7339a471de53aced40d41856542fd7bf643ea5fa11bee26a901ae11882ee7092584a4f4fad694a45e2ef255627b71bc917f1ec0926fea89fa4180936b5eb11a692bdffa4f1109e3852fc9579631c6e2c714c4dc73fbcf62a781585dace8d4996a0c4682ed8a818bef1aa79bcdbe759d1fd8f7942da22f467436eae82b5eddf296c5eb57adb8728d5cd2f2e9b0ef4f0741a00d36866725aa17d9b4a59b05614cf9ec8106ee199068bd3e9a3e903d16c49669cf674203cf72083b49ec0482c37b5c815c639c7a596f9cac3875385b2f54895b6986f5b7d1800c4fb6ebe29d3b1d1ec1ec131b3a8de10083239f3ee2d50a13f67f5639d65c6893c12fc652f3dfa51580ccbdaabe06b6d59c1f76c98cbbd890533097ecf3275aef692a4b7c851541d840c3b2207853f390fd4ba077df695714d4a9a799956aa972e6e1e9351768b0b8079cd367b60f0ff572e911f3b0e647bebc2ca659e2f896d8ab98d8af58430d1222a684b94b8b2d769467a653d57776b74509e8bcfa4997c084af3d9dd97b01c721b9abfa83c008ace7e694b8c272d5f75b99dfb230b2e2529ca51cb82482546bd4fdcbe9e086dac96d848a3ed9a462c6a654e6b1163f1097f853021a2e280d59e1463b0c4f6723902492fd28f298e61ba4d1994eb7df7ceec29dc2e6e99926bc410940720cf5d0e084a2347b5ce7dd0e97671ab00dfb61e672224f3f474ce3ac5b43cb64df3504a7c27de9f4bfcc8318e6056731a2855fe2eceeb5595f8f0a751f3114a1498a6911f1d257607c590eb6fe6b9ce03544ac89cf386507f17410ea9cfb891e0b922427ecd3db892f7336b8f62e2b68b6544b68a8805404cf0d6d4c660e336ace9011e92fdbea12e914204037cbe1f5f9e492268a2b28396d6be93cccb1d942abf28ae8d55f74005bb945645b9b88bccfadc16945237ec46c6a416bc5c7fe4114264eb6f3cab16bb5287fd0e3709717af8122725e651c0b9ebe236badfa5431d8c55c01b48c9b5f4530d3238d35b42e16cb2c9cc3d0bbe50307cb63cc2f42bf1cdc53678915cdb0a60430f86ca8c5dede3a8e3b53079e0c67199e48ba5b3ada36880f1c03d324702cebff44f6df34dbcf92100e91ff24d0188861bd38d63d80801b89fa99d0484cbadadd05a783a88eb414df17aa2090bec6f3c6d6948eca65ed46b1148bcbb2313b1889dd6f4b0295e4d18c0a89afcae26e699cd4964b39970f1d0da25b25d307ad922c069abebef70939528c604b2aeeb1c85b225f18ad2ac4cc0d88f2403ad293c50bc4a1f333b8a146d58294cf8c77bd9dc60a9393b4dd3bc4c701af5180545bbaa99d187b6488f5fbe91c1a8bb70f858dbd40e07a791e96c730a2d748566a8d370d029b37a7d66d5064a5c4f7e38a3c02c5526025350da91c5d87dc1917a91a04e3bab4a12464e1e75df43beaa15ce591f16272191203ce1da3208f59d178320f8a88484ab98c2708c3dce496c2ef0d1beb97c496ca2919840ba56a5323b8b944129ed4ce93bc96657e148895813418dbb3e6778fe15a0f5936cbcfedbfd1e49a1f3fb817cab6f750df2c923494c995b7efe49d0c8d0c2ca02e8708b8ebaee8abd65b69d65422343de2f76519b7bcb3f13a8b843ad41eb5b7f6c28aac1f12d2a42296103155958886246d873a67640542de79c44d8d13869dacd2cc2eeda1562f147484d71efd87d6e6007bc9bfbb6cc6b809d1c2af45a36531bd89a2e05043126727d9eb9dee274dad43ec6d87d49a9fc35c7ba47b2cac122328b7dfe55deda3eb49f1ff26407360d9b41cc8cbd034b9b8beefb6dced522b30e32850b33794a59a708bab7db1568b48b6fba45a7712551b8aed5d2ce5203ba1507eb0b05d00e4aac9af344df2a5fecd49508b1b484cd081c30b4e00639e56a28335294bb25e157e2c47e99a231c66035ef2cdf93ddd512356748bf1fa9ea2d33ce38fb8ba3440eb87278a657c2369e77c7835928f2a7047669fc3f96746c04980c386a1d7adc1570db205a39b1b9d189aaf0b1f931c2511df4c32c36797b5cfaa31c0ba3440ab4d0ed6187914fb18d7de428ee1112ac1091f6f3a109277d8efa9d9d43dd7333eaac2290941ef474099e2936e591dc70ee251f4fae13b88dbb8a5e4a4d34e0b1afb804cff093f527db478f12807c7f126affcddac2610733014e640d0ab411215cc954ed9fbf61455c5fe0235bd46759d7892d43b67d87037f6f51167a820f319e36533cf98dc5340e003d725939ca5f364d2c402393c3ef9cee8fc1e7161308b313db05f0d894d2ade0e9d54ef929b9e0e3a1089882e2f609bb56423b22a3809c91baca2d1b57583592951cf083b911a889f73cfeca0a0a29944242d90e2687aaa796f8893b4afb213e7991e6b28100b8c9e22844ccd7e59e15093e70c6b59c03c1729489a8e06de021351e505a70bf6d1a93835c64bd198777d9bad928078d54d7939b582a1a5fe88195b993e3db6f8480728df5695c80ddc89715488813aca7a6b15b4012605759e23f6dcb239b1409bc9f6a917c93ea23f9b89020e5d851889f6cff97a4a12a0480ce882def3e729f23019bc441ccf3e3989ef0aa435d7f79f3e6d4c89a705fbe2afb7e6b02f6e47ddc59fa6432cd2c9eedcb43677afcee3773d5b20cc7b589910d22a0556a8f4f4797287bbcfb40570ddc85f0940fbc413d8bf19871d74f4e1c7dd74bcc3b695191fd993304b69bd9eab9d58baaae577fc8ee20ab37477dfe90191da74a37125e57edacf62151965fe65b5a507d415bb4f72b06a8f2a8124160a57488ee7a3383a9b353b7cf8bb5b8f88720f937436c396f42443837487e3595a32856614443adb3f5a0b828e4330dee563ebeea67ba0bdbe5cb4e4eae2af8ed1351394c42340665a5bac091010fc917c3a0892e954284a791f24c7b7134efc6bb5f18c283ae7d588334fd81b4277508adccabdc728278cf736421a11e4d2d847f472e7eecebb284b223bf02f17f40b0eb250e54c24b6a90ce56625fcab1de720a09ff2988da4fa0c95d2a711363fb56700c3711349b4db7b1506dbf015085a6962d66b91e8df37454d485f3b08478c0fa7071a5365be3a1ea43810ae4d00c78e59e1ed11d4e99c5587c07997adfec4c54af8e7a5695fa4c668ed3cc6a71fcd16082118da0b0e2dd5d4c7dfbd691e35d4a2621b25b927a53702338e692c8a4969cf59e54f56881c4e17bb56e1b9c3549f33f29dc13c25cf2fd5d186a766de89b42c5d36da6be53ccdd6f24ba98d1036f6038dd2b6e967614e76556d57564fa80325df86f0e6eda66194dfbc47ce7c8b8a2e5013a7dcf49da870ed122d582be18707f81205127995cb44f58e1c8a98bda265c4fb7a40bb79feb8d460f584b1ccf829f995d8cbd13b9ef1ec6516b9c069e169a1f5bbeb73c549ccc717d47e913b3a0050d87d4f2c0d77ddc448453aaeba00e2b8dc06b3d2cf38b2b9478cb377631bd0fc842eed6753f0648eade71ee7a11faf10f2a842d78e0b954ec31c2069e511884e8f1a0328316a89a9429f1431455d2ec0d25a6054d33625406e3ed9af7e01358eb93c037cd4c4e41af4b8f96195f658d54a9a0af232a8cf94241bd90cdaf8f09617df75fe626b15819920a9f4ef7fc85e2d638e20f8a7d0d1e722a27a9178f1b1caed25a794defb7b930c38792aa5c6983c0f31b09e458ff144a013de56914a14b4f836ddc7242c7dc72e9605c921b4e174dfc2dfb42aff7c53307914d943915df708bc9900e9f4270d11f0571f089f6d5d7cc42fa721bdcf65046e96a121a2dbdd4a2166d99ca0ec0450cd290c909bc7838e14844af97d7b57d4e20dd9da248a7c38bee53d0ed0749e9f2675b82eb4015262900f063aedbc4657db9a27163b047a4d8f4ca3752b7ad5dcbaab94e5d9e4c8f59d348d7441fc4c39cc1a24093d83ac92ca38746bf4022f592385b82e625f7f5bae034f7b6283b49bc67d44e1e1810547fa0459b3c72b1f4aea59510e5264f03dabf077a425cf09483a425dd6e0a0089ed8b464f6c287b71a05d2316d732176cbac74e588547f21cbf037c2bccc93ea53b035964970a19ccde09b61e597bd5445993f3121cbfca2bc0cabe2f0f31ea75d851adf64d95ccb23b1a9ab8d8b008d69326936ee38262cd7c5f8e8adde4835d1f3d090590b6808b7d6398f2ed36ccac0389c813866847defb0c462c48d2c3e4a63d69aca1ef4ac580385d7b041f90af6dcbe7988d1a97eccdf4827b589b5417cd9a9ecf0ed7a14669430b49e2f3f74633267</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>⓻ 经验整理类笔记</category>
+      </categories>
+      <tags>
+        <tag>Methods</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SCI EI 核心期刊以及计算机领域CCF会议等级分类文件</title>
     <url>/2022/03/17/58ef9be2b7d9/</url>
     <content><![CDATA[<h4 id="一sci">一、SCI：</h4>
@@ -188,7 +354,7 @@ FID = ||u_r - u_g||^2 + T_r(\sum_r + \sum_g = 2(\sum_r\sum_g)^{1/2})
 <p>参考：https://zhuanlan.zhihu.com/p/99375611</p>
 ]]></content>
       <categories>
-        <category>⓪ 深度学习笔记</category>
+        <category>⓪ 项目笔记</category>
         <category>字体生成项目</category>
       </categories>
       <tags>
@@ -5403,8 +5569,8 @@ static class Inner &#123;
         <category>CV相关论文</category>
       </categories>
       <tags>
-        <tag>CNN</tag>
         <tag>Transformer</tag>
+        <tag>CNN</tag>
         <tag>Visual Recognition</tag>
       </tags>
   </entry>
@@ -5534,9 +5700,9 @@ static class Inner &#123;
         <category>CV相关论文</category>
       </categories>
       <tags>
+        <tag>HandWritting Generation</tag>
         <tag>GAN</tag>
         <tag>Transformer</tag>
-        <tag>HandWritting Generation</tag>
       </tags>
   </entry>
   <entry>
@@ -5939,8 +6105,34 @@ static class Inner &#123;
 <li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220119155654674.png" /></li>
 </ul></li>
 </ul>
-<h2 id="dg-font网络的训练验证以及主函数见下一篇dg-font代码详解">6、DG-Font网络的训练、验证以及主函数（见下一篇DG-Font代码详解）：</h2>
-<p><strong>注：此部分结合了官方源码的内容，讲述训练的整体过程</strong></p>
+<h2 id="损失函数">6、损失函数</h2>
+<p>​ 该论文的模型旨在通过无监督方法实现字体的自动生成。为此，其采用四种损失。</p>
+<ul>
+<li>使用 Adversarial loss 来产生逼真的图像。</li>
+<li>引入Content Consistency损失，鼓励生成的图像内容与参考的内容图像一致;</li>
+<li>利用图像重建损失来保持图像的域不变特征</li>
+<li>Deformation offset 归一化，防止FDSC模块偏移量过大。</li>
+</ul>
+<h4 id="adversarial-loss">1） Adversarial loss</h4>
+<p>​ 该网络旨在通过求解一个极小极大优化问题来生成可信的图像。就是GAN常用的损失函数。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105213541.png" style="zoom: 80%;" /></p>
+<p>​ 其中<span class="math inline">\(D_s\)</span>表示对应类型<strong>判别器</strong>输出的<span class="math inline">\(logit\)</span>分数。</p>
+<h4 id="content-consistency">2）Content Consistency</h4>
+<p>​ 在忽略内容正确性的情况下，采用对抗性损失来帮助模型生成逼真的风格。为了防止模式崩溃，并确保从相同内容中提取的特征在经过内容编码器后得到的特征序列一致，论文设置了内容一致损失</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105408955.png" style="zoom:80%;" /></p>
+<p>​ 确保给定的内容图像<span class="math inline">\(I_c\)</span>和生成器生成的图像，经过内容编码器<span class="math inline">\(f_c\)</span>后是一致的。</p>
+<h4 id="reconstruction-loss">3）Reconstruction Loss</h4>
+<p>​ 为了确保在给定参考内容图像<span class="math inline">\(I_c\)</span>和参考风格图像也是<span class="math inline">\(I_c\)</span>时，生成器能够重构出源图像<span class="math inline">\(I_c\)</span>，我们施加了一个重构损失:</p>
+<figure>
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105551098.png" alt="image-20220322105551098" /><figcaption aria-hidden="true">image-20220322105551098</figcaption>
+</figure>
+<p>​ 该损失有助于保持其输入图像<span class="math inline">\(I_c\)</span>的域不变特征(例如，内容)。</p>
+<h4 id="deformation-offset-normalization">4）Deformation offset normalization</h4>
+<p>​ 可变形的偏移使得卷积时候的采样网格可以自由变形。由于输入图像和生成图像之间存在大量相同颜色的区域(如背景色和字符色)，这使得问题难以优化，且偏移方案不唯一。 ​ 同时，字体生成主要关注内容字符图像与目标字符图像之间的笔画关系，如笔画的粗细、笔尖等。但是，对于内容相同但风格不同的图像，同一笔画在这两幅图像中的位置是相近的。为了有效地使用这个可变形的卷积网络，我们对偏移量施加了一个约束<span class="math inline">\(\delta_p\)</span>:</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105756227.png" /></p>
+<p>其中<span class="math inline">\(\delta_p\)</span>为可变形卷积核的偏移量，<span class="math inline">\(R\)</span>为卷积核的个数。</p>
+<h4 id="最终loss加权相加">5）最终Loss：加权相加</h4>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220322105847411.png" /></p>
 ]]></content>
       <categories>
         <category>⓶ 论文阅读笔记</category>
@@ -6899,9 +7091,9 @@ static class Inner &#123;
         <category>CV相关论文</category>
       </categories>
       <tags>
-        <tag>UNet</tag>
         <tag>Swin Transformer</tag>
         <tag>Image Restoration</tag>
+        <tag>UNet</tag>
       </tags>
   </entry>
   <entry>
@@ -6959,9 +7151,9 @@ static class Inner &#123;
         <category>Basic系列笔记</category>
       </categories>
       <tags>
+        <tag>UNet</tag>
         <tag>Machine Learning</tag>
         <tag>FCN</tag>
-        <tag>UNet</tag>
       </tags>
   </entry>
   <entry>
@@ -7220,8 +7412,8 @@ static class Inner &#123;
         <category>ML2021课程系列笔记</category>
       </categories>
       <tags>
-        <tag>Machine Learning</tag>
         <tag>CNN</tag>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -8618,9 +8810,9 @@ n: [2. 2. 2. 2. 2.]</code></pre>
         <category>Transformer系列笔记</category>
       </categories>
       <tags>
+        <tag>Swin Transformer</tag>
         <tag>Transformer</tag>
         <tag>Computer Vision</tag>
-        <tag>Swin Transformer</tag>
       </tags>
   </entry>
   <entry>
