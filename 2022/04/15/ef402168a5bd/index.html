@@ -20,25 +20,28 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="包含王道课程第2.3.2节的内容，含生产者-消费者等经典问题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fantast&#39;s Blog">
-<meta property="og:url" content="https://blog.slks.xyz/2022/04/12/076f602f97d1/index.html">
+<meta property="og:title" content="2.3.2 经典问题（生产者-消费者等）">
+<meta property="og:url" content="https://blog.slks.xyz/2022/04/15/ef402168a5bd/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
+<meta property="og:description" content="包含王道课程第2.3.2节的内容，含生产者-消费者等经典问题">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-12T03:43:09.681Z">
-<meta property="article:modified_time" content="2022-04-12T03:43:09.681Z">
+<meta property="article:published_time" content="2022-04-15T03:43:00.000Z">
+<meta property="article:modified_time" content="2022-04-15T04:43:57.456Z">
 <meta property="article:author" content="Fantast">
+<meta property="article:tag" content="Operating System">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://blog.slks.xyz/2022/04/12/076f602f97d1/">
+<link rel="canonical" href="https://blog.slks.xyz/2022/04/15/ef402168a5bd/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/04/12/076f602f97d1/","path":"2022/04/12/076f602f97d1/","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/04/15/ef402168a5bd/","path":"2022/04/15/ef402168a5bd/","title":"2.3.2 经典问题（生产者-消费者等）"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title> | Fantast's Blog</title>
+<title>2.3.2 经典问题（生产者-消费者等） | Fantast's Blog</title>
   
 
 
@@ -230,7 +233,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/04/12/076f602f97d1/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/04/15/ef402168a5bd/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -242,7 +245,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          2.3.2 经典问题（生产者-消费者等）
         </h1>
 
         <div class="post-meta-container">
@@ -253,8 +256,22 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-04-12 11:43:09" itemprop="dateCreated datePublished" datetime="2022-04-12T11:43:09+08:00">2022-04-12</time>
+      <time title="创建时间：2022-04-15 11:43:00 / 修改时间：12:43:57" itemprop="dateCreated datePublished" datetime="2022-04-15T11:43:00+08:00">2022-04-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E2%93%BB-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓻ 基础类笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E2%93%BB-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+        </span>
     </span>
 
   
@@ -271,7 +288,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>0</span>
+      <span>55</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -282,6 +299,9 @@
     </span>
 </div>
 
+            <div class="post-description">包含王道课程第2.3.2节的内容，含生产者-消费者等经典问题</div>
+            <div class="post-remind">Google Chrome is recommended, otherwise the image size may be wrong</div>
+            <div class="post-remind">FireFox is not recommended,Because it does not support the image zoom property</div>
         </div>
         
       </header>
@@ -290,7 +310,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <p>笔记课程视频：https://www.bilibili.com/video/BV1YE411D7nH?p=19</p>
 
     </div>
 
@@ -298,6 +318,21 @@
     
     
       
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\04\13\c34143b1b4b5\" rel="bookmark">2.3.1 进程同步与进程互斥及信号量机制</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\03\25\9887f629bb62\" rel="bookmark">2.2 处理机调度及相关算法</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\03\14\32aa5a2632ac\" rel="bookmark">2.1 进程与线程的基本概念</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\03\11\b7e4aac04426\" rel="bookmark">1.1 操作系统概念与基础</a></div>
+    </li>
+  </ul>
 
 
     <footer class="post-footer">
@@ -315,19 +350,19 @@
   </div>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/Operating-System/" rel="tag"># Operating System</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/04/01/f225f383e158/" rel="prev" title="字体生成论文研究进度">
-                  <i class="fa fa-chevron-left"></i> 字体生成论文研究进度
+                <a href="/2022/04/13/c34143b1b4b5/" rel="prev" title="2.3.1 进程同步与进程互斥及信号量机制">
+                  <i class="fa fa-chevron-left"></i> 2.3.1 进程同步与进程互斥及信号量机制
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/04/13/c34143b1b4b5/" rel="next" title="2.3.1 进程同步与进程互斥及信号量机制">
-                  2.3.1 进程同步与进程互斥及信号量机制 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -360,13 +395,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">578k</span>
+    <span title="站点总字数">589k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">26:45</span>
+    <span title="站点阅读时长">27:16</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -417,7 +452,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"4de7f50f679893188969271d7b98f3b1"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"973a225122c75c1b88d5384678d84d86"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
