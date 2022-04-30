@@ -47,6 +47,444 @@
       </tags>
   </entry>
   <entry>
+    <title>清华操作系统课程Chapter1—操作系统概述</title>
+    <url>/2022/04/28/7c4029518fb7/</url>
+    <content><![CDATA[<h3 id="section"></h3>
+]]></content>
+      <categories>
+        <category>⓻ 基础类笔记</category>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>Operating System</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机科学笔记1——P1~P10集内容笔记</title>
+    <url>/2022/04/27/0d3e11e91f94/</url>
+    <content><![CDATA[<h4 id="一电子计算机组成">一、电子计算机组成：</h4>
+<h5 id="控制电路">1、控制电路</h5>
+<p>​ 计算机控制电路开关发展历程：电磁继电器——真空管——晶体管</p>
+<p>​ 发展趋势：每秒开关次数更大，更不容易损坏，体积更小</p>
+<ul>
+<li>硅谷的名字来由？晶体管的主要制作来源是硅</li>
+</ul>
+<h5 id="为什么电子计算机是二进制表示">2、为什么电子计算机是二进制表示？</h5>
+<p>​ 1、晶体管本身是不仅可以有电流流过和不流过两种状态，还可以表示电流大小，所以早期电子计算机可能采用三进制、五进制。但是由于状态太多，晶体管变化太快，很容易导致信号混杂出现问题。</p>
+<p>​ 2、布尔代数的理论完善。</p>
+<h5 id="逻辑门">3、逻辑门：</h5>
+<p>​ 我们可以通过二进制的形式，使用晶体管来构建逻辑门。可以构建更为复杂的逻辑电路。我们可以搭建最基础的 AND/ OR / NOT / XOR 逻辑门，从而构建更为复杂的逻辑门。</p>
+<p><img src="C:\Users\14012\AppData\Roaming\Typora\typora-user-images\image-20220427175830177.png" alt="“与”逻辑电路" style="zoom:25%;" /></p>
+<h5 id="计算机如何存储">4、计算机如何存储？</h5>
+<p>​ 使用True和False表示二进制数的0和1。计算机中使用二进制数进行存储和计算。</p>
+<p>​ <strong>整数表示：</strong>使用第一位表示数字的正负，1是负，0为正。</p>
+<p>​ <strong>浮点数表示：</strong>IEEE754标准，使用科学计数的形式进行存储。</p>
+<p>​ 32位浮点数：1 + 8 + 23 （正负 + 指数 + 数字）</p>
+<p>​ <strong>ASCII码：</strong>8位，用于表示各种各样的英文符号。</p>
+<p>​ <strong>Unicode编码：</strong>设计与1992年，解决了不同国家不同标准的问题。最常见的Unicode是16位，完全足够所有语言、表情进行使用。</p>
+<h5 id="计算机如何计算">5、计算机如何计算：</h5>
+<p>​ <strong>算数逻辑单元ALU</strong>：计算机里负责运算的组件</p>
+]]></content>
+      <categories>
+        <category>⓻ 基础类笔记</category>
+        <category>计算机科学课</category>
+      </categories>
+      <tags>
+        <tag>Computer Science</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机科学笔记1——P1~P10集内容笔记</title>
+    <url>/2022/04/27/fb6fde05ab36/</url>
+    <content><![CDATA[
+]]></content>
+      <categories>
+        <category>⓻ 基础类笔记</category>
+        <category>计算机科学课</category>
+      </categories>
+      <tags>
+        <tag>Computer Science</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机组成原理Chapter1—概述</title>
+    <url>/2022/04/27/5b4ea41fcadf/</url>
+    <content><![CDATA[<p>视频地址：https://www.bilibili.com/video/BV1BE411D7ii</p>
+<h4 id="一计算机硬件发展">一、计算机硬件发展：</h4>
+<p>​ 电子管时代——晶体管时代——中小规模集成电路——大规模集成电路</p>
+<h4 id="二冯诺伊曼结构原理及层次结构分析">二、冯诺伊曼结构原理及层次结构分析</h4>
+<h5 id="冯诺依曼的计算机工作原理">1、冯诺依曼的计算机工作原理：</h5>
+<ul>
+<li><strong>存储程序：</strong>将程序存放在计算机的存储器中</li>
+<li><strong>程序控制：</strong>按指令地址访问存储器并取出指令，经译码依次产生指令执行所需的控制信号，实现对计算的控制，完成指令的功能。</li>
+</ul>
+<h5 id="冯诺依曼的计算机的组成">2、冯诺依曼的计算机的组成：</h5>
+<ul>
+<li>硬件系统：
+<ul>
+<li>主机：CPU（运算器 + 控制器）、内存</li>
+<li>外设：输入输出设备、外存储器</li>
+<li>总线：地址线、数据线、控制线</li>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429102314735.png" /></li>
+</ul></li>
+<li>硬件系统：
+<ul>
+<li>运算器：算术运算、逻辑运算
+<ul>
+<li>基本结构：ALU（算术逻辑运算单元）、寄存器、连接通路</li>
+</ul></li>
+<li>控制器：产生指令执行过程所需要的所有控制信号，控制相关功能部件执行相应操作。
+<ul>
+<li>控制信号分为：电平信号和脉冲信号</li>
+<li>产生控制信号的依据：指令、状态、时序</li>
+<li>控制信号的产生方式：微程序、硬布线</li>
+</ul></li>
+<li>存储器：
+<ul>
+<li>存储原程序、原数据、运算中间结果</li>
+<li>按地址访问，读写数据。</li>
+<li>容量与地址线数量的对应关系：
+<ul>
+<li>访问1K 的存储空间：需要10根地址线</li>
+<li>访问1M的存储空间：需要20根地址线</li>
+</ul></li>
+</ul></li>
+<li>输入输出设备：
+<ul>
+<li>键盘、鼠标、网卡、显示器、声卡等</li>
+</ul></li>
+</ul></li>
+<li>软件系统：
+<ul>
+<li>系统软件、支持软件、应用软件</li>
+</ul></li>
+</ul>
+<h5 id="计算机的层次结构">3、计算机的层次结构：</h5>
+<p>​ 不同用户处在不同层次，不同层次具有不同属性，不同层次代码效率不同</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429105741386.png" style="zoom:50%;" /></p>
+<h4 id="三计算机系统性能评价">三、计算机系统性能评价</h4>
+<h5 id="非时间指标">1、非时间指标：</h5>
+<ul>
+<li><p>1）机器字长：指机器一次能处理的二进制位数</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429110326661.png" style="zoom: 67%;" /></p>
+<ul>
+<li>由加法器、寄存器的位数决定；</li>
+<li>一般与内部寄存器的位数相等（字长）；</li>
+<li>字长越长，表示数据的范围就越大，精确度越高；</li>
+<li>目前常见的有32位和64位字长。</li>
+</ul></li>
+<li><p>2）总线宽度：数据总线一次能够并行传送的最大信息位数</p>
+<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429110651202.png" /></p>
+<ul>
+<li>一般指运算器与存储器之间的数据总线位数。有些计算机内部与外部数据总线宽度不一致：</li>
+</ul></li>
+<li><p>3）主存容量与存储带宽</p>
+<ul>
+<li><strong>主存容量：</strong>一台计算机贮存所包含的存储单元总数</li>
+<li><strong>存储带宽：</strong>指单位时间内与贮存交换的二进制信息量</li>
+</ul></li>
+</ul>
+<h5 id="时间指标">2、时间指标：</h5>
+<ul>
+<li>主频f / 时钟周期T，外频与倍频
+<ul>
+<li>主频f：CPU内核工作的时钟频率</li>
+<li>时钟周期T：</li>
+</ul></li>
+</ul>
+]]></content>
+      <categories>
+        <category>⓻ 基础类笔记</category>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>Computer Composition</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计网微课堂Chap1——计网基础知识与概述</title>
+    <url>/2022/04/27/dcdee696a9ce/</url>
+    <content><![CDATA[<p>视频地址：https://www.bilibili.com/video/BV1c4411d7jb?p=2</p>
+<h4 id="一网络互联网和因特网概述">一、网络、互联网和因特网概述：</h4>
+<p>1、网络（Network）由若干结点（Node）和连接这些结点的链路（Link）组成。</p>
+<p>2、多个网络可以通过路由器互联，就构成了一个覆盖范围更大的网络，即<strong>互联网</strong></p>
+<p>3、<strong>因特网</strong>是世界山给最大的互联网。</p>
+<h4 id="二因特网发展阶段">二、因特网发展阶段：</h4>
+<p>1、从单个网络ARPANET向互联网发展</p>
+<p>2、逐步构成三级结构的因特网</p>
+<p>3、逐步形成多层次ISP结构的因特网（ISP：因特网服务提供者）</p>
+<h4 id="三因特网服务提供者isp">三、因特网服务提供者ISP：</h4>
+<p>​ ISP拥有接入因特网的能力，个人或企业需要向ISP申请IP。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220428140348424.png" /></p>
+<h4 id="四基于isp的三层结构的因特网">四、基于ISP的三层结构的因特网：</h4>
+<ul>
+<li>第一层：国际性区域</li>
+<li>第二层：区域性或国家性覆盖规模</li>
+<li>第三层：本地范围</li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220428140515599.png" style="zoom: 33%;" /></p>
+<p>​ 一个个人主机在接入因特网后也可以成为一个ISP，只要使用路由器等内容将其他主机连入即可。</p>
+<h4 id="五因特网的标准化工作">五、因特网的标准化工作：</h4>
+<p>​ 因特网在制定其标准上的一个很大的特点是<strong>面向公众。</strong></p>
+<p>​ 因特网所有的RFC（Request For Comments）技术文档都可从因特网上免费下载；</p>
+<p>​ 因特网协会ISOC是一个国际性组织，它负责对因特网进行全面管理，以及在世界范围内促进其发展和使用。</p>
+<h4 id="六因特网的组成">六、因特网的组成：</h4>
+<ul>
+<li>边缘部分：
+<ul>
+<li>由所有连接在因特网上的主机组成。这部分是用户直接使用的，用来进行通信（传送数据、音频或视频）和资源共享。</li>
+</ul></li>
+<li>核心部分：
+<ul>
+<li>由大量网络和连接这些网络的路由器组成。这部分是为边缘部分提供服务的（<strong>提供连通性和交换</strong>）。</li>
+</ul></li>
+</ul>
+<h4 id="七三种交换方式">七、三种交换方式：</h4>
+<h5 id="电路交换-circuit-switching">1、电路交换 Circuit Switching</h5>
+<p>​ 当电话数量增多时，无法使得两两电话机之间接通，只能使用电话交换机来完成电话机之间两两的通信任务。</p>
+<p>​ <strong>电话交换机接通电话线的方式称为电路交换；</strong>从通信资源的分配角度来看，<strong>交换（Switching）就是按照某种方式动态地分配传输线路的资源；</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220428141032502.png" alt="image-20220428141032502" style="zoom:33%;" /></p>
+<p><strong>电路交换的三个步骤</strong>：</p>
+<ul>
+<li><p>建立连接：分配通信资源（一条固定的物理连接，在双方通信时不会被其他用户占用）</p></li>
+<li><p>通话（一直占用通信资源）</p></li>
+<li><p>释放连接（归还通信资源）</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220428141314096.png" style="zoom: 33%;" /></p>
+<p>​ 当使用电路交换来传送计算机数据时，其线路的传输效率往往很低。<strong>这是由于计算机的数据往往是突发的出现在链路上的</strong></p></li>
+</ul>
+<h5 id="分组交换-packet-switching">2、分组交换 Packet Switching</h5>
+<p>​ <strong>路由器是分组交换中最重要的设备</strong></p>
+<p>发送方：</p>
+<ul>
+<li>构造分组 + 发送分组</li>
+</ul>
+<p>路由器：</p>
+<ul>
+<li>缓存分组 + 转发分组</li>
+</ul>
+<p>接收方：</p>
+<ul>
+<li>接受分组 + 还原报文</li>
+</ul>
+<h5 id="报文交换">3、报文交换：</h5>
+<p>​ 大致与分组交换一致，但是报文交换<strong>不限制报文的大小，也就要求转发的中间节点有足够的缓存空间</strong>，而分组交换是会把整个报文分成一个个分组，从而进行传输。</p>
+<h5 id="对比">4、对比：</h5>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220428142115539.png" alt="image-20220428142115539" style="zoom:50%;" /></p>
+<ul>
+<li>电路交换：
+<ul>
+<li>通信延时小、有序传输、无冲突、适用范围广（传输模拟、数字信号都可）、实时性强</li>
+<li>建立连接时间长，线路独占，使用效率低、灵活性差（只要中间有一个点出错就要重新拨号）</li>
+</ul></li>
+<li>报文交换：
+<ul>
+<li>无需建立连接</li>
+<li>动态分配线路（节点交换机会先存储整个报文，再选择合适的空闲路径转发报文）</li>
+<li>提高线路利用率，可靠性。</li>
+<li>提供多目标服务</li>
+<li>存在转发时延、需要较大存储缓存空间、需要传输额外信息量（报文头等）</li>
+</ul></li>
+<li>分组交换：
+<ul>
+<li>优点：报文交换所拥有的所有优点，同时简化了存储管理，因为分组的大小固定，所有缓冲区大小也会固定，方便管理。加速传输、减少出错概率和重发数据量（如果出错，只需要重传出错分组即可）</li>
+<li>缺点：存在转发时延、需要较大存储缓存空间、需要传输额外信息量（控制信息等）。</li>
+</ul></li>
+<li>分组交换中：
+<ul>
+<li>对于数据报服务而言：存在失序、丢序、或者重复分组的问题</li>
+<li>对于虚电路服务而言：存在呼叫建立、数据传输、虚电路释放三个过程</li>
+</ul></li>
+</ul>
+<h4 id="八计算机网络分类">八、计算机网络分类：</h4>
+<ul>
+<li>按照覆盖范围分类：
+<ul>
+<li>广域网WAN（覆盖范围最广，用于高速长途传输）</li>
+<li>城域网MAN（通常作为城市骨干网）</li>
+<li>局域网LAN</li>
+<li>个域网PAN</li>
+</ul></li>
+<li>按拓扑结构分类：
+<ul>
+<li>总线型网络</li>
+<li>星型网络</li>
+<li>环型网络</li>
+<li>网状型网络</li>
+</ul></li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220428150509644.png" style="zoom:50%;" /></p>
+<h4 id="九计算机网络的性能指标">九、计算机网络的性能指标：</h4>
+<h5 id="速率">1、速率</h5>
+<p>​ 连接在计算机网络上的<strong>主机在数字信道上传送比特的速率</strong>，也称为比特率或数据率。</p>
+<h5 id="带宽">2、带宽</h5>
+<ul>
+<li>在模拟信号系统中的意义：
+<ul>
+<li>信号所包含的各种不同频率成分所占据的频率范围；</li>
+<li>单位：Hz ，带宽3.1Hz( 300Hz ~ 3.4kHz)</li>
+</ul></li>
+<li>在计算机网络中的意义：
+<ul>
+<li>用来表示<strong>网络的通信线路所能传送数据的能力</strong>，因此<strong>网络带宽表示在单位时间内从网络中的某一点到另一点所能通过的“最高数据率”；</strong></li>
+<li>单位：b/s</li>
+</ul></li>
+</ul>
+<h5 id="吞吐量">3、吞吐量</h5>
+<p>​ 吞吐量表示在单位时间内通过某个网络（或信道、接口）的数据量。</p>
+<p>​ 吞吐量受网络的带宽或额定速率的限制</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220428173106779.png" style="zoom: 50%;" /></p>
+<h5 id="时延">4、时延</h5>
+<p>​ 网络时延由三部分组成：发送时延、传播时延、处理时延，计算公式如下所示：（处理时延一般不做计算）</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220428173416712.png" /></p>
+<h5 id="时延带宽积">5、时延带宽积</h5>
+<ul>
+<li><p>时延带宽积 = 传播时延 * 带宽</p>
+<p>若发送端连续发送数据，则在所发送的第一个比特即将到达终点时，发送端就已经发送了时延带宽积个比特；</p></li>
+</ul>
+<p>​ 链路的时延带宽积又称为以比特为单位的链路长度。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220428173800437.png" style="zoom:50%;" /></p>
+<h5 id="往返时间-rtt">6、往返时间 RTT</h5>
+<p>​ 从源主机到目标主机，直到源主机收到目标主机的答复所花费的时间</p>
+<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220428173913426.png" style="zoom: 67%;" /></p>
+<h5 id="利用率">7、利用率</h5>
+<ul>
+<li>信道利用率
+<ul>
+<li>用来表示某信道有百分之几的时间是被利用的（有数据通过）。</li>
+</ul></li>
+<li>网络利用率
+<ul>
+<li>全网络的信道利用率的加权平均。</li>
+</ul></li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220428174105464.png" /></p>
+<h5 id="丢包率">8、丢包率</h5>
+<p>​ 是指在一定的时间范围内，<strong>传输过程中丢失的分组数量与总分组数量的比率。</strong></p>
+<p>​ <strong>分组丢失一般有两种情况</strong>：</p>
+<ul>
+<li>分组在传输过程中出现误码，被节点丢弃</li>
+<li>分组到达一台队列已满的分组交换机时被丢弃，在通信量较大时就可能造成网络拥塞。</li>
+</ul>
+<p>因此，丢包率反映了网络的拥塞情况：</p>
+<ul>
+<li>无拥塞时路径丢包率为0</li>
+<li>轻度拥塞时路径丢包率为1%~4%</li>
+<li>严重拥塞时路径丢包率为5%~15%</li>
+</ul>
+<h4 id="十计算机网络体系结构">十、计算机网络体系结构：</h4>
+<h5 id="常见的计算机网络体系结构">1、常见的计算机网络体系结构：</h5>
+<p>​ OSI体系结构 （法律上的国际标准）、TCP/IP 体系结构（事实上的国际标准）</p>
+<ul>
+<li>OSI协议制定较为复杂，运行效率低，层次划分并不合理，被TCP/IP体系代替</li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429160500448.png" style="zoom:50%;" /></p>
+<p>​ 如果用户主机需要接入因特网，必须含有TCP/IP协议族。路由器也需要含有TCP/IP协议族，但是往往路由器只具有 网际层和网络接口层。</p>
+<p>​ TCP/IP的网络接口层并没有做过多规定，可以兼容多种网络接口，如有线网络、WIFI接口等。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429160803014.png" style="zoom:50%;" /></p>
+<p>​ 使用IP协议互联不同的网络接口，为向其上的TCP协议和UDP协议提供网络互联服务，TCP协议在享受IP提供的网络互联服务基础上，可向应用层部分协议提供可靠传输的服务，而UDP协议在享受IP提供的网络互联服务基础上，可向应用层部分协议提供不可靠传输的服务。</p>
+<h5 id="计网结构分层的必要性">2、计网结构分层的必要性：</h5>
+<p>在实现计算机网络的过程中常见需要考虑的问题，并将相应问题划分给相应的层去进行处理：</p>
+<p><strong>情况1：</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429161416991.png" alt="两台直连计算机间的传输" style="zoom:50%;" /></p>
+<ul>
+<li><p>物理层问题</p>
+<ul>
+<li><p>采用何种传输媒体</p></li>
+<li><p>采用怎样的物理接口</p></li>
+<li><p>使用怎样的信号表示比特0和比特1</p></li>
+</ul></li>
+</ul>
+<p><strong>情况2：在上述问题解决前提下，考虑如下总线型网络：（现在已经不常用了）</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429161454976.png" alt="总线型网络" style="zoom:50%;" /></p>
+<ul>
+<li><p>数据链路层问题：</p>
+<ul>
+<li><p>如何标识网络中各主机（主机编址问题，例如MAC地址）</p></li>
+<li><p>如何从信号所标识的一连串比特流中区分出<strong>地址和数据</strong></p></li>
+<li><p>如何协调各个主机争用总线</p></li>
+<li><p>使用以太网交换机将多台主机互联形成的交换式以太网中：以太网交换机是如何实现的</p></li>
+</ul></li>
+</ul>
+<p><strong>情况3：解决以上问题后，分组就可以在一组网络中传输了，然而我们日常使用的因特网更为复杂，其是由许多路由器将多个网络进行互连起来的互联网，考虑如下由3个路由器和4个网络构成的小型互联网</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429162242434.png" alt="=" style="zoom:50%;" /></p>
+<ul>
+<li><p>网络层:</p>
+<ul>
+<li><p>如何标识各个网络以及网络中的各主机（网络和主机共同编址的问题，如IP地址）</p></li>
+<li><p>分组从源主机到目的主机可走路径不止一条，路由器应当如何转发分组，如何进行路由选择</p></li>
+</ul></li>
+</ul>
+<p><strong>情况4：解决以上问题后，可以实现分组在网络两主机间传输的问题，对于计算机网络应用而言远远不够，对于一台主机而言，可能存在多个进程</strong></p>
+<ul>
+<li><p>运输层</p>
+<ul>
+<li><p><strong>如何标识与网络通信相关的应用进程</strong>，即解决进程之间基于网络的通信问题</p></li>
+<li><p>出现传输错误时，如何处理？（某个分组在传输过程中出现误码，或由于路由器繁忙丢弃分组）</p></li>
+</ul></li>
+</ul>
+<p><strong>情况5：解决上述问题后，可以实现进程之间，基于网络的通信，在此基础上，制定应用层协议，根据协议内容完成特定网络应用即可</strong></p>
+<ul>
+<li>应用层
+<ul>
+<li>支持万维网应用的HTTP</li>
+<li>支持邮件服务的SMTP</li>
+<li>……</li>
+</ul></li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429162801442.png" style="zoom:50%;" /></p>
+<h5 id="分层思想举例">3、分层思想举例：</h5>
+<video src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/2022_04_29_19_04_47_435.mp4">
+</video>
+<h5 id="专用术语">4、专用术语：</h5>
+<ul>
+<li>实体：任何可发送或接收信息的硬件或软件进程。</li>
+<li>对等实体：收发双发相同层次中的实体
+<ul>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429202752020.png" style="zoom:50%;" /></li>
+</ul></li>
+<li>协议：控制两个对等实体<strong>进行逻辑通信</strong>的规则的集合。
+<ul>
+<li>协议的三要素：
+<ul>
+<li>语法：定义所交换信息的格式</li>
+<li>语义：定义收发双方所要完成的操作</li>
+<li>同步：定义收发双方的时序关系（ 例如 TCP客户端与 TCP服务器之间的时序关系，状态转换）</li>
+</ul></li>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429202822644.png" style="zoom:50%;" /></li>
+</ul></li>
+<li>服务：在协议的控制下，两个对等实体间的逻辑通信使得本层能够向上一层提供服务。
+<ul>
+<li>要实现本层协议，还需要使用下面一层所提供的服务。</li>
+<li>协议是“水平的"，服务是“垂直的"。</li>
+<li>实体看得见相邻下层所提供的服务，但并不知道实现该服务的具体协议。也就是说，下面的协议对上面的实体是“透明”的。</li>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429203246032.png" /></li>
+</ul></li>
+<li>服务访问点：在同一系统中相邻两层的实体交换信息的逻辑接口，用于区分不同的服务类型。</li>
+<li>服务原语：上层使用下层所提供的服务必须通过与下层交换一些命令，这些命令称为服务原语。</li>
+<li>协议数据单元PDU：对等层次之间传送的数据包称为该层的<strong>协议数据单元</strong>。
+<ul>
+<li>比特流、帧、IP数据报、TCP报文段、UDP用户数据报、报文</li>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429203352501.png" style="zoom:67%;" /></li>
+</ul></li>
+<li>服务数据单元SDU：同一系统内，层与层之间交换的数据包称为服务数据单元。</li>
+</ul>
+<h4 id="十一习题">十一、习题：</h4>
+<h5 id="section">1、</h5>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220430113545991.png" /></p>
+<h5 id="section-1">2、</h5>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220430113940223.png" /></p>
+<h5 id="section-2">3、</h5>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220430114621627.png" /></p>
+]]></content>
+      <categories>
+        <category>⓻ 基础类笔记</category>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>Computer Network</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《Not All Tokens Are Equal Human-centric Visual Analysis via Token Clustering Transformer》</title>
     <url>/2022/04/24/22e32ee5ba59/</url>
     <content><![CDATA[<h4 id="论文名称not-all-tokens-are-equal-human-centric-visual-analysis-via-token-clustering-transformer">论文名称：《Not All Tokens Are Equal Human-centric Visual Analysis via Token Clustering Transformer》</h4>
@@ -5985,11 +6423,11 @@ static class Inner &#123;
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​ java规定，某个类定义的<code>public static void main(String[] args)</code>是java程序的固定入口方法，因此，java程序总是从<code>main</code>方法开始执行。</p>
 <h3 id="二如何运行java程序">二、如何运行Java程序：</h3>
-<p>1、用javac把Hello.java编译成字节码文件Hello.class，</p>
+<p>1、用javac把Hello.java编译成<strong>字节码文件Hello.class</strong></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> javac Hello.java</span></span><br></pre></td></tr></table></figure>
-<p>2、然后用java命令执行这个字节码文件。javac是编译器</p>
+<p>2、然后用<strong>java命令执行这个字节码文件。</strong>javac是编译器</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> java Hello</span></span><br><span class="line">Hello, world!</span><br></pre></td></tr></table></figure>
-<p>给虚拟机传递的参数<code>Hello</code>是我们定义的类名，虚拟机自动查找对应的class文件并执行</p>
+<p>给虚拟机传递的参数<code>Hello</code>是我们定义的类名，<strong>虚拟机自动查找对应的class文件并执行</strong></p>
 <p><strong>注意</strong>：</p>
 <p>一个Java源码只能定义一个<code>public</code>类型的class，并且class名称和文件名要完全一致；</p>
 <p>使用<code>javac</code>可以将<code>.java</code>源码编译成<code>.class</code>字节码；</p>

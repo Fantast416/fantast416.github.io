@@ -157,18 +157,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">130</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-count">93</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -227,7 +227,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/18/acaa679c551a/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/21/788645531548/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -239,7 +239,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/18/acaa679c551a/" class="post-title-link" itemprop="url">Pytorch学习笔记10——PyTorch 中，nn与nn.functional有什么区别？（搬运）</a>
+          <a href="/2022/01/21/788645531548/" class="post-title-link" itemprop="url">机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合</a>
         </h2>
 
         <div class="post-meta-container">
@@ -251,14 +251,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-01-18 15:51:19" itemprop="dateCreated datePublished" datetime="2022-01-18T15:51:19+08:00">2022-01-18</time>
+      <time title="创建时间：2022-01-21 23:25:19" itemprop="dateCreated datePublished" datetime="2022-01-21T23:25:19+08:00">2022-01-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-20 21:34:59" itemprop="dateModified" datetime="2022-02-20T21:34:59+08:00">2022-02-20</time>
+      <time title="修改时间：2022-02-20 21:31:06" itemprop="dateModified" datetime="2022-02-20T21:31:06+08:00">2022-02-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -270,7 +270,7 @@
         </span>
           ，
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Pytorch%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Pytorch系列笔记</span></a>
+          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Basic%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Basic系列笔记</span></a>
         </span>
     </span>
 
@@ -281,14 +281,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.7k</span>
+      <span>1.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -300,10 +300,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>PyTorch 中，nn与nn.functional的区别与联系</p>
+          <p>过拟合是Deep Neural Networks(DNN)网络存在的问题之一。过拟合的特点是模型对训练数据的拟合非常好，但对测试数据的拟合却非常差，具体表现为loss和在训练集上的错误率非常低，而在验证集或测试集上却都要高很多。针对解决过拟合问题设计出来的方法很多，dropout就是其中一种最简单，也是最有效的方法。在训练DNN网络的过程中，对于每一个神经元，以p的概率被随机的drop out，也就是将其值置零。这样，在该轮前传和反传的过程中，该神经元将失去作用，相当于不存在，如下图所示。DropOut整体来说，是在训练过程中以一定的概率的使神经元失活，即输出为0，以提高模型的泛化能力，减少过拟合。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/01/18/acaa679c551a/">
+              <a class="btn" href="/2022/01/21/788645531548/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -336,7 +336,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/18/920f212c6758/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/21/22d362e1f563/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -348,7 +348,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/18/920f212c6758/" class="post-title-link" itemprop="url">机器学习基础系列笔记9——归一化方法FRN(Filter Response Normalization)</a>
+          <a href="/2022/01/21/22d362e1f563/" class="post-title-link" itemprop="url">机器学习基础系列笔记12——BatchNorm详解及为什么能防止过拟合</a>
         </h2>
 
         <div class="post-meta-container">
@@ -360,14 +360,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-01-18 13:46:19" itemprop="dateCreated datePublished" datetime="2022-01-18T13:46:19+08:00">2022-01-18</time>
+      <time title="创建时间：2022-01-21 22:01:19" itemprop="dateCreated datePublished" datetime="2022-01-21T22:01:19+08:00">2022-01-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-20 21:30:52" itemprop="dateModified" datetime="2022-02-20T21:30:52+08:00">2022-02-20</time>
+      <time title="修改时间：2022-02-20 21:31:03" itemprop="dateModified" datetime="2022-02-20T21:31:03+08:00">2022-02-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -409,10 +409,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>FRN是谷歌提出的一种新的归一化方法，和GN一样不依赖batch，故而FRN层不仅消除了模型训练过程中对batch的依赖，而且当batch size较大时性能优于BN。</p>
+          <p>BatchNorm是一种能够加速深度神经网络收敛，避免过拟合的方法，那么为什么呢？首先我们需要探讨一下这个问题，为什么深度神经网络随着网络深度加深，训练起来越困难，收敛越来越慢？</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/01/18/920f212c6758/">
+              <a class="btn" href="/2022/01/21/22d362e1f563/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -445,7 +445,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/18/52f2902757db/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/21/ff71970a89e2/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -457,7 +457,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/18/52f2902757db/" class="post-title-link" itemprop="url">Torch/Numpy的广播机制介绍</a>
+          <a href="/2022/01/21/ff71970a89e2/" class="post-title-link" itemprop="url">机器学习基础系列笔记11——Training Data、Validation Data、Testing Data含义及作用</a>
         </h2>
 
         <div class="post-meta-container">
@@ -469,14 +469,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-01-18 13:39:19" itemprop="dateCreated datePublished" datetime="2022-01-18T13:39:19+08:00">2022-01-18</time>
+      <time title="创建时间：2022-01-21 16:01:19" itemprop="dateCreated datePublished" datetime="2022-01-21T16:01:19+08:00">2022-01-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-20 21:34:21" itemprop="dateModified" datetime="2022-02-20T21:34:21+08:00">2022-02-20</time>
+      <time title="修改时间：2022-02-20 21:31:00" itemprop="dateModified" datetime="2022-02-20T21:31:00+08:00">2022-02-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -484,11 +484,120 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B8-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%B1%BB%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓸ 编程语言类笔记</span></a>
+          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓵ 深度学习笔记</span></a>
         </span>
           ，
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B8-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%B1%BB%E7%AC%94%E8%AE%B0/Python%E5%9F%BA%E7%A1%80%E6%89%A9%E5%85%85%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Python基础扩充笔记</span></a>
+          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Basic%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Basic系列笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+        
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>我们在进行一个机器学习的任务的时候，往往会将所有数据划分成三块——Training Data、Validation Data、Testing Data,它们各自在训练的过程中都扮演着某种角色</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/21/ff71970a89e2/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/21/d692eb11c4b5/">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Fantast">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fantast's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/21/d692eb11c4b5/" class="post-title-link" itemprop="url">机器学习基础系列笔记10——L1、L2正则化以及为什么正则化能够防止过拟合</a>
+        </h2>
+
+        <div class="post-meta-container">
+          
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-21 15:01:19" itemprop="dateCreated datePublished" datetime="2022-01-21T15:01:19+08:00">2022-01-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-20 21:30:57" itemprop="dateModified" datetime="2022-02-20T21:30:57+08:00">2022-02-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓵ 深度学习笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Basic%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Basic系列笔记</span></a>
         </span>
     </span>
 
@@ -518,10 +627,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>本文讲解了Torch和Numpy中进行Element-Wise的计算的时候，采用的广播机制是什么，如何执行。</p>
+          <p>在训练数据不够多时，或者overtraining时，常常会导致overfitting（过拟合）。其直观的表现为，随着训练过程的进行，模型复杂度增加，在Training data上的error渐渐减小，但是在验证集上的error却反而渐渐增大——因为训练出来的网络过拟合了训练集，对训练集外的数据却不work。在ML2021课程系列笔记2中，提及了一些防止过拟合的内容，本篇用于详细解释其中正则化的部分：</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/01/18/52f2902757db/">
+              <a class="btn" href="/2022/01/21/d692eb11c4b5/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -554,7 +663,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/18/a7c2f4fb23de/">
+    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/20/4c71dd4cca5d/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -566,7 +675,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/18/a7c2f4fb23de/" class="post-title-link" itemprop="url">Python导入自定义模块（同目录、子目录、跨目录）</a>
+          <a href="/2022/01/20/4c71dd4cca5d/" class="post-title-link" itemprop="url">《DG-Font Deformable Generative Networks for Unsupervised Font Generation》</a>
         </h2>
 
         <div class="post-meta-container">
@@ -578,14 +687,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-01-18 11:33:19" itemprop="dateCreated datePublished" datetime="2022-01-18T11:33:19+08:00">2022-01-18</time>
+      <time title="创建时间：2022-01-20 18:12:19" itemprop="dateCreated datePublished" datetime="2022-01-20T18:12:19+08:00">2022-01-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-20 21:34:18" itemprop="dateModified" datetime="2022-02-20T21:34:18+08:00">2022-02-20</time>
+      <time title="修改时间：2022-03-22 11:00:00" itemprop="dateModified" datetime="2022-03-22T11:00:00+08:00">2022-03-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -593,11 +702,11 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B8-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%B1%BB%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓸ 编程语言类笔记</span></a>
+          <a href="/categories/%E2%93%B6-%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓶ 论文阅读笔记</span></a>
         </span>
           ，
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B8-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%B1%BB%E7%AC%94%E8%AE%B0/Python%E5%9F%BA%E7%A1%80%E6%89%A9%E5%85%85%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Python基础扩充笔记</span></a>
+          <a href="/categories/%E2%93%B6-%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/CV%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/" itemprop="url" rel="index"><span itemprop="name">CV相关论文</span></a>
         </span>
     </span>
 
@@ -608,14 +717,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1k</span>
+      <span>8.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>23 分钟</span>
     </span>
 </div>
 
@@ -627,115 +736,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>本文讲解了Python导入自定义模块的方式，分为同目录、子目录、跨目录三种情况，同时也讲解了引入的一般形式。</p>
+          <p>作者提出了可变形生成网络（Deformable Generative Networks）来做非监督的字体生成。其利用提供的目标字体图像（style image input）来将一种字体的字符变形和转换为另一种字体。DG-FONT 分离了字体的style和content，然后再将两个domain的表示进行融合，生成新的字体的字符。其核心模块为一个叫做FDSC（feature deformation skip connection）的东西，可以用来预测一个位移映射map然后使用位移映射map去对low-level的特征图做变形卷积。然后FDSC的输出被送入一个混合器，然后生成最终的结果。FDSC模块将会对内容图像的低层级特征进行变换，其能够保留文字本身的模式，比如笔画和偏旁部首信息。因为对于内容相同的两种不同风格的字体，它们的每一笔画通常都是对应的（如下图所示）。利用字体的空间关系，利用FDSC进行空间变形，有效地保证了生成的字符具有完整的结构。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/01/18/a7c2f4fb23de/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/17/52faafcaa31c/">
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.webp">
-      <meta itemprop="name" content="Fantast">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Fantast's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/17/52faafcaa31c/" class="post-title-link" itemprop="url">Docker部署与实践笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-01-17 15:47:19" itemprop="dateCreated datePublished" datetime="2022-01-17T15:47:19+08:00">2022-01-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 20:46:16" itemprop="dateModified" datetime="2022-03-11T20:46:16+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%BA-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E7%B1%BB%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓺ 工具使用类笔记</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>9.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>26 分钟</span>
-    </span>
-</div>
-
-        </div>
-        
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>描述了Docker的优势功能、基本概念、部署与实践方法笔记。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/17/52faafcaa31c/">
+              <a class="btn" href="/2022/01/20/4c71dd4cca5d/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -761,7 +765,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
@@ -784,13 +788,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">603k</span>
+    <span title="站点总字数">608k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">27:56</span>
+    <span title="站点阅读时长">28:10</span>
   </span>
 </div>
 <div class="busuanzi-count">
