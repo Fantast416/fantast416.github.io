@@ -52,7 +52,7 @@
     <content><![CDATA[<h3 id="section"></h3>
 ]]></content>
       <categories>
-        <category>⓻ 基础类笔记</category>
+        <category>⓹ 基础类笔记</category>
         <category>操作系统</category>
       </categories>
       <tags>
@@ -86,7 +86,7 @@
 <p>​ <strong>算数逻辑单元ALU</strong>：计算机里负责运算的组件</p>
 ]]></content>
       <categories>
-        <category>⓻ 基础类笔记</category>
+        <category>⓹ 基础类笔记</category>
         <category>计算机科学课</category>
       </categories>
       <tags>
@@ -99,106 +99,11 @@
     <content><![CDATA[
 ]]></content>
       <categories>
-        <category>⓻ 基础类笔记</category>
+        <category>⓹ 基础类笔记</category>
         <category>计算机科学课</category>
       </categories>
       <tags>
         <tag>Computer Science</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机组成原理Chapter1—概述</title>
-    <url>/2022/04/27/5b4ea41fcadf/</url>
-    <content><![CDATA[<p>视频地址：https://www.bilibili.com/video/BV1BE411D7ii</p>
-<h4 id="一计算机硬件发展">一、计算机硬件发展：</h4>
-<p>​ 电子管时代——晶体管时代——中小规模集成电路——大规模集成电路</p>
-<h4 id="二冯诺伊曼结构原理及层次结构分析">二、冯诺伊曼结构原理及层次结构分析</h4>
-<h5 id="冯诺依曼的计算机工作原理">1、冯诺依曼的计算机工作原理：</h5>
-<ul>
-<li><strong>存储程序：</strong>将程序存放在计算机的存储器中</li>
-<li><strong>程序控制：</strong>按指令地址访问存储器并取出指令，经译码依次产生指令执行所需的控制信号，实现对计算的控制，完成指令的功能。</li>
-</ul>
-<h5 id="冯诺依曼的计算机的组成">2、冯诺依曼的计算机的组成：</h5>
-<ul>
-<li>硬件系统：
-<ul>
-<li>主机：CPU（运算器 + 控制器）、内存</li>
-<li>外设：输入输出设备、外存储器</li>
-<li>总线：地址线、数据线、控制线</li>
-<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429102314735.png" /></li>
-</ul></li>
-<li>硬件系统：
-<ul>
-<li>运算器：算术运算、逻辑运算
-<ul>
-<li>基本结构：ALU（算术逻辑运算单元）、寄存器、连接通路</li>
-</ul></li>
-<li>控制器：产生指令执行过程所需要的所有控制信号，控制相关功能部件执行相应操作。
-<ul>
-<li>控制信号分为：电平信号和脉冲信号</li>
-<li>产生控制信号的依据：指令、状态、时序</li>
-<li>控制信号的产生方式：微程序、硬布线</li>
-</ul></li>
-<li>存储器：
-<ul>
-<li>存储原程序、原数据、运算中间结果</li>
-<li>按地址访问，读写数据。</li>
-<li>容量与地址线数量的对应关系：
-<ul>
-<li>访问1K 的存储空间：需要10根地址线</li>
-<li>访问1M的存储空间：需要20根地址线</li>
-</ul></li>
-</ul></li>
-<li>输入输出设备：
-<ul>
-<li>键盘、鼠标、网卡、显示器、声卡等</li>
-</ul></li>
-</ul></li>
-<li>软件系统：
-<ul>
-<li>系统软件、支持软件、应用软件</li>
-</ul></li>
-</ul>
-<h5 id="计算机的层次结构">3、计算机的层次结构：</h5>
-<p>​ 不同用户处在不同层次，不同层次具有不同属性，不同层次代码效率不同</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429105741386.png" style="zoom:50%;" /></p>
-<h4 id="三计算机系统性能评价">三、计算机系统性能评价</h4>
-<h5 id="非时间指标">1、非时间指标：</h5>
-<ul>
-<li><p>1）机器字长：指机器一次能处理的二进制位数</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429110326661.png" style="zoom: 67%;" /></p>
-<ul>
-<li>由加法器、寄存器的位数决定；</li>
-<li>一般与内部寄存器的位数相等（字长）；</li>
-<li>字长越长，表示数据的范围就越大，精确度越高；</li>
-<li>目前常见的有32位和64位字长。</li>
-</ul></li>
-<li><p>2）总线宽度：数据总线一次能够并行传送的最大信息位数</p>
-<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429110651202.png" /></p>
-<ul>
-<li>一般指运算器与存储器之间的数据总线位数。有些计算机内部与外部数据总线宽度不一致：</li>
-</ul></li>
-<li><p>3）主存容量与存储带宽</p>
-<ul>
-<li><strong>主存容量：</strong>一台计算机贮存所包含的存储单元总数</li>
-<li><strong>存储带宽：</strong>指单位时间内与贮存交换的二进制信息量</li>
-</ul></li>
-</ul>
-<h5 id="时间指标">2、时间指标：</h5>
-<ul>
-<li>主频f / 时钟周期T，外频与倍频
-<ul>
-<li>主频f：CPU内核工作的时钟频率</li>
-<li>时钟周期T：</li>
-</ul></li>
-</ul>
-]]></content>
-      <categories>
-        <category>⓻ 基础类笔记</category>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>Computer Composition</tag>
       </tags>
   </entry>
   <entry>
@@ -477,11 +382,106 @@
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220430114621627.png" /></p>
 ]]></content>
       <categories>
-        <category>⓻ 基础类笔记</category>
+        <category>⓹ 基础类笔记</category>
         <category>计算机网络</category>
       </categories>
       <tags>
         <tag>Computer Network</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机组成原理Chapter1—概述</title>
+    <url>/2022/04/27/5b4ea41fcadf/</url>
+    <content><![CDATA[<p>视频地址：https://www.bilibili.com/video/BV1BE411D7ii</p>
+<h4 id="一计算机硬件发展">一、计算机硬件发展：</h4>
+<p>​ 电子管时代——晶体管时代——中小规模集成电路——大规模集成电路</p>
+<h4 id="二冯诺伊曼结构原理及层次结构分析">二、冯诺伊曼结构原理及层次结构分析</h4>
+<h5 id="冯诺依曼的计算机工作原理">1、冯诺依曼的计算机工作原理：</h5>
+<ul>
+<li><strong>存储程序：</strong>将程序存放在计算机的存储器中</li>
+<li><strong>程序控制：</strong>按指令地址访问存储器并取出指令，经译码依次产生指令执行所需的控制信号，实现对计算的控制，完成指令的功能。</li>
+</ul>
+<h5 id="冯诺依曼的计算机的组成">2、冯诺依曼的计算机的组成：</h5>
+<ul>
+<li>硬件系统：
+<ul>
+<li>主机：CPU（运算器 + 控制器）、内存</li>
+<li>外设：输入输出设备、外存储器</li>
+<li>总线：地址线、数据线、控制线</li>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429102314735.png" /></li>
+</ul></li>
+<li>硬件系统：
+<ul>
+<li>运算器：算术运算、逻辑运算
+<ul>
+<li>基本结构：ALU（算术逻辑运算单元）、寄存器、连接通路</li>
+</ul></li>
+<li>控制器：产生指令执行过程所需要的所有控制信号，控制相关功能部件执行相应操作。
+<ul>
+<li>控制信号分为：电平信号和脉冲信号</li>
+<li>产生控制信号的依据：指令、状态、时序</li>
+<li>控制信号的产生方式：微程序、硬布线</li>
+</ul></li>
+<li>存储器：
+<ul>
+<li>存储原程序、原数据、运算中间结果</li>
+<li>按地址访问，读写数据。</li>
+<li>容量与地址线数量的对应关系：
+<ul>
+<li>访问1K 的存储空间：需要10根地址线</li>
+<li>访问1M的存储空间：需要20根地址线</li>
+</ul></li>
+</ul></li>
+<li>输入输出设备：
+<ul>
+<li>键盘、鼠标、网卡、显示器、声卡等</li>
+</ul></li>
+</ul></li>
+<li>软件系统：
+<ul>
+<li>系统软件、支持软件、应用软件</li>
+</ul></li>
+</ul>
+<h5 id="计算机的层次结构">3、计算机的层次结构：</h5>
+<p>​ 不同用户处在不同层次，不同层次具有不同属性，不同层次代码效率不同</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429105741386.png" style="zoom:50%;" /></p>
+<h4 id="三计算机系统性能评价">三、计算机系统性能评价</h4>
+<h5 id="非时间指标">1、非时间指标：</h5>
+<ul>
+<li><p>1）机器字长：指机器一次能处理的二进制位数</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429110326661.png" style="zoom: 67%;" /></p>
+<ul>
+<li>由加法器、寄存器的位数决定；</li>
+<li>一般与内部寄存器的位数相等（字长）；</li>
+<li>字长越长，表示数据的范围就越大，精确度越高；</li>
+<li>目前常见的有32位和64位字长。</li>
+</ul></li>
+<li><p>2）总线宽度：数据总线一次能够并行传送的最大信息位数</p>
+<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220429110651202.png" /></p>
+<ul>
+<li>一般指运算器与存储器之间的数据总线位数。有些计算机内部与外部数据总线宽度不一致：</li>
+</ul></li>
+<li><p>3）主存容量与存储带宽</p>
+<ul>
+<li><strong>主存容量：</strong>一台计算机贮存所包含的存储单元总数</li>
+<li><strong>存储带宽：</strong>指单位时间内与贮存交换的二进制信息量</li>
+</ul></li>
+</ul>
+<h5 id="时间指标">2、时间指标：</h5>
+<ul>
+<li>主频f / 时钟周期T，外频与倍频
+<ul>
+<li>主频f：CPU内核工作的时钟频率</li>
+<li>时钟周期T：</li>
+</ul></li>
+</ul>
+]]></content>
+      <categories>
+        <category>⓹ 基础类笔记</category>
+        <category>计算机组成原理</category>
+      </categories>
+      <tags>
+        <tag>Computer Composition</tag>
       </tags>
   </entry>
   <entry>
@@ -756,7 +756,7 @@
     <content><![CDATA[<p>笔记课程视频：https://www.bilibili.com/video/BV1YE411D7nH?p=19</p>
 ]]></content>
       <categories>
-        <category>⓻ 基础类笔记</category>
+        <category>⓹ 基础类笔记</category>
         <category>操作系统</category>
       </categories>
       <tags>
@@ -814,7 +814,7 @@
 <h4 id="peterson算法">4、Peterson算法</h4>
 ]]></content>
       <categories>
-        <category>⓻ 基础类笔记</category>
+        <category>⓹ 基础类笔记</category>
         <category>操作系统</category>
       </categories>
       <tags>
@@ -1171,7 +1171,7 @@ decay = min\{decay,\frac{1+num\_updates}{10+num\_updates}\}
 <p>​ 注：比起早期的批处理操作系统来说，由于计算机造价大幅降低，因此之后出现的交互式操作系统（包括分时操作系统、实时操作系统等）更注重系统的响应时间、公平性、平衡性等指标。而这几种算法恰好也能较好地满足交互式系统的需求。因此这三种算法适合用于交互式系统。（比如UNIX使用的就是多级反馈队列调度算法）*</p>
 ]]></content>
       <categories>
-        <category>⓻ 基础类笔记</category>
+        <category>⓹ 基础类笔记</category>
         <category>操作系统</category>
       </categories>
       <tags>
@@ -1318,8 +1318,8 @@ decay = min\{decay,\frac{1+num\_updates}{10+num\_updates}\}
       </categories>
       <tags>
         <tag>Style Transfer</tag>
-        <tag>CNN</tag>
         <tag>Transformer</tag>
+        <tag>CNN</tag>
       </tags>
   </entry>
   <entry>
@@ -1709,7 +1709,7 @@ FID = ||u_r - u_g||^2 + T_r(\sum_r + \sum_g = 2(\sum_r\sum_g)^{1/2})
 <p>​ 克服了多对一模型并发度不高的缺点，又克服了一对一模型中一个用户进程占用太多内核级线程，开销太大的缺点。</p>
 ]]></content>
       <categories>
-        <category>⓻ 基础类笔记</category>
+        <category>⓹ 基础类笔记</category>
         <category>操作系统</category>
       </categories>
       <tags>
@@ -1988,7 +1988,7 @@ FID = ||u_r - u_g||^2 + T_r(\sum_r + \sum_g = 2(\sum_r\sum_g)^{1/2})
 <p>1.陷入指令是在<strong>用户态执行的</strong>，执行陷入指令之后立即引发一个内中断，从而CPU进入核心态 2.<strong>发出系统调用请求是在用户态</strong>，而对系统调用的相应处理在核心态下进行 3.<strong>陷入指令是唯一一个只能在用户态执行，而不可在核心态执行的指令</strong></p>
 ]]></content>
       <categories>
-        <category>⓻ 基础类笔记</category>
+        <category>⓹ 基础类笔记</category>
         <category>操作系统</category>
       </categories>
       <tags>
@@ -2681,37 +2681,6 @@ wordList 中的所有字符串 互不相同</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>图系列——多余的边（DSU应用）</title>
-    <url>/2022/02/21/0f9e9b187c29/</url>
-    <content><![CDATA[<h4 id="剑指-offer-ii-118.-多余的边"><a href="https://leetcode-cn.com/problems/7LpjUW/">剑指 Offer II 118. 多余的边</a></h4>
-<p>​ 树可以看成是一个连通且 无环 的 无向 图。</p>
-<p>​ 给定往一棵 n 个节点 (节点值 1～n) 的树中添加一条边后的图。添加的边的两个顶点包含在 1 到 n 中间，且这条附加的边不属于树中已存在的边。图的信息记录于长度为 n 的二维数组 edges ，edges[i] = [ai, bi] 表示图中在 ai 和 bi 之间存在一条边。</p>
-<p>​ 请找出一条可以删去的边，删除后可使得剩余部分是一个有着 n 个节点的树。如果有多个答案，则返回数组 edges 中最后出现的边。</p>
-<p><strong>示例 1：</strong></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/1626676174-hOEVUL-image.png" style="zoom: 50%;" /></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: edges = [[1,2],[1,3],[2,3]]</span><br><span class="line">输出: [2,3]</span><br></pre></td></tr></table></figure>
-<h5 id="解题思路"><strong>解题思路</strong>：</h5>
-<p>​ 一开始，我的思路是找到一种方法，能够判断一个图有无环。毫无疑问，我们可以使用拓扑排序去进行这个思路，但是这样子的话，对于每删掉一条边就要进行一次拓扑排序来判断，时间复杂度无疑是比较高的。</p>
-<p>​ 这个时候，查看官方解答，原来这类题目还可以使用<strong>并查集</strong>来做：</p>
-<p>​ 初始时，每个节点都属于不同的连通分量。遍历每一条边，判断这条边连接的两个顶点是否属于相同的连通分量。</p>
-<ul>
-<li>如果两个顶点属于不同的连通分量，则说明在遍历到当前的边之前，这两个顶点之间不连通，因此当前的边不会导致环出现，合并这两个顶点的连通分量。</li>
-<li>如果两个顶点属于相同的连通分量，则说明在遍历到当前的边之前，这两个顶点之间已经连通，因此当前的边导致环出现，为多余的边，将当前的边作为答案返回。</li>
-</ul>
-<h5 id="解题代码"><strong>解题代码</strong>：</h5>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">findRedundantConnection</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">root</span><span class="params">(<span class="number">1001</span>,<span class="number">-1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">for</span>(i =<span class="number">0</span>;i&lt;edges.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">bool</span> res = <span class="built_in">unionTwo</span>(edges[i][<span class="number">0</span>],edges[i][<span class="number">1</span>],root);</span><br><span class="line">            <span class="keyword">if</span>(!res) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> edges[i]; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getRoot</span><span class="params">(<span class="keyword">int</span> index,vector&lt;<span class="keyword">int</span>&gt; &amp;root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(root[index] != <span class="number">-1</span>)&#123;</span><br><span class="line">            index = root[index];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">unionTwo</span><span class="params">(<span class="keyword">int</span> index1,<span class="keyword">int</span> index2,vector&lt;<span class="keyword">int</span>&gt; &amp;root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> root1 = <span class="built_in">getRoot</span>(index1,root);</span><br><span class="line">        <span class="keyword">int</span> root2 = <span class="built_in">getRoot</span>(index2,root);</span><br><span class="line">        <span class="keyword">if</span>(root1 != root2)&#123;</span><br><span class="line">            root[root1] = root2;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>⓷ 算法类笔记</category>
-        <category>图系列</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>graph</tag>
-        <tag>DSU</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>图系列——矩阵中的距离</title>
     <url>/2022/02/21/80b7b127a404/</url>
     <content><![CDATA[<h4 id="剑指-offer-ii-107.-矩阵中的距离"><a href="https://leetcode-cn.com/problems/2bCMpM/">剑指 Offer II 107. 矩阵中的距离</a></h4>
@@ -2748,6 +2717,37 @@ f(i,j)=  0 \ \ \ \ \ \   if (matrix[i][j] == 0)
         <tag>BFS</tag>
         <tag>dynamic programming</tag>
         <tag>graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图系列——多余的边（DSU应用）</title>
+    <url>/2022/02/21/0f9e9b187c29/</url>
+    <content><![CDATA[<h4 id="剑指-offer-ii-118.-多余的边"><a href="https://leetcode-cn.com/problems/7LpjUW/">剑指 Offer II 118. 多余的边</a></h4>
+<p>​ 树可以看成是一个连通且 无环 的 无向 图。</p>
+<p>​ 给定往一棵 n 个节点 (节点值 1～n) 的树中添加一条边后的图。添加的边的两个顶点包含在 1 到 n 中间，且这条附加的边不属于树中已存在的边。图的信息记录于长度为 n 的二维数组 edges ，edges[i] = [ai, bi] 表示图中在 ai 和 bi 之间存在一条边。</p>
+<p>​ 请找出一条可以删去的边，删除后可使得剩余部分是一个有着 n 个节点的树。如果有多个答案，则返回数组 edges 中最后出现的边。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/1626676174-hOEVUL-image.png" style="zoom: 50%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: edges = [[1,2],[1,3],[2,3]]</span><br><span class="line">输出: [2,3]</span><br></pre></td></tr></table></figure>
+<h5 id="解题思路"><strong>解题思路</strong>：</h5>
+<p>​ 一开始，我的思路是找到一种方法，能够判断一个图有无环。毫无疑问，我们可以使用拓扑排序去进行这个思路，但是这样子的话，对于每删掉一条边就要进行一次拓扑排序来判断，时间复杂度无疑是比较高的。</p>
+<p>​ 这个时候，查看官方解答，原来这类题目还可以使用<strong>并查集</strong>来做：</p>
+<p>​ 初始时，每个节点都属于不同的连通分量。遍历每一条边，判断这条边连接的两个顶点是否属于相同的连通分量。</p>
+<ul>
+<li>如果两个顶点属于不同的连通分量，则说明在遍历到当前的边之前，这两个顶点之间不连通，因此当前的边不会导致环出现，合并这两个顶点的连通分量。</li>
+<li>如果两个顶点属于相同的连通分量，则说明在遍历到当前的边之前，这两个顶点之间已经连通，因此当前的边导致环出现，为多余的边，将当前的边作为答案返回。</li>
+</ul>
+<h5 id="解题代码"><strong>解题代码</strong>：</h5>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">findRedundantConnection</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">root</span><span class="params">(<span class="number">1001</span>,<span class="number">-1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">for</span>(i =<span class="number">0</span>;i&lt;edges.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">bool</span> res = <span class="built_in">unionTwo</span>(edges[i][<span class="number">0</span>],edges[i][<span class="number">1</span>],root);</span><br><span class="line">            <span class="keyword">if</span>(!res) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> edges[i]; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getRoot</span><span class="params">(<span class="keyword">int</span> index,vector&lt;<span class="keyword">int</span>&gt; &amp;root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(root[index] != <span class="number">-1</span>)&#123;</span><br><span class="line">            index = root[index];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">unionTwo</span><span class="params">(<span class="keyword">int</span> index1,<span class="keyword">int</span> index2,vector&lt;<span class="keyword">int</span>&gt; &amp;root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> root1 = <span class="built_in">getRoot</span>(index1,root);</span><br><span class="line">        <span class="keyword">int</span> root2 = <span class="built_in">getRoot</span>(index2,root);</span><br><span class="line">        <span class="keyword">if</span>(root1 != root2)&#123;</span><br><span class="line">            root[root1] = root2;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>⓷ 算法类笔记</category>
+        <category>图系列</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>graph</tag>
+        <tag>DSU</tag>
       </tags>
   </entry>
   <entry>
@@ -6656,9 +6656,9 @@ static class Inner &#123;
         <category>CV相关论文</category>
       </categories>
       <tags>
-        <tag>CNN</tag>
         <tag>Transformer</tag>
         <tag>Visual Recognition</tag>
+        <tag>CNN</tag>
       </tags>
   </entry>
   <entry>
