@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="与回文字符串相关的题目的解题技巧与常见优化思路">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-04T05:30:19.000Z">
-<meta property="article:modified_time" content="2022-02-24T15:36:05.409Z">
+<meta property="article:modified_time" content="2022-02-24T15:36:00.000Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="array">
@@ -149,7 +149,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E5%89%91%E6%8C%87-offer-ii-020.-%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">一、剑指 Offer II 020. 回文子字符串的个数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">题目描述：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.</span> <span class="nav-text">解题思路：</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E5%89%91%E6%8C%87-offer-ii-020.-%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">一、剑指 Offer II 020.
+回文子字符串的个数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">题目描述：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.</span> <span class="nav-text">解题思路：</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -164,7 +165,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -266,7 +267,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-24 23:36:05" itemprop="dateModified" datetime="2022-02-24T23:36:05+08:00">2022-02-24</time>
+      <time title="修改时间：2022-02-24 23:36:00" itemprop="dateModified" datetime="2022-02-24T23:36:00+08:00">2022-02-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -318,7 +319,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h4 id="一剑指-offer-ii-020.-回文子字符串的个数">一、<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/a7VOhD/">剑指 Offer II 020. 回文子字符串的个数</a></h4>
+        <h4 id="一剑指-offer-ii-020.-回文子字符串的个数">一、<a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/a7VOhD/">剑指 Offer II 020.
+回文子字符串的个数</a></h4>
 <h5 id="题目描述"><strong>题目描述：</strong></h5>
 <p>给定一个字符串 s ，请计算这个字符串中有多少个回文子字符串。</p>
 <p>具有不同开始位置或结束位置的子串，即使是由相同的字符组成，也会被视作不同的子串。</p>
@@ -330,7 +333,8 @@
 <pre><code>1 &lt;= s.length &lt;= 1000
 s 由小写英文字母组成</code></pre>
 <h5 id="解题思路"><strong>解题思路</strong>：</h5>
-<p>​ 引用：https://leetcode-cn.com/problems/a7VOhD/solution/jssan-jie-bao-li-shuang-zhi-zhen-zhong-x-qqq0/</p>
+<p>​
+引用：https://leetcode-cn.com/problems/a7VOhD/solution/jssan-jie-bao-li-shuang-zhi-zhen-zhong-x-qqq0/</p>
 <ul>
 <li><p>思路1: 暴力搜索</p>
 <ul>
@@ -340,20 +344,27 @@ s 由小写英文字母组成</code></pre>
 </ul></li>
 <li><p>思路2: 双指针，思路1的优化版本：</p>
 <ul>
-<li>先使用双指针 i 和 j 枚举所有子串的起点和终点，同时分别按顺序和逆序累加所有遍历过的字符得到字符串 s1 和 s2，判断是否回文只需对 s1 和 s2 判等即可。这里将回文判断的时间复杂度从 O(n)优化到 O(1)，但整体空间复杂度从 O(1)升到 O(n)，算是空间换时间。</li>
+<li>先使用双指针 i 和 j
+枚举所有子串的起点和终点，同时分别按顺序和逆序累加所有遍历过的字符得到字符串
+s1 和 s2，判断是否回文只需对 s1 和 s2
+判等即可。这里将回文判断的时间复杂度从 O(n)优化到
+O(1)，但整体空间复杂度从 O(1)升到 O(n)，算是空间换时间。</li>
 <li>但此思路的时间耗费仍然会较高，因为字符串的拼接操作都较为费时</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countSubstrings</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;s.<span class="built_in">length</span>();i++)&#123;</span><br><span class="line">            string s1,s2;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;s.<span class="built_in">length</span>();j++)&#123;</span><br><span class="line">                s1 += s[j];</span><br><span class="line">                s2 = s[j] + s2;</span><br><span class="line">                <span class="keyword">if</span>(s1==s2) count++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">countSubstrings</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span>;i&lt;s.<span class="built_in">length</span>();i++)&#123;</span><br><span class="line">            string s1,s2;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=i;j&lt;s.<span class="built_in">length</span>();j++)&#123;</span><br><span class="line">                s1 += s[j];</span><br><span class="line">                s2 = s[j] + s2;</span><br><span class="line">                <span class="keyword">if</span>(s1==s2) count++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
 <li><p><strong>思路3: 中心扩展：</strong></p>
 <ul>
-<li><p>枚举所有可能的回文中心 s[i] 或 s[i]、s[i + 1]，若回文子串长度为奇数则其中心为 s[i]，回文子串长度为偶数则其中心为 s[i]、s[i + 1]；</p></li>
+<li><p>枚举所有可能的回文中心 s[i] 或 s[i]、s[i +
+1]，若回文子串长度为奇数则其中心为 s[i]，回文子串长度为偶数则其中心为
+s[i]、s[i + 1]；</p></li>
 <li><p>以中心向左右两边扩展，即</p>
 <ul>
 <li>左边界 l 减 1</li>
 <li>右边界 r 加1</li>
 <li>如果 s[l] 与 s[r] 相等则回文数加1。</li>
 </ul></li>
-<li><div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">class</span> Solution <span class="op">&#123;</span></span>
+<li><div class="sourceCode" id="cb2"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">class</span> Solution <span class="op">&#123;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">public</span><span class="op">:</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="dt">int</span> <span class="fu">countSubstrings</span><span class="op">(</span>string s<span class="op">)</span> <span class="op">&#123;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>          <span class="dt">int</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -457,13 +468,13 @@ s 由小写英文字母组成</code></pre>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

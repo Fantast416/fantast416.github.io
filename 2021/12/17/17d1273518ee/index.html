@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -27,14 +27,11 @@
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="Pytorch中，常用编码技巧的整理">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/image-20211229101356170.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/750.png">
 <meta property="article:published_time" content="2021-12-17T07:51:19.000Z">
 <meta property="article:modified_time" content="2022-02-20T13:34:56.000Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Pytorch">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/image-20211229101356170.png">
 
 
 <link rel="canonical" href="https://blog.slks.xyz/2021/12/17/17d1273518ee/">
@@ -166,7 +163,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -321,13 +318,19 @@
     
     <div class="post-body" itemprop="articleBody">
         <h3 id="task1">Task1：</h3>
-<h4 id="任务描述完成padding填充使得h和w为2的倍数同时实现下图所示的变换">任务描述：完成padding填充，使得H和W为2的倍数同时，实现下图所示的变换：</h4>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/image-20211229101356170.png" /></p>
+<h4
+id="任务描述完成padding填充使得h和w为2的倍数同时实现下图所示的变换">任务描述：完成padding填充，使得H和W为2的倍数同时，实现下图所示的变换：</h4>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/image-20211229101356170.png" /></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输入的x，维度size为[B,L,C] ,其中L = H * W</span></span><br><span class="line">x = x.view(B, H, W, C) <span class="comment"># 首先将其重新展为 [B,H,W,C]</span></span><br><span class="line"><span class="comment"># padding 然后，如果输入feature map的H，W不是2的整数倍，需要进行padding</span></span><br><span class="line">pad_input = (H % <span class="number">2</span> == <span class="number">1</span>) <span class="keyword">or</span> (W % <span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line"><span class="keyword">if</span> pad_input:</span><br><span class="line">   <span class="comment"># (C_front, C_back, W_left, W_right, H_top, H_bottom)</span></span><br><span class="line">   <span class="comment"># 注意这里的Tensor通道是[B, H, W, C]，所以会和官方文档有些不同</span></span><br><span class="line">   x = F.pad(x, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, W % <span class="number">2</span>, <span class="number">0</span>, H % <span class="number">2</span>)) <span class="comment"># 在右侧和底侧进行padding</span></span><br><span class="line">   </span><br><span class="line"><span class="comment"># 此时要开始进行下采样了，如何在H，W这个平面上进行下采样呢？ 非常关键的编码技巧！！</span></span><br><span class="line">x0 = x[:, <span class="number">0</span>::<span class="number">2</span>, <span class="number">0</span>::<span class="number">2</span>, :]  <span class="comment"># [B, H/2, W/2, C]   ::2 代表 步长</span></span><br><span class="line">x1 = x[:, <span class="number">1</span>::<span class="number">2</span>, <span class="number">0</span>::<span class="number">2</span>, :]  <span class="comment"># [B, H/2, W/2, C]</span></span><br><span class="line">x2 = x[:, <span class="number">0</span>::<span class="number">2</span>, <span class="number">1</span>::<span class="number">2</span>, :]  <span class="comment"># [B, H/2, W/2, C]</span></span><br><span class="line">x3 = x[:, <span class="number">1</span>::<span class="number">2</span>, <span class="number">1</span>::<span class="number">2</span>, :]  <span class="comment"># [B, H/2, W/2, C]</span></span><br><span class="line"><span class="comment"># 然后将四个子矩阵在channel维度[也就是最后一个维度]上进行拼接</span></span><br><span class="line">x = torch.cat([x0, x1, x2, x3], -<span class="number">1</span>)  <span class="comment"># [B, H/2, W/2, 4*C]</span></span><br><span class="line"><span class="comment"># 再重新将H/2,W/2平面展成1个维度</span></span><br><span class="line">x = x.view(B, -<span class="number">1</span>, <span class="number">4</span> * C)  <span class="comment"># [B, H/2*W/2, 4*C]</span></span><br></pre></td></tr></table></figure>
 <h3 id="task2">Task2:</h3>
 <h4 id="任务描述-python中的广播机制">任务描述： Python中的广播机制</h4>
-<p>​ 在python中使用numpy进行<strong>按位运算</strong>的时候，有一个小技巧可以帮助减少代码量——那就是broadcasting,广播机制。简单来说，broadcasting可以这样理解：如果你有一个m * n的矩阵，让它加减乘除一个1 * n的矩阵，它会被复制m次，成为一个m * n的矩阵，然后再逐元素地进行加减乘除操作。同样地对m * 1的矩阵成立。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/750.png" /></p>
+<p>​
+在python中使用numpy进行<strong>按位运算</strong>的时候，有一个小技巧可以帮助减少代码量——那就是broadcasting,广播机制。简单来说，broadcasting可以这样理解：如果你有一个m
+* n的矩阵，让它加减乘除一个1 * n的矩阵，它会被复制m次，成为一个m *
+n的矩阵，然后再逐元素地进行加减乘除操作。同样地对m * 1的矩阵成立。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/750.png" /></p>
 <p>代码示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">A = numpy.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">result = A + <span class="number">100</span></span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">	[101 102 103]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># 就不再需要去书写 A + [100,100,100] 了</span></span><br><span class="line"></span><br><span class="line">A = np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])  <span class="comment"># [3,2]</span></span><br><span class="line">result = A + [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>]   <span class="comment"># [3,1]</span></span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">[[101 202 303]</span></span><br><span class="line"><span class="string"> [104 205 306]]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
 <p>### Task3:</p>
@@ -422,13 +425,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

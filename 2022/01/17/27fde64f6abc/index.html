@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -27,21 +27,12 @@
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="AdaIN是一种经典的图片风格迁移算法，在2017年ICCV中提出。主要用于将一张图片(风格图)中的风格、纹理迁移到另一张图片(内容图)，同时要保留内容图的主体结构。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/b219ebc4b74543a95e9180d3cb15748ab9011436.jpeg">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116183935766.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116183943127.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116183918123.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116183906461.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019061216413530.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNTU3Njg4MQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220117103448955.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/2019061217185282.png">
 <meta property="article:published_time" content="2022-01-17T04:33:19.000Z">
 <meta property="article:modified_time" content="2022-02-20T13:30:50.000Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Style Transfer">
 <meta property="article:tag" content="AdaIN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/b219ebc4b74543a95e9180d3cb15748ab9011436.jpeg">
 
 
 <link rel="canonical" href="https://blog.slks.xyz/2022/01/17/27fde64f6abc/">
@@ -158,7 +149,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80adain%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">一、AdaIN简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%89%8D%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">二、前备知识：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89adain%E5%85%B7%E4%BD%93%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">三、AdaIN具体介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5content-input-x-style-input-y"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">输入：Content Input x &amp;&amp; Style Input y</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">四、网络结构</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80adain%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">一、AdaIN简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%89%8D%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">二、前备知识：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89adain%E5%85%B7%E4%BD%93%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">三、AdaIN具体介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5content-input-x-style-input-y"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">输入：Content Input x
+&amp;&amp; Style Input y</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">四、网络结构</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -173,7 +165,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -327,49 +319,79 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><strong>AdaIN</strong>是一种经典的图片风格迁移算法，在 2017 年ICCV中提出。主要用于将一张图片(风格图) 中的风格、纹理迁移到另一张图片 (内容图)，同时要保留内容图的主体结构。如下所示：</p>
-<p>​ <strong>论文名称：《Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization》</strong></p>
+        <p><strong>AdaIN</strong>是一种经典的图片风格迁移算法，在 2017
+年ICCV中提出。主要用于将一张图片(风格图) 中的风格、纹理迁移到另一张图片
+(内容图)，同时要保留内容图的主体结构。如下所示：</p>
+<p>​ <strong>论文名称：《Arbitrary Style Transfer in Real-time with
+Adaptive Instance Normalization》</strong></p>
 <p>​ <strong>论文链接：https://arxiv.org/abs/1703.06868</strong></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/b219ebc4b74543a95e9180d3cb15748ab9011436.jpeg" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/b219ebc4b74543a95e9180d3cb15748ab9011436.jpeg" /></p>
 <h2 id="一adain简介">一、AdaIN简介</h2>
-<p>​ 这篇论文的主要目标是实现<strong>实时的、任意风格的风格迁移（style transfer）</strong>，核心方法就是其提出的自适应实例标准化（<strong>Adaptive Instance Normalization，AdaIN</strong>），通过<strong>将内容图像（content image）特征的均值和方差对齐到风格图像（style image）的均值和方差</strong>来实现风格迁移。</p>
+<p>​ 这篇论文的主要目标是实现<strong>实时的、任意风格的风格迁移（style
+transfer）</strong>，核心方法就是其提出的自适应实例标准化（<strong>Adaptive
+Instance
+Normalization，AdaIN</strong>），通过<strong>将内容图像（content
+image）特征的均值和方差对齐到风格图像（style
+image）的均值和方差</strong>来实现风格迁移。</p>
 <p>​ 此外，这个方法还给用户非常多的控制权，包括如下：</p>
 <ul>
 <li>内容和风格的折中（trade off）
 <ul>
-<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116183935766.png" /></li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116183935766.png" /></li>
 </ul></li>
 <li>风格插值（混合风格迁移）
 <ul>
-<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116183943127.png" /></li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116183943127.png" /></li>
 </ul></li>
 <li>是否保留颜色
 <ul>
-<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116183918123.png" /></li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116183918123.png" /></li>
 </ul></li>
 <li>对图像的特定区域进行风格迁移
 <ul>
-<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116183906461.png" /></li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220116183906461.png" /></li>
 </ul></li>
 </ul>
 <h2 id="二前备知识">二、前备知识：</h2>
-<p>​ 你需要熟悉Batch Normaliztion（BN）、Layer Norm（LN）、Instance Norm（IN）、Group Norm（GN）、Conditional Instance Norm（CIN）等概念。</p>
-<p>​ 下图为特征图张量，可以直观看出BN，LN，IN，GN等规范化方法的区别。N为样本维度，C为通道维度，H为height，W即width，代表特征图的尺寸。</p>
-<p><img src="https://img-blog.csdnimg.cn/2019061216413530.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNTU3Njg4MQ==,size_16,color_FFFFFF,t_70" /></p>
+<p>​ 你需要熟悉Batch Normaliztion（BN）、Layer Norm（LN）、Instance
+Norm（IN）、Group Norm（GN）、Conditional Instance
+Norm（CIN）等概念。</p>
+<p>​
+下图为特征图张量，可以直观看出BN，LN，IN，GN等规范化方法的区别。N为样本维度，C为通道维度，H为height，W即width，代表特征图的尺寸。</p>
+<p><img
+src="https://img-blog.csdnimg.cn/2019061216413530.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNTU3Njg4MQ==,size_16,color_FFFFFF,t_70" /></p>
 <p>​ 具体每种Normalization的方法介绍可以参见我的这一篇Blog：</p>
 <p>​ https://blog.slks.xyz/2022/01/16/basic7/</p>
 <p>​</p>
 <h2 id="三adain具体介绍">三、AdaIN具体介绍</h2>
-<h5 id="输入content-input-x-style-input-y">输入：Content Input x &amp;&amp; Style Input y</h5>
-<p>​ AdaIN 简单地将 x 的通道均值和方差对齐以匹配 y 的均值和方差。 不像BN、IN或CIN，AdaIN没有需要从网络中进行学习的仿射变换参数，它能够自适应的从style input中计算得到仿射变换的参数。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220117103448955.png" /></p>
-<p>​ 我们简单地用 σ(y) 缩放归一化的Content Input，并用 µ(y) 移动它。 与 IN 类似，这些统计数据是跨空间位置计算的。也就是说，其实对于单个实例的单个特征通道计算的均值和方差数据。</p>
+<h5 id="输入content-input-x-style-input-y">输入：Content Input x
+&amp;&amp; Style Input y</h5>
+<p>​ AdaIN 简单地将 x 的通道均值和方差对齐以匹配 y 的均值和方差。
+不像BN、IN或CIN，AdaIN没有需要从网络中进行学习的仿射变换参数，它能够自适应的从style
+input中计算得到仿射变换的参数。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220117103448955.png" /></p>
+<p>​ 我们简单地用 σ(y) 缩放归一化的Content Input，并用 µ(y) 移动它。 与
+IN
+类似，这些统计数据是跨空间位置计算的。也就是说，其实对于单个实例的单个特征通道计算的均值和方差数据。</p>
 <p>​ 直观地说，让我们考虑一个检测特定风格笔触的特征通道。</p>
-<p>​ 具有这种风格的图像会对它的特征部分产生较高的平均激活。AdaIN 产生的输出将对该特征具有相同的高平均激活，同时其也保留内容图像的空间结构。 然后我们可以使用前馈解码器将风格特征转换回图像空间。同时，这个特征通道的方差可以编码更细微的风格信息，这些信息也传递到 AdaIN 输出和最终输出图像。</p>
-<p>​ 简而言之，AdaIN 通过传输特征统计数据（特别是通道均值和方差）在特征空间中执行风格迁移。我们的 AdaIN 层就像一个 IN 层一样简单，几乎不增加计算成本。</p>
+<p>​ 具有这种风格的图像会对它的特征部分产生较高的平均激活。AdaIN
+产生的输出将对该特征具有相同的高平均激活，同时其也保留内容图像的空间结构。
+然后我们可以使用前馈解码器将风格特征转换回图像空间。同时，这个特征通道的方差可以编码更细微的风格信息，这些信息也传递到
+AdaIN 输出和最终输出图像。</p>
+<p>​ 简而言之，AdaIN
+通过传输特征统计数据（特别是通道均值和方差）在特征空间中执行风格迁移。我们的
+AdaIN 层就像一个 IN 层一样简单，几乎不增加计算成本。</p>
 <h2 id="四网络结构">四、网络结构</h2>
-<p>​ 在论文中，其使用VGG-19来编码内容和风格，在浅层空间将特征图通过AdaIN层，进行上述仿射变换，解码器根据变换后的特征图试图重建图像，通过反向传播训练解码器，使得解码器输出越来越真实的图像。整体架构如下所示：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/2019061217185282.png" /></p>
+<p>​
+在论文中，其使用VGG-19来编码内容和风格，在浅层空间将特征图通过AdaIN层，进行上述仿射变换，解码器根据变换后的特征图试图重建图像，通过反向传播训练解码器，使得解码器输出越来越真实的图像。整体架构如下所示：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/2019061217185282.png" /></p>
 <p>​ 更为具体的代码可见以下链接地址：</p>
 <p>​ https://github.com/xunhuang1995/AdaIN-style</p>
 
@@ -451,13 +473,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

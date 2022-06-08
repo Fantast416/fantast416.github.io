@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -27,21 +27,12 @@
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="本篇为机器学习基础系列笔记首篇，介绍了机器学习中常常会用到的概念与函数，仍在持续更新中">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/wpsCF9D.tmp.jpg">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201037115.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201047994.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201125789.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201156330.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201159496.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201333605.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201341888.png">
 <meta property="article:published_time" content="2021-11-22T11:27:23.000Z">
 <meta property="article:modified_time" content="2022-02-20T13:30:26.000Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Machine Learning">
 <meta property="article:tag" content="Basic Concepts">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/wpsCF9D.tmp.jpg">
 
 
 <link rel="canonical" href="https://blog.slks.xyz/2021/11/22/6afd3e085246/">
@@ -158,9 +149,12 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#softmax%E5%92%8Ccross-entropy%E4%BA%A4%E5%8F%89%E7%86%B5%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">1、SoftMax和Cross-Entropy交叉熵函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kl%E6%95%A3%E5%BA%A6"><span class="nav-number">2.</span> <span class="nav-text">2、KL散度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sigmoid-function-s%E5%9E%8B%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">3、Sigmoid Function ( S型激活函数 )</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rectified-linear-unit-relu%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">4、Rectified Linear Unit ( ReLu激活函数 )</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#update-epoch-batch-size-training-data"><span class="nav-number">5.</span> <span class="nav-text">5、Update &#x2F; Epoch &#x2F; Batch Size &#x2F; Training Data
-
-</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backbone-head-neck-bottleneck"><span class="nav-number">6.</span> <span class="nav-text">6、BackBone &#x2F; Head &#x2F; Neck &#x2F; BottleNeck</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ablation-study"><span class="nav-number">7.</span> <span class="nav-text">7、Ablation Study</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#softmax%E5%92%8Ccross-entropy%E4%BA%A4%E5%8F%89%E7%86%B5%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">1、SoftMax和Cross-Entropy交叉熵函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kl%E6%95%A3%E5%BA%A6"><span class="nav-number">2.</span> <span class="nav-text">2、KL散度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sigmoid-function-s%E5%9E%8B%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">3、Sigmoid Function ( S型激活函数
+)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rectified-linear-unit-relu%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">4、Rectified Linear Unit (
+ReLu激活函数 )</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#update-epoch-batch-size-training-data"><span class="nav-number">5.</span> <span class="nav-text">5、Update &#x2F; Epoch &#x2F; Batch
+Size &#x2F; Training Data
+</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backbone-head-neck-bottleneck"><span class="nav-number">6.</span> <span class="nav-text">6、BackBone &#x2F; Head &#x2F; Neck &#x2F;
+BottleNeck</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ablation-study"><span class="nav-number">7.</span> <span class="nav-text">7、Ablation Study</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -175,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -329,39 +323,67 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="softmax和cross-entropy交叉熵函数">1、SoftMax和Cross-Entropy交叉熵函数</h3>
-<p>​ 我们常常使用交叉熵（cross entropy）来进行判别分布的相似性，交叉熵公式如下图所示：公式中pi和qi<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/wpsCF9D.tmp.jpg" alt="img" />为真实的样本分布和生成器的生成分布。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201037115.png" /></p>
-<p>​ <strong><em>*Soft-Max*</em></strong>内部对输入进行的处理如下图所示，我们假设输入y1,y2,y3，我们先将三个输入计算exp(y1),exp(y2),exp(y3),然后求和，然后计算输出。</p>
-<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201047994.png" /></p>
+        <h3
+id="softmax和cross-entropy交叉熵函数">1、SoftMax和Cross-Entropy交叉熵函数</h3>
+<p>​ 我们常常使用交叉熵（cross
+entropy）来进行判别分布的相似性，交叉熵公式如下图所示：公式中pi和qi<img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/wpsCF9D.tmp.jpg"
+alt="img" />为真实的样本分布和生成器的生成分布。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201037115.png" /></p>
+<p>​
+<strong><em>*Soft-Max*</em></strong>内部对输入进行的处理如下图所示，我们假设输入y1,y2,y3，我们先将三个输入计算exp(y1),exp(y2),exp(y3),然后求和，然后计算输出。</p>
+<p>​ <img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201047994.png" /></p>
 <h3 id="kl散度">2、KL散度</h3>
-<h3 id="sigmoid-function-s型激活函数">3、Sigmoid Function ( S型激活函数 )</h3>
-<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201125789.png" /></p>
-<h3 id="rectified-linear-unit-relu激活函数">4、Rectified Linear Unit ( ReLu激活函数 )</h3>
-<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201156330.png" alt="image-20220114201156330" /><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201159496.png" /></p>
-<h3 id="update-epoch-batch-size-training-data">5、Update / Epoch / Batch Size / Training Data<br />
+<h3 id="sigmoid-function-s型激活函数">3、Sigmoid Function ( S型激活函数
+)</h3>
+<p>​ <img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201125789.png" /></p>
+<h3 id="rectified-linear-unit-relu激活函数">4、Rectified Linear Unit (
+ReLu激活函数 )</h3>
+<p>​ <img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201156330.png"
+alt="image-20220114201156330" /><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201159496.png" /></p>
+<h3 id="update-epoch-batch-size-training-data">5、Update / Epoch / Batch
+Size / Training Data<br />
 </h3>
 <ul>
-<li><p><strong>Update</strong>: 每做一次梯度下降，更新一次参数，就叫做一次Update</p></li>
-<li><p><strong>Batch Size</strong>: 每次用来计算梯度下降更新参数用到的训练集中样本的个数</p></li>
-<li><p><strong>Training Data</strong>: 所有的训练数据集样本，我们在训练时往往会将其分为一个Batch一个Batch，每次使用一个Batch来计算梯度，更新参数。</p></li>
-<li><p><strong>Epoch</strong>: 每当使用过一轮所有的训练数据集样本以后，叫做一个Epoch</p></li>
+<li><p><strong>Update</strong>:
+每做一次梯度下降，更新一次参数，就叫做一次Update</p></li>
+<li><p><strong>Batch Size</strong>:
+每次用来计算梯度下降更新参数用到的训练集中样本的个数</p></li>
+<li><p><strong>Training Data</strong>:
+所有的训练数据集样本，我们在训练时往往会将其分为一个Batch一个Batch，每次使用一个Batch来计算梯度，更新参数。</p></li>
+<li><p><strong>Epoch</strong>:
+每当使用过一轮所有的训练数据集样本以后，叫做一个Epoch</p></li>
 </ul>
 <p>整个的Optimization的过程如下所示：</p>
-<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201333605.png" /></p>
+<p>​ <img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201333605.png" /></p>
 <p>下面是一些帮助理解的例子：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201341888.png" /></p>
-<h3 id="backbone-head-neck-bottleneck">6、BackBone / Head / Neck / BottleNeck</h3>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114201341888.png" /></p>
+<h3 id="backbone-head-neck-bottleneck">6、BackBone / Head / Neck /
+BottleNeck</h3>
 <ul>
 <li>BackBone：翻译为主干网络，其是神经网络的主干部分。这个主干网络大多时候指的是提取特征的网络，其作用就是提取图片中的信息，以供后面的网络使用。这些网络经常使用的是ResNet、VGG等，而不是由我们自己设计的网络，因为这些主干网络已经证明了它们在分类等问题上的特征提取能力是很强的。在用这些网络作为backbone的时候，都是直接加载官方已经训练好的模型参数，后面接着我们自己的网络。让网络的这两个部分同时进行训练，因为加载的backbone模型已经具有提取特征的能力了，在我们的训练过程中，会对参数进行微调，使得其更适合于我们自己的任务。</li>
 <li>Head：是获取网络输出内容的网络，head利用之前网络提取的这些特征，做出预测。</li>
-<li>Neck: 是放在Backbone和Head之间的，是为了更好的利用Backbone提取的特征</li>
-<li>Bottleneck: 瓶颈，通常指的是网络输入的数据维度和输出的维度不同，输出的维度比输入的小了许多.</li>
+<li>Neck:
+是放在Backbone和Head之间的，是为了更好的利用Backbone提取的特征</li>
+<li>Bottleneck:
+瓶颈，通常指的是网络输入的数据维度和输出的维度不同，输出的维度比输入的小了许多.</li>
 </ul>
 <h3 id="ablation-study">7、Ablation Study</h3>
-<p>​ 消融研究，消融研究通常是指删除模型或算法的某些“功能”，并查看其如何影响性能。</p>
-<p>​ 在论文中一般来说会提出多个创新方法，或者新型结构模块，或注意力模块等。这些东西在一起为模型的性能作出了贡献。然而为了了解每个部分单独能发挥的作用，常常会在论文中提出消融研究。</p>
-<p>​ 例如某论文提出了方法A,B,C。而该论文是基于某个baseline的改进。因此，在消融研究部分，会进行以下实验，baseline ，baseline+A，baseline+B, baseline+C, baseline+A+B+C等实验的各个评价指标有多少，从而得出每个部分所能发挥的作用有多大。</p>
+<p>​
+消融研究，消融研究通常是指删除模型或算法的某些“功能”，并查看其如何影响性能。</p>
+<p>​
+在论文中一般来说会提出多个创新方法，或者新型结构模块，或注意力模块等。这些东西在一起为模型的性能作出了贡献。然而为了了解每个部分单独能发挥的作用，常常会在论文中提出消融研究。</p>
+<p>​
+例如某论文提出了方法A,B,C。而该论文是基于某个baseline的改进。因此，在消融研究部分，会进行以下实验，baseline
+，baseline+A，baseline+B, baseline+C,
+baseline+A+B+C等实验的各个评价指标有多少，从而得出每个部分所能发挥的作用有多大。</p>
 <p>​ 比较简单来说，就是控制变量法，来判断某一个模块是否真的有作用。</p>
 
     </div>
@@ -451,13 +473,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

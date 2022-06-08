@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -149,7 +149,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#q1%E5%89%91%E6%8C%87-offer-ii-007.-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%92%8C%E4%B8%BA-0-%E7%9A%84%E4%B8%89%E4%B8%AA%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">Q1、剑指 Offer II 007. 数组中和为 0 的三个数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.1.</span> <span class="nav-text">解题思路：</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#q1%E5%89%91%E6%8C%87-offer-ii-007.-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%92%8C%E4%B8%BA-0-%E7%9A%84%E4%B8%89%E4%B8%AA%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">Q1、剑指 Offer II 007.
+数组中和为 0 的三个数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.1.</span> <span class="nav-text">解题思路：</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -164,7 +165,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -318,8 +319,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="q1剑指-offer-ii-007.-数组中和为-0-的三个数">Q1、<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/1fGaJU/">剑指 Offer II 007. 数组中和为 0 的三个数</a></h3>
-<p>​ 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a ，b ，c ，使得 a + b + c = 0 ？请找出所有和为 0 且 不重复 的三元组。</p>
+        <h3 id="q1剑指-offer-ii-007.-数组中和为-0-的三个数">Q1、<a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/1fGaJU/">剑指 Offer II 007.
+数组中和为 0 的三个数</a></h3>
+<p>​ 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a ，b
+，c ，使得 a + b + c = 0 ？请找出所有和为 0 且 不重复 的三元组。</p>
 <p>示例 1：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [-1,0,1,2,-1,-4]</span><br><span class="line">输出：[[-1,-1,2],[-1,0,1]]</span><br></pre></td></tr></table></figure>
 <p>示例 2：</p>
@@ -330,16 +334,26 @@
 <pre><code>0 &lt;= nums.length &lt;= 3000
 -105 &lt;= nums[i] &lt;= 105</code></pre>
 <h4 id="解题思路">解题思路：</h4>
-<p>​ 该题最重要的是如何<strong>高效率的循环遍历</strong>以及 如何<strong>高效率的去除重复三元组</strong></p>
-<p>​ 最简单的O(n^3)的暴力求解，对于该题而言时间复杂度会大大超出。所以我们考虑双指针的解法。<strong>双指针在三数之和中如何应用呢？</strong></p>
-<p>​ <strong>无非是在传统双指针求法的前提上，在外层多加了一层循环</strong>，也就是先固定住一个元素，然后利用双指针，将内部O(n^2)的复杂度，缩减至O(n)，从而使得整个求解复杂度降至O(n ^2)。</p>
-<p>​ 该题另外一个核心要点是，如何高效率的去除重复？我们当然可以去使用Hash表，然后每有一个元素就将其push进去，并进行比较，如果已经存在就不计入结果中。但是这样的方法仍然会导致大量的计算浪费。</p>
+<p>​ 该题最重要的是如何<strong>高效率的循环遍历</strong>以及
+如何<strong>高效率的去除重复三元组</strong></p>
+<p>​
+最简单的O(n^3)的暴力求解，对于该题而言时间复杂度会大大超出。所以我们考虑双指针的解法。<strong>双指针在三数之和中如何应用呢？</strong></p>
+<p>​
+<strong>无非是在传统双指针求法的前提上，在外层多加了一层循环</strong>，也就是先固定住一个元素，然后利用双指针，将内部O(n^2)的复杂度，缩减至O(n)，从而使得整个求解复杂度降至O(n
+^2)。</p>
+<p>​
+该题另外一个核心要点是，如何高效率的去除重复？我们当然可以去使用Hash表，然后每有一个元素就将其push进去，并进行比较，如果已经存在就不计入结果中。但是这样的方法仍然会导致大量的计算浪费。</p>
 <p>​ 观察后，我们会发现，在循环的时候，有两种情况会导致重复：</p>
-<p><strong>情况1</strong>：当外层循环的i , nums[i] == nums[i-1] 的时候，原因是，如果nums[i] == nums[i-1]，那么当前nums[i]能够找到的j和k，在nums[i-1]中必定已经出现过了，所以我们的处理方法是，直接跳过该次外层循环，进入下一个i</p>
-<p><strong>情况2</strong>：出现在内部双指针运行的时候，如下述情况：i，j, k分别指向-4，-1，5，此时满足一组条件，我们会将 j++, 以让循环继续运行。此时，重复发生了，如果nums[j] == nums[j + 1]，那么nums[j+1]所产生的符合条件的三元组就会与之前的重复，所以我们采取的措施是，让j一直自增，直到其和下一个元素不相等或者到达k。</p>
+<p><strong>情况1</strong>：当外层循环的i , nums[i] == nums[i-1]
+的时候，原因是，如果nums[i] ==
+nums[i-1]，那么当前nums[i]能够找到的j和k，在nums[i-1]中必定已经出现过了，所以我们的处理方法是，直接跳过该次外层循环，进入下一个i</p>
+<p><strong>情况2</strong>：出现在内部双指针运行的时候，如下述情况：i，j,
+k分别指向-4，-1，5，此时满足一组条件，我们会将 j++,
+以让循环继续运行。此时，重复发生了，如果nums[j] == nums[j +
+1]，那么nums[j+1]所产生的符合条件的三元组就会与之前的重复，所以我们采取的措施是，让j一直自增，直到其和下一个元素不相等或者到达k。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">	-4  -1  -1  -1  2  5</span><br><span class="line"></span><br><span class="line">​	i   j              k</span><br></pre></td></tr></table></figure>
 <p>综上，代码书写如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">threeSum</span>(vector&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= <span class="number">1</span> &amp;&amp; nums[i] == nums[i<span class="number">-1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> j = i+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> k = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j&lt;k)&#123;</span><br><span class="line">                <span class="keyword">int</span> value = nums[i] + nums[j] + nums[k];</span><br><span class="line">                <span class="keyword">if</span>(value &gt; <span class="number">0</span>) k--;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(value &lt; <span class="number">0</span>) j++;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    res.<span class="built_in">push_back</span>(&#123;nums[i],nums[j],nums[k]&#125;);</span><br><span class="line">                    <span class="keyword">while</span> (j &lt; k &amp;&amp; nums[j] == nums[j + <span class="number">1</span>]) j++; </span><br><span class="line">                    j++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">threeSum</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(),nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;nums.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= <span class="number">1</span> &amp;&amp; nums[i] == nums[i<span class="number">-1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="type">int</span> j = i+<span class="number">1</span>;</span><br><span class="line">            <span class="type">int</span> k = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j&lt;k)&#123;</span><br><span class="line">                <span class="type">int</span> value = nums[i] + nums[j] + nums[k];</span><br><span class="line">                <span class="keyword">if</span>(value &gt; <span class="number">0</span>) k--;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(value &lt; <span class="number">0</span>) j++;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    res.<span class="built_in">push_back</span>(&#123;nums[i],nums[j],nums[k]&#125;);</span><br><span class="line">                    <span class="keyword">while</span> (j &lt; k &amp;&amp; nums[j] == nums[j + <span class="number">1</span>]) j++; </span><br><span class="line">                    j++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -431,13 +445,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -27,14 +27,12 @@
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="本文讲解了Torch和Numpy中进行Element-Wise的计算的时候，采用的广播机制是什么，如何执行。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/20200308204131296.png">
 <meta property="article:published_time" content="2022-01-18T05:39:19.000Z">
 <meta property="article:modified_time" content="2022-02-20T13:34:21.000Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Pytorch">
 <meta property="article:tag" content="Auto BroadCasting">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/20200308204131296.png">
 
 
 <link rel="canonical" href="https://blog.slks.xyz/2022/01/18/52f2902757db/">
@@ -166,7 +164,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -326,20 +324,29 @@
 <p>​ <strong>Element-wise的计算符号包括如下：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">算数运算：+, -, *, /, //, %, divmod(), ** or pow(), &lt;&lt;, &gt;&gt;, &amp;, ^, |</span><br><span class="line"></span><br><span class="line">比较运算：==, &lt;, &gt;, &lt;=, &gt;=, !=</span><br></pre></td></tr></table></figure>
 <h3 id="广播机制的规则与出现的原因">2、广播机制的规则与出现的原因</h3>
-<p>​ 正常来说，两个做Element wise类型运算的变量，其相应维度的长度要相等，如下所示：这种形式做Element-Wise的运算是非常简单且易理解的。</p>
+<p>​ 正常来说，两个做Element
+wise类型运算的变量，其相应维度的长度要相等，如下所示：这种形式做Element-Wise的运算是非常简单且易理解的。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">b = torch.rand(<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">c = a * b</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">a:tensor([[0.9912, 0.3736],</span></span><br><span class="line"><span class="string">        [0.0708, 0.6939]])</span></span><br><span class="line"><span class="string">b:tensor([[0.5788, 0.6296],</span></span><br><span class="line"><span class="string">        [0.9746, 0.8540]])</span></span><br><span class="line"><span class="string">c:tensor([[0.5737, 0.2352],</span></span><br><span class="line"><span class="string">        [0.0690, 0.5925]])</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>​ 那么当两个Tensor的对应维度不对齐的时候，<strong>为了避免用户使用代码for循环来操作填补数组，导致一些低效率的行为出现</strong>，所以其提供了一种广播机制，其实质就是一种处理规则，在不对齐的维度上，长度较短的自动做值复制来扩充长度，从而使得两个Tensor在该维度上一致。</p>
+<p>​
+那么当两个Tensor的对应维度不对齐的时候，<strong>为了避免用户使用代码for循环来操作填补数组，导致一些低效率的行为出现</strong>，所以其提供了一种广播机制，其实质就是一种处理规则，在不对齐的维度上，长度较短的自动做值复制来扩充长度，从而使得两个Tensor在该维度上一致。</p>
 <h3 id="广播机制起效的情况">3、广播机制起效的情况</h3>
-<p>​ 但是，实际上，并不是所有的不同维度的Tensor相乘时，都会触发广播机制。例如：</p>
+<p>​
+但是，实际上，并不是所有的不同维度的Tensor相乘时，都会触发广播机制。例如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">b = torch.rand(<span class="number">3</span>,<span class="number">1</span>)</span><br><span class="line">c = a * b</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">	RuntimeError: The size of tensor a (2) must match the size of tensor b (3) at non-singleton dimension 0</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
 <p>​ 那么，广播机制在何时才会起效呢？其只对如下情况起作用：</p>
-<p>​ <strong>两个Tensor，它们如果在某一个维度上长度不同的话，必定有一个Tensor在这个维度上的长度为1，广播机制才会起效。即 1 vs M 的情况</strong></p>
-<p>​ <strong>具体计算规则：</strong>长度为1的Tensor在维度上会复制该元素并扩充至长度为M，当这个维度完成对齐，接着重复检查上一层维度，如此反复，直至所有维度都检查完。</p>
+<p>​
+<strong>两个Tensor，它们如果在某一个维度上长度不同的话，必定有一个Tensor在这个维度上的长度为1，广播机制才会起效。即
+1 vs M 的情况</strong></p>
+<p>​
+<strong>具体计算规则：</strong>长度为1的Tensor在维度上会复制该元素并扩充至长度为M，当这个维度完成对齐，接着重复检查上一层维度，如此反复，直至所有维度都检查完。</p>
 <p>​ <strong>示例</strong>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>)</span><br><span class="line">b = torch.rand(<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>)</span><br><span class="line">c = a * b</span><br><span class="line"><span class="built_in">print</span>(c.shape)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">	torch.Size([3, 5, 3])</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
 <p>​ <strong>示意图</strong>：</p>
 <figure>
-<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/20200308204131296.png" alt="20200308204131296" /><figcaption aria-hidden="true">20200308204131296</figcaption>
+<img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/20200308204131296.png"
+alt="20200308204131296" />
+<figcaption aria-hidden="true">20200308204131296</figcaption>
 </figure>
 
     </div>
@@ -432,13 +439,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

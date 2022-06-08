@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -164,7 +164,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -328,7 +328,8 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> model0</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line"><span class="keyword">from</span> model0 <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
 <p>两者都是可以的，同级目录下引入十分简便，直接import即可</p>
 <h4 id="子目录引入">2）子目录引入</h4>
-<p><strong>main.py</strong> 中需要导入 <strong>model1_main.py</strong></p>
+<p><strong>main.py</strong> 中需要导入
+<strong>model1_main.py</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们首先需要在model1/下建立__init__.py空文件，让编译器认为这是一个模块。</span><br></pre></td></tr></table></figure>
 <p>建立后，<strong>目录结构应当如下所示：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">├── model0.py</span><br><span class="line">├── main.py</span><br><span class="line">├── model1/</span><br><span class="line">│   └── model1_main.py</span><br><span class="line">│   └── __init__.py</span><br><span class="line">└── model2/</span><br><span class="line">    └── model2_main.py</span><br></pre></td></tr></table></figure>
@@ -343,13 +344,16 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">&quot;..&quot;</span>)</span><br><span class="line"><span class="keyword">import</span> model2.model2_main</span><br></pre></td></tr></table></figure>
 <h4 id="更为一般的介绍">4）更为一般的介绍：</h4>
 <p>sys模块是python内置的，我们导入跨自定义模块的步骤一般如下：</p>
-<p>​ 首先要确保被导入的模块文件夹内有 __init__.py文件，确保其被识别为一个模块，然后再执行下面步骤：</p>
+<p>​ 首先要确保被导入的模块文件夹内有
+__init__.py文件，确保其被识别为一个模块，然后再执行下面步骤：</p>
 <ol type="1">
 <li><strong>先导入sys模块</strong></li>
-<li>然后通过<code>sys.path.append(path)</code> 函数来导入自定义模块所在的目录</li>
+<li>然后通过<code>sys.path.append(path)</code>
+函数来导入自定义模块所在的目录</li>
 <li><strong>导入自定义模块</strong>。</li>
 </ol>
-<p>​ 只不过在同级目录以及子目录下进行引入，不需要这么复杂，可以有更简单的方法，而在跨目录引入时，就需要采用这种方案。</p>
+<p>​
+只不过在同级目录以及子目录下进行引入，不需要这么复杂，可以有更简单的方法，而在跨目录引入时，就需要采用这种方案。</p>
 
     </div>
 
@@ -423,13 +427,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

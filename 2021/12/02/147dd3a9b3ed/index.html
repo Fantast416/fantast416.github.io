@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -27,38 +27,12 @@
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了GAN的理论数学部分的支撑，将直观的GAN训练过程背后的原理，为什么能这么做，训练的时候又需要注意的点是为什么这些内容进行了讲解。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104004253.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104025964.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104038477.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104119273.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104254669.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104316362.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104340643.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104420420.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104429437.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104440904.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104448302.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104454398.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104505340.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104513342.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104521610.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104529086.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104536101.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104548084.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104602866.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104605809.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104613127.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104624268.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104649400.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104659145.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104707603.png">
 <meta property="article:published_time" content="2021-12-02T09:31:19.000Z">
 <meta property="article:modified_time" content="2022-02-20T13:31:40.000Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="GAN">
 <meta property="article:tag" content="Theoretical Basis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104004253.png">
 
 
 <link rel="canonical" href="https://blog.slks.xyz/2021/12/02/147dd3a9b3ed/">
@@ -190,7 +164,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -345,73 +319,173 @@
     
     <div class="post-body" itemprop="articleBody">
         <h3 id="前言">前言：</h3>
-<p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了GAN的理论数学部分的支撑，将直观的GAN训练过程背后的原理，为什么能这么做，训练的时候又需要注意的点是为什么这些内容进行了讲解。</p>
-<h3 id="一我们通常说的生成问题从本质上来看是什么呢">一、我们通常说的生成问题，从本质上来看是什么呢？</h3>
-<p>​ 从生成一张图片x来说，图片x其实就是在图片高维空间中的一个点。比如说64 * 64的图像，其实质就是64*64维空间中的某一个点。</p>
-<h3 id="二gan训练的过程到底是在干什么呢">二、GAN训练的过程到底是在干什么呢？</h3>
-<p>​ 在1中，我们发现其实在图像的高维空间中，存在意义的图像的点其实是很稀疏的，那么训练的时候，其实是提供了一堆有意义的图像的高维点，然后想要通过GAN来找到这些点的分布情况，也就是说，找到在图像高维空间中，有意义的图像的点所遵循的分布是怎么样的。这种分布情况，我们人是无法直接找到的。</p>
-<p>​ 找到这种分布情况以后，其实生成的过程就是在概率分布中较高概率的位置进行取样，得到的可能就是能够令我们满意的图像。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104004253.png" /></p>
-<h3 id="三在gan之前我们的训练所依据的理论是什么">三、在GAN之前，我们的训练所依据的理论是什么？</h3>
-<p>​ 使用Maximum Likelihood Estimation 最大似然估计。整体的思想与过程如下图所示：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104025964.png" /></p>
-<p>​ 首先我们有一个数据集分布，也就是我们通常使用的训练集<span class="math inline">\(P_{data}\)</span>。</p>
-<p>​ 我们还有一个分布<span class="math inline">\(P_G\)</span>，其是θ的函数，就是我们要训练的用于生成的概率分布。我们的目标其实就是说想要找到一个θ值让<span class="math inline">\(P_G\)</span>去接近<span class="math inline">\(P_{data}\)</span>就可以了。但是怎样量化计算这个概率分布的接近呢？</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104038477.png" /></p>
-<p>​ 我们可以先从<span class="math inline">\(P_{data}\)</span>中采集m个样本，然后带入到<span class="math inline">\(P_{G}\)</span>这个概率分布里面，希望得到的对应的概率越大越好。然后我们可以将所有的几率相乘，就会得到L。最终目标就是要找最好的θ使得能够让这个L最大。</p>
-<p>​ 其实所谓的Maximum Likelihood 等同于机器学习中的 Minimize KL Divergence.下图的话是数学公式相关的推导过程，</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104119273.png" /></p>
-<p>​ 那么现在问题来了，我们怎么去定义一个general 的<span class="math inline">\(P_G\)</span>。如果这个<span class="math inline">\(P_G\)</span>是符合高斯分布或者其他简单分布的话，是没有问题的。但是如果<span class="math inline">\(P_G\)</span>要符合这些分布然后再去拟合<span class="math inline">\(P_{data}\)</span>的话，显然就会受到很多的限制。所以我们需要一个更general的分布来去拟合<span class="math inline">\(P_{data}\)</span>。但是如果<span class="math inline">\(P_{G}\)</span>不受限制，是一个很复杂的很general的分布的话，上述计算式子中<span class="math inline">\(P_{G}(X;\theta)\)</span>这一项就很难计算出来，所以我们才有了下述的想法。</p>
-<h3 id="四在gan中我们所依据的理论是什么">四、在GAN中，我们所依据的理论是什么？</h3>
-<p>​ GAN中的Generator是一个网络，我们假设输入的是一个符合正态分布的各种采样点，这些点通过G以后，会产生一个新的分布，这个新的分布其实就是<span class="math inline">\(P_G(x)\)</span>。随后我们的目标也是让这个<span class="math inline">\(P_G(x)\)</span>和<span class="math inline">\(P_{data}(x)\)</span>这两个分布越接近越好。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104254669.png" /></p>
-<p>​ 从公式来看，就是最小化<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>之间的某一种差异。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104316362.png" /></p>
-<p>​ 看到这里，如果我们知道<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的公式，那么我们是能够很方便的代入Divergence的公式中，然后用类似于梯度下降的方法，去最小化它。但是问题是，我们现在并不知道<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的公式，也就是根本无法计算这个Div。这就是GAN神奇之处：</p>
-<p>虽然我们没法知道<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的公式，但是我们是可以从中进行采样的。从<span class="math inline">\(P_{data}\)</span>中进行采样无非就是从我们的训练集中取数据出来，从<span class="math inline">\(P_G\)</span>中进行采样，无非就是从正态分布中采样然后丢到Generator中，得到的数据。如下所示</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104340643.png" /></p>
-<p>​ 那么其实GAN训练Discriminator的目的，就是为了能够通过Discriminator来计算出<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的Divergence。从宏观上来看，是怎么完成这样一件事情的呢？</p>
-<p>​ 我们前面说过训练的Discriminator在训练过程中，就是要学会给从<span class="math inline">\(P_{data}\)</span>的中采样出的数据高分，给从<span class="math inline">\(P_{G}\)</span>中采样出的数据低分。所以我们当时在训练Discriminator的时候，就写了一个目标函数，V(G,D)来完成上述的目标,然后要训练D的参数，找到一组D的参数使得V(D,G)最大。神奇的事情就是，这个V其实就是J-S Divergence有非常密切的关系。</p>
-<p>​ 从直观上讲，如果<span class="math inline">\(P_{data}\)</span>和<span class="math inline">\(P_G\)</span>采样出来的数据靠的很近，那Discriminator自然无法区分，也就是没有办法找到一个D使得V变得很大，这个时候其实意味着就是<span class="math inline">\(P_{data}\)</span>和<span class="math inline">\(P_G\)</span>很接近，也就是说这两个概率分布数据的Divergence其实是很小的。所以如何达到一个最大的V值，会跟这两堆数据的Divergence是肯定存在关系的。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104420420.png" /></p>
+<p>​
+本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了GAN的理论数学部分的支撑，将直观的GAN训练过程背后的原理，为什么能这么做，训练的时候又需要注意的点是为什么这些内容进行了讲解。</p>
+<h3
+id="一我们通常说的生成问题从本质上来看是什么呢">一、我们通常说的生成问题，从本质上来看是什么呢？</h3>
+<p>​ 从生成一张图片x来说，图片x其实就是在图片高维空间中的一个点。比如说64
+* 64的图像，其实质就是64*64维空间中的某一个点。</p>
+<h3
+id="二gan训练的过程到底是在干什么呢">二、GAN训练的过程到底是在干什么呢？</h3>
+<p>​
+在1中，我们发现其实在图像的高维空间中，存在意义的图像的点其实是很稀疏的，那么训练的时候，其实是提供了一堆有意义的图像的高维点，然后想要通过GAN来找到这些点的分布情况，也就是说，找到在图像高维空间中，有意义的图像的点所遵循的分布是怎么样的。这种分布情况，我们人是无法直接找到的。</p>
+<p>​
+找到这种分布情况以后，其实生成的过程就是在概率分布中较高概率的位置进行取样，得到的可能就是能够令我们满意的图像。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104004253.png" /></p>
+<h3
+id="三在gan之前我们的训练所依据的理论是什么">三、在GAN之前，我们的训练所依据的理论是什么？</h3>
+<p>​ 使用Maximum Likelihood Estimation
+最大似然估计。整体的思想与过程如下图所示：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104025964.png" /></p>
+<p>​ 首先我们有一个数据集分布，也就是我们通常使用的训练集<span
+class="math inline">\(P_{data}\)</span>。</p>
+<p>​ 我们还有一个分布<span
+class="math inline">\(P_G\)</span>，其是θ的函数，就是我们要训练的用于生成的概率分布。我们的目标其实就是说想要找到一个θ值让<span
+class="math inline">\(P_G\)</span>去接近<span
+class="math inline">\(P_{data}\)</span>就可以了。但是怎样量化计算这个概率分布的接近呢？</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104038477.png" /></p>
+<p>​ 我们可以先从<span
+class="math inline">\(P_{data}\)</span>中采集m个样本，然后带入到<span
+class="math inline">\(P_{G}\)</span>这个概率分布里面，希望得到的对应的概率越大越好。然后我们可以将所有的几率相乘，就会得到L。最终目标就是要找最好的θ使得能够让这个L最大。</p>
+<p>​ 其实所谓的Maximum Likelihood 等同于机器学习中的 Minimize KL
+Divergence.下图的话是数学公式相关的推导过程，</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104119273.png" /></p>
+<p>​ 那么现在问题来了，我们怎么去定义一个general 的<span
+class="math inline">\(P_G\)</span>。如果这个<span
+class="math inline">\(P_G\)</span>是符合高斯分布或者其他简单分布的话，是没有问题的。但是如果<span
+class="math inline">\(P_G\)</span>要符合这些分布然后再去拟合<span
+class="math inline">\(P_{data}\)</span>的话，显然就会受到很多的限制。所以我们需要一个更general的分布来去拟合<span
+class="math inline">\(P_{data}\)</span>。但是如果<span
+class="math inline">\(P_{G}\)</span>不受限制，是一个很复杂的很general的分布的话，上述计算式子中<span
+class="math inline">\(P_{G}(X;\theta)\)</span>这一项就很难计算出来，所以我们才有了下述的想法。</p>
+<h3
+id="四在gan中我们所依据的理论是什么">四、在GAN中，我们所依据的理论是什么？</h3>
+<p>​
+GAN中的Generator是一个网络，我们假设输入的是一个符合正态分布的各种采样点，这些点通过G以后，会产生一个新的分布，这个新的分布其实就是<span
+class="math inline">\(P_G(x)\)</span>。随后我们的目标也是让这个<span
+class="math inline">\(P_G(x)\)</span>和<span
+class="math inline">\(P_{data}(x)\)</span>这两个分布越接近越好。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104254669.png" /></p>
+<p>​ 从公式来看，就是最小化<span
+class="math inline">\(P_G\)</span>和<span
+class="math inline">\(P_{data}\)</span>之间的某一种差异。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104316362.png" /></p>
+<p>​ 看到这里，如果我们知道<span
+class="math inline">\(P_G\)</span>和<span
+class="math inline">\(P_{data}\)</span>的公式，那么我们是能够很方便的代入Divergence的公式中，然后用类似于梯度下降的方法，去最小化它。但是问题是，我们现在并不知道<span
+class="math inline">\(P_G\)</span>和<span
+class="math inline">\(P_{data}\)</span>的公式，也就是根本无法计算这个Div。这就是GAN神奇之处：</p>
+<p>虽然我们没法知道<span class="math inline">\(P_G\)</span>和<span
+class="math inline">\(P_{data}\)</span>的公式，但是我们是可以从中进行采样的。从<span
+class="math inline">\(P_{data}\)</span>中进行采样无非就是从我们的训练集中取数据出来，从<span
+class="math inline">\(P_G\)</span>中进行采样，无非就是从正态分布中采样然后丢到Generator中，得到的数据。如下所示</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104340643.png" /></p>
+<p>​
+那么其实GAN训练Discriminator的目的，就是为了能够通过Discriminator来计算出<span
+class="math inline">\(P_G\)</span>和<span
+class="math inline">\(P_{data}\)</span>的Divergence。从宏观上来看，是怎么完成这样一件事情的呢？</p>
+<p>​ 我们前面说过训练的Discriminator在训练过程中，就是要学会给从<span
+class="math inline">\(P_{data}\)</span>的中采样出的数据高分，给从<span
+class="math inline">\(P_{G}\)</span>中采样出的数据低分。所以我们当时在训练Discriminator的时候，就写了一个目标函数，V(G,D)来完成上述的目标,然后要训练D的参数，找到一组D的参数使得V(D,G)最大。神奇的事情就是，这个V其实就是J-S
+Divergence有非常密切的关系。</p>
+<p>​ 从直观上讲，如果<span class="math inline">\(P_{data}\)</span>和<span
+class="math inline">\(P_G\)</span>采样出来的数据靠的很近，那Discriminator自然无法区分，也就是没有办法找到一个D使得V变得很大，这个时候其实意味着就是<span
+class="math inline">\(P_{data}\)</span>和<span
+class="math inline">\(P_G\)</span>很接近，也就是说这两个概率分布数据的Divergence其实是很小的。所以如何达到一个最大的V值，会跟这两堆数据的Divergence是肯定存在关系的。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104420420.png" /></p>
 <p>以下是详细的推导，证明为什么V会跟Divergence有关系？</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104429437.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104429437.png" /></p>
 <p>​ 我们把积分里的每一项都分开来算，为每一项都找一个最好的D(x)。</p>
 <p>【因为D(X)假设可以是任何函数，也就是D(x)的输出可以是任意值】</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104440904.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104440904.png" /></p>
 <p>​ 将这个公式回代到V中，将原来V中的D(x) 用我们得到的结果进行替代：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104448302.png" /></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104454398.png" /></p>
-<p>​ 所以推导到此，我们就得出了一个结论，当我们train一个Discriminator的时候，我们让目标函数最大化，让目标函数最大化其实就是让<span class="math inline">\(P_{data}\)</span>和<span class="math inline">\(P_G\)</span>这两个概率分布sample出来的数据之间的J-S Divergence最小。</p>
-<p>​ 所以整个问题的逻辑变成了现在这样子：我们本来是要使得<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>的Div最小，现在的话呢，由于我们max V(D,G)和J-S Divergence相关，所以可以用max V(D,G)这一项把原来的Div 这一项替换掉。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104505340.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104448302.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104454398.png" /></p>
+<p>​
+所以推导到此，我们就得出了一个结论，当我们train一个Discriminator的时候，我们让目标函数最大化，让目标函数最大化其实就是让<span
+class="math inline">\(P_{data}\)</span>和<span
+class="math inline">\(P_G\)</span>这两个概率分布sample出来的数据之间的J-S
+Divergence最小。</p>
+<p>​ 所以整个问题的逻辑变成了现在这样子：我们本来是要使得<span
+class="math inline">\(P_G\)</span>和<span
+class="math inline">\(P_{data}\)</span>的Div最小，现在的话呢，由于我们max
+V(D,G)和J-S Divergence相关，所以可以用max V(D,G)这一项把原来的Div
+这一项替换掉。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104505340.png" /></p>
 <p>​ 于是乎就变成了我们要解的问题就是如下图所示的一个式子：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104513342.png" /></p>
-<p>​ 从直观上理解，我们可以从下面这个示例上来理解：我们假设现在只有G1，G2，G3这三个生成器可以选，D的横坐标变化我们假设就是选择了不同的Discriminator, V(G1,D)的函数如下所示：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104521610.png" /></p>
-<p>​ 我们先来以一个实例，来理解一下我们要实现的目标。首先就是当G固定的时候，要找到一个D，使得V(G,D)最大，所以按照我们的示例，可以在选择不同的G的时候，找到三个对应的点，这三个对应的点所对应的横坐标D，就是能够使得，在当前的G下，让V（G,D）最大的那个D。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104529086.png" /></p>
-<p>​ 然后我们要找一个G，最小化各种不同的G的最大V(G,D)，按照上图的示例，那么我们就应该选择G3，因为在三个V(G,D)的红点中，V(G3,D)对应的值最低，所以G3才是能够使得各种不同的G的最大V(G,D)最小。</p>
-<p>​ 从意义的角度来看，其实如下图所示，V(G,D)中的这个最大值的函数值，其实就是用这个<span class="math inline">\(P_G\)</span>和<span class="math inline">\(P_{data}\)</span>之间的Divergence。这也就很好理解，在这么多的G中，我们要选择那个最小的，来最小化Divergence.</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104536101.png" /></p>
-<p>​ 现在的话，就是要找到一个解决方案，怎么样去数学上或者是程序上，求解这个目标。其实这就是我们最开始讲过的迭代的训练GAN的这样一个过程。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104548084.png" /></p>
-<p>​ 接下去我们进一步的解释，为什么这样一个迭代训练的过程，就是在解上面提到的一个min max的问题。</p>
-<p>​ 为了简化min,max的求解，使得更好理解，我们先不想max V(G,D)里面的事情，我们直接设maxV(G,D) 为 L(G),因为外面那层min是跟D没关系的。</p>
-<p>​ 那问题就变成了如下图所示，那其实就很简单，就是用梯度下降去进行优化。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104602866.png" /></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104605809.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104513342.png" /></p>
+<p>​
+从直观上理解，我们可以从下面这个示例上来理解：我们假设现在只有G1，G2，G3这三个生成器可以选，D的横坐标变化我们假设就是选择了不同的Discriminator,
+V(G1,D)的函数如下所示：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104521610.png" /></p>
+<p>​
+我们先来以一个实例，来理解一下我们要实现的目标。首先就是当G固定的时候，要找到一个D，使得V(G,D)最大，所以按照我们的示例，可以在选择不同的G的时候，找到三个对应的点，这三个对应的点所对应的横坐标D，就是能够使得，在当前的G下，让V（G,D）最大的那个D。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104529086.png" /></p>
+<p>​
+然后我们要找一个G，最小化各种不同的G的最大V(G,D)，按照上图的示例，那么我们就应该选择G3，因为在三个V(G,D)的红点中，V(G3,D)对应的值最低，所以G3才是能够使得各种不同的G的最大V(G,D)最小。</p>
+<p>​
+从意义的角度来看，其实如下图所示，V(G,D)中的这个最大值的函数值，其实就是用这个<span
+class="math inline">\(P_G\)</span>和<span
+class="math inline">\(P_{data}\)</span>之间的Divergence。这也就很好理解，在这么多的G中，我们要选择那个最小的，来最小化Divergence.</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104536101.png" /></p>
+<p>​
+现在的话，就是要找到一个解决方案，怎么样去数学上或者是程序上，求解这个目标。其实这就是我们最开始讲过的迭代的训练GAN的这样一个过程。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104548084.png" /></p>
+<p>​
+接下去我们进一步的解释，为什么这样一个迭代训练的过程，就是在解上面提到的一个min
+max的问题。</p>
+<p>​ 为了简化min,max的求解，使得更好理解，我们先不想max
+V(G,D)里面的事情，我们直接设maxV(G,D) 为
+L(G),因为外面那层min是跟D没关系的。</p>
+<p>​
+那问题就变成了如下图所示，那其实就很简单，就是用梯度下降去进行优化。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104602866.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104605809.png" /></p>
 <p>​ 所以整体的求解最优化问题的算法应该是像下图一样：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104613127.png" /></p>
-<p>​ 其实在这个迭代的过程中，并不是非常准确的在减少JS divergence,因为在求解的过程中，其实G是在一代一代变化的，也就是我们看到的从G0到G1到G2这样子，那么每次G变化以后呢，其实V(G,D)应该都会发生变化。我们说其完成了Decrease js divergence这件事呢，是基于一个默认近似的，就是我们默认D0* 和 D1* 近似相等，也就是说G0和G1之间不会有太大的变化，也就是说G的每一代的更新不会太大。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104624268.png" /></p>
-<p>​ <strong>也就是因为有这样一个假设，所以你每一轮迭代训练生成器的时候，不能够update太多次，而在train判别器的时候，理论上应该训练到底，使得判别器达到最优。</strong></p>
-<p>​ <strong>然后我们在实际做的时候，如下图所示，我们的目标函数其实和理论的V还有一定的区别，理论的V是期望值，但是实际上不太可能做的到这一点，所以我们其实是用离散的采样来进行代替的。</strong></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104649400.png" /></p>
-<p>​ 所以最后回顾一下训练GAN的算法，对于有一些步骤其实可以理解的更为深入。比较重要的其实就是之前提过的，在每一轮迭代中，你其实可以使用梯度下降去更新很多遍的判别器的参数，但是在更新生成器参数的时候，只能更新一次，如果更新的太大了，G0 不约等于G1了，那么你在做的事情也就是不会在minimize js divergence了，就和理论不符合了。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104659145.png" /></p>
-<p>​ 最后还有一个需要提及的内容，在原论文中，其实训练Generator的参数的目标函数并不是我们上面所写的，而是会把某一项进行部分的改变如下所示。但其实两种参数都可以进行训练。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104707603.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104613127.png" /></p>
+<p>​ 其实在这个迭代的过程中，并不是非常准确的在减少JS
+divergence,因为在求解的过程中，其实G是在一代一代变化的，也就是我们看到的从G0到G1到G2这样子，那么每次G变化以后呢，其实V(G,D)应该都会发生变化。我们说其完成了Decrease
+js divergence这件事呢，是基于一个默认近似的，就是我们默认D0* 和 D1*
+近似相等，也就是说G0和G1之间不会有太大的变化，也就是说G的每一代的更新不会太大。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104624268.png" /></p>
+<p>​
+<strong>也就是因为有这样一个假设，所以你每一轮迭代训练生成器的时候，不能够update太多次，而在train判别器的时候，理论上应该训练到底，使得判别器达到最优。</strong></p>
+<p>​
+<strong>然后我们在实际做的时候，如下图所示，我们的目标函数其实和理论的V还有一定的区别，理论的V是期望值，但是实际上不太可能做的到这一点，所以我们其实是用离散的采样来进行代替的。</strong></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104649400.png" /></p>
+<p>​
+所以最后回顾一下训练GAN的算法，对于有一些步骤其实可以理解的更为深入。比较重要的其实就是之前提过的，在每一轮迭代中，你其实可以使用梯度下降去更新很多遍的判别器的参数，但是在更新生成器参数的时候，只能更新一次，如果更新的太大了，G0
+不约等于G1了，那么你在做的事情也就是不会在minimize js
+divergence了，就和理论不符合了。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104659145.png" /></p>
+<p>​
+最后还有一个需要提及的内容，在原论文中，其实训练Generator的参数的目标函数并不是我们上面所写的，而是会把某一项进行部分的改变如下所示。但其实两种参数都可以进行训练。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115104707603.png" /></p>
 
     </div>
 
@@ -503,13 +577,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

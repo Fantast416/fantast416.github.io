@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -28,7 +28,6 @@
 <meta property="og:description" content="BatchNorm是一种能够加速深度神经网络收敛，避免过拟合的方法，那么为什么呢？首先我们需要探讨一下这个问题，为什么深度神经网络随着网络深度加深，训练起来越困难，收敛越来越慢？">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/aHR0cDovL3FsLm1hZ2ljLXNldmVuLnRvcC91cGxvYWQvMjAyMC8zL2ltYWdlLTVkMjU4MDQxNGI0YTRkNjhiODEzMDMxMDZlMzY5YzNiLnBuZw.png">
-<meta property="og:image" content="https://www.zhihu.com/equation?tex=y%3D\frac%7Bx-\mathrm%7BE%7D%5Bx%5D%7D%7B\sqrt%7B\operatorname%7BVar%7D%5Bx%5D%2B\epsilon%7D%7D+*+\gamma%2B\beta+">
 <meta property="article:published_time" content="2022-01-21T14:01:19.000Z">
 <meta property="article:modified_time" content="2022-02-20T13:31:03.000Z">
 <meta property="article:author" content="Fantast">
@@ -167,7 +166,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -322,33 +321,64 @@
     
     <div class="post-body" itemprop="articleBody">
         <h2 id="一详解batchnorm原理">一、详解BatchNorm原理：</h2>
-<p>​ BatchNorm是一种能够加速深度神经网络收敛，避免过拟合的方法，那么为什么呢？首先我们需要探讨一下这个问题，为什么深度神经网络<strong>随着网络深度加深，训练起来越困难，收敛越来越慢？</strong></p>
+<p>​
+BatchNorm是一种能够加速深度神经网络收敛，避免过拟合的方法，那么为什么呢？首先我们需要探讨一下这个问题，为什么深度神经网络<strong>随着网络深度加深，训练起来越困难，收敛越来越慢？</strong></p>
 <p>在回答这个问题前需要首先了解两个概念：</p>
-<p>​ <strong>1、独立同分布（IID）</strong>：即假设训练数据和测试数据是满足相同分布的。它是通过训练数据获得的模型能够在测试集获得好的效果的一个基本保障</p>
-<p>​ <strong>2、Covariate shift</strong>：<strong>如果ML系统实例集合&lt;X,Y&gt;中的输入值X的分布老是变，这不符合IID假设</strong>，网络模型很难<strong>稳定的学规律</strong>。</p>
-<p>​ 所以，之所以深度神经网络随着网络深度加深，训练越来越困难是因为，对于深度学习这种包含很多隐层的网络结构，在训练过程中，因为各层参数不停在变化，所以每个隐层都会面临covariate shift的问题，也就是<strong>在训练过程中，隐层的输入分布老是变来变去，这就是所谓的“Internal Covariate Shift（ICS）”，Internal指的是深层网络的隐层，是发生在网络内部的事情，而不是covariate shift问题只发生在输入层</strong></p>
-<p>​ BatchNorm的基本思想就是能不能<strong>让每个隐层节点的激活输入分布固定下来呢</strong>？这样就避免了“Internal Covariate Shift”问题了。</p>
-<p>​ 所以BN实质上就是在深度神经网络训练过程中使得每一层神经网络的输入保持相同分布的一种方法。</p>
-<p>​ BN的基本思想其实相当直观：因为深层神经网络在做非线性变换前的<strong>激活输入值随着网络深度加深或者在训练过程中，其分布逐渐发生偏移或者变动，之所以训练收敛慢，一般是整体分布逐渐往非线性函数的取值区间的上下限两端靠近</strong>（对于Sigmoid函数来说，意味着激活输入值WU+B是大的负值或正值），所以这<strong>导致反向传播时低层神经网络的梯度消失</strong>，这是训练深层神经网络收敛越来越慢的<strong>本质原因</strong>，<strong>而BN就是通过一定的规范化手段，把每层神经网络任意神经元这个输入值的分布强行拉回到均值为0方差为1的标准正态分布</strong>，其实就是把越来越偏的分布强制拉回比较标准的分布，这样使得激活输入值落在非线性函数对输入比较敏感的区域，这样输入的小变化就会导致损失函数较大的变化，意思是<strong>这样让梯度变大，避免梯度消失问题产生，而且梯度变大意味着学习收敛速度快，能大大加快训练速度。</strong></p>
-<p>​ <strong>对于每个隐层神经元，把逐渐向非线性函数映射后向取值区间极限饱和区靠拢的输入分布强制拉回到均值为0方差为1的比较标准的正态分布，使得非线性变换函数的输入值落入对输入比较敏感的区域，以此避免梯度消失问题。</strong>因为梯度一直都能保持比较大的状态，所以很明显对神经网络的参数调整效率比较高，就是变动大，就是说向损失函数最优值迈动的步子大，也就是说收敛地快。BN说到底就是这么个机制，方法很简单，道理很深刻。</p>
+<p>​
+<strong>1、独立同分布（IID）</strong>：即假设训练数据和测试数据是满足相同分布的。它是通过训练数据获得的模型能够在测试集获得好的效果的一个基本保障</p>
+<p>​ <strong>2、Covariate
+shift</strong>：<strong>如果ML系统实例集合&lt;X,Y&gt;中的输入值X的分布老是变，这不符合IID假设</strong>，网络模型很难<strong>稳定的学规律</strong>。</p>
+<p>​
+所以，之所以深度神经网络随着网络深度加深，训练越来越困难是因为，对于深度学习这种包含很多隐层的网络结构，在训练过程中，因为各层参数不停在变化，所以每个隐层都会面临covariate
+shift的问题，也就是<strong>在训练过程中，隐层的输入分布老是变来变去，这就是所谓的“Internal
+Covariate
+Shift（ICS）”，Internal指的是深层网络的隐层，是发生在网络内部的事情，而不是covariate
+shift问题只发生在输入层</strong></p>
+<p>​
+BatchNorm的基本思想就是能不能<strong>让每个隐层节点的激活输入分布固定下来呢</strong>？这样就避免了“Internal
+Covariate Shift”问题了。</p>
+<p>​
+所以BN实质上就是在深度神经网络训练过程中使得每一层神经网络的输入保持相同分布的一种方法。</p>
+<p>​
+BN的基本思想其实相当直观：因为深层神经网络在做非线性变换前的<strong>激活输入值随着网络深度加深或者在训练过程中，其分布逐渐发生偏移或者变动，之所以训练收敛慢，一般是整体分布逐渐往非线性函数的取值区间的上下限两端靠近</strong>（对于Sigmoid函数来说，意味着激活输入值WU+B是大的负值或正值），所以这<strong>导致反向传播时低层神经网络的梯度消失</strong>，这是训练深层神经网络收敛越来越慢的<strong>本质原因</strong>，<strong>而BN就是通过一定的规范化手段，把每层神经网络任意神经元这个输入值的分布强行拉回到均值为0方差为1的标准正态分布</strong>，其实就是把越来越偏的分布强制拉回比较标准的分布，这样使得激活输入值落在非线性函数对输入比较敏感的区域，这样输入的小变化就会导致损失函数较大的变化，意思是<strong>这样让梯度变大，避免梯度消失问题产生，而且梯度变大意味着学习收敛速度快，能大大加快训练速度。</strong></p>
+<p>​
+<strong>对于每个隐层神经元，把逐渐向非线性函数映射后向取值区间极限饱和区靠拢的输入分布强制拉回到均值为0方差为1的比较标准的正态分布，使得非线性变换函数的输入值落入对输入比较敏感的区域，以此避免梯度消失问题。</strong>因为梯度一直都能保持比较大的状态，所以很明显对神经网络的参数调整效率比较高，就是变动大，就是说向损失函数最优值迈动的步子大，也就是说收敛地快。BN说到底就是这么个机制，方法很简单，道理很深刻。</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/aHR0cDovL3FsLm1hZ2ljLXNldmVuLnRvcC91cGxvYWQvMjAyMC8zL2ltYWdlLTVkMjU4MDQxNGI0YTRkNjhiODEzMDMxMDZlMzY5YzNiLnBuZw.png" style="zoom: 67%;" /></p>
-<h2 id="二batchnorm在训练阶段和测试阶段的做法与意义">二、BatchNorm在训练阶段和测试阶段的做法与意义：</h2>
+<h2
+id="二batchnorm在训练阶段和测试阶段的做法与意义">二、BatchNorm在训练阶段和测试阶段的做法与意义：</h2>
 <h3 id="训练阶段">1、训练阶段：</h3>
-<p>​ 首先计算均值和方差（每次训练给一个批量，计算批量的均值方差），然后归一化，然后缩放和平移，完事！</p>
+<p>​
+首先计算均值和方差（每次训练给一个批量，计算批量的均值方差），然后归一化，然后缩放和平移，完事！</p>
 <h3 id="测试阶段">2、测试阶段：</h3>
-<p>​ 每次只输入一张图片，这怎么计算批量的均值和方差，于是，应该是这样子，在训练的时候实现计算好mean、 var，测试的时候直接拿来用就可以了，不用计算均值和方差。</p>
+<p>​
+每次只输入一张图片，这怎么计算批量的均值和方差，于是，应该是这样子，在训练的时候实现计算好mean、
+var，测试的时候直接拿来用就可以了，不用计算均值和方差。</p>
 <ul>
 <li><p>用训练集来估计总体均值 μ 和总体标准差 σ 。</p></li>
 <li><p>较为简单的做法就是把每个mini-batch的均值和方差都保存下来，然后训练完了求均值的均值，方差的均值即可。</p></li>
 <li><p>在测试阶段应用BatchNorm的含义，应该就是要让测试集的测试精度与整个训练网络保持一致。</p></li>
 </ul>
-<h2 id="三batchnorm的两个参数gamma和beta有什么作用">三、BatchNorm的两个参数<span class="math inline">\({\gamma}\)</span>和<span class="math inline">\(\beta\)</span>有什么作用？</h2>
-<p><img src="https://www.zhihu.com/equation?tex=y%3D\frac%7Bx-\mathrm%7BE%7D%5Bx%5D%7D%7B\sqrt%7B\operatorname%7BVar%7D%5Bx%5D%2B\epsilon%7D%7D+*+\gamma%2B\beta+" /></p>
-<h3 id="如果只做归一化为什么是学不到任何东西的">1、如果只做归一化，为什么是学不到任何东西的？</h3>
-<p>​ 如果在每一层之后都归一化成0-1的高斯分布（减均值除方差）那么数据的分布一直都是高斯分布，数据分布都是固定的了，这样即使加更多层就没有意义了，<strong>深度网络就是想学习数据的分布发现规律性，BN就是不让学习的数据分布偏离太远</strong></p>
+<h2
+id="三batchnorm的两个参数gamma和beta有什么作用">三、BatchNorm的两个参数<span
+class="math inline">\({\gamma}\)</span>和<span
+class="math inline">\(\beta\)</span>有什么作用？</h2>
+<p><img
+src="https://www.zhihu.com/equation?tex=y%3D\frac%7Bx-\mathrm%7BE%7D%5Bx%5D%7D%7B\sqrt%7B\operatorname%7BVar%7D%5Bx%5D%2B\epsilon%7D%7D+*+\gamma%2B\beta+" /></p>
+<h3
+id="如果只做归一化为什么是学不到任何东西的">1、如果只做归一化，为什么是学不到任何东西的？</h3>
+<p>​
+如果在每一层之后都归一化成0-1的高斯分布（减均值除方差）那么数据的分布一直都是高斯分布，数据分布都是固定的了，这样即使加更多层就没有意义了，<strong>深度网络就是想学习数据的分布发现规律性，BN就是不让学习的数据分布偏离太远</strong></p>
 <h3 id="两个参数的作用">2、两个参数的作用</h3>
-<p>​ 为了减小Internal Covariate Shift，对神经网络的每一层做归一化不就可以了，假设将每一层输出后的数据都归一化到0均值，1方差，满足正胎分布，但是，此时有一个问题，<strong>如果每一层的数据分布都是标准正态分布，导致其完全学习不到输入数据的特征，因为，费劲心思学习到的特征分布被归一化了，因此，直接对每一层做归一化显然是不合理的。</strong>但是如果稍作修改，加入可训练的参数做归一化，那就是BatchNorm 实现的了。</p>
-<p>​ 接下来详细介绍一下这额外的两个参数，之前也说过如果直接做归一化不做其他处理，神经网络是学不到任何东西的，但是加入这两个参数后，事情就不一样了。先考虑特殊情况下，如果γ 和β 分别等于此batch的标准差和均值，那么<span class="math inline">\(y_i\)</span>就还原到归一化前的x了吗，也即是缩放平移到了归一化前的分布，相当于batch norm没有起作用，<span class="math inline">\(β\)</span>和γ 分别称之为 平移参数和缩放参数 。这样就<strong>保证了每一次数据经过归一化后还保留的有学习来的特征，同时又能完成归一化这个操作，加速训练</strong>。</p>
+<p>​ 为了减小Internal Covariate
+Shift，对神经网络的每一层做归一化不就可以了，假设将每一层输出后的数据都归一化到0均值，1方差，满足正胎分布，但是，此时有一个问题，<strong>如果每一层的数据分布都是标准正态分布，导致其完全学习不到输入数据的特征，因为，费劲心思学习到的特征分布被归一化了，因此，直接对每一层做归一化显然是不合理的。</strong>但是如果稍作修改，加入可训练的参数做归一化，那就是BatchNorm
+实现的了。</p>
+<p>​
+接下来详细介绍一下这额外的两个参数，之前也说过如果直接做归一化不做其他处理，神经网络是学不到任何东西的，但是加入这两个参数后，事情就不一样了。先考虑特殊情况下，如果γ
+和β 分别等于此batch的标准差和均值，那么<span
+class="math inline">\(y_i\)</span>就还原到归一化前的x了吗，也即是缩放平移到了归一化前的分布，相当于batch
+norm没有起作用，<span class="math inline">\(β\)</span>和γ 分别称之为
+平移参数和缩放参数
+。这样就<strong>保证了每一次数据经过归一化后还保留的有学习来的特征，同时又能完成归一化这个操作，加速训练</strong>。</p>
 <p>引用：https://www.cnblogs.com/hoojjack/p/12350707.html</p>
 
     </div>
@@ -432,13 +462,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

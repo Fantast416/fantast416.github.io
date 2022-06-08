@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -27,18 +27,12 @@
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了如何对GAN生成的图像结果进行一个更为客观的评估的相关方法。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105752191.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105815158.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105822595.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105839124.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105847271.png">
 <meta property="article:published_time" content="2021-12-05T10:31:19.000Z">
 <meta property="article:modified_time" content="2022-02-20T13:31:51.000Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="GAN">
 <meta property="article:tag" content="GAN Evaluation">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105752191.png">
 
 
 <link rel="canonical" href="https://blog.slks.xyz/2021/12/05/59cf77767a4c/">
@@ -170,7 +164,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -325,23 +319,37 @@
     
     <div class="post-body" itemprop="articleBody">
         <h3 id="前言">前言：</h3>
-<p>​ 本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了如何对GAN生成的图像结果进行一个更为客观的评估的相关方法。</p>
+<p>​
+本篇笔记为观看李宏毅老师的GAN相关课程后所记录，文中所有图片及内容均来源于李宏毅老师的课程，此处只是搬运+以自己的理解进行记录。全文讲述了如何对GAN生成的图像结果进行一个更为客观的评估的相关方法。</p>
 <h3 id="一传统方法如何评估结果好坏">一、传统方法如何评估结果好坏？</h3>
-<p>​ 在传统方法中，我们一般会采用计算<strong>Likelihood</strong>的方法来进行衡量。我们训练出了一个Generator，然后我们就会用生成器的生成分布概率去进行计算其生成真实数据的可能性。具体的执行步骤就是，先采样部分真实数据点，然后计算G想要生成每个真实图像数据点的概率，然后求和平均即可得到Likelihood。但是在GAN中，这种方法是行不通的，因为GAN训练好以后是一个网络，是没法算出其产生出某一张图像的概率的。（像传统，如果这个Generator是一个高斯生成模型，是可以进行计算的）</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105752191.png" /></p>
+<p>​
+在传统方法中，我们一般会采用计算<strong>Likelihood</strong>的方法来进行衡量。我们训练出了一个Generator，然后我们就会用生成器的生成分布概率去进行计算其生成真实数据的可能性。具体的执行步骤就是，先采样部分真实数据点，然后计算G想要生成每个真实图像数据点的概率，然后求和平均即可得到Likelihood。但是在GAN中，这种方法是行不通的，因为GAN训练好以后是一个网络，是没法算出其产生出某一张图像的概率的。（像传统，如果这个Generator是一个高斯生成模型，是可以进行计算的）</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105752191.png" /></p>
 <h3 id="二kernel-density-estimation">二、Kernel Density Estimation</h3>
-<p>​ 有一种解决方案如下：输入一堆数据Data，经过生成器后，会产生对应的一堆高维向量（其实就是图像），我们将每一个高维向量视为一个高斯分布的均值，这样一来每一个sample就被近似为了一个高斯分布。然后我们再将这些高斯分布进行融合，就能够得到一个高斯混合模型。这一高斯混合模型是可以计算形成某个图像的概率的。但是使用这次步骤做出来的也会有许多难点和问题，比如不知道需要用多少高斯分布去拟合，不知道需要采样多少点。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105815158.png" /></p>
-<p>​ 同时，退一万步讲，其实使用Likelihood来进行估计就不是一个很严谨的事情，Likelihood低，对应的图像质量也可能高。Likelihood高，对应的图像质量也可能低。如下图所示，就是两种可能的情况。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105822595.png" /></p>
+<p>​
+有一种解决方案如下：输入一堆数据Data，经过生成器后，会产生对应的一堆高维向量（其实就是图像），我们将每一个高维向量视为一个高斯分布的均值，这样一来每一个sample就被近似为了一个高斯分布。然后我们再将这些高斯分布进行融合，就能够得到一个高斯混合模型。这一高斯混合模型是可以计算形成某个图像的概率的。但是使用这次步骤做出来的也会有许多难点和问题，比如不知道需要用多少高斯分布去拟合，不知道需要采样多少点。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105815158.png" /></p>
+<p>​
+同时，退一万步讲，其实使用Likelihood来进行估计就不是一个很严谨的事情，Likelihood低，对应的图像质量也可能高。Likelihood高，对应的图像质量也可能低。如下图所示，就是两种可能的情况。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105822595.png" /></p>
 <h3 id="三常用评估方法">三、常用评估方法：</h3>
-<p>​ 现在的文献，大部分常常看到的用于评估GAN的方法是，使用一个已经训练好的Classifier（可以是一个VGG，也可以是Inception Net），来判断这个生成器生成的图像质量好坏。</p>
+<p>​
+现在的文献，大部分常常看到的用于评估GAN的方法是，使用一个已经训练好的Classifier（可以是一个VGG，也可以是Inception
+Net），来判断这个生成器生成的图像质量好坏。</p>
 <p>我们往往有以下两个评估原则，如下图所示：</p>
-<p>​ <strong>原则1</strong>:将一个generated image输入分类器，查看分类器输出的属于各个类的概率，如果概率比较集中，说明生成器生成的图片效果比较好，因为分类器可以很明确的分出来。</p>
-<p>​ <strong>原则2</strong>:将一系列generated image输入分类器，查看分类器输出的各个类各存在几张图像，如果分完类以后每个类别的实例差不多的话，说明生成器效果较好，如果数量偏向于某种类别，说明生成器会生成偏向于某一个类别的图像。所以我们希望分出来的分布能够尽量的平滑。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105839124.png" /></p>
-<p>​ 有了上述原则以后，我们就可以使用下图所示的Inception Score来进行指标的量化。其中的第一项代表原则1，第二项代表原则2.</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105847271.png" /></p>
+<p>​ <strong>原则1</strong>:将一个generated
+image输入分类器，查看分类器输出的属于各个类的概率，如果概率比较集中，说明生成器生成的图片效果比较好，因为分类器可以很明确的分出来。</p>
+<p>​ <strong>原则2</strong>:将一系列generated
+image输入分类器，查看分类器输出的各个类各存在几张图像，如果分完类以后每个类别的实例差不多的话，说明生成器效果较好，如果数量偏向于某种类别，说明生成器会生成偏向于某一个类别的图像。所以我们希望分出来的分布能够尽量的平滑。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105839124.png" /></p>
+<p>​ 有了上述原则以后，我们就可以使用下图所示的Inception
+Score来进行指标的量化。其中的第一项代表原则1，第二项代表原则2.</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220115105847271.png" /></p>
 
     </div>
 
@@ -433,13 +441,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/截屏2022-02-04 下午2.06.49.png">
 <meta property="article:published_time" content="2022-02-04T05:52:19.000Z">
-<meta property="article:modified_time" content="2022-02-24T15:34:27.087Z">
+<meta property="article:modified_time" content="2022-02-24T15:34:27.000Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="linked list">
@@ -151,7 +151,9 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%89%91%E6%8C%87-offer-ii-022.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">一、剑指 Offer II 022. 链表中环的入口节点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.0.1.</span> <span class="nav-text">解题思路：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%89%91%E6%8C%87-offer-ii-023.-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%87%8D%E5%90%88%E8%8A%82%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">二、剑指 Offer II 023. 两个链表的第一个重合节点</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%89%91%E6%8C%87-offer-ii-022.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">一、剑指 Offer II 022.
+链表中环的入口节点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.0.1.</span> <span class="nav-text">解题思路：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%89%91%E6%8C%87-offer-ii-023.-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%87%8D%E5%90%88%E8%8A%82%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">二、剑指 Offer II 023.
+两个链表的第一个重合节点</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -166,7 +168,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -320,41 +322,84 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="一剑指-offer-ii-022.-链表中环的入口节点">一、<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/c32eOV/">剑指 Offer II 022. 链表中环的入口节点</a></h3>
+        <h3 id="一剑指-offer-ii-022.-链表中环的入口节点">一、<a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/c32eOV/">剑指 Offer II 022.
+链表中环的入口节点</a></h3>
 <p><strong>题目简单描述</strong>：</p>
-<p>​ 给定一个链表，需要返回链表开始入环的第一个节点。 从链表的头节点开始沿着 next 指针进入环的第一个节点为环的入口节点。如果链表无环，则返回 null。</p>
+<p>​ 给定一个链表，需要返回链表开始入环的第一个节点。
+从链表的头节点开始沿着 next
+指针进入环的第一个节点为环的入口节点。如果链表无环，则返回 null。</p>
 <p>​ 进阶：是否可以使用 O(1) 空间解决此题？</p>
 <h5 id="解题思路"><strong>解题思路</strong>：</h5>
-<p>​ 本题本身想要解答十分简单，将其放入博客中整理是想记录我们应该如何利用O(1)空间去解决这个题目呢？</p>
-<p>​ <strong>快慢指针法</strong>，我们使用两个指针，fast 与 slow。它们起始都位于链表的头部。随后，slow 指针每次向后移动一个位置，而 fast 指针向后移动两个位置。如果链表中存在环，则 fast 指针最终将再次与 slow 指针在环中相遇。</p>
-<p>​ 如下图所示，即可非常好的理解如下：那么，又该如何判断入环点的位置呢？我们先上结论：经过数学推断可以得知：</p>
-<p>​ <strong>假设快慢指针相遇时，fast指针已经走完了环的n圈，那么</strong></p>
-<p>​ <strong>从相遇点到入环点的距离加上 n−1 圈的环长，恰好等于从链表头部到入环点的距离。</strong></p>
-<p>​ <strong>根据此结论，我们只需要在快慢指针相遇时，再加一个ptr指针，让其指向链表头部；随后，它和 slow 指针每次向后移动一个位置。最终，它们会在入环点相遇。</strong></p>
+<p>​
+本题本身想要解答十分简单，将其放入博客中整理是想记录我们应该如何利用O(1)空间去解决这个题目呢？</p>
+<p>​ <strong>快慢指针法</strong>，我们使用两个指针，fast 与
+slow。它们起始都位于链表的头部。随后，slow 指针每次向后移动一个位置，而
+fast 指针向后移动两个位置。如果链表中存在环，则 fast 指针最终将再次与
+slow 指针在环中相遇。</p>
+<p>​
+如下图所示，即可非常好的理解如下：那么，又该如何判断入环点的位置呢？我们先上结论：经过数学推断可以得知：</p>
+<p>​
+<strong>假设快慢指针相遇时，fast指针已经走完了环的n圈，那么</strong></p>
+<p>​ <strong>从相遇点到入环点的距离加上 n−1
+圈的环长，恰好等于从链表头部到入环点的距离。</strong></p>
+<p>​
+<strong>根据此结论，我们只需要在快慢指针相遇时，再加一个ptr指针，让其指向链表头部；随后，它和
+slow 指针每次向后移动一个位置。最终，它们会在入环点相遇。</strong></p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/mac/截屏2022-02-04 下午2.06.49.png" alt="截屏2022-02-04 下午2.06.49" style="zoom:33%;" /></p>
-<p>​ <strong>结论证明</strong>：设链表中环外部分的长度为 a。slow 指针进入环后，又走了 b 的距离与 fast 相遇。此时，fast 指针已经走完了环的 n 圈，因此它走过的总距离为 <span class="math inline">\(a + n \times (b+c) + b\)</span> ,而此时，slow指针走过的总距离为 <span class="math inline">\(a + b\)</span>。</p>
-<p>​ <strong>【此处需要解释一下：为何fast与slow相遇时，slow必定还在走第一圈？】</strong>（我们假设fast和slow如果同时从入环点出发，由于速度是2倍的关系，slow走完1圈的时候，fast刚好走完2圈，他们会在起点相遇。但是现在，fast比slow先入环，也就是说slow入环的时候，fast不管在环的哪里，肯定能在slow走完一圈前，将其追上。）</p>
-<p>​ 由于fast指针走的速度是slow指针的2倍，那么可以得到以下等式：$ a + n (b+c) = 2 (a + b)$ 所以可以得到如下结论： $ a = c + (n-1) (b+c)$ ,这也就意味着，最开始说的， 从相遇点到入环点的距离 + (n-1) 圈环的距离，等于链表头到入环点的距离。</p>
-<p>​ 那么为什么说，如果相遇的时候，ptr从链表头出发，ptr和slow必定在入环口相遇呢？因为a的距离是c加上许多圈环的距离，所以当ptr到达链表入环口的时候，时间经过了a，此时slow必定出现在入环口处。所以我们可以根据此来判断，入环口的位置是哪一个节点。</p>
-<h3 id="二剑指-offer-ii-023.-两个链表的第一个重合节点">二、<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3u1WK4/">剑指 Offer II 023. 两个链表的第一个重合节点</a></h3>
+<p>​ <strong>结论证明</strong>：设链表中环外部分的长度为 a。slow
+指针进入环后，又走了 b 的距离与 fast 相遇。此时，fast 指针已经走完了环的
+n 圈，因此它走过的总距离为 <span class="math inline">\(a + n \times
+(b+c) + b\)</span> ,而此时，slow指针走过的总距离为 <span
+class="math inline">\(a + b\)</span>。</p>
+<p>​
+<strong>【此处需要解释一下：为何fast与slow相遇时，slow必定还在走第一圈？】</strong>（我们假设fast和slow如果同时从入环点出发，由于速度是2倍的关系，slow走完1圈的时候，fast刚好走完2圈，他们会在起点相遇。但是现在，fast比slow先入环，也就是说slow入环的时候，fast不管在环的哪里，肯定能在slow走完一圈前，将其追上。）</p>
+<p>​ 由于fast指针走的速度是slow指针的2倍，那么可以得到以下等式：$ a + n
+(b+c) = 2 (a + b)$ 所以可以得到如下结论： $ a = c + (n-1) (b+c)$
+,这也就意味着，最开始说的， 从相遇点到入环点的距离 + (n-1)
+圈环的距离，等于链表头到入环点的距离。</p>
+<p>​
+那么为什么说，如果相遇的时候，ptr从链表头出发，ptr和slow必定在入环口相遇呢？因为a的距离是c加上许多圈环的距离，所以当ptr到达链表入环口的时候，时间经过了a，此时slow必定出现在入环口处。所以我们可以根据此来判断，入环口的位置是哪一个节点。</p>
+<h3 id="二剑指-offer-ii-023.-两个链表的第一个重合节点">二、<a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3u1WK4/">剑指 Offer II 023.
+两个链表的第一个重合节点</a></h3>
 <p><strong>简单题目描述</strong>：</p>
-<p>​ 给定两个单链表的头节点 headA 和 headB ，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。详细见原网址</p>
+<p>​ 给定两个单链表的头节点 headA 和 headB
+，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null
+。详细见原网址</p>
 <p><strong>解题思路</strong>：</p>
 <p>参考：https://leetcode-cn.com/problems/3u1WK4/solution/liang-ge-lian-biao-de-di-yi-ge-zhong-he-0msfg/</p>
 <p>此题难点在于设计一个时间复杂度 O(n) 、仅用 O(1) 内存的解决方案？</p>
-<p>​ 我们可以考虑双指针的方法对两个链表进行求解，但是双指针的难点在于，两条链表的长度不同，无法做到一一对应。我们先给出<strong>解决方案</strong>：</p>
-<p>​ 当链表 headA 和 headB 都不为空时，创建两个指针 pA 和 pB ，初始时分别指向两个链表的头节点 headA和 headB ，然后将两个指针依次遍历两个链表的每个节点。具体做法如下：</p>
+<p>​
+我们可以考虑双指针的方法对两个链表进行求解，但是双指针的难点在于，两条链表的长度不同，无法做到一一对应。我们先给出<strong>解决方案</strong>：</p>
+<p>​ 当链表 headA 和 headB 都不为空时，创建两个指针 pA 和 pB
+，初始时分别指向两个链表的头节点 headA和 headB
+，然后将两个指针依次遍历两个链表的每个节点。具体做法如下：</p>
 <ul>
 <li>每步操作需要同时更新指针 pA 和 pB。</li>
-<li>如果指针 pA 不为空，则将指针 pA 移到下一个节点；如果指针 pB 不为空，则将指针 pB 移到下一个节点。</li>
-<li>如果指针 pA 为空，则将指针 pA 移到链表 headB 的头节点；如果指针 pB 为空，则将指针 pB 移到链表 headA 的头节点。</li>
-<li>当指针 pA 和 pB 指向同一个节点或者都为空时，返回它们指向的节点或者 null。</li>
+<li>如果指针 pA 不为空，则将指针 pA 移到下一个节点；如果指针 pB
+不为空，则将指针 pB 移到下一个节点。</li>
+<li>如果指针 pA 为空，则将指针 pA 移到链表 headB 的头节点；如果指针 pB
+为空，则将指针 pB 移到链表 headA 的头节点。</li>
+<li>当指针 pA 和 pB 指向同一个节点或者都为空时，返回它们指向的节点或者
+null。</li>
 </ul>
-<p>​ <strong>乍一看，其中有一个非常奇怪的点</strong>，就是如果指针pA为空，那么将指针pA移动到链表headB的头节点。但其实仔细一想，这样子是没问题的。也正是因为这个操作，我们才能够得以解决两个链表长度不一致导致的不对应问题。较为详细的证明如下：</p>
-<p>​ 我们先考虑<strong>两链表相交的情况</strong>，如果两链表长度一致，那不需要想，pA和pB必定同时到达某一个节点。</p>
-<p>​ 如果两链表长度不一致，这样子的话，我们假设链表A、B长度为m和n，A、B的不相交部分节点数为a，b，相交部分节点数为c，那么m = a + c , n = b + c. pA和pB第一遍遍历完各自的链表后，他们不是同时到达尾部节点的，但是当pA遍历完 a + c + b个节点，当pB遍历完b + c + a个节点的时候，两者就会同时到达相交的节点。</p>
-<p>​ 再证明<strong>两链表不相交的情况</strong>，如果两链表长度一致，那不需要想，pA和pB必定同时到达最终的NULL节点。</p>
-<p>​ 如果两链表长度不一致，这样子的话，我们假设链表A、B的长度各位m和n，当pA 遍历完 m + n个节点，pB遍历完 n + m个节点的时候，必定同时到达尾部的NULL节点。</p>
+<p>​
+<strong>乍一看，其中有一个非常奇怪的点</strong>，就是如果指针pA为空，那么将指针pA移动到链表headB的头节点。但其实仔细一想，这样子是没问题的。也正是因为这个操作，我们才能够得以解决两个链表长度不一致导致的不对应问题。较为详细的证明如下：</p>
+<p>​
+我们先考虑<strong>两链表相交的情况</strong>，如果两链表长度一致，那不需要想，pA和pB必定同时到达某一个节点。</p>
+<p>​
+如果两链表长度不一致，这样子的话，我们假设链表A、B长度为m和n，A、B的不相交部分节点数为a，b，相交部分节点数为c，那么m
+= a + c , n = b + c.
+pA和pB第一遍遍历完各自的链表后，他们不是同时到达尾部节点的，但是当pA遍历完
+a + c + b个节点，当pB遍历完b + c +
+a个节点的时候，两者就会同时到达相交的节点。</p>
+<p>​
+再证明<strong>两链表不相交的情况</strong>，如果两链表长度一致，那不需要想，pA和pB必定同时到达最终的NULL节点。</p>
+<p>​
+如果两链表长度不一致，这样子的话，我们假设链表A、B的长度各位m和n，当pA
+遍历完 m + n个节点，pB遍历完 n +
+m个节点的时候，必定同时到达尾部的NULL节点。</p>
 
     </div>
 
@@ -446,13 +491,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2020/09/15/serdeser.jpg">
 <meta property="article:published_time" content="2022-02-07T03:58:19.000Z">
-<meta property="article:modified_time" content="2022-02-24T15:35:14.850Z">
+<meta property="article:modified_time" content="2022-02-24T15:35:14.000Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="tree">
@@ -151,7 +151,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%91%E6%8C%87-offer-ii-048.-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">剑指 Offer II 048. 序列化与反序列化二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">题目描述：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.</span> <span class="nav-text">解题思路：</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%91%E6%8C%87-offer-ii-048.-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">剑指 Offer II 048.
+序列化与反序列化二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">题目描述：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.2.</span> <span class="nav-text">解题思路：</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -166,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -320,23 +321,34 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h4 id="剑指-offer-ii-048.-序列化与反序列化二叉树"><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/h54YBf/">剑指 Offer II 048. 序列化与反序列化二叉树</a></h4>
+        <h4 id="剑指-offer-ii-048.-序列化与反序列化二叉树"><a
+target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/h54YBf/">剑指 Offer II 048.
+序列化与反序列化二叉树</a></h4>
 <h5 id="题目描述"><strong>题目描述</strong>：</h5>
-<p>​ 序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。</p>
-<p>​ 请设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。</p>
+<p>​
+序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。</p>
+<p>​ 请设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 /
+反序列化算法执行逻辑，只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。</p>
 <h5 id="解题思路"><strong>解题思路</strong>：</h5>
-<p>​ 我们都很清楚，<strong>一个前序序列（后序/层序序列）+中序序列可以确定恢复一颗二叉树结构。</strong>在这个题目里的话，我一开始的思路是记录前序+ 中序序列，将它们变成字符串，然后反序列化的时候，再通过前序和中序序列重构即可。思路整体而言也较为清晰，但是当我写完所有代码的时候，发现了一个令人窒息的问题：</p>
-<p>​ <strong>这个题目中树节点的值是可能重复的</strong>，这就会导致如果只记录节点的值，树的重构是会出问题的。如果，需要克服这个问题，我们还要给每个节点加上index，并且利用一个hash表记录节点index和值的对应关系。这是比较麻烦的。</p>
-<p>​ 此Blog就是为了记录另一种解题思路：<strong>在特定条件下，我们可以仅凭借树的前序序列就能够确定恢复一颗唯一的二叉树</strong>。</p>
-<p>​ <strong>如果想要达到上面的效果，那么我们的前序遍历序列是需要记录为Null的节点的，示例如下</strong>：</p>
+<p>​
+我们都很清楚，<strong>一个前序序列（后序/层序序列）+中序序列可以确定恢复一颗二叉树结构。</strong>在这个题目里的话，我一开始的思路是记录前序+
+中序序列，将它们变成字符串，然后反序列化的时候，再通过前序和中序序列重构即可。思路整体而言也较为清晰，但是当我写完所有代码的时候，发现了一个令人窒息的问题：</p>
+<p>​
+<strong>这个题目中树节点的值是可能重复的</strong>，这就会导致如果只记录节点的值，树的重构是会出问题的。如果，需要克服这个问题，我们还要给每个节点加上index，并且利用一个hash表记录节点index和值的对应关系。这是比较麻烦的。</p>
+<p>​
+此Blog就是为了记录另一种解题思路：<strong>在特定条件下，我们可以仅凭借树的前序序列就能够确定恢复一颗唯一的二叉树</strong>。</p>
+<p>​
+<strong>如果想要达到上面的效果，那么我们的前序遍历序列是需要记录为Null的节点的，示例如下</strong>：</p>
 <p><img src="https://assets.leetcode.com/uploads/2020/09/15/serdeser.jpg" alt="img" style="zoom:33%;" /></p>
 <p>​ 对于上述二叉树，普通的前序序列应当为:</p>
 <p>​ <strong>1 2 3 4 5 </strong></p>
 <p>​ 而如果我们想要用来恢复树结构，前序序列应当为：</p>
 <p>​ <strong>1 2 None None 3 4 None None 5 None None</strong></p>
-<p>​ 具体如何操作，以及如何恢复见如下代码：先序遍历和正常的类似，只不过如果碰到了为NULL的节点，我们不是直接return，而是会将其记录入序列中。</p>
-<p>​ 在重建操作中，我们将序列存入一个队列中操作较为方便，然后如果碰到None就返回NULL，否则就新建一个节点，利用递归的形式，确定左右子树节点，然后返回新建节点。最终就能完成一整颗树的重建。这种方法从时间复杂度和代码复杂度上都优于前一种通过两个序列进行重建的方法。但是局限就是，前序遍历得到的序列需要是你自己形成的“特殊”的前序遍历序列。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Codec</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(TreeNode* root,string &amp;res)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">NULL</span>)&#123;</span><br><span class="line">            res += <span class="string">&quot;None,&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        res += <span class="built_in">to_string</span>(root-&gt;val) + <span class="string">&quot;,&quot;</span>;</span><br><span class="line">        <span class="built_in">preOrder</span>(root-&gt;left,res);</span><br><span class="line">        <span class="built_in">preOrder</span>(root-&gt;right,res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Encodes a tree to a single string.</span></span><br><span class="line">    <span class="function">string <span class="title">serialize</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        string str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="comment">//需要一棵树的前序(P) + 中序遍历序列(I)才能够进行重构</span></span><br><span class="line">        <span class="built_in">preOrder</span>(root,str);</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">preOrderReverse</span><span class="params">(queue&lt;string&gt; &amp;q)</span></span>&#123;</span><br><span class="line">        string tmp = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(tmp == <span class="string">&quot;None&quot;</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(<span class="built_in">stoi</span>(tmp));</span><br><span class="line">        root-&gt;left = <span class="built_in">preOrderReverse</span>(q);</span><br><span class="line">        root-&gt;right =<span class="built_in">preOrderReverse</span>(q);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Decodes your encoded data to tree.</span></span><br><span class="line">    <span class="function">TreeNode* <span class="title">deserialize</span><span class="params">(string data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 先把string转成序列的形式</span></span><br><span class="line">        queue&lt;string&gt; q;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;data.<span class="built_in">length</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">            <span class="comment">// i = 0 是第一个数字的起始位置，i = data.lenth()-1 是 I前面那个逗号的位置</span></span><br><span class="line">            string tmp_str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="keyword">while</span>(data[i]!=<span class="string">&#x27;,&#x27;</span>)&#123;</span><br><span class="line">                tmp_str += data[i];</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            i++;</span><br><span class="line">            q.<span class="built_in">push</span>(tmp_str);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//然后再通过序列重建树</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">preOrderReverse</span>(q);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>​
+具体如何操作，以及如何恢复见如下代码：先序遍历和正常的类似，只不过如果碰到了为NULL的节点，我们不是直接return，而是会将其记录入序列中。</p>
+<p>​
+在重建操作中，我们将序列存入一个队列中操作较为方便，然后如果碰到None就返回NULL，否则就新建一个节点，利用递归的形式，确定左右子树节点，然后返回新建节点。最终就能完成一整颗树的重建。这种方法从时间复杂度和代码复杂度上都优于前一种通过两个序列进行重建的方法。但是局限就是，前序遍历得到的序列需要是你自己形成的“特殊”的前序遍历序列。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Codec</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">preOrder</span><span class="params">(TreeNode* root,string &amp;res)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">NULL</span>)&#123;</span><br><span class="line">            res += <span class="string">&quot;None,&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        res += <span class="built_in">to_string</span>(root-&gt;val) + <span class="string">&quot;,&quot;</span>;</span><br><span class="line">        <span class="built_in">preOrder</span>(root-&gt;left,res);</span><br><span class="line">        <span class="built_in">preOrder</span>(root-&gt;right,res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Encodes a tree to a single string.</span></span><br><span class="line">    <span class="function">string <span class="title">serialize</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        string str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="comment">//需要一棵树的前序(P) + 中序遍历序列(I)才能够进行重构</span></span><br><span class="line">        <span class="built_in">preOrder</span>(root,str);</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">preOrderReverse</span><span class="params">(queue&lt;string&gt; &amp;q)</span></span>&#123;</span><br><span class="line">        string tmp = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">if</span>(tmp == <span class="string">&quot;None&quot;</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(<span class="built_in">stoi</span>(tmp));</span><br><span class="line">        root-&gt;left = <span class="built_in">preOrderReverse</span>(q);</span><br><span class="line">        root-&gt;right =<span class="built_in">preOrderReverse</span>(q);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Decodes your encoded data to tree.</span></span><br><span class="line">    <span class="function">TreeNode* <span class="title">deserialize</span><span class="params">(string data)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 先把string转成序列的形式</span></span><br><span class="line">        queue&lt;string&gt; q;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;data.<span class="built_in">length</span>()<span class="number">-1</span>)&#123;</span><br><span class="line">            <span class="comment">// i = 0 是第一个数字的起始位置，i = data.lenth()-1 是 I前面那个逗号的位置</span></span><br><span class="line">            string tmp_str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="keyword">while</span>(data[i]!=<span class="string">&#x27;,&#x27;</span>)&#123;</span><br><span class="line">                tmp_str += data[i];</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            i++;</span><br><span class="line">            q.<span class="built_in">push</span>(tmp_str);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//然后再通过序列重建树</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">preOrderReverse</span>(q);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -428,13 +440,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="整理了EMA指数滑动平均的原理，以及pytorch训练中的实现">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-27T01:44:19.000Z">
-<meta property="article:modified_time" content="2022-03-17T02:36:22.859Z">
+<meta property="article:modified_time" content="2022-03-17T02:33:55.000Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="EMA">
 <meta name="twitter:card" content="summary">
@@ -163,7 +163,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -265,7 +265,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-17 10:36:22" itemprop="dateModified" datetime="2022-03-17T10:36:22+08:00">2022-03-17</time>
+      <time title="修改时间：2022-03-17 10:33:55" itemprop="dateModified" datetime="2022-03-17T10:33:55+08:00">2022-03-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -317,27 +317,57 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>​ 在训练神经网络时，通常会使用一个叫 Exponential Moving Average (EMA) 的方法，中文名叫指数滑动平均。它的意义在于利用滑动平均的参数来<strong>提高模型在测试数据上的健壮性</strong>。</p>
+        <p>​ 在训练神经网络时，通常会使用一个叫 Exponential Moving Average (EMA)
+的方法，中文名叫指数滑动平均。它的意义在于利用滑动平均的参数来<strong>提高模型在测试数据上的健壮性</strong>。</p>
 <h4 id="一什么是滑动平均">一、什么是滑动平均？</h4>
-<p>​ 滑动平均(exponential moving average)，或者叫做指数加权平均(exponentially weighted moving average)，可以用来估计变量的局部均值，使得变量的更新与一段时间内的历史取值有关。</p>
-<p>​ 首先我们假设一个训练参数a，它在不同的epoch结束后的值分别为： <span class="math display">\[
+<p>​ 滑动平均(exponential moving
+average)，或者叫做指数加权平均(exponentially weighted moving
+average)，可以用来估计变量的局部均值，使得变量的更新与一段时间内的历史取值有关。</p>
+<p>​ 首先我们假设一个训练参数a，它在不同的epoch结束后的值分别为： <span
+class="math display">\[
 a_1,a_2,a_3,……,a_t
-\]</span> ​ <span class="math inline">\(a_1\)</span>代表第1轮epoch迭代结束后，可训练参数a的值，以此类推。</p>
-<p>​ 然后，我们假设不同的epoch结束后，滑动平均的值分别为： <span class="math display">\[
- mv_1,mv_2,mv_3,……,mv_t
-\]</span> ​ <span class="math inline">\(mv_1\)</span>代表第1轮epoch迭代结束后，滑动平均mv的值，以此类推。</p>
+\]</span> ​ <span
+class="math inline">\(a_1\)</span>代表第1轮epoch迭代结束后，可训练参数a的值，以此类推。</p>
+<p>​ 然后，我们假设不同的epoch结束后，滑动平均的值分别为： <span
+class="math display">\[
+mv_1,mv_2,mv_3,……,mv_t
+\]</span> ​ <span
+class="math inline">\(mv_1\)</span>代表第1轮epoch迭代结束后，滑动平均mv的值，以此类推。</p>
 <p>​ 滑动平均计算的递推式如下： <span class="math display">\[
 mv_t = decay * mv_{t-1} + (1-decay)*a_t
-\]</span> ​ 其中，decay为衰减率，用于控制模型更新的速度。递推式中其实就是利用加权的思想，把新的a和先前的平均，做了一个相加。我们可以发现，再很多轮之后，有些离<span class="math inline">\(a_t\)</span>很远的a,它已经乘了很多遍decay，相当于权重为0，也就是不影响最新的<span class="math inline">\(mv_t\)</span>的值了。</p>
-<p>​ 从直观意义上来看，我们可以把<span class="math inline">\(a_1,a_2,a_3,……,a_t\)</span> 看作是t个位置，然后想象有一个长度为k的窗口，从最前面开始向后滑动。为了方便说明，我们先假设k=3。最开始的时候，窗口把<span class="math inline">\(a_1\)</span>涵括在内，然后一个epoch过后窗口右移，现在窗口内有<span class="math inline">\(a_1,a_2\)</span>，再一个epoch过后窗口再右移，现在窗口内有<span class="math inline">\(a_1,a_2,a_3\)</span>，再一个epoch过后窗口再右移，此时由于窗口长度为3，所以<span class="math inline">\(a_1\)</span>就不在窗口内了，窗口内的元素为<span class="math inline">\(a_2,a_3,a_4\)</span>，从公式上来讲就是在此时，由于<span class="math inline">\(a_1\)</span>已经乘了较多遍数的decay衰减系数了，所以其的系数接近于0了，不会再影响窗口内计算的值了。</p>
+\]</span> ​
+其中，decay为衰减率，用于控制模型更新的速度。递推式中其实就是利用加权的思想，把新的a和先前的平均，做了一个相加。我们可以发现，再很多轮之后，有些离<span
+class="math inline">\(a_t\)</span>很远的a,它已经乘了很多遍decay，相当于权重为0，也就是不影响最新的<span
+class="math inline">\(mv_t\)</span>的值了。</p>
+<p>​ 从直观意义上来看，我们可以把<span
+class="math inline">\(a_1,a_2,a_3,……,a_t\)</span>
+看作是t个位置，然后想象有一个长度为k的窗口，从最前面开始向后滑动。为了方便说明，我们先假设k=3。最开始的时候，窗口把<span
+class="math inline">\(a_1\)</span>涵括在内，然后一个epoch过后窗口右移，现在窗口内有<span
+class="math inline">\(a_1,a_2\)</span>，再一个epoch过后窗口再右移，现在窗口内有<span
+class="math inline">\(a_1,a_2,a_3\)</span>，再一个epoch过后窗口再右移，此时由于窗口长度为3，所以<span
+class="math inline">\(a_1\)</span>就不在窗口内了，窗口内的元素为<span
+class="math inline">\(a_2,a_3,a_4\)</span>，从公式上来讲就是在此时，由于<span
+class="math inline">\(a_1\)</span>已经乘了较多遍数的decay衰减系数了，所以其的系数接近于0了，不会再影响窗口内计算的值了。</p>
 <p>​ 故此称为滑动平均。</p>
 <h4 id="二更为公式化的解读">二、更为公式化的解读：</h4>
 <p>EMA 在实现时如下所述：</p>
-<p>​ Exponential Moving Average 对每一个变量（ <span class="math inline">\(variable\)</span> ）会维护一个影子变量（ <span class="math inline">\(shadow\_variable\)</span> ），这个影子变量的初始值就是相应变量的初始值，而每次运行变量更新时，影子变量的值会更新为： <span class="math display">\[
+<p>​ Exponential Moving Average 对每一个变量（ <span
+class="math inline">\(variable\)</span> ）会维护一个影子变量（ <span
+class="math inline">\(shadow\_variable\)</span>
+），这个影子变量的初始值就是相应变量的初始值，而每次运行变量更新时，影子变量的值会更新为：
+<span class="math display">\[
 shadow\_variable = decay * shadow\_variable + (1-decay) * variable
-\]</span> ​ 其中：<span class="math inline">\(variable\)</span>为每一轮结束时，训练参数的值；<span class="math inline">\(shadow\_variable\)</span>为影子变量；<span class="math inline">\(decay\)</span>为衰减速率。</p>
-<p>​ decay 决定了影子变量的更新速度，decay 越大影子变量越趋于稳定。在实际运用中，decay一般会设成非常接近 1 的数（比如0.999或0.9999）。</p>
-<p>​ 为了使得影子变量在训练前期可以更新更快，Exponential Moving Average 还提供了 num_updates 参数动态设置 decay 的大小。如果在初始化 Exponential Moving Average 时提供了 num_updates 参数，那么每次使用的衰减率将是： <span class="math display">\[
+\]</span> ​ 其中：<span
+class="math inline">\(variable\)</span>为每一轮结束时，训练参数的值；<span
+class="math inline">\(shadow\_variable\)</span>为影子变量；<span
+class="math inline">\(decay\)</span>为衰减速率。</p>
+<p>​ decay 决定了影子变量的更新速度，decay
+越大影子变量越趋于稳定。在实际运用中，decay一般会设成非常接近 1
+的数（比如0.999或0.9999）。</p>
+<p>​ 为了使得影子变量在训练前期可以更新更快，Exponential Moving Average
+还提供了 num_updates 参数动态设置 decay 的大小。如果在初始化 Exponential
+Moving Average 时提供了 num_updates 参数，那么每次使用的衰减率将是：
+<span class="math display">\[
 decay = min\{decay,\frac{1+num\_updates}{10+num\_updates}\}
 \]</span></p>
 <h4 id="三什么时候用到ema">三、什么时候用到EMA？</h4>
@@ -345,8 +375,10 @@ decay = min\{decay,\frac{1+num\_updates}{10+num\_updates}\}
 <p>​ <strong>EMA不参与实际的训练过程，是用在测试过程的</strong>！</p>
 <p>​ <strong>EMA不参与实际的训练过程，是用在测试过程的</strong>！</p>
 <p>​ <strong>EMA不参与实际的训练过程，是用在测试过程的</strong>！</p>
-<p>​ 在训练过程中，EMA只是以一个记录者的身份，在进行记录。实际的实现中，如果你在正常训练的网络是network['C']，那么你可以再实例化一个新的网络，叫做network['C_EMA'],其最初和network['C']一模一样，但是network['C_EMA']并不参与实际记录，其里面的参数只是用来记录滑动平均！！！<strong>（这就是DG-Font代码中，network['C_EMA']的作用）</strong></p>
-<p>​ EMA作用是<strong>使得模型在测试数据上更加健壮，有更好的鲁棒性。或者是最后save模型时存储ema的值，取最近n次的近似平均值，使模型具备更好的测试指标(accuracy)等，更强的泛化能力。</strong></p>
+<p>​
+在训练过程中，EMA只是以一个记录者的身份，在进行记录。实际的实现中，如果你在正常训练的网络是network['C']，那么你可以再实例化一个新的网络，叫做network['C_EMA'],其最初和network['C']一模一样，但是network['C_EMA']并不参与实际记录，其里面的参数只是用来记录滑动平均！！！<strong>（这就是DG-Font代码中，network['C_EMA']的作用）</strong></p>
+<p>​
+EMA作用是<strong>使得模型在测试数据上更加健壮，有更好的鲁棒性。或者是最后save模型时存储ema的值，取最近n次的近似平均值，使模型具备更好的测试指标(accuracy)等，更强的泛化能力。</strong></p>
 <p>参考：</p>
 <p>https://zhuanlan.zhihu.com/p/51672655</p>
 <p>https://zhuanlan.zhihu.com/p/343210667</p>
@@ -422,13 +454,13 @@ decay = min\{decay,\frac{1+num\_updates}{10+num\_updates}\}
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

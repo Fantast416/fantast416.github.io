@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -27,18 +27,12 @@
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="在训练数据不够多时，或者overtraining时，常常会导致overfitting（过拟合）。其直观的表现为，随着训练过程的进行，模型复杂度增加，在Training data上的error渐渐减小，但是在验证集上的error却反而渐渐增大——因为训练出来的网络过拟合了训练集，对训练集外的数据却不work。在ML2021课程系列笔记2中，提及了一些防止过拟合的内容，本篇用于详细解释其中正则化的部分">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/OhX9eFQ.jpg">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/mebEC90.jpg">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/qM83geg.jpg">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/RsR5cOK.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121122935964.png">
 <meta property="article:published_time" content="2022-01-21T07:01:19.000Z">
 <meta property="article:modified_time" content="2022-02-20T13:30:57.000Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="OverFitting">
 <meta property="article:tag" content="Regularization">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/OhX9eFQ.jpg">
 
 
 <link rel="canonical" href="https://blog.slks.xyz/2022/01/21/d692eb11c4b5/">
@@ -170,7 +164,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -324,33 +318,58 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>在训练数据不够多时，或者overtraining时，常常会导致overfitting（过拟合）。其直观的表现如下图所示，随着训练过程的进行，模型复杂度增加，在Training data上的error渐渐减小，但是在验证集上的error却反而渐渐增大——因为训练出来的网络过拟合了训练集，对训练集外的数据却不work。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/OhX9eFQ.jpg" /></p>
-<p>​ 在ML2021课程系列笔记2中，提及了一些防止过拟合的内容，本篇用于详细解释其中正则化的部分：</p>
+        <p>在训练数据不够多时，或者overtraining时，常常会导致overfitting（过拟合）。其直观的表现如下图所示，随着训练过程的进行，模型复杂度增加，在Training
+data上的error渐渐减小，但是在验证集上的error却反而渐渐增大——因为训练出来的网络过拟合了训练集，对训练集外的数据却不work。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/OhX9eFQ.jpg" /></p>
+<p>​
+在ML2021课程系列笔记2中，提及了一些防止过拟合的内容，本篇用于详细解释其中正则化的部分：</p>
 <h3 id="一什么是l1l2正则化">一、什么是L1、L2正则化？</h3>
 <h4 id="l1-正则化">L1 正则化：</h4>
-<p>​ 简单而言，L1正则化就是在Loss函数后面增加一个正则化项，L1正则化的公式如下,</p>
-<p>​ <span class="math inline">\(C_0\)</span>为原来的损失函数，即所有权重w的绝对值的和. n是训练集的样本大小，λ 是正则项系数，C为加了正则化后的损失函数</p>
-<p>​ <span class="math inline">\(C = C_0 + \frac{\lambda}{n} \sum_{w}|w|\)</span></p>
+<p>​
+简单而言，L1正则化就是在Loss函数后面增加一个正则化项，L1正则化的公式如下,</p>
+<p>​ <span
+class="math inline">\(C_0\)</span>为原来的损失函数，即所有权重w的绝对值的和.
+n是训练集的样本大小，λ 是正则项系数，C为加了正则化后的损失函数</p>
+<p>​ <span class="math inline">\(C = C_0 + \frac{\lambda}{n}
+\sum_{w}|w|\)</span></p>
 <h4 id="l2-正则化">L2 正则化：</h4>
-<p>​ 简单而言，L2正则化也是在Loss函数后面增加一个正则化项，L2正则化的公式如下,与上含义类似。</p>
-<p>​ <span class="math inline">\(C = C_0 + \frac{\lambda}{2n} \sum_w w^2\)</span></p>
-<h3 id="二l1l2正则化如何避免overfitting">二、L1、L2正则化如何避免OverFitting？</h3>
+<p>​
+简单而言，L2正则化也是在Loss函数后面增加一个正则化项，L2正则化的公式如下,与上含义类似。</p>
+<p>​ <span class="math inline">\(C = C_0 + \frac{\lambda}{2n} \sum_w
+w^2\)</span></p>
+<h3
+id="二l1l2正则化如何避免overfitting">二、L1、L2正则化如何避免OverFitting？</h3>
 <h4 id="l1l2正则化能降低权重值w">1、L1、L2正则化能降低权重值w</h4>
-<p>​ 我们以L2正则化项为例，进行解释，首先我们让C对偏置项b和对权重系数w进行求导，得到如下：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/mebEC90.jpg" /></p>
-<p>​ 我们发现，C对b求导与正则化项无关，C对w求导得到得结果与正则化项有关。</p>
+<p>​
+我们以L2正则化项为例，进行解释，首先我们让C对偏置项b和对权重系数w进行求导，得到如下：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/mebEC90.jpg" /></p>
+<p>​
+我们发现，C对b求导与正则化项无关，C对w求导得到得结果与正则化项有关。</p>
 <p>​ 最终所反映到梯度下降优化参数上，就是如下图所示得情况：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/qM83geg.jpg" /></p>
-<p>​ <strong>如果没有正则化项，那么更新得w前得系数应当为1，而现在由于因为η、λ、n都是正的，所以 1−ηλ/n小于1，它的效果是减小w，这也就是权重衰减（weight decay）的由来</strong>。</p>
-<p>​ <strong>到此为止，我们发现L2正则化项，其能够使得减小w。（其实这一点比较直观的也能看出来，因为Loss函数中加入了一项<span class="math inline">\(w^2\)</span>的求和，也就是说如果权重值w过大，Loss函数值会上升，这就意味着这一个正则化项惩罚了权值矩阵使其不能取太大值。）</strong></p>
-<p>​ 那么，关键问题是，<strong>为什么权重矩阵w小，能够防止过拟合呢？</strong></p>
-<h4 id="较高的权重w往往意味着过拟合的函数">2、较高的权重w往往意味着过拟合的函数：</h4>
-<p>​ 我们会发现：<strong>过拟合的时候，拟合函数的系数往往非常大，为什么？如下图所示，过拟合，就是拟合函数需要顾忌每一个点，最终形成的拟合函数波动很大。在某些很小的区间里，函数值的变化很剧烈。这就意味着函数在某些小区间里的导数值（绝对值）非常大，由于自变量值可大可小，所以只有系数足够大，才能保证导数值很大。</strong></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/RsR5cOK.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/qM83geg.jpg" /></p>
+<p>​
+<strong>如果没有正则化项，那么更新得w前得系数应当为1，而现在由于因为η、λ、n都是正的，所以
+1−ηλ/n小于1，它的效果是减小w，这也就是权重衰减（weight
+decay）的由来</strong>。</p>
+<p>​
+<strong>到此为止，我们发现L2正则化项，其能够使得减小w。（其实这一点比较直观的也能看出来，因为Loss函数中加入了一项<span
+class="math inline">\(w^2\)</span>的求和，也就是说如果权重值w过大，Loss函数值会上升，这就意味着这一个正则化项惩罚了权值矩阵使其不能取太大值。）</strong></p>
+<p>​
+那么，关键问题是，<strong>为什么权重矩阵w小，能够防止过拟合呢？</strong></p>
+<h4
+id="较高的权重w往往意味着过拟合的函数">2、较高的权重w往往意味着过拟合的函数：</h4>
+<p>​
+我们会发现：<strong>过拟合的时候，拟合函数的系数往往非常大，为什么？如下图所示，过拟合，就是拟合函数需要顾忌每一个点，最终形成的拟合函数波动很大。在某些很小的区间里，函数值的变化很剧烈。这就意味着函数在某些小区间里的导数值（绝对值）非常大，由于自变量值可大可小，所以只有系数足够大，才能保证导数值很大。</strong></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/RsR5cOK.png" /></p>
 <p>​</p>
-<p>​ 更进一步的解释：当权重系数很小的时候，容易出现像左图一样，高偏差拟合能力很差的情况，随着权重系数逐渐增大，就会像右侧的图进行发展。如果权重系数很大，往往意味着在某些很小的区间中，函数值的变化会非常的剧烈，导致一些高方差的结果，也就是函数对于训练数据过度拟合了。</p>
-<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121122935964.png" /></p>
+<p>​
+更进一步的解释：当权重系数很小的时候，容易出现像左图一样，高偏差拟合能力很差的情况，随着权重系数逐渐增大，就会像右侧的图进行发展。如果权重系数很大，往往意味着在某些很小的区间中，函数值的变化会非常的剧烈，导致一些高方差的结果，也就是函数对于训练数据过度拟合了。</p>
+<p>​ <img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121122935964.png" /></p>
 <p>​</p>
 
     </div>
@@ -434,13 +453,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

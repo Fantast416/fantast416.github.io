@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -27,24 +27,11 @@
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="包含王道课程第2.2节的内容，含处理机调度的概念、层次，进程调度的时机、切换和过程，调度算法的评级指标，FCFS、SJF、HRRN调度算法以及时间片轮转、优先级调度、多级反馈队列算法等调度算法">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220326111647450.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220326114401542.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412092135300.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412092403526.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412104029587.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412104019832.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412104148079.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412104351880.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412111910996.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412112408359.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412113638505.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412113856291.png">
 <meta property="article:published_time" content="2022-03-25T12:40:19.000Z">
-<meta property="article:modified_time" content="2022-04-30T07:58:51.448Z">
+<meta property="article:modified_time" content="2022-04-30T07:58:51.000Z">
 <meta property="article:author" content="Fantast">
 <meta property="article:tag" content="Operating System">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220326111647450.png">
 
 
 <link rel="canonical" href="https://blog.slks.xyz/2022/03/25/9887f629bb62/">
@@ -161,7 +148,10 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6-%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%B1%82%E6%AC%A1"><span class="nav-number">1.</span> <span class="nav-text">一、处理机调度 概念与层次</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">1、调度的基本概念：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1%E9%AB%98%E7%BA%A7%E8%B0%83%E5%BA%A6%E4%BD%9C%E4%B8%9A%E8%B0%83%E5%BA%A6"><span class="nav-number">1.2.</span> <span class="nav-text">2、调度的三个层次—高级调度（作业调度）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1%E4%B8%AD%E7%BA%A7%E8%B0%83%E5%BA%A6%E5%86%85%E5%AD%98%E8%B0%83%E5%BA%A6"><span class="nav-number">1.3.</span> <span class="nav-text">3、调度的三个层次—中级调度（内存调度）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1%E4%BD%8E%E7%BA%A7%E8%B0%83%E5%BA%A6%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6"><span class="nav-number">1.4.</span> <span class="nav-text">4、调度的三个层次—低级调度（进程调度）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E5%B1%82%E8%B0%83%E5%BA%A6%E7%9A%84%E8%81%94%E7%B3%BB%E5%92%8C%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.</span> <span class="nav-text">5、三层调度的联系和对比：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%97%B6%E6%9C%BA%E5%88%87%E6%8D%A2%E8%BF%87%E7%A8%8B%E4%B8%8E%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">二、进程调度的时机、切换过程与方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E9%9C%80%E8%A6%81%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6"><span class="nav-number">2.1.</span> <span class="nav-text">1、何时需要进行进程调度？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E4%B8%8D%E8%83%BD%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6"><span class="nav-number">2.2.</span> <span class="nav-text">2、何时不能进行进程调度？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">3、进程调度的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E6%8A%A2%E5%8D%A0%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.1.</span> <span class="nav-text">1）非抢占方式：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%A2%E5%8D%A0%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.2.</span> <span class="nav-text">2）抢占方式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B"><span class="nav-number">2.4.</span> <span class="nav-text">4、进程的切换与过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%8B%AD%E4%B9%89%E7%9A%84%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%88%87%E6%8D%A2%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.4.1.</span> <span class="nav-text">1）“狭义的进程调度”与“进程切换”的区别：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%88%87%E6%8D%A2%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%BB%E8%A6%81%E5%AE%8C%E6%88%90%E4%BA%86"><span class="nav-number">2.4.2.</span> <span class="nav-text">2）进程切换的过程主要完成了：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">2.5.</span> <span class="nav-text">5、调度算法的评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#cpu%E5%88%A9%E7%94%A8%E7%8E%87"><span class="nav-number">2.5.1.</span> <span class="nav-text">1）CPU利用率：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%9E%E5%90%90%E9%87%8F"><span class="nav-number">2.5.2.</span> <span class="nav-text">2）系统吞吐量：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%A8%E8%BD%AC%E6%97%B6%E9%97%B4"><span class="nav-number">2.5.3.</span> <span class="nav-text">3）周转时间：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%A6%E6%9D%83%E5%91%A8%E8%BD%AC%E6%97%B6%E9%97%B4"><span class="nav-number">2.5.4.</span> <span class="nav-text">4）带权周转时间：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4"><span class="nav-number">2.5.5.</span> <span class="nav-text">5）等待时间：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E8%BF%9B%E7%A8%8B%E6%9D%A5%E8%AF%B4%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4%E5%B0%B1%E6%98%AF%E6%8C%87%E8%BF%9B%E7%A8%8B%E5%BB%BA%E7%AB%8B%E5%90%8E%E7%AD%89%E5%BE%85%E8%A2%AB%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%97%B6%E9%97%B4%E4%B9%8B%E5%92%8C%E5%9C%A8%E7%AD%89%E5%BE%85i0%E5%AE%8C%E6%88%90%E7%9A%84%E6%9C%9F%E9%97%B4%E5%85%B6%E5%AE%9E%E8%BF%9B%E7%A8%8B%E4%B9%9F%E6%98%AF%E5%9C%A8%E8%A2%AB%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%89%80%E4%BB%A5%E4%B8%8D%E8%AE%A1%E5%85%A5%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4"><span class="nav-number">2.5.6.</span> <span class="nav-text">对于进程来说，等待时间就是指进程建立后等待被服务的时间之和，在等待I&#x2F;0完成的期间其实进程也是在被服务的，所以不计入等待时间。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4"><span class="nav-number">2.5.7.</span> <span class="nav-text">6）响应时间：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-1"><span class="nav-number">2.6.</span> <span class="nav-text">6、调度算法 1</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#fcfs-%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F%E7%AE%97%E6%B3%95"><span class="nav-number">2.6.1.</span> <span class="nav-text">1） FCFS 先来先服务（非抢占式算法）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sjf-%E7%9F%AD%E4%BD%9C%E4%B8%9A%E4%BC%98%E5%85%88%E7%AE%97%E6%B3%95-%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F%E7%AE%97%E6%B3%95"><span class="nav-number">2.6.2.</span> <span class="nav-text">2） SJF 短作业优先算法 (非抢占式算法):</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hrrn-%E9%AB%98%E5%93%8D%E5%BA%94%E6%AF%94%E4%BC%98%E5%85%88%E9%9D%9E-%E6%8A%A2%E5%8D%A0%E5%BC%8F-%E7%AE%97%E6%B3%95"><span class="nav-number">2.6.3.</span> <span class="nav-text">3） HRRN 高响应比优先:(非 抢占式 算法 )</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-2"><span class="nav-number">2.7.</span> <span class="nav-text">7、调度算法 2</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%89%87%E8%BD%AE%E8%BD%AC%E7%AE%97%E6%B3%95%E6%8A%A2%E5%8D%A0%E5%BC%8F%E7%AE%97%E6%B3%95%E5%B8%B8%E7%94%A8%E4%BA%8E%E5%88%86%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9B%B4%E6%B3%A8%E9%87%8D%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4"><span class="nav-number">2.7.1.</span> <span class="nav-text">1）时间片轮转算法：（抢占式算法）【常用于分时操作系统，更注重响应时间】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E6%8A%A2%E5%8D%A0%E5%BC%8F%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F%E7%89%88%E6%9C%AC%E9%83%BD%E6%9C%89%E5%B8%B8%E7%94%A8%E4%BA%8E%E5%AE%9E%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.7.2.</span> <span class="nav-text">2）优先级调度算法：（抢占式、非抢占式版本都有）【常用于实时操作系统】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E5%8F%8D%E9%A6%88%E9%98%9F%E5%88%97%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E6%8A%A2%E5%8D%A0%E5%BC%8F%E7%AE%97%E6%B3%95%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4%E9%A5%A5%E9%A5%BF"><span class="nav-number">2.7.3.</span> <span class="nav-text">3）多级反馈队列调度算法：【抢占式算法，可能导致饥饿】</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6-%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%B1%82%E6%AC%A1"><span class="nav-number">1.</span> <span class="nav-text">一、处理机调度 概念与层次</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">1、调度的基本概念：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1%E9%AB%98%E7%BA%A7%E8%B0%83%E5%BA%A6%E4%BD%9C%E4%B8%9A%E8%B0%83%E5%BA%A6"><span class="nav-number">1.2.</span> <span class="nav-text">2、调度的三个层次—高级调度（作业调度）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1%E4%B8%AD%E7%BA%A7%E8%B0%83%E5%BA%A6%E5%86%85%E5%AD%98%E8%B0%83%E5%BA%A6"><span class="nav-number">1.3.</span> <span class="nav-text">3、调度的三个层次—中级调度（内存调度）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1%E4%BD%8E%E7%BA%A7%E8%B0%83%E5%BA%A6%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6"><span class="nav-number">1.4.</span> <span class="nav-text">4、调度的三个层次—低级调度（进程调度）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E5%B1%82%E8%B0%83%E5%BA%A6%E7%9A%84%E8%81%94%E7%B3%BB%E5%92%8C%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.</span> <span class="nav-text">5、三层调度的联系和对比：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%97%B6%E6%9C%BA%E5%88%87%E6%8D%A2%E8%BF%87%E7%A8%8B%E4%B8%8E%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">二、进程调度的时机、切换过程与方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E9%9C%80%E8%A6%81%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6"><span class="nav-number">2.1.</span> <span class="nav-text">1、何时需要进行进程调度？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E4%B8%8D%E8%83%BD%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6"><span class="nav-number">2.2.</span> <span class="nav-text">2、何时不能进行进程调度？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">3、进程调度的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E6%8A%A2%E5%8D%A0%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.1.</span> <span class="nav-text">1）非抢占方式：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%A2%E5%8D%A0%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.2.</span> <span class="nav-text">2）抢占方式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B"><span class="nav-number">2.4.</span> <span class="nav-text">4、进程的切换与过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%8B%AD%E4%B9%89%E7%9A%84%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%88%87%E6%8D%A2%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.4.1.</span> <span class="nav-text">1）“狭义的进程调度”与“进程切换”的区别：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%88%87%E6%8D%A2%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%BB%E8%A6%81%E5%AE%8C%E6%88%90%E4%BA%86"><span class="nav-number">2.4.2.</span> <span class="nav-text">2）进程切换的过程主要完成了：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">2.5.</span> <span class="nav-text">5、调度算法的评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#cpu%E5%88%A9%E7%94%A8%E7%8E%87"><span class="nav-number">2.5.1.</span> <span class="nav-text">1）CPU利用率：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%9E%E5%90%90%E9%87%8F"><span class="nav-number">2.5.2.</span> <span class="nav-text">2）系统吞吐量：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%A8%E8%BD%AC%E6%97%B6%E9%97%B4"><span class="nav-number">2.5.3.</span> <span class="nav-text">3）周转时间：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%A6%E6%9D%83%E5%91%A8%E8%BD%AC%E6%97%B6%E9%97%B4"><span class="nav-number">2.5.4.</span> <span class="nav-text">4）带权周转时间：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4"><span class="nav-number">2.5.5.</span> <span class="nav-text">5）等待时间：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E8%BF%9B%E7%A8%8B%E6%9D%A5%E8%AF%B4%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4%E5%B0%B1%E6%98%AF%E6%8C%87%E8%BF%9B%E7%A8%8B%E5%BB%BA%E7%AB%8B%E5%90%8E%E7%AD%89%E5%BE%85%E8%A2%AB%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%97%B6%E9%97%B4%E4%B9%8B%E5%92%8C%E5%9C%A8%E7%AD%89%E5%BE%85i0%E5%AE%8C%E6%88%90%E7%9A%84%E6%9C%9F%E9%97%B4%E5%85%B6%E5%AE%9E%E8%BF%9B%E7%A8%8B%E4%B9%9F%E6%98%AF%E5%9C%A8%E8%A2%AB%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%89%80%E4%BB%A5%E4%B8%8D%E8%AE%A1%E5%85%A5%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4"><span class="nav-number">2.5.6.</span> <span class="nav-text">对于进程来说，等待时间就是指进程建立后等待被服务的时间之和，在等待I&#x2F;0完成的期间其实进程也是在被服务的，所以不计入等待时间。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4"><span class="nav-number">2.5.7.</span> <span class="nav-text">6）响应时间：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-1"><span class="nav-number">2.6.</span> <span class="nav-text">6、调度算法 1</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#fcfs-%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F%E7%AE%97%E6%B3%95"><span class="nav-number">2.6.1.</span> <span class="nav-text">1） FCFS
+先来先服务（非抢占式算法）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sjf-%E7%9F%AD%E4%BD%9C%E4%B8%9A%E4%BC%98%E5%85%88%E7%AE%97%E6%B3%95-%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F%E7%AE%97%E6%B3%95"><span class="nav-number">2.6.2.</span> <span class="nav-text">2） SJF 短作业优先算法
+(非抢占式算法):</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hrrn-%E9%AB%98%E5%93%8D%E5%BA%94%E6%AF%94%E4%BC%98%E5%85%88%E9%9D%9E-%E6%8A%A2%E5%8D%A0%E5%BC%8F-%E7%AE%97%E6%B3%95"><span class="nav-number">2.6.3.</span> <span class="nav-text">3） HRRN 高响应比优先:(非
+抢占式 算法 )</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-2"><span class="nav-number">2.7.</span> <span class="nav-text">7、调度算法 2</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%89%87%E8%BD%AE%E8%BD%AC%E7%AE%97%E6%B3%95%E6%8A%A2%E5%8D%A0%E5%BC%8F%E7%AE%97%E6%B3%95%E5%B8%B8%E7%94%A8%E4%BA%8E%E5%88%86%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9B%B4%E6%B3%A8%E9%87%8D%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4"><span class="nav-number">2.7.1.</span> <span class="nav-text">1）时间片轮转算法：（抢占式算法）【常用于分时操作系统，更注重响应时间】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E6%8A%A2%E5%8D%A0%E5%BC%8F%E9%9D%9E%E6%8A%A2%E5%8D%A0%E5%BC%8F%E7%89%88%E6%9C%AC%E9%83%BD%E6%9C%89%E5%B8%B8%E7%94%A8%E4%BA%8E%E5%AE%9E%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.7.2.</span> <span class="nav-text">2）优先级调度算法：（抢占式、非抢占式版本都有）【常用于实时操作系统】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E5%8F%8D%E9%A6%88%E9%98%9F%E5%88%97%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E6%8A%A2%E5%8D%A0%E5%BC%8F%E7%AE%97%E6%B3%95%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4%E9%A5%A5%E9%A5%BF"><span class="nav-number">2.7.3.</span> <span class="nav-text">3）多级反馈队列调度算法：【抢占式算法，可能导致饥饿】</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -176,7 +166,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -333,20 +323,27 @@
         <p>笔记课程视频：https://www.bilibili.com/video/BV1YE411D7nH?p=13</p>
 <h3 id="一处理机调度-概念与层次">一、处理机调度 概念与层次</h3>
 <h4 id="调度的基本概念">1、调度的基本概念：</h4>
-<p>​ 当有一堆任务要处理，但由于资源有限，这些事情没法同时处理。这就需要确定某种规则来决定处理这些任务的顺序，这就是“调度”研究的问题。</p>
-<p>​ 在多道程序系统中，进程的数量往往是多于处理机的个数的，这样不可能同时并行地处理各个进程。<strong>处理机调度，就是从就绪队列中按照一定的算法选择一个进程并将处理机分配给它运行，以实现进程的并发执行。</strong></p>
-<h4 id="调度的三个层次高级调度作业调度">2、调度的三个层次—高级调度（作业调度）：</h4>
-<p>​ <strong>按一定的原则从外存上处于后备队列的作业中挑选一个（或多个）作业，给他们分配内存等必要资源，并建立相应的进程（建立PCB），以使它（们）获得竞争处理机的权利。</strong></p>
+<p>​
+当有一堆任务要处理，但由于资源有限，这些事情没法同时处理。这就需要确定某种规则来决定处理这些任务的顺序，这就是“调度”研究的问题。</p>
+<p>​
+在多道程序系统中，进程的数量往往是多于处理机的个数的，这样不可能同时并行地处理各个进程。<strong>处理机调度，就是从就绪队列中按照一定的算法选择一个进程并将处理机分配给它运行，以实现进程的并发执行。</strong></p>
+<h4
+id="调度的三个层次高级调度作业调度">2、调度的三个层次—高级调度（作业调度）：</h4>
+<p>​
+<strong>按一定的原则从外存上处于后备队列的作业中挑选一个（或多个）作业，给他们分配内存等必要资源，并建立相应的进程（建立PCB），以使它（们）获得竞争处理机的权利。</strong></p>
 <ul>
 <li>由于内存空间有限，有时无法将用户提交的作业全部放入内存，因此就需要确定某种规则来决定将作业调入内存的顺序。</li>
 <li>高级调度是辅存（外存）与内存之间的调度。</li>
 <li>每个作业只调入一次，调出一次。</li>
 <li>作业调入时会建立相应的PCB，作业调出时才撤销PCB。</li>
 </ul>
-<p>​ <strong>高级调度主要是指调入的问题，因为只有调入的时机需要操作系统来确定，但调出的时机必然是作业运行结束才调出。</strong></p>
-<h4 id="调度的三个层次中级调度内存调度">3、调度的三个层次—中级调度（内存调度）：</h4>
+<p>​
+<strong>高级调度主要是指调入的问题，因为只有调入的时机需要操作系统来确定，但调出的时机必然是作业运行结束才调出。</strong></p>
+<h4
+id="调度的三个层次中级调度内存调度">3、调度的三个层次—中级调度（内存调度）：</h4>
 <p>​ 引入了虚拟存储技术之后，可将暂时不能运行的进程调至外存等待。</p>
-<p>​ 等它重新具备了运行条件且内存又稍有空闲时，再重新调入内存。<strong>这么做的目的是为了提高内存利用率和系统吞吐量。</strong></p>
+<p>​
+等它重新具备了运行条件且内存又稍有空闲时，再重新调入内存。<strong>这么做的目的是为了提高内存利用率和系统吞吐量。</strong></p>
 <ul>
 <li>暂时调到外存等待的进程状态为挂起状态。</li>
 <li>PCB并不会一起调到外存，而是会常驻内存。</li>
@@ -354,12 +351,17 @@
 </ul>
 <p><strong>中级调度（内存调度），就是要决定将哪个处于挂起状态的进程重新调入内存。一个进程可能会被多次调出、调入内存，因此中级调度发生的频率要比高级调度更高。</strong></p>
 <p><strong>注意：</strong>“挂起”和“阻塞”的区别，两种状态都是暂时不能获得CPU的服务，但挂起态是将进程映像调到外存去了，而阻塞态下进程映像还在内存中。</p>
-<h4 id="调度的三个层次低级调度进程调度">4、调度的三个层次—低级调度（进程调度）</h4>
-<p>​ 低级调度（进程调度），其主要任务是按照某种方法和策略从就绪队列中选取一个进程，将处理机分配给它。</p>
-<p>​ 进程调度是操作系统中最基本的一种调度，在一般的操作系统中都必须配置进程调度。进程调度的频率很高，一般几十毫秒一次。</p>
+<h4
+id="调度的三个层次低级调度进程调度">4、调度的三个层次—低级调度（进程调度）</h4>
+<p>​
+低级调度（进程调度），其主要任务是按照某种方法和策略从就绪队列中选取一个进程，将处理机分配给它。</p>
+<p>​
+进程调度是操作系统中最基本的一种调度，在一般的操作系统中都必须配置进程调度。进程调度的频率很高，一般几十毫秒一次。</p>
 <h4 id="三层调度的联系和对比">5、三层调度的联系和对比：</h4>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220326111647450.png" /></p>
-<h3 id="二进程调度的时机切换过程与方式">二、进程调度的时机、切换过程与方式</h3>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220326111647450.png" /></p>
+<h3
+id="二进程调度的时机切换过程与方式">二、进程调度的时机、切换过程与方式</h3>
 <h4 id="何时需要进行进程调度">1、何时需要进行进程调度？</h4>
 <ul>
 <li>当前运行的进程主动放弃
@@ -377,28 +379,36 @@
 </ul>
 <h4 id="何时不能进行进程调度">2、何时不能进行进程调度？</h4>
 <ul>
-<li>在处理中断的过程中。中断处理过程复杂，与硬件密切相关，很难 做到在中断处理过程中进行进程切换。</li>
+<li>在处理中断的过程中。中断处理过程复杂，与硬件密切相关，很难
+做到在中断处理过程中进行进程切换。</li>
 <li>进程在<strong>操作系统内核程序临界区</strong>中不能进行进程调度。（但是进程在普通临界区中是可以进行调度、切换的。</li>
 <li>在原子操作过程中（原语）。原子操作不可中断，要一气呵成（如之前讲过的修改PCB中进程状态标志，并把PCB放到相应队列）</li>
 </ul>
 <p><strong>注：什么是临界资源？</strong></p>
-<p>​ 临界资源：一个时间段内只允许一个选程使用的资源。各进程需要互斥地访问临界资源。</p>
+<p>​
+临界资源：一个时间段内只允许一个选程使用的资源。各进程需要互斥地访问临界资源。</p>
 <p>​ 临界区：访问临界资源的那段代码。</p>
-<p>​ <strong>内核程序临界区</strong>一般是用来访问某种内核数据结构的，比如进程的就绪队列（由各就绪进程的PCB组成）</p>
-<p>​ <strong>内核程序临界区</strong>访问的临界资源如果不尽快释放的话，极有可能影响到操作系统内核的其他管理工作。因此在访问内核程序临界区期间不能进行调度与切换</p>
+<p>​
+<strong>内核程序临界区</strong>一般是用来访问某种内核数据结构的，比如进程的就绪队列（由各就绪进程的PCB组成）</p>
+<p>​
+<strong>内核程序临界区</strong>访问的临界资源如果不尽快释放的话，极有可能影响到操作系统内核的其他管理工作。因此在访问内核程序临界区期间不能进行调度与切换</p>
 <h4 id="进程调度的方式">3、进程调度的方式</h4>
-<p>​ 有的系统中只允许进程主动放弃处理机，有的系统中，进程可以主动放弃处理机，当有更紧急的任务需要处理时，也会强行剥夺处理机（被动放弃）</p>
+<p>​
+有的系统中只允许进程主动放弃处理机，有的系统中，进程可以主动放弃处理机，当有更紧急的任务需要处理时，也会强行剥夺处理机（被动放弃）</p>
 <h5 id="非抢占方式">1）非抢占方式：</h5>
 <p>​ 只允许进程主动放弃处理</p>
 <h5 id="抢占方式">2）抢占方式</h5>
-<p>​ 当有更紧急的任务需要处理时，会强行剥夺处理机（被动放弃）。可以优先处理更紧急的进程，也可实现让各进程按时间片轮流执行的功能（通过时钟中断）。适合于分时操停系统、实时操作系统</p>
+<p>​
+当有更紧急的任务需要处理时，会强行剥夺处理机（被动放弃）。可以优先处理更紧急的进程，也可实现让各进程按时间片轮流执行的功能（通过时钟中断）。适合于分时操停系统、实时操作系统</p>
 <h4 id="进程的切换与过程">4、进程的切换与过程</h4>
-<h5 id="狭义的进程调度与进程切换的区别">1）“狭义的进程调度”与“进程切换”的区别：</h5>
+<h5
+id="狭义的进程调度与进程切换的区别">1）“狭义的进程调度”与“进程切换”的区别：</h5>
 <ul>
 <li><strong>狭义的进程调度</strong>：指的是从就绪队列中选中一个要运行的进程。（这个进程可以是刚刚被暂停执行的进程，</li>
 <li><strong>进程切换</strong>：是指一个进程让出处理机，由另一个进程占用处理机的过程。广义的进程调度包含了选择一个进程和进程切换两个步骤。</li>
 </ul>
-<h5 id="进程切换的过程主要完成了">2）<strong>进程切换的过程主要完成了：</strong></h5>
+<h5
+id="进程切换的过程主要完成了">2）<strong>进程切换的过程主要完成了：</strong></h5>
 <ul>
 <li>对原来运行进程各种数据的保存</li>
 <li>对新的进程各种数据的恢复（如：程序计数器、程序状态字、各种数据寄存器等处理机现场信息，这些信息一般保存在进程控制块）</li>
@@ -410,7 +420,8 @@
 <h5 id="系统吞吐量">2）系统吞吐量：</h5>
 <p>​ 系统吞吐量 = 总共完成了多少道作业 / 总共花了多少时间</p>
 <h5 id="周转时间">3）周转时间：</h5>
-<p>​ 周转时间，是指<strong>从作业被提交给系统开始，到作业完成为止的这段时间间隔。</strong></p>
+<p>​
+周转时间，是指<strong>从作业被提交给系统开始，到作业完成为止的这段时间间隔。</strong></p>
 <p>​ 它包括四个部分：</p>
 <ul>
 <li>作业在外存后备队列上等待作业调度（高级调度）的时间、</li>
@@ -423,14 +434,19 @@
 <h5 id="带权周转时间">4）带权周转时间：</h5>
 <p>​ 带权周转时间 = 作业周转时间 / 作业实际运行的时间</p>
 <ul>
-<li>对于周转时间相同的两个作业，实际运行时间长的作业在相同时间内被服务的时间更多， 带权周转时间更小，用户满意度更高。</li>
+<li>对于周转时间相同的两个作业，实际运行时间长的作业在相同时间内被服务的时间更多，
+带权周转时间更小，用户满意度更高。</li>
 <li>对于实际运行时间相同的两个作业，周转时间短的带权周转时间更小，用户满意度更高。</li>
 </ul>
 <h5 id="等待时间">5）等待时间：</h5>
-<p>​ 等待时间，指进程/作业处于等待处理机状态时间之和，等待时间越长，用户满意度越低。</p>
-<h5 id="对于进程来说等待时间就是指进程建立后等待被服务的时间之和在等待i0完成的期间其实进程也是在被服务的所以不计入等待时间">对于进程来说，等待时间就是指进程建立后等待被服务的时间之和，在等待I/0完成的期间其实进程也是在被服务的，所以不计入等待时间。</h5>
-<p>​ <strong>对于作业来说，不仅要考虑建立进程后的等待时间，还要加上作业在外存后备队列中等待的时间。</strong></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220326114401542.png" /></p>
+<p>​
+等待时间，指进程/作业处于等待处理机状态时间之和，等待时间越长，用户满意度越低。</p>
+<h5
+id="对于进程来说等待时间就是指进程建立后等待被服务的时间之和在等待i0完成的期间其实进程也是在被服务的所以不计入等待时间">对于进程来说，等待时间就是指进程建立后等待被服务的时间之和，在等待I/0完成的期间其实进程也是在被服务的，所以不计入等待时间。</h5>
+<p>​
+<strong>对于作业来说，不仅要考虑建立进程后的等待时间，还要加上作业在外存后备队列中等待的时间。</strong></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220326114401542.png" /></p>
 <h5 id="响应时间">6）响应时间：</h5>
 <p>​ 响应时间，指从用户提交请求到首次产生响应所用的时间。</p>
 <h4 id="调度算法-1">6、调度算法 1</h4>
@@ -443,7 +459,8 @@
 <li>优点和缺点</li>
 <li>是否会导致饥饿</li>
 </ul>
-<h5 id="fcfs-先来先服务非抢占式算法">1） FCFS 先来先服务（非抢占式算法）</h5>
+<h5 id="fcfs-先来先服务非抢占式算法">1） FCFS
+先来先服务（非抢占式算法）</h5>
 <p>​ 主要从公平的角度考虑，按照作业/进程到达的先后顺序进行服务。</p>
 <ul>
 <li>用于作业调度时，考虑的是哪个作业先到达后备队列</li>
@@ -451,13 +468,17 @@
 <li>非抢占式算法
 <ul>
 <li>优点：公平，算法实现简单</li>
-<li>缺点：排在长作业后的短作业需要等待很长时间，带权周转时间很大. FCFS算法对长作业有利,对短作业不利.</li>
+<li>缺点：排在长作业后的短作业需要等待很长时间，带权周转时间很大.
+FCFS算法对长作业有利,对短作业不利.</li>
 </ul></li>
 <li>不会导致饥饿</li>
 </ul>
-<h5 id="sjf-短作业优先算法-非抢占式算法">2） SJF 短作业优先算法 (非抢占式算法):</h5>
-<p>​ 追求最少的平均等待时间,最短的作业或进程优先得到服务(指 要求服务时间最短)</p>
-<p>​ <strong>[每次调度时选择当前已到达且运行时间最短的作业/进程]</strong></p>
+<h5 id="sjf-短作业优先算法-非抢占式算法">2） SJF 短作业优先算法
+(非抢占式算法):</h5>
+<p>​ 追求最少的平均等待时间,最短的作业或进程优先得到服务(指
+要求服务时间最短)</p>
+<p>​
+<strong>[每次调度时选择当前已到达且运行时间最短的作业/进程]</strong></p>
 <ul>
 <li>用于作业调度时，称为 短作业优先算法</li>
 <li>用于进程调度时，称为 SPF 短进程优先算法</li>
@@ -469,32 +490,44 @@
 <li>可能导致饥饿,如果有源源不断有短作业来</li>
 <li><strong>示例1:</strong> SPF 算法
 <ul>
-<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412092135300.png" /></li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412092135300.png" /></li>
 </ul></li>
-<li><strong>示例2:</strong> SRTN 算法( 最短剩余时间优先算法 ): 每当有进程加入就绪队列改变时就需要调度，<strong>如果新到达的进程剩余时间比当前运行的进程剩余时间更短，则由新进程抢占处理机，</strong>当前运行进程重新回到就绪队列。另外，<strong>当一个进程完成时也需要调度</strong>
+<li><strong>示例2:</strong> SRTN 算法( 最短剩余时间优先算法 ):
+每当有进程加入就绪队列改变时就需要调度，<strong>如果新到达的进程剩余时间比当前运行的进程剩余时间更短，则由新进程抢占处理机，</strong>当前运行进程重新回到就绪队列。另外，<strong>当一个进程完成时也需要调度</strong>
 <ul>
-<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412092403526.png" /></li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412092403526.png" /></li>
 </ul></li>
 </ul>
-<h5 id="hrrn-高响应比优先非-抢占式-算法">3） HRRN 高响应比优先:(非 抢占式 算法 )</h5>
-<p>​ 综合考虑作业和进程的等待时间和要求服务的时间,在每次调度时先计算各个作业/进程的响应比，选择响应比最高的作业/进程为其服务. <span class="math display">\[
+<h5 id="hrrn-高响应比优先非-抢占式-算法">3） HRRN 高响应比优先:(非
+抢占式 算法 )</h5>
+<p>​
+综合考虑作业和进程的等待时间和要求服务的时间,在每次调度时先计算各个作业/进程的响应比，选择响应比最高的作业/进程为其服务.
+<span class="math display">\[
 响应比 = \frac{等待时间 + 要求服务时间}{要求服务时间}
 \]</span></p>
 <ul>
 <li><p>既可以用于进程调度也可以用于作业调度</p>
 <ul>
-<li>优点: 综合考虑了等待时间和运行时间,对于长作业来说,随着等待时间越来越久,其响应比也会越来越大,从而避免了长作业饥饿的问题</li>
+<li>优点:
+综合考虑了等待时间和运行时间,对于长作业来说,随着等待时间越来越久,其响应比也会越来越大,从而避免了长作业饥饿的问题</li>
 <li>缺点:</li>
 </ul></li>
 <li><p>示例1:</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412104029587.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412104029587.png" /></p>
 <ul>
-<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412104019832.png" /></li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412104019832.png" /></li>
 </ul></li>
-<li><p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412104148079.png" /><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412104351880.png" /></p></li>
+<li><p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412104148079.png" /><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412104351880.png" /></p></li>
 </ul>
 <h4 id="调度算法-2">7、调度算法 2</h4>
-<h5 id="时间片轮转算法抢占式算法常用于分时操作系统更注重响应时间">1）时间片轮转算法：（抢占式算法）【常用于分时操作系统，更注重响应时间】</h5>
+<h5
+id="时间片轮转算法抢占式算法常用于分时操作系统更注重响应时间">1）时间片轮转算法：（抢占式算法）【常用于分时操作系统，更注重响应时间】</h5>
 <ul>
 <li>公平地、轮流地为各个进程服务，让每个进程在一定时间间隔内都可以得到响应</li>
 <li>按照各进程到达就绪队列的顺序，轮流让各个进程执行一个时间片（如100ms）。若进程未在一个时间片内执行完，则剥夺处理机，将进程重新放到就绪队列队尾重新排队。</li>
@@ -506,12 +539,16 @@
 </ul></li>
 <li><strong>示例：</strong>
 <ul>
-<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412111910996.png" /></li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412111910996.png" /></li>
 </ul></li>
 </ul>
-<p>​ 如果时间片太大，使得每个进程都可以在一个时间片内就完成，则时间片轮转调度算法退化为先来先服务调度算法，并且会增大进程响应时间。因此时间片不能太大。</p>
-<p>​ 另一方面，进程调度、切换是有时间代价的（保存、恢复运行环境），因此如果时间片太小，会导致进程切换过于频繁，系统会花大量的时间来处理进程切换，从而导致实际用于进程执行的时间比例减少。可见时间片也不能太小。</p>
-<h5 id="优先级调度算法抢占式非抢占式版本都有常用于实时操作系统">2）优先级调度算法：（抢占式、非抢占式版本都有）【常用于实时操作系统】</h5>
+<p>​
+如果时间片太大，使得每个进程都可以在一个时间片内就完成，则时间片轮转调度算法退化为先来先服务调度算法，并且会增大进程响应时间。因此时间片不能太大。</p>
+<p>​
+另一方面，进程调度、切换是有时间代价的（保存、恢复运行环境），因此如果时间片太小，会导致进程切换过于频繁，系统会花大量的时间来处理进程切换，从而导致实际用于进程执行的时间比例减少。可见时间片也不能太小。</p>
+<h5
+id="优先级调度算法抢占式非抢占式版本都有常用于实时操作系统">2）优先级调度算法：（抢占式、非抢占式版本都有）【常用于实时操作系统】</h5>
 <ul>
 <li>随着计算机的发展，特别是实时操作系统的出现，越来越多的应用场景需要根据任务的紧急程度来决定处理顺序每个作业/进程有各自的优先级，调度时选择优先级最高的作业/进程</li>
 <li>既可用于作业调度，也可用于进程调度。甚至，还会用于在之后会学习的I/0调度中
@@ -523,7 +560,8 @@
 <li><strong>缺点：</strong>若源源不断地有高优先级进程到来，则可能导致饥</li>
 <li><strong>示例：</strong>
 <ul>
-<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412112408359.png" /></li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412112408359.png" /></li>
 <li></li>
 </ul></li>
 <li>通常：
@@ -543,7 +581,8 @@
 <li>如果发现一个进程频繁地进行I/O操作，则可适当提升其优先级</li>
 </ul></li>
 </ul>
-<h5 id="多级反馈队列调度算法抢占式算法可能导致饥饿">3）多级反馈队列调度算法：【抢占式算法，可能导致饥饿】</h5>
+<h5
+id="多级反馈队列调度算法抢占式算法可能导致饥饿">3）多级反馈队列调度算法：【抢占式算法，可能导致饥饿】</h5>
 <ul>
 <li>对其他调度算法的折中权衡
 <ul>
@@ -558,14 +597,17 @@
 <li><strong>优点：</strong>对各类型进程相对公平（FCFS的优点）；每个新到达的进程都可以很快就得到响应（RR的优点）；短进程只用较少的时间就可完成（SPF的优点）；不必实现估计进程的运行时间（避免用户作假）；可灵活地调整对各类进程的偏好程度，比如CPU密集型进程、I/0密集型进程（拓展：可以将因l/O而阻塞的进程重新放回原队列，这样I/o型进程就可以保持较高优先级）</li>
 <li><strong>示例：</strong>
 <ul>
-<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412113638505.png" /></li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412113638505.png" /></li>
 <li>新进程到达时先进入第1级队列，按FCFS原则排队等待被分配时间片。若用完时间片进程还未结束，则进程进入下一级队列队尾。如果此时已经在最下级的队列，则重新放回最下级队列队尾</li>
 <li>只有第k级队列为空时，才会为k+1级队头的进程分配时间片</li>
 <li>被抢占处理机的进程重新放回原队列队尾</li>
 </ul></li>
 </ul>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412113856291.png" /></p>
-<p>​ 注：比起早期的批处理操作系统来说，由于计算机造价大幅降低，因此之后出现的交互式操作系统（包括分时操作系统、实时操作系统等）更注重系统的响应时间、公平性、平衡性等指标。而这几种算法恰好也能较好地满足交互式系统的需求。因此这三种算法适合用于交互式系统。（比如UNIX使用的就是多级反馈队列调度算法）*</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220412113856291.png" /></p>
+<p>​
+注：比起早期的批处理操作系统来说，由于计算机造价大幅降低，因此之后出现的交互式操作系统（包括分时操作系统、实时操作系统等）更注重系统的响应时间、公平性、平衡性等指标。而这几种算法恰好也能较好地满足交互式系统的需求。因此这三种算法适合用于交互式系统。（比如UNIX使用的就是多级反馈队列调度算法）*</p>
 
     </div>
 
@@ -656,13 +698,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

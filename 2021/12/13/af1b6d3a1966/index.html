@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -163,7 +163,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -319,14 +319,24 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="三transform">三、Transform</h1>
 <p>通常而言，数据不会以处理好的形式出现，所以我们需要在训练前对数据进行预处理，以适应训练</p>
-<p>所有 TorchVision 的 Dataset 都会有两个参数—— transform 用于修改特征，target_transform 用于修改标签——它们接受包含转换逻辑的可调用对象（其实就是接受函数对象）。 torchvision.transforms 模块提供了几种常见的转换。</p>
+<p>所有 TorchVision 的 Dataset 都会有两个参数—— transform
+用于修改特征，target_transform
+用于修改标签——它们接受包含转换逻辑的可调用对象（其实就是接受函数对象）。
+torchvision.transforms 模块提供了几种常见的转换。</p>
 <h3 id="示例">1、示例：</h3>
-<p>如下代码为例，我们所拿到的FashionMNIST的特征是一个PIL Image的格式，它的标签是一个Integer整数。但是我们训练的时候，希望特征是一个正则化后的张量，而标签是一个One-Hot向量张量。所以分别采用ToTensor和Lambda函数来进行处理</p>
+<p>如下代码为例，我们所拿到的FashionMNIST的特征是一个PIL
+Image的格式，它的标签是一个Integer整数。但是我们训练的时候，希望特征是一个正则化后的张量，而标签是一个One-Hot向量张量。所以分别采用ToTensor和Lambda函数来进行处理</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> torchvision.transforms <span class="keyword">import</span> ToTensor, Lambda</span><br><span class="line"></span><br><span class="line">ds = datasets.FashionMNIST(</span><br><span class="line">    root=<span class="string">&quot;data&quot;</span>,</span><br><span class="line">    train=<span class="literal">True</span>,</span><br><span class="line">    download=<span class="literal">True</span>,</span><br><span class="line">    transform=ToTensor(),</span><br><span class="line">    target_transform=Lambda(<span class="keyword">lambda</span> y: torch.zeros(<span class="number">10</span>, dtype=torch.<span class="built_in">float</span>).scatter_(<span class="number">0</span>, torch.tensor(y), value=<span class="number">1</span>))</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>ToTensor() 函数可以将一个 PIL image 或者 NumPy ndarray 转换至一个 FloatTensor，同时放缩图像的像素值范围至0-1.</p>
-<p>Lambda可以用于定义任何一个用户定义的lambda表达式，使其成为函数，在上述定义的表达式中： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Lambda(lambda y: torch.zeros(10, dtype=torch.float).scatter_(0, torch.tensor(y), value=1))</span><br></pre></td></tr></table></figure> 先初始化了一个维度为10的零向量，然后利用scatter_函数，将某一个维度的值赋为1</p>
+<p>ToTensor() 函数可以将一个 PIL image 或者 NumPy ndarray 转换至一个
+FloatTensor，同时放缩图像的像素值范围至0-1.</p>
+<p>Lambda可以用于定义任何一个用户定义的lambda表达式，使其成为函数，在上述定义的表达式中：
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Lambda(lambda y: torch.zeros(10, dtype=torch.float).scatter_(0, torch.tensor(y), value=1))</span><br></pre></td></tr></table></figure>
+先初始化了一个维度为10的零向量，然后利用scatter_函数，将某一个维度的值赋为1</p>
 <h4 id="scatter函数">Scatter函数</h4>
-<p>scatter(dim, index, src) 的参数有 3 个，通过一个张量或标量 src 来修改另一个张量，哪个元素需要修改、用 src 中的哪个元素来修改由 dim 和 index 决定 - dim：沿着哪个维度进行索引 - index：用来 scatter 的元素索引 - src：用来 scatter 的源元素，可以是一个标量或一个张量</p>
+<p>scatter(dim, index, src) 的参数有 3 个，通过一个张量或标量 src
+来修改另一个张量，哪个元素需要修改、用 src 中的哪个元素来修改由 dim 和
+index 决定 - dim：沿着哪个维度进行索引 - index：用来 scatter 的元素索引
+- src：用来 scatter 的源元素，可以是一个标量或一个张量</p>
 
     </div>
 
@@ -417,13 +427,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

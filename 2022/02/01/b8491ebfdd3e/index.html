@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -163,7 +163,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -320,17 +320,26 @@
         <p>参考教程网址：https://www.liaoxuefeng.com/wiki/1252599548343744/1298613246361634</p>
 <h3 id="一基本概念">一、基本概念：</h3>
 <h4 id="本地时间">1、本地时间</h4>
-<p>​ 不同的时区，在同一时刻，本地时间是不同的。全球一共分为24个时区，<strong>伦敦所在的时区称为标准时区，其他时区按东／西偏移的小时区分，北京所在的时区是东八区。</strong></p>
+<p>​
+不同的时区，在同一时刻，本地时间是不同的。全球一共分为24个时区，<strong>伦敦所在的时区称为标准时区，其他时区按东／西偏移的小时区分，北京所在的时区是东八区。</strong></p>
 <h4 id="时区">2、时区</h4>
-<p>​ 因为光靠本地时间还无法唯一确定一个准确的时刻，所以我们还需要给本地时间加上一个时区。时区有好几种表示方式。</p>
-<p>​ 一种是以<code>GMT</code>或者<code>UTC</code>加时区偏移表示，例如：<code>GMT+08:00</code>或者<code>UTC+08:00</code>表示东八区。</p>
-<p>​ <code>GMT</code>和<code>UTC</code>可以认为基本是等价的，只是<code>UTC</code>使用更精确的原子钟计时，每隔几年会有一个闰秒，我们在开发程序的时候可以忽略两者的误差，因为计算机的时钟在联网的时候会自动与时间服务器同步时间。</p>
-<p>​ 另一种是缩写，例如，<code>CST</code>表示<code>China Standard Time</code>，也就是中国标准时间。但是<code>CST</code>也可以表示美国中部时间<code>Central Standard Time USA</code>，因此，缩写容易产生混淆，我们尽量不要使用缩写。</p>
-<p>​ 最后一种是以洲／城市表示，例如，<code>Asia/Shanghai</code>，表示上海所在地的时区。特别注意城市名称不是任意的城市，而是由国际标准组织规定的城市。</p>
-<p>​ 因为时区的存在，东八区的2019年11月20日早上8:15，和西五区的2019年11月19日晚上19:15，他们的时刻是相同的</p>
+<p>​
+因为光靠本地时间还无法唯一确定一个准确的时刻，所以我们还需要给本地时间加上一个时区。时区有好几种表示方式。</p>
+<p>​
+一种是以<code>GMT</code>或者<code>UTC</code>加时区偏移表示，例如：<code>GMT+08:00</code>或者<code>UTC+08:00</code>表示东八区。</p>
+<p>​
+<code>GMT</code>和<code>UTC</code>可以认为基本是等价的，只是<code>UTC</code>使用更精确的原子钟计时，每隔几年会有一个闰秒，我们在开发程序的时候可以忽略两者的误差，因为计算机的时钟在联网的时候会自动与时间服务器同步时间。</p>
+<p>​
+另一种是缩写，例如，<code>CST</code>表示<code>China Standard Time</code>，也就是中国标准时间。但是<code>CST</code>也可以表示美国中部时间<code>Central Standard Time USA</code>，因此，缩写容易产生混淆，我们尽量不要使用缩写。</p>
+<p>​
+最后一种是以洲／城市表示，例如，<code>Asia/Shanghai</code>，表示上海所在地的时区。特别注意城市名称不是任意的城市，而是由国际标准组织规定的城市。</p>
+<p>​
+因为时区的存在，东八区的2019年11月20日早上8:15，和西五区的2019年11月19日晚上19:15，他们的时刻是相同的</p>
 <h4 id="夏令时">3、夏令时</h4>
-<p>​ 时区还不是最复杂的，更复杂的是夏令时。所谓夏令时，就是夏天开始的时候，把时间往后拨1小时，夏天结束的时候，再把时间往前拨1小时。</p>
-<p>​ 因为涉及到夏令时，相同的时区，如果表示的方式不同，转换出的时间是不同的。我们举个栗子：</p>
+<p>​
+时区还不是最复杂的，更复杂的是夏令时。所谓夏令时，就是夏天开始的时候，把时间往后拨1小时，夏天结束的时候，再把时间往前拨1小时。</p>
+<p>​
+因为涉及到夏令时，相同的时区，如果表示的方式不同，转换出的时间是不同的。我们举个栗子：</p>
 <p>对于2019-11-20和2019-6-20两个日期来说，假设北京人在纽约：</p>
 <ul>
 <li>如果以<code>GMT</code>或者<code>UTC</code>作为时区，无论日期是多少，时间都是<code>19:00</code>；</li>
@@ -362,15 +371,18 @@
 </tr>
 </tbody>
 </table>
-<p>​ 实行夏令时的不同地区，进入和退出夏令时的时间很可能是不同的。同一个地区，根据历史上是否实行过夏令时，标准时间在不同年份换算成当地时间也是不同的。因此，计算夏令时，没有统一的公式，必须按照一组给定的规则来算，并且，该规则要定期更新。</p>
+<p>​
+实行夏令时的不同地区，进入和退出夏令时的时间很可能是不同的。同一个地区，根据历史上是否实行过夏令时，标准时间在不同年份换算成当地时间也是不同的。因此，计算夏令时，没有统一的公式，必须按照一组给定的规则来算，并且，该规则要定期更新。</p>
 <h4 id="本地化">4、本地化</h4>
-<p>​ 在计算机中，通常使用<code>Locale</code>表示一个国家或地区的日期、时间、数字、货币等格式。<code>Locale</code>由<code>语言_国家</code>的字母缩写构成，例如，<code>zh_CN</code>表示中文+中国，<code>en_US</code>表示英文+美国。语言使用小写，国家使用大写。</p>
+<p>​
+在计算机中，通常使用<code>Locale</code>表示一个国家或地区的日期、时间、数字、货币等格式。<code>Locale</code>由<code>语言_国家</code>的字母缩写构成，例如，<code>zh_CN</code>表示中文+中国，<code>en_US</code>表示英文+美国。语言使用小写，国家使用大写。</p>
 <p>对于日期来说，不同的Locale，例如，中国和美国的表示方式如下：</p>
 <ul>
 <li>zh_CN：2016-11-30</li>
 <li>en_US：11/30/2016</li>
 </ul>
-<p>​ 计算机用<code>Locale</code>在日期、时间、货币和字符串之间进行转换。一个电商网站会根据用户所在的<code>Locale</code>对用户显示如下：</p>
+<p>​
+计算机用<code>Locale</code>在日期、时间、货币和字符串之间进行转换。一个电商网站会根据用户所在的<code>Locale</code>对用户显示如下：</p>
 <table>
 <thead>
 <tr class="header">
@@ -393,9 +405,12 @@
 </tbody>
 </table>
 <h3 id="二date和calendar">二、Date和Calendar</h3>
-<p>​ 这个“同一个时刻”在计算机中存储的本质上只是一个整数，我们称它为<code>Epoch Time</code></p>
-<p>​ <code>Epoch Time</code>是计算从1970年1月1日零点（格林威治时区／GMT+00:00）到现在所经历的秒数，例如：</p>
-<p>​ <code>1574208900</code>表示从从1970年1月1日零点GMT时区到该时刻一共经历了1574208900秒，换算成伦敦、北京和纽约时间分别是：</p>
+<p>​
+这个“同一个时刻”在计算机中存储的本质上只是一个整数，我们称它为<code>Epoch Time</code></p>
+<p>​
+<code>Epoch Time</code>是计算从1970年1月1日零点（格林威治时区／GMT+00:00）到现在所经历的秒数，例如：</p>
+<p>​
+<code>1574208900</code>表示从从1970年1月1日零点GMT时区到该时刻一共经历了1574208900秒，换算成伦敦、北京和纽约时间分别是：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1574208900 = 北京时间2019-11-20 8:15:00</span><br><span class="line">           = 伦敦时间2019-11-20 0:15:00</span><br><span class="line">           = 纽约时间2019-11-19 19:15:00</span><br></pre></td></tr></table></figure>
 <p><code>Epoch Time</code>又称为时间戳，在不同的编程语言中，会有几种存储方式：</p>
 <ul>
@@ -496,13 +511,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

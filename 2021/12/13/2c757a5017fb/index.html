@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -165,7 +165,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -320,14 +320,22 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="五使用autograd计算自动微分">五、使用AutoGrad计算自动微分</h1>
-<p>在训练神经网络时，最常用的算法是反向传播。 在该算法中，参数（模型权重）根据损失函数相对于给定参数的梯度进行调整。 为了计算这些梯度，PyTorch 有一个名为 torch.autograd 的内置微分引擎。 它支持任何计算图的梯度自动计算。</p>
-<p>考虑最简单的一层神经网络，输入 x，参数 w 和 b，以及一些损失函数。 它可以通过以下方式在 PyTorch 中定义：</p>
+<p>在训练神经网络时，最常用的算法是反向传播。
+在该算法中，参数（模型权重）根据损失函数相对于给定参数的梯度进行调整。
+为了计算这些梯度，PyTorch 有一个名为 torch.autograd 的内置微分引擎。
+它支持任何计算图的梯度自动计算。</p>
+<p>考虑最简单的一层神经网络，输入 x，参数 w 和 b，以及一些损失函数。
+它可以通过以下方式在 PyTorch 中定义：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line">x = torch.ones(<span class="number">5</span>)  <span class="comment"># input tensor</span></span><br><span class="line">y = torch.zeros(<span class="number">3</span>)  <span class="comment"># expected output</span></span><br><span class="line">w = torch.randn(<span class="number">5</span>, <span class="number">3</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line">z = torch.matmul(x, w)+b</span><br><span class="line">loss = torch.nn.functional.binary_cross_entropy_with_logits(z, y)</span><br></pre></td></tr></table></figure>
 <p>以下是计算图，因为我们需要计算Loss函数对w和b的梯度，所以在上面我们将w和b的requires_grad设置为了True</p>
 <figure>
-<img src="https://pytorch.org/tutorials/_images/comp-graph.png" alt="avatar" /><figcaption aria-hidden="true">avatar</figcaption>
+<img src="https://pytorch.org/tutorials/_images/comp-graph.png"
+alt="avatar" />
+<figcaption aria-hidden="true">avatar</figcaption>
 </figure>
-<p>我们应用于张量来构建计算图的函数实际上是类 Function 的对象。 该对象知道如何在前向计算函数，以及如何在反向传播步骤中计算其导数。 对反向传播函数的引用存储在张量的 grad_fn 属性中。</p>
+<p>我们应用于张量来构建计算图的函数实际上是类 Function 的对象。
+该对象知道如何在前向计算函数，以及如何在反向传播步骤中计算其导数。
+对反向传播函数的引用存储在张量的 grad_fn 属性中。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Gradient function for z =&#x27;</span>, z.grad_fn)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Gradient function for loss =&#x27;</span>, loss.grad_fn)</span><br></pre></td></tr></table></figure>
 <pre><code>Gradient function for z = &lt;AddBackward0 object at 0x00000271D5D03D90&gt;
 Gradient function for loss = &lt;BinaryCrossEntropyWithLogitsBackward0 object at 0x00000271D5CF0F40&gt;</code></pre>
@@ -339,10 +347,16 @@ Gradient function for loss = &lt;BinaryCrossEntropyWithLogitsBackward0 object at
         [0.2175, 0.0032, 0.1359],
         [0.2175, 0.0032, 0.1359]])
 tensor([0.2175, 0.0032, 0.1359])</code></pre>
-<p>注意：我们只能获取计算图的叶子节点的 grad 属性，这些节点的 requires_grad 属性设置为 True。 对于图中的所有其他节点，梯度将不可用。</p>
-<p>出于性能原因，我们只能在给定的计算图上使用一次backward()来执行梯度计算。如果我们需要在同一个计算图上进行多次backward()调用，我们需要将 retain_graph=True 传递给反向调用。</p>
+<p>注意：我们只能获取计算图的叶子节点的 grad 属性，这些节点的
+requires_grad 属性设置为 True。
+对于图中的所有其他节点，梯度将不可用。</p>
+<p>出于性能原因，我们只能在给定的计算图上使用一次backward()来执行梯度计算。如果我们需要在同一个计算图上进行多次backward()调用，我们需要将
+retain_graph=True 传递给反向调用。</p>
 <h3 id="如何停止跟踪梯度">如何停止跟踪梯度？</h3>
-<p>默认情况下，所有具有 requires_grad=True 的张量都在跟踪它们的计算历史并支持梯度计算。 但是，在某些情况下我们不需要这样做，例如，当我们训练了模型并且只想将其应用于某些输入数据时，即我们只想通过网络进行前向计算。 我们可以通过用 torch.no_grad() 块包围我们的计算代码来停止跟踪计算：</p>
+<p>默认情况下，所有具有 requires_grad=True
+的张量都在跟踪它们的计算历史并支持梯度计算。
+但是，在某些情况下我们不需要这样做，例如，当我们训练了模型并且只想将其应用于某些输入数据时，即我们只想通过网络进行前向计算。
+我们可以通过用 torch.no_grad() 块包围我们的计算代码来停止跟踪计算：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">z = torch.matmul(x, w)+b</span><br><span class="line"><span class="built_in">print</span>(z.requires_grad)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    z = torch.matmul(x, w)+b</span><br><span class="line"><span class="built_in">print</span>(z.requires_grad)</span><br></pre></td></tr></table></figure>
 <pre><code>True
 False</code></pre>
@@ -444,13 +458,13 @@ False</code></pre>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

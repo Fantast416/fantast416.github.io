@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -27,10 +27,6 @@
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="FCN相较于CNN来说，其将CNN最后几个用于输出概率的全连接层都改成了卷积层，从而使得模型网络中所有的层都是卷积层，最终输出一张已经label好的图像，故称为全卷积网络。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212245766.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/dsawqeasd.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212421618.png">
-<meta property="og:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212533302.png">
 <meta property="article:published_time" content="2022-01-12T02:18:19.000Z">
 <meta property="article:modified_time" content="2022-02-20T13:30:44.000Z">
 <meta property="article:author" content="Fantast">
@@ -38,7 +34,6 @@
 <meta property="article:tag" content="FCN">
 <meta property="article:tag" content="UNet">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212245766.png">
 
 
 <link rel="canonical" href="https://blog.slks.xyz/2022/01/12/8c9b3da724b3/">
@@ -170,7 +165,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -326,50 +321,86 @@
     <div class="post-body" itemprop="articleBody">
         <p>本文讲解FCN与U-Net相关的知识，在此之前你需要了解CNN是什么</p>
 <h3 id="一fcn全卷积网络">一、FCN全卷积网络</h3>
-<p>​ 首先，我们还是要回顾一下CNN的整体网络架构与优势：CNN网络最后输出的是类别的概率值。CNN 的强大之处在于它的多层卷积结构能自动学习特征，并且可以学习到多个层次的特征：</p>
+<p>​
+首先，我们还是要回顾一下CNN的整体网络架构与优势：CNN网络最后输出的是类别的概率值。CNN
+的强大之处在于它的多层卷积结构能自动学习特征，并且可以学习到多个层次的特征：</p>
 <p>​ 较浅的卷积层感知域较小，学习到一些局部区域的特征。</p>
-<p>​ 而较深的卷积层具有较大的感知域，能够学习到更加抽象一些的特征。这些抽象特征对物体的大小、位置和方向等敏感性更低，从而有助于识别性能的提高。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212245766.png" /></p>
-<p>​ 而FCN相较于CNN来说，其将CNN最后几个用于输出概率的全连接层都改成了卷积层，从而使得模型网络中所有的层都是卷积层，最终输出一张已经label好的图像，故称为全卷积网络。全卷积神经网络主要使用了三种技术：</p>
+<p>​
+而较深的卷积层具有较大的感知域，能够学习到更加抽象一些的特征。这些抽象特征对物体的大小、位置和方向等敏感性更低，从而有助于识别性能的提高。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212245766.png" /></p>
+<p>​
+而FCN相较于CNN来说，其将CNN最后几个用于输出概率的全连接层都改成了卷积层，从而使得模型网络中所有的层都是卷积层，最终输出一张已经label好的图像，故称为全卷积网络。全卷积神经网络主要使用了三种技术：</p>
 <p>​ 1、卷积化（Convolutional）</p>
 <p>​ 2、上采样（Upsample）</p>
 <p>​ 3、跳跃结构（Skip Layer）</p>
 <p>​ 整个FCN网络基本原理如图5（只是原理示意图）：</p>
-<p>​ 1、image经过多个卷积和+一个max pooling变为pool1 feature，宽高变为1/2</p>
-<p>​ 2、pool1 feature再经过多个conv+一个max pooling变为pool2 feature，宽高变为1/4</p>
-<p>​ 3、pool2 feature再经过多个conv+一个max pooling变为pool3 feature，宽高变为1/8</p>
+<p>​ 1、image经过多个卷积和+一个max pooling变为pool1
+feature，宽高变为1/2</p>
+<p>​ 2、pool1 feature再经过多个conv+一个max pooling变为pool2
+feature，宽高变为1/4</p>
+<p>​ 3、pool2 feature再经过多个conv+一个max pooling变为pool3
+feature，宽高变为1/8</p>
 <p>​ 4、......</p>
 <p>​ 5、直到pool5 feature，宽高变为1/32。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/dsawqeasd.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/dsawqeasd.png" /></p>
 <p>那么，对于三种不同规格参数的FCN，后续还原操作也不太一样，如下所示：</p>
-<p>​ 1、对于FCN-32s，直接对pool5 feature进行32倍上采样获得32x upsampled feature，再对32x upsampled feature每个点做softmax prediction获得32x upsampled feature prediction（即语义分割图）。</p>
-<p>​ 2、对于FCN-16s，首先对pool5 feature进行2倍上采样获得2x upsampled feature，再把pool4 feature和2x upsampled feature逐点相加，然后对相加的feature进行16倍上采样，并softmax prediction，获得16x upsampled feature prediction。</p>
-<p>​ 3、对于FCN-8s，首先进行pool4+2x upsampled feature逐点相加，然后又进行pool3+2x upsampled逐点相加，即进行更多次特征融合。具体过程与16s类似，不再赘述。</p>
-<p>​ 在上述处理过程中，我们发现FCN-16s和FCN-8s都引入了skip connection，将pool3或是pool4 feature与pool5上采样后的feature逐像素相加，进行多次特征融合，这样处理的原因在于：</p>
-<p>​ FCN模型虽然通过卷积和反卷积我们基本能定位到目标区域，但是，我们会发现模型前期是通过卷积、池化、非线性激活函数等作用输出了特征权重图像，我们经过反卷积等操作输出的<strong>图像实际是很粗糙的</strong>，毕竟丢了很多细节。因此我们需要找到一种方式填补丢失的细节数据，所以就有了跳跃结构。</p>
-<p>​ 作者在原文种给出3种网络结果对比，明显可以看出效果：FCN-32s &lt; FCN-16s &lt; FCN-8s，即使用多层feature融合有利于提高分割准确性。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212421618.png" /></p>
+<p>​ 1、对于FCN-32s，直接对pool5 feature进行32倍上采样获得32x upsampled
+feature，再对32x upsampled feature每个点做softmax prediction获得32x
+upsampled feature prediction（即语义分割图）。</p>
+<p>​ 2、对于FCN-16s，首先对pool5 feature进行2倍上采样获得2x upsampled
+feature，再把pool4 feature和2x upsampled
+feature逐点相加，然后对相加的feature进行16倍上采样，并softmax
+prediction，获得16x upsampled feature prediction。</p>
+<p>​ 3、对于FCN-8s，首先进行pool4+2x upsampled
+feature逐点相加，然后又进行pool3+2x
+upsampled逐点相加，即进行更多次特征融合。具体过程与16s类似，不再赘述。</p>
+<p>​ 在上述处理过程中，我们发现FCN-16s和FCN-8s都引入了skip
+connection，将pool3或是pool4
+feature与pool5上采样后的feature逐像素相加，进行多次特征融合，这样处理的原因在于：</p>
+<p>​
+FCN模型虽然通过卷积和反卷积我们基本能定位到目标区域，但是，我们会发现模型前期是通过卷积、池化、非线性激活函数等作用输出了特征权重图像，我们经过反卷积等操作输出的<strong>图像实际是很粗糙的</strong>，毕竟丢了很多细节。因此我们需要找到一种方式填补丢失的细节数据，所以就有了跳跃结构。</p>
+<p>​ 作者在原文种给出3种网络结果对比，明显可以看出效果：FCN-32s &lt;
+FCN-16s &lt; FCN-8s，即使用多层feature融合有利于提高分割准确性。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212421618.png" /></p>
 <h4 id="fcn优点">FCN优点：</h4>
-<p>​ 与传统用CNN进行图像分割的方法相比，FCN有两大明显的优点：一是可以接受任意大小的输入图像，而不用要求所有的训练图像和测试图像具有同样的尺寸。二是更加高效，因为避免了由于使用像素块而带来的重复存储和计算卷积的问题。</p>
+<p>​
+与传统用CNN进行图像分割的方法相比，FCN有两大明显的优点：一是可以接受任意大小的输入图像，而不用要求所有的训练图像和测试图像具有同样的尺寸。二是更加高效，因为避免了由于使用像素块而带来的重复存储和计算卷积的问题。</p>
 <h4 id="fcn缺点">FCN缺点：</h4>
 <p>1、分割的结果不够精细。图像过于模糊或平滑，没有分割出目标图像的细节</p>
 <p>2、因为模型是基于CNN改进而来，即便是用卷积替换了全连接，但是依然是独立像素进行分类，没有充分考虑像素与像素之间的关系</p>
-<h2 id="二关于卷积网络中降采样与上采样以及特征提取阶段的理解">二、关于卷积网络中降采样与上采样以及特征提取阶段的理解：</h2>
-<p>​ 1、降采样的理论意义是，它可以增加对输入图像的一些小扰动的鲁棒性，比如图像平移，旋转等，减少过拟合的风险，降低运算量，增加感受野的大小。</p>
-<p>​ 2、上采样的最大的作用其实就是把抽象的特征再还原到原图的尺寸，最终得到分割结果。但很容易得到模糊或过于平滑的结果，无法还原细节部分。</p>
-<p>​ 3、对于特征提取阶段，浅层结构可以抓取图像的一些简单的特征，比如边界，颜色，而深层结构因为感受野大了，而且经过的卷积操作多了，能抓取到图像的一些抽象特征。</p>
+<h2
+id="二关于卷积网络中降采样与上采样以及特征提取阶段的理解">二、关于卷积网络中降采样与上采样以及特征提取阶段的理解：</h2>
+<p>​
+1、降采样的理论意义是，它可以增加对输入图像的一些小扰动的鲁棒性，比如图像平移，旋转等，减少过拟合的风险，降低运算量，增加感受野的大小。</p>
+<p>​
+2、上采样的最大的作用其实就是把抽象的特征再还原到原图的尺寸，最终得到分割结果。但很容易得到模糊或过于平滑的结果，无法还原细节部分。</p>
+<p>​
+3、对于特征提取阶段，浅层结构可以抓取图像的一些简单的特征，比如边界，颜色，而深层结构因为感受野大了，而且经过的卷积操作多了，能抓取到图像的一些抽象特征。</p>
 <h3 id="三unet网络">三、UNet网络</h3>
 <p>​ UNet网络整体结构如下：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212533302.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220114212533302.png" /></p>
 <p>​ 蓝色箭头代表3*3的卷积层+ReLU激活函数层</p>
 <p>​ 红色箭头代表2*2的最大池化层</p>
 <p>​ 绿色箭头代表2*2的上采样层（通常采用反卷积）</p>
 <p>​ 浅蓝色箭头代表1*1的卷积层，在最后用于调整输出通道数目</p>
-<p>​ 在整一个过程中，值得注意的是灰色箭头，我们会注意到灰色箭头代表的是“copy and crop”，即复制和剪切。我们以第一层的灰色箭头举例来看：其左侧大小为64 * 568 * 568，右侧大小为128 * 392 * 392。其中，右侧有64个通道的数据来源于左侧，64个通道的数据来源于上一层的上采样。那么灰色箭头应该就是把左侧的内容复制到了右侧，并且concat在了原先上采样后得到的64 * 392 * 392的数据上，形成了128 * 392 * 392的数据。</p>
-<p>​ 但是问题在于，568 * 568和392 * 392还有较大的尺寸差别，这就需要利用crop来完成，由于在每个卷积中都会丢失边界像素，因此裁剪crop是必要的</p>
-<p>​ 在上述网络形式中，最重要的结构就是其中的<strong>skip-connection</strong>。UNet中<strong>Concat</strong>形式的skip-connection的好处是，<strong>对于分割这个任务，空间域信息非常重要</strong>。而网络的encoder部分，通过各个pooling层已经把特征图分辨率降得非常小了，这一点不利于精确的分割mask生成，通过skip-connection可以把较浅的卷积层特征引过来，那些特征分辨率较高，且层数浅，会含有比较丰富的low-level信息，更利于生成分割mask。</p>
-<p>​ 总体来说，就是把对应尺度上的特征信息引入到上采样或反卷积过程，为后期图像分割提供多尺度多层次的信息，由此可以得到更精细的分割效果，如U-Net论文描述的分割结果一样。这比单纯用编解码器框架要好，纯粹的编解码器框架，在编码过程中压缩和丢失了大量细节信息，而这些信息很可能会有助于后期的图像分割。</p>
-<p>​ 同时，需要注意的一点是：此处的skip-connection与ResNet中直接相加形式的skip-connection不同，ResNet中的跳跃连接可以有效的减少梯度消失和网络退化问题，使训练更容易。直观上理解可以认为BP的时候，深层的梯度可以更容易的传回浅层，因为这种结构的存在，对神经网络层数的设定可以更随意一些。</p>
+<p>​
+在整一个过程中，值得注意的是灰色箭头，我们会注意到灰色箭头代表的是“copy
+and crop”，即复制和剪切。我们以第一层的灰色箭头举例来看：其左侧大小为64
+* 568 * 568，右侧大小为128 * 392 *
+392。其中，右侧有64个通道的数据来源于左侧，64个通道的数据来源于上一层的上采样。那么灰色箭头应该就是把左侧的内容复制到了右侧，并且concat在了原先上采样后得到的64
+* 392 * 392的数据上，形成了128 * 392 * 392的数据。</p>
+<p>​ 但是问题在于，568 * 568和392 *
+392还有较大的尺寸差别，这就需要利用crop来完成，由于在每个卷积中都会丢失边界像素，因此裁剪crop是必要的</p>
+<p>​
+在上述网络形式中，最重要的结构就是其中的<strong>skip-connection</strong>。UNet中<strong>Concat</strong>形式的skip-connection的好处是，<strong>对于分割这个任务，空间域信息非常重要</strong>。而网络的encoder部分，通过各个pooling层已经把特征图分辨率降得非常小了，这一点不利于精确的分割mask生成，通过skip-connection可以把较浅的卷积层特征引过来，那些特征分辨率较高，且层数浅，会含有比较丰富的low-level信息，更利于生成分割mask。</p>
+<p>​
+总体来说，就是把对应尺度上的特征信息引入到上采样或反卷积过程，为后期图像分割提供多尺度多层次的信息，由此可以得到更精细的分割效果，如U-Net论文描述的分割结果一样。这比单纯用编解码器框架要好，纯粹的编解码器框架，在编码过程中压缩和丢失了大量细节信息，而这些信息很可能会有助于后期的图像分割。</p>
+<p>​
+同时，需要注意的一点是：此处的skip-connection与ResNet中直接相加形式的skip-connection不同，ResNet中的跳跃连接可以有效的减少梯度消失和网络退化问题，使训练更容易。直观上理解可以认为BP的时候，深层的梯度可以更容易的传回浅层，因为这种结构的存在，对神经网络层数的设定可以更随意一些。</p>
 
     </div>
 
@@ -462,13 +493,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">

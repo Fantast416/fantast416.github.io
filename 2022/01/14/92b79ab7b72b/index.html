@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="generator" content="Hexo 6.2.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -157,7 +157,12 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E5%90%8D%E7%A7%B0deep-residual-fourier-transformation-for-single-image-deblurring"><span class="nav-number">1.</span> <span class="nav-text">论文名称：《Deep Residual Fourier Transformation for Single Image Deblurring》</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E5%9C%B0%E5%9D%80-httpsarxiv.orgabs2111.11745"><span class="nav-number">2.</span> <span class="nav-text">论文地址： https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2111.11745</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="nav-number"></span> <span class="nav-text">1、关键词：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E8%83%8C%E6%99%AF"><span class="nav-number"></span> <span class="nav-text">2、领域背景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E5%89%8D%E5%B7%A5%E4%BD%9C%E6%8F%8F%E8%BF%B0%E4%B8%8E%E6%AF%94%E8%BE%83"><span class="nav-number"></span> <span class="nav-text">3、先前工作描述与比较：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number"></span> <span class="nav-text">4、主要设计思想：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%96%B9%E6%B3%95%E4%B8%8E%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number"></span> <span class="nav-text">5、具体方法与网络架构：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#resblocklook-back"><span class="nav-number"></span> <span class="nav-text">1) ResBlock（Look Back）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#residual-fast-fourier-transform-blockcurrent-substitute"><span class="nav-number"></span> <span class="nav-text">2）Residual Fast Fourier Transform Block（Current Substitute）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deep-residual-fourier-transform-framework"><span class="nav-number"></span> <span class="nav-text">3） Deep Residual Fourier Transform Framework</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#depthwise-over-parameterized-convolution"><span class="nav-number"></span> <span class="nav-text">4）Depthwise over-parameterized convolution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loss-function"><span class="nav-number"></span> <span class="nav-text">5） Loss Function</span></a></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E5%90%8D%E7%A7%B0deep-residual-fourier-transformation-for-single-image-deblurring"><span class="nav-number">1.</span> <span class="nav-text">论文名称：《Deep
+Residual Fourier Transformation for Single Image Deblurring》</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E5%9C%B0%E5%9D%80-httpsarxiv.orgabs2111.11745"><span class="nav-number">2.</span> <span class="nav-text">论文地址：
+https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2111.11745</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="nav-number"></span> <span class="nav-text">1、关键词：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E8%83%8C%E6%99%AF"><span class="nav-number"></span> <span class="nav-text">2、领域背景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E5%89%8D%E5%B7%A5%E4%BD%9C%E6%8F%8F%E8%BF%B0%E4%B8%8E%E6%AF%94%E8%BE%83"><span class="nav-number"></span> <span class="nav-text">3、先前工作描述与比较：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number"></span> <span class="nav-text">4、主要设计思想：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%96%B9%E6%B3%95%E4%B8%8E%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number"></span> <span class="nav-text">5、具体方法与网络架构：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#resblocklook-back"><span class="nav-number"></span> <span class="nav-text">1) ResBlock（Look Back）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#residual-fast-fourier-transform-blockcurrent-substitute"><span class="nav-number"></span> <span class="nav-text">2）Residual
+Fast Fourier Transform Block（Current Substitute）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deep-residual-fourier-transform-framework"><span class="nav-number"></span> <span class="nav-text">3） Deep Residual
+Fourier Transform Framework</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#depthwise-over-parameterized-convolution"><span class="nav-number"></span> <span class="nav-text">4）Depthwise
+over-parameterized convolution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loss-function"><span class="nav-number"></span> <span class="nav-text">5） Loss Function</span></a></div>
         </div>
         <!--/noindex-->
 
@@ -172,7 +177,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -326,36 +331,54 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h4 id="论文名称deep-residual-fourier-transformation-for-single-image-deblurring">论文名称：《Deep Residual Fourier Transformation for Single Image Deblurring》</h4>
-<h4 id="论文地址-httpsarxiv.orgabs2111.11745">论文地址： https://arxiv.org/abs/2111.11745</h4>
+        <h4
+id="论文名称deep-residual-fourier-transformation-for-single-image-deblurring">论文名称：《Deep
+Residual Fourier Transformation for Single Image Deblurring》</h4>
+<h4 id="论文地址-httpsarxiv.orgabs2111.11745">论文地址：
+https://arxiv.org/abs/2111.11745</h4>
 <h2 id="关键词">1、关键词：</h2>
 <p>​ Image Deblurring、FFT、ResBlock</p>
 <h2 id="领域背景">2、领域背景：</h2>
-<p>​ Image Deblurring 图像去模糊，往往指由非常规相机或物体移动、光学虚焦等因素引起的一种现象，他们会导致看上去低质量的图像。</p>
+<p>​ Image Deblurring
+图像去模糊，往往指由非常规相机或物体移动、光学虚焦等因素引起的一种现象，他们会导致看上去低质量的图像。</p>
 <h2 id="先前工作描述与比较">3、先前工作描述与比较：</h2>
-<p>​ 在先前，DeepDeblur使用CNN配合ResBlock，构建了多尺度的一个结构，使用Residual Block来聚焦学习模糊的图像和清晰的图像对之间的差距。并且取得了非常好的效果。但是，它也有一定的局限性：</p>
+<p>​
+在先前，DeepDeblur使用CNN配合ResBlock，构建了多尺度的一个结构，使用Residual
+Block来聚焦学习模糊的图像和清晰的图像对之间的差距。并且取得了非常好的效果。但是，它也有一定的局限性：</p>
 <ul>
 <li><p>ResBlock通常在CNN中进行，其感知域容易受到限制（尤其是在比较前面的层），所以ResBlock的机制往往会无法对全局的信息进行建模（这些信息往往在从一个模糊图像重建一个清晰图像的时候较为有用）</p></li>
 <li><p>先前的方法很少从频域的角度去关注模糊的图像和清晰的图像之间的关系，而我们发现，相较于模糊图像，清晰的图像往往包含更少的低频信息以及更多的高频信息。</p></li>
-<li><p>CNN在捕获可见的特征的时候很厉害，但是对于频域的特征较弱，并且ResBlock 可能具备良好的高频信息的学习，但是对于低频信息的学习较弱一些。</p></li>
+<li><p>CNN在捕获可见的特征的时候很厉害，但是对于频域的特征较弱，并且ResBlock
+可能具备良好的高频信息的学习，但是对于低频信息的学习较弱一些。</p></li>
 <li><p>论文贡献</p>
 <ul>
-<li>这篇论文提出的 <em>Residual Fast Fourier Transform with Convolution Block (Res FFT-Conv Block)</em>既能够捕获长距离信息，也能捕获短距离信息，同时也有能力考虑整个高频和低频的信息。通过使用这个Block还提出了一个框架，可以应用于图像去模糊领域 <em>Residual Fourier Transformation (DeepRFT) framework</em></li>
+<li>这篇论文提出的 <em>Residual Fast Fourier Transform with Convolution
+Block (Res FFT-Conv
+Block)</em>既能够捕获长距离信息，也能捕获短距离信息，同时也有能力考虑整个高频和低频的信息。通过使用这个Block还提出了一个框架，可以应用于图像去模糊领域
+<em>Residual Fourier Transformation (DeepRFT) framework</em></li>
 </ul></li>
 </ul>
 <h2 id="主要设计思想">4、主要设计思想：</h2>
-<p>​ 提出了<strong>Residual Fast Fourier Transform with Convolution Block（Res FFT-Conv Block）</strong>模块，这是一个即插即用的模块。设计思想如下所示：</p>
+<p>​ 提出了<strong>Residual Fast Fourier Transform with Convolution
+Block（Res FFT-Conv
+Block）</strong>模块，这是一个即插即用的模块。设计思想如下所示：</p>
 <ul>
-<li>Res FFT-Conv模块 将图像从空间域转至频域，然后使用<span class="math inline">\(1 \times 1\)</span>的卷积层进行卷积。由于FFT的特性，就能够使得在很early的层上卷积的感知域就能包含整个图像。其能更好的捕获模糊图像和清晰图像之间全局的差异。</li>
+<li>Res FFT-Conv模块 将图像从空间域转至频域，然后使用<span
+class="math inline">\(1 \times
+1\)</span>的卷积层进行卷积。由于FFT的特性，就能够使得在很early的层上卷积的感知域就能包含整个图像。其能更好的捕获模糊图像和清晰图像之间全局的差异。</li>
 </ul>
-<p>​ 提出了<strong>Deep Residual Fourier Transformation (DeepRFT) 框架</strong>，主要操作如下：</p>
+<p>​ 提出了<strong>Deep Residual Fourier Transformation (DeepRFT)
+框架</strong>，主要操作如下：</p>
 <ul>
-<li>DeepRFT框架通过将Res FFT-Conv模块插入进MIMO-UNet这个网络结构中，来进行图像去模糊的任务同时，使用DepthWise Over-parameterized Conolution以加速网络训练，达到很好的效果。</li>
+<li>DeepRFT框架通过将Res
+FFT-Conv模块插入进MIMO-UNet这个网络结构中，来进行图像去模糊的任务同时，使用DepthWise
+Over-parameterized Conolution以加速网络训练，达到很好的效果。</li>
 </ul>
 <h2 id="具体方法与网络架构">5、具体方法与网络架构：</h2>
 <h3 id="resblocklook-back">1) ResBlock（Look Back）</h3>
 <ul>
-<li><p><strong>网络结构</strong>：包含两个<span class="math inline">\(3 \times 3\)</span>卷积层 以及 一个 RELU激活函数层</p>
+<li><p><strong>网络结构</strong>：包含两个<span class="math inline">\(3
+\times 3\)</span>卷积层 以及 一个 RELU激活函数层</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114155111786.png" alt="image-20220114155111786" style="zoom: 50%;" /></p></li>
 <li><p><strong>意义</strong>：能够训练更深的网络结构、拥有更大的感知域、加快训练时的收敛速度。卷积操作能够很好的学习到一些图像中的高频信息，因为其经常能够从图像的edges中捕获信息。</p></li>
 <li><p><strong>缺陷</strong>：</p>
@@ -364,55 +387,86 @@
 <li>虽然我们能够通过堆叠模块来加大感知域，但是堆叠会带来巨大的计算复杂度。且在前几层网络中，感知域大小还是非常局部的，缺少全局的信息。</li>
 </ul></li>
 </ul>
-<h3 id="residual-fast-fourier-transform-blockcurrent-substitute">2）Residual Fast Fourier Transform Block（Current Substitute）</h3>
+<h3
+id="residual-fast-fourier-transform-blockcurrent-substitute">2）Residual
+Fast Fourier Transform Block（Current Substitute）</h3>
 <ul>
-<li><p><strong>输入</strong>：<span class="math inline">\(Z \in R^{H \times W \times C}\)</span></p></li>
+<li><p><strong>输入</strong>：<span class="math inline">\(Z \in R^{H
+\times W \times C}\)</span></p></li>
 <li><p><strong>网络结构</strong>：两条残差流：</p>
 <ul>
 <li>与ResBlock一致的空间域信息残差流</li>
-<li>基于Channel-Wise FFT的频域信息流，用于在频域中捕获图像的全局信息。</li>
+<li>基于Channel-Wise
+FFT的频域信息流，用于在频域中捕获图像的全局信息。</li>
 </ul>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114155802644.png" alt="image-20220114155802644" style="zoom: 50%;" /></p></li>
 <li><p><strong>核心实现-公式表达</strong>（最左侧的频域信息流）</p>
 <ol type="1">
-<li><span class="math inline">\(F(Z) \in C^{H \times W/2 \times C}\)</span>,对输入的特征Z，计算 2D real FFT ,由于傅立叶变换两侧对称，所以宽方向可以仅保留一半</li>
-<li><span class="math inline">\(\widetilde{Z} = R(F(Z)) \odot_C I((F(Z))) \in R^{H \times W/2 \times 2C}\)</span>, 将傅立叶变换后的实数部分和虚数部分在Channel层面Concatenate起来</li>
-<li>经过2个<span class="math inline">\(1 \times 1\)</span>的卷积层和1个ReLU激活函数层</li>
-<li><span class="math inline">\(Y^{fft} = F^{-1}(f^{real} + jf^{img}) \in R^{H \times W \times C}\)</span>应用逆向2D real FFT来将 f <span class="math inline">\((f^{real} \odot_C f^{img} )\)</span>变换回空间域</li>
-<li><span class="math inline">\(Y = Y^{fft} + Y^{res} + Z\)</span>，最终输出使用三个相加的形式得到。</li>
+<li><span class="math inline">\(F(Z) \in C^{H \times W/2 \times
+C}\)</span>,对输入的特征Z，计算 2D real FFT
+,由于傅立叶变换两侧对称，所以宽方向可以仅保留一半</li>
+<li><span class="math inline">\(\widetilde{Z} = R(F(Z)) \odot_C
+I((F(Z))) \in R^{H \times W/2 \times 2C}\)</span>,
+将傅立叶变换后的实数部分和虚数部分在Channel层面Concatenate起来</li>
+<li>经过2个<span class="math inline">\(1 \times
+1\)</span>的卷积层和1个ReLU激活函数层</li>
+<li><span class="math inline">\(Y^{fft} = F^{-1}(f^{real} + jf^{img})
+\in R^{H \times W \times C}\)</span>应用逆向2D real FFT来将 f <span
+class="math inline">\((f^{real} \odot_C f^{img}
+)\)</span>变换回空间域</li>
+<li><span class="math inline">\(Y = Y^{fft} + Y^{res} +
+Z\)</span>，最终输出使用三个相加的形式得到。</li>
 </ol></li>
 </ul>
-<h3 id="deep-residual-fourier-transform-framework">3） Deep Residual Fourier Transform Framework</h3>
+<h3 id="deep-residual-fourier-transform-framework">3） Deep Residual
+Fourier Transform Framework</h3>
 <ul>
-<li><p><strong>简介</strong>：基于MIMO-UNet进行的设计，MIMO-UNet是一个用于做多尺度图像去模糊的多输入多输出的U-Net架构。将MIMO-UNet中的所有ResBlocks用该论文提出的Res FFT-Conv Blocks进行替换。同时，我们额外将所有的<span class="math inline">\(1 \times 1\)</span>卷积层用我们提出的DO-Conv替换掉了。</p></li>
-<li><p>MIMO-UNet 详细可以参见这篇论文：《Rethinking Coarse-to-Fine Approach in Single Image Deblurring》</p></li>
+<li><p><strong>简介</strong>：基于MIMO-UNet进行的设计，MIMO-UNet是一个用于做多尺度图像去模糊的多输入多输出的U-Net架构。将MIMO-UNet中的所有ResBlocks用该论文提出的Res
+FFT-Conv Blocks进行替换。同时，我们额外将所有的<span
+class="math inline">\(1 \times
+1\)</span>卷积层用我们提出的DO-Conv替换掉了。</p></li>
+<li><p>MIMO-UNet 详细可以参见这篇论文：《Rethinking Coarse-to-Fine
+Approach in Single Image Deblurring》</p></li>
 <li><p><strong>网络结构</strong>：</p>
-<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114170635133.png" alt="image-20220114170635133" style="zoom:50%;" /></p></li>
+<p>​
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114170635133.png" alt="image-20220114170635133" style="zoom:50%;" /></p></li>
 </ul>
-<h3 id="depthwise-over-parameterized-convolution">4）<strong>Depthwise over-parameterized convolution</strong></h3>
+<h3 id="depthwise-over-parameterized-convolution">4）<strong>Depthwise
+over-parameterized convolution</strong></h3>
 <ul>
-<li><p><strong>简介</strong>：DO-Conv已经在许多高级别的视觉任务中显示出了它的潜力，它加速了训练并且通过使用深度卷积增强卷积层来获得更好的性能。DO-Conv 是两个相邻的线性运算，在操作时可以组合成传统的卷积运算。</p></li>
-<li><p>具体可以参见这篇论文《DO-Conv: Depthwise Over-parameterized Convolutional》</p></li>
+<li><p><strong>简介</strong>：DO-Conv已经在许多高级别的视觉任务中显示出了它的潜力，它加速了训练并且通过使用深度卷积增强卷积层来获得更好的性能。DO-Conv
+是两个相邻的线性运算，在操作时可以组合成传统的卷积运算。</p></li>
+<li><p>具体可以参见这篇论文《DO-Conv: Depthwise Over-parameterized
+Convolutional》</p></li>
 <li><p>论文链接：https://arxiv.org/pdf/2006.12030.pdf</p></li>
 </ul>
 <h3 id="loss-function">5） Loss Function</h3>
 <ul>
-<li><p><span class="math inline">\(Let\)</span><span class="math inline">\({k \in {0,……,K-1}}\)</span>为 DeepRFT的第k个层级</p></li>
-<li><p><span class="math inline">\({\hat{S_k}}\)</span>为 <span class="math inline">\(k_{th}\)</span>重建图像</p></li>
-<li><p><span class="math inline">\(S_k 为\)</span> <span class="math inline">\(k_{th}\)</span>GroundTruth清晰的图像</p></li>
+<li><p><span class="math inline">\(Let\)</span><span
+class="math inline">\({k \in {0,……,K-1}}\)</span>为
+DeepRFT的第k个层级</p></li>
+<li><p><span class="math inline">\({\hat{S_k}}\)</span>为 <span
+class="math inline">\(k_{th}\)</span>重建图像</p></li>
+<li><p><span class="math inline">\(S_k 为\)</span> <span
+class="math inline">\(k_{th}\)</span>GroundTruth清晰的图像</p></li>
 <li><p>考虑3种，不同类型的Loss Function：</p>
 <ul>
 <li><p>Multi-Scale Charbonnier loss：</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114171903475.png" alt="image-20220114171903475" style="zoom:50%;" /></p></li>
 <li><p>Multi-Scale Edge loss：</p>
 <p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114171944558.png" alt="image-20220114171944558" style="zoom:50%;" /></p></li>
-<li><p>Multi-Scale Frequency Reconstruction (MSFR) 在频域计算，FT代表FFT操作</p></li>
+<li><p>Multi-Scale Frequency Reconstruction (MSFR)
+在频域计算，FT代表FFT操作</p></li>
 </ul></li>
 </ul>
-<p>​ <img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114172909832.png" alt="image-20220114172909832" style="zoom: 50%;" /></p>
+<p>​
+<img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/imac/image-20220114172909832.png" alt="image-20220114172909832" style="zoom: 50%;" /></p>
 <ul>
-<li>最终Loss函数：<span class="math inline">\(L = L_{msc} + \alpha_1L_{msed}+ \alpha_2L_{msfr}\)</span></li>
-<li><span class="math inline">\(\alpha_1\)</span>、<span class="math inline">\(\alpha_2\)</span>为tradeoff参数，通常为0.05 和 0.01</li>
+<li>最终Loss函数：<span class="math inline">\(L = L_{msc} +
+\alpha_1L_{msed}+ \alpha_2L_{msfr}\)</span></li>
+<li><span class="math inline">\(\alpha_1\)</span>、<span
+class="math inline">\(\alpha_2\)</span>为tradeoff参数，通常为0.05 和
+0.01</li>
 </ul>
 
     </div>
@@ -488,13 +542,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">608k</span>
+    <span title="站点总字数">614k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28:10</span>
+    <span title="站点阅读时长">28:25</span>
   </span>
 </div>
 <div class="busuanzi-count">
