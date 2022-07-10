@@ -355,6 +355,131 @@ class="math inline">\(W_T\)</span>超过其大小上限，就会导致接收方�
 src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220518220819263.png" /></p>
 <h4
 id="七可靠传输的实现机制3选择重传协议">七、可靠传输的实现机制3——选择重传协议：</h4>
+<p>​
+回退N帧协议<strong>接收窗口尺寸</strong>只能为1，一个数据分组的误码会导致后续多个分组无法按序接收而丢弃。</p>
+<p>​
+为了进一步提高性能，<strong>可设法只重传出现误码的数据分组。</strong>因此，接收窗口的尺寸W：不应再于1（而应大于1），以便接收方先收下失序到达但无误码并且序号落在接收窗口内的那些数据分组，等到所缺分组收齐后再一并送交上层。这就是选择重传协议。</p>
+<figure>
+<img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220704151242946.png"
+alt="image-20220704151242946" />
+<figcaption aria-hidden="true">image-20220704151242946</figcaption>
+</figure>
+<ul>
+<li><p>发送窗口与接收窗口的尺寸限制：</p>
+<figure>
+<img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220704152510668.png"
+alt="image-20220704152510668" />
+<figcaption aria-hidden="true">image-20220704152510668</figcaption>
+</figure></li>
+<li><p>总结：</p>
+<figure>
+<img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220704154038765.png"
+alt="image-20220704154038765" />
+<figcaption aria-hidden="true">image-20220704154038765</figcaption>
+</figure></li>
+</ul>
+<h4 id="八点对点协议ppp">八、点对点协议PPP：</h4>
+<p>​ 点对点协议PPP（Point-to-Point
+Protocol）是目前使用最广泛的点对点数据链路层协议。广泛应用于广域网路由器之间的交换。</p>
+<p><strong>PPP协议为在点对点链路传输各种协议数据报提供了一个标准方法，主要由以下三部分构成：</strong></p>
+<ul>
+<li>对各种协议数据报的封装方法</li>
+<li>链路控制协议LCP：用于建立、配置以及测试数据链路的连接</li>
+<li>一套网络控制协议NCPs：其中的每一个协议支持不同的网络层协议</li>
+</ul>
+<figure>
+<img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220704170505457.png"
+alt="image-20220704170505457" />
+<figcaption aria-hidden="true">image-20220704170505457</figcaption>
+</figure>
+<p><strong>透明传输</strong>：取决于使用的数据链路</p>
+<p><strong>差错检测</strong>：使用CRC来计算该字段的取值</p>
+<p>接收方每收到一个PPP帧，就进行CRC检验。若CRC检验正确，就收下这个帧；反之，就丢弃这个帧。使用PPP的数据链路层向上不提供可靠传输服务。</p>
+<figure>
+<img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220704171056851.png"
+alt="image-20220704171056851" />
+<figcaption aria-hidden="true">image-20220704171056851</figcaption>
+</figure>
+<h4 id="九媒体接入控制">九、媒体接入控制 ：</h4>
+<p>​
+共享信道要着重考虑的一个问题就是<strong>如何协调多个发送和接收站点对一个共享传输媒体的占用</strong>，即媒体接入控制MAC（Medium
+Access Control）。</p>
+<ul>
+<li>静态划分信道</li>
+<li>动态接入控制-随机接入</li>
+</ul>
+<p><strong>随着技术的发展，交换技术的成熟和成本的降低，具有更高性能的使用点对点链路和链路层交换机的交换式局域网在有线领域已完全取代了共享式局域网，但由于无线信道的广播天性，无线局域网仍然使用的是共享媒体技术。</strong></p>
+<h5 id="静态划分信道">1、静态划分信道：</h5>
+<ul>
+<li>频分复用、时分复用、波分复用（光载波）</li>
+<li>码分复用：</li>
+</ul>
+<p>​
+与FDM和TDM不同，CDM的每一个用户可以在同样的时间使用同样的频带进行通信。</p>
+<p>​
+由于各用户使用经过特殊挑选的不同码型，因此各用户之间不会造成干扰。</p>
+<h5
+id="动态接入控制csmacd协议-载波监听多址接入碰撞检测早期总线式以太网使用广播信道的有线局域网采用的机制">2、动态接入控制——CSMA/CD协议
+（载波监听多址接入/碰撞检测）早期总线式以太网（使用广播信道的有线局域网）采用的机制</h5>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220709215138023.png" /></p>
+<ul>
+<li><strong>争用期的概念</strong>：</li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220709215431183.png" /></p>
+<ul>
+<li><strong>最小帧长</strong>：</li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220709215734966.png" /></p>
+<ul>
+<li><p><strong>最大帧长</strong>：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220709215824549.png" /></p></li>
+<li><p><strong>截断二进制指数退避算法</strong>：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220709215937630.png" /></p></li>
+<li><p><strong>帧发送流程</strong>：</p></li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220709220244808.png" /></p>
+<ul>
+<li><p><strong>帧接收流程</strong>：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220709220327190.png" /></p></li>
+</ul>
+<p>注：CSMA/CD协议曾经用于各种总线结构以太网和双绞线以太网的早期版本中。现在的以太网基于交换机和全双工连接，不会有碰撞，因此没有必要使用CSMA/CD协议。</p>
+<h5
+id="动态接入控制csmaca协议载波监听多址接入碰撞避免使用广播信道的无线局域网802.11无线局域网使用的协议">3、动态接入控制——CSMA/CA协议（载波监听多址接入/碰撞避免）使用广播信道的无线局域网（802.11无线局域网）使用的协议</h5>
+<p>​
+在无线局域网中，不能使用碰撞检测CD，原因如下：口由于无线信道的传输条件特殊，其信号强度的动态范围非常大，无线网卡上接收到的信号，强度往往会远远小于发送信号的强度（可能相差百万倍）。如果要在无线网卡上实现碰撞检测CD，对硬件的要求非常高。
+即使能够在硬件上实现无线局域网的碰撞检测功能，但由于无线电波传播的特殊性（存在<strong>隐蔽站问题</strong>），进行碰撞检测的意义也不大。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220709220829915.png" style="zoom: 67%;" /></p>
+<ul>
+<li><p>帧间间隔IFS：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220709220922160.png" style="zoom:67%;" /></p></li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220709221000176.png" alt="image-20220709221000176" style="zoom:67%;" /></p>
+<ul>
+<li><p><strong>CSMA/CA工作原理：</strong></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220709221319393.png" style="zoom:67%;" /></p></li>
+</ul>
+<p>​
+1、为何源站检测到信道空闲后，仍然要等待一个DIFS帧间间隔再发送数据帧？</p>
+<p>​
+2、为何目的站接收到第一帧以后，要等待一个SIFS帧间间隔再发送数据帧？</p>
+<p>​
+3、为何其他站再检测到信道忙转为空闲且经过DIFS时间后，还要退避一段随机时间才能使用信道？</p>
+<ul>
+<li><p><strong>退避算法</strong>：</p></li>
+<li><p><strong>RTS帧和CTS帧</strong>：</p></li>
+</ul>
 ]]></content>
       <categories>
         <category>⓹ 基础类笔记</category>
