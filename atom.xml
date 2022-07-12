@@ -3,11 +3,11 @@
   <title>Fantast&#39;s Blog</title>
   
   
-  <link href="https://blog.slks.xyz/atom.xml" rel="self"/>
+  <link href="https://blog.fantast.top/atom.xml" rel="self"/>
   
-  <link href="https://blog.slks.xyz/"/>
+  <link href="https://blog.fantast.top/"/>
   <updated>2022-05-01T08:11:32.000Z</updated>
-  <id>https://blog.slks.xyz/</id>
+  <id>https://blog.fantast.top/</id>
   
   <author>
     <name>Fantast</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>计网微课堂Chap2——物理层原理</title>
-    <link href="https://blog.slks.xyz/2022/05/01/81ac33552c19/"/>
-    <id>https://blog.slks.xyz/2022/05/01/81ac33552c19/</id>
+    <link href="https://blog.fantast.top/2022/05/01/81ac33552c19/"/>
+    <id>https://blog.fantast.top/2022/05/01/81ac33552c19/</id>
     <published>2022-05-01T01:36:19.000Z</published>
     <updated>2022-05-01T08:11:32.000Z</updated>
     
@@ -30,19 +30,15 @@
     
     
     
-    <category term="⓹ 基础类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="计算机网络" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-    <category term="Computer Network" scheme="https://blog.slks.xyz/tags/Computer-Network/"/>
+    <category term="Computer Network" scheme="https://blog.fantast.top/tags/Computer-Network/"/>
     
   </entry>
   
   <entry>
     <title>计网微课堂Chap3——数据链路层原理</title>
-    <link href="https://blog.slks.xyz/2022/05/01/cb7d0a0dd4f3/"/>
-    <id>https://blog.slks.xyz/2022/05/01/cb7d0a0dd4f3/</id>
+    <link href="https://blog.fantast.top/2022/05/01/cb7d0a0dd4f3/"/>
+    <id>https://blog.fantast.top/2022/05/01/cb7d0a0dd4f3/</id>
     <published>2022-05-01T01:36:19.000Z</published>
     <updated>2022-07-12T06:05:58.273Z</updated>
     
@@ -53,19 +49,15 @@
     
     
     
-    <category term="⓹ 基础类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="计算机网络" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-    <category term="Computer Network" scheme="https://blog.slks.xyz/tags/Computer-Network/"/>
+    <category term="Computer Network" scheme="https://blog.fantast.top/tags/Computer-Network/"/>
     
   </entry>
   
   <entry>
     <title>清华操作系统课程Chapter1—操作系统概述</title>
-    <link href="https://blog.slks.xyz/2022/04/28/7c4029518fb7/"/>
-    <id>https://blog.slks.xyz/2022/04/28/7c4029518fb7/</id>
+    <link href="https://blog.fantast.top/2022/04/28/7c4029518fb7/"/>
+    <id>https://blog.fantast.top/2022/04/28/7c4029518fb7/</id>
     <published>2022-04-28T09:48:19.000Z</published>
     <updated>2022-04-30T07:58:56.000Z</updated>
     
@@ -76,19 +68,15 @@
     
     
     
-    <category term="⓹ 基础类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="操作系统" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-    <category term="Operating System" scheme="https://blog.slks.xyz/tags/Operating-System/"/>
+    <category term="Operating System" scheme="https://blog.fantast.top/tags/Operating-System/"/>
     
   </entry>
   
   <entry>
     <title>计算机科学笔记1——P1~P10集内容笔记</title>
-    <link href="https://blog.slks.xyz/2022/04/27/87bb1a3b00a2/"/>
-    <id>https://blog.slks.xyz/2022/04/27/87bb1a3b00a2/</id>
+    <link href="https://blog.fantast.top/2022/04/27/87bb1a3b00a2/"/>
+    <id>https://blog.fantast.top/2022/04/27/87bb1a3b00a2/</id>
     <published>2022-04-27T09:43:19.000Z</published>
     <updated>2022-04-30T07:59:03.000Z</updated>
     
@@ -99,19 +87,15 @@
     
     
     
-    <category term="⓹ 基础类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="计算机科学课" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E8%AF%BE/"/>
-    
-    
-    <category term="Computer Science" scheme="https://blog.slks.xyz/tags/Computer-Science/"/>
+    <category term="Computer Science" scheme="https://blog.fantast.top/tags/Computer-Science/"/>
     
   </entry>
   
   <entry>
     <title>计算机科学笔记1——P1~P10集内容笔记</title>
-    <link href="https://blog.slks.xyz/2022/04/27/698edcb24aab/"/>
-    <id>https://blog.slks.xyz/2022/04/27/698edcb24aab/</id>
+    <link href="https://blog.fantast.top/2022/04/27/698edcb24aab/"/>
+    <id>https://blog.fantast.top/2022/04/27/698edcb24aab/</id>
     <published>2022-04-27T09:43:19.000Z</published>
     <updated>2022-04-30T07:58:59.000Z</updated>
     
@@ -122,19 +106,15 @@
     
     
     
-    <category term="⓹ 基础类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="计算机科学课" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E8%AF%BE/"/>
-    
-    
-    <category term="Computer Science" scheme="https://blog.slks.xyz/tags/Computer-Science/"/>
+    <category term="Computer Science" scheme="https://blog.fantast.top/tags/Computer-Science/"/>
     
   </entry>
   
   <entry>
     <title>计算机组成原理Chapter1—概述</title>
-    <link href="https://blog.slks.xyz/2022/04/27/5b4ea41fcadf/"/>
-    <id>https://blog.slks.xyz/2022/04/27/5b4ea41fcadf/</id>
+    <link href="https://blog.fantast.top/2022/04/27/5b4ea41fcadf/"/>
+    <id>https://blog.fantast.top/2022/04/27/5b4ea41fcadf/</id>
     <published>2022-04-27T09:43:19.000Z</published>
     <updated>2022-04-30T16:07:24.000Z</updated>
     
@@ -145,19 +125,15 @@
     
     
     
-    <category term="⓹ 基础类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="计算机组成原理" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
-    
-    
-    <category term="Computer Composition" scheme="https://blog.slks.xyz/tags/Computer-Composition/"/>
+    <category term="Computer Composition" scheme="https://blog.fantast.top/tags/Computer-Composition/"/>
     
   </entry>
   
   <entry>
     <title>计网微课堂Chap1——计网基础知识与概述</title>
-    <link href="https://blog.slks.xyz/2022/04/27/dcdee696a9ce/"/>
-    <id>https://blog.slks.xyz/2022/04/27/dcdee696a9ce/</id>
+    <link href="https://blog.fantast.top/2022/04/27/dcdee696a9ce/"/>
+    <id>https://blog.fantast.top/2022/04/27/dcdee696a9ce/</id>
     <published>2022-04-27T09:43:19.000Z</published>
     <updated>2022-04-30T07:59:05.000Z</updated>
     
@@ -168,19 +144,15 @@
     
     
     
-    <category term="⓹ 基础类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="计算机网络" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-    <category term="Computer Network" scheme="https://blog.slks.xyz/tags/Computer-Network/"/>
+    <category term="Computer Network" scheme="https://blog.fantast.top/tags/Computer-Network/"/>
     
   </entry>
   
   <entry>
     <title>《Not All Tokens Are Equal Human-centric Visual Analysis via Token Clustering Transformer》</title>
-    <link href="https://blog.slks.xyz/2022/04/24/22e32ee5ba59/"/>
-    <id>https://blog.slks.xyz/2022/04/24/22e32ee5ba59/</id>
+    <link href="https://blog.fantast.top/2022/04/24/22e32ee5ba59/"/>
+    <id>https://blog.fantast.top/2022/04/24/22e32ee5ba59/</id>
     <published>2022-04-24T09:12:19.000Z</published>
     <updated>2022-04-27T11:15:30.000Z</updated>
     
@@ -191,19 +163,13 @@
     
     
     
-    <category term="⓶ 论文阅读笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B6-%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="CV相关论文" scheme="https://blog.slks.xyz/categories/%E2%93%B6-%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/CV%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/"/>
-    
-    
-    <category term="Transformer" scheme="https://blog.slks.xyz/tags/Transformer/"/>
     
   </entry>
   
   <entry>
     <title>《Vision Transformer with Deformable Attention》</title>
-    <link href="https://blog.slks.xyz/2022/04/24/503bff4618b7/"/>
-    <id>https://blog.slks.xyz/2022/04/24/503bff4618b7/</id>
+    <link href="https://blog.fantast.top/2022/04/24/503bff4618b7/"/>
+    <id>https://blog.fantast.top/2022/04/24/503bff4618b7/</id>
     <published>2022-04-24T09:12:19.000Z</published>
     <updated>2022-04-27T11:15:19.000Z</updated>
     
@@ -214,19 +180,13 @@
     
     
     
-    <category term="⓶ 论文阅读笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B6-%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="CV相关论文" scheme="https://blog.slks.xyz/categories/%E2%93%B6-%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/CV%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/"/>
-    
-    
-    <category term="Transformer" scheme="https://blog.slks.xyz/tags/Transformer/"/>
     
   </entry>
   
   <entry>
     <title>论文略读笔记——CVPR2022 Transformer相关（1）</title>
-    <link href="https://blog.slks.xyz/2022/04/22/1076c1e77e53/"/>
-    <id>https://blog.slks.xyz/2022/04/22/1076c1e77e53/</id>
+    <link href="https://blog.fantast.top/2022/04/22/1076c1e77e53/"/>
+    <id>https://blog.fantast.top/2022/04/22/1076c1e77e53/</id>
     <published>2022-04-22T00:51:19.000Z</published>
     <updated>2022-04-23T00:41:24.000Z</updated>
     
@@ -237,21 +197,13 @@
     
     
     
-    <category term="⓶ 论文阅读笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B6-%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="CV相关论文" scheme="https://blog.slks.xyz/categories/%E2%93%B6-%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/CV%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/"/>
-    
-    
-    <category term="Transformer" scheme="https://blog.slks.xyz/tags/Transformer/"/>
-    
-    <category term="CVPR2022" scheme="https://blog.slks.xyz/tags/CVPR2022/"/>
     
   </entry>
   
   <entry>
     <title>2.3.2 经典问题（生产者-消费者等）</title>
-    <link href="https://blog.slks.xyz/2022/04/15/ef402168a5bd/"/>
-    <id>https://blog.slks.xyz/2022/04/15/ef402168a5bd/</id>
+    <link href="https://blog.fantast.top/2022/04/15/ef402168a5bd/"/>
+    <id>https://blog.fantast.top/2022/04/15/ef402168a5bd/</id>
     <published>2022-04-15T03:43:00.000Z</published>
     <updated>2022-04-30T07:58:55.000Z</updated>
     
@@ -262,19 +214,15 @@
     
     
     
-    <category term="⓹ 基础类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="操作系统" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-    <category term="Operating System" scheme="https://blog.slks.xyz/tags/Operating-System/"/>
+    <category term="Operating System" scheme="https://blog.fantast.top/tags/Operating-System/"/>
     
   </entry>
   
   <entry>
     <title>2.3.1 进程同步与进程互斥及信号量机制</title>
-    <link href="https://blog.slks.xyz/2022/04/13/c34143b1b4b5/"/>
-    <id>https://blog.slks.xyz/2022/04/13/c34143b1b4b5/</id>
+    <link href="https://blog.fantast.top/2022/04/13/c34143b1b4b5/"/>
+    <id>https://blog.fantast.top/2022/04/13/c34143b1b4b5/</id>
     <published>2022-04-13T03:43:00.000Z</published>
     <updated>2022-04-30T07:58:53.000Z</updated>
     
@@ -285,19 +233,15 @@
     
     
     
-    <category term="⓹ 基础类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="操作系统" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-    <category term="Operating System" scheme="https://blog.slks.xyz/tags/Operating-System/"/>
+    <category term="Operating System" scheme="https://blog.fantast.top/tags/Operating-System/"/>
     
   </entry>
   
   <entry>
     <title>字体生成论文研究进度</title>
-    <link href="https://blog.slks.xyz/2022/04/01/f225f383e158/"/>
-    <id>https://blog.slks.xyz/2022/04/01/f225f383e158/</id>
+    <link href="https://blog.fantast.top/2022/04/01/f225f383e158/"/>
+    <id>https://blog.fantast.top/2022/04/01/f225f383e158/</id>
     <published>2022-04-01T15:09:19.000Z</published>
     <updated>2022-04-16T03:39:19.000Z</updated>
     
@@ -308,19 +252,13 @@
     
     
     
-    <category term="⓪ 项目笔记" scheme="https://blog.slks.xyz/categories/%E2%93%AA-%E9%A1%B9%E7%9B%AE%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="字体生成项目" scheme="https://blog.slks.xyz/categories/%E2%93%AA-%E9%A1%B9%E7%9B%AE%E7%AC%94%E8%AE%B0/%E5%AD%97%E4%BD%93%E7%94%9F%E6%88%90%E9%A1%B9%E7%9B%AE/"/>
-    
-    
-    <category term="Font Generation" scheme="https://blog.slks.xyz/tags/Font-Generation/"/>
     
   </entry>
   
   <entry>
     <title>GPU占用清除</title>
-    <link href="https://blog.slks.xyz/2022/03/30/18c6bc9e09ef/"/>
-    <id>https://blog.slks.xyz/2022/03/30/18c6bc9e09ef/</id>
+    <link href="https://blog.fantast.top/2022/03/30/18c6bc9e09ef/"/>
+    <id>https://blog.fantast.top/2022/03/30/18c6bc9e09ef/</id>
     <published>2022-03-30T13:47:19.000Z</published>
     <updated>2022-03-30T15:27:03.000Z</updated>
     
@@ -331,17 +269,13 @@
     
     
     
-    <category term="⓺ 工具使用类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%BA-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="GPU" scheme="https://blog.slks.xyz/tags/GPU/"/>
     
   </entry>
   
   <entry>
     <title>Pytorch学习笔记12——分布式DDP基本概念</title>
-    <link href="https://blog.slks.xyz/2022/03/29/5a94914aa20a/"/>
-    <id>https://blog.slks.xyz/2022/03/29/5a94914aa20a/</id>
+    <link href="https://blog.fantast.top/2022/03/29/5a94914aa20a/"/>
+    <id>https://blog.fantast.top/2022/03/29/5a94914aa20a/</id>
     <published>2022-03-29T08:48:19.000Z</published>
     <updated>2022-03-29T12:47:41.000Z</updated>
     
@@ -352,19 +286,13 @@
     
     
     
-    <category term="⓵ 深度学习笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="Pytorch系列笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Pytorch%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="Pytorch" scheme="https://blog.slks.xyz/tags/Pytorch/"/>
     
   </entry>
   
   <entry>
     <title>机器学习基础系列笔记19——EMA指数滑动平均原理</title>
-    <link href="https://blog.slks.xyz/2022/03/27/6de89f1d1ae9/"/>
-    <id>https://blog.slks.xyz/2022/03/27/6de89f1d1ae9/</id>
+    <link href="https://blog.fantast.top/2022/03/27/6de89f1d1ae9/"/>
+    <id>https://blog.fantast.top/2022/03/27/6de89f1d1ae9/</id>
     <published>2022-03-27T01:44:19.000Z</published>
     <updated>2022-03-17T02:33:55.000Z</updated>
     
@@ -375,19 +303,13 @@
     
     
     
-    <category term="⓵ 深度学习笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="Basic系列笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Basic%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="EMA" scheme="https://blog.slks.xyz/tags/EMA/"/>
     
   </entry>
   
   <entry>
     <title>2.2 处理机调度及相关算法</title>
-    <link href="https://blog.slks.xyz/2022/03/25/9887f629bb62/"/>
-    <id>https://blog.slks.xyz/2022/03/25/9887f629bb62/</id>
+    <link href="https://blog.fantast.top/2022/03/25/9887f629bb62/"/>
+    <id>https://blog.fantast.top/2022/03/25/9887f629bb62/</id>
     <published>2022-03-25T12:40:19.000Z</published>
     <updated>2022-04-30T07:58:51.000Z</updated>
     
@@ -398,19 +320,15 @@
     
     
     
-    <category term="⓹ 基础类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="操作系统" scheme="https://blog.slks.xyz/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-    <category term="Operating System" scheme="https://blog.slks.xyz/tags/Operating-System/"/>
+    <category term="Operating System" scheme="https://blog.fantast.top/tags/Operating-System/"/>
     
   </entry>
   
   <entry>
     <title>《StyTr2 Unbiased Image Style Transfer with Transformers》</title>
-    <link href="https://blog.slks.xyz/2022/03/21/58ee25c0143c/"/>
-    <id>https://blog.slks.xyz/2022/03/21/58ee25c0143c/</id>
+    <link href="https://blog.fantast.top/2022/03/21/58ee25c0143c/"/>
+    <id>https://blog.fantast.top/2022/03/21/58ee25c0143c/</id>
     <published>2022-03-21T10:12:19.000Z</published>
     <updated>2022-03-22T03:14:40.000Z</updated>
     
@@ -421,23 +339,13 @@
     
     
     
-    <category term="⓶ 论文阅读笔记" scheme="https://blog.slks.xyz/categories/%E2%93%B6-%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="CV相关论文" scheme="https://blog.slks.xyz/categories/%E2%93%B6-%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/CV%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/"/>
-    
-    
-    <category term="Style Transfer" scheme="https://blog.slks.xyz/tags/Style-Transfer/"/>
-    
-    <category term="CNN" scheme="https://blog.slks.xyz/tags/CNN/"/>
-    
-    <category term="Transformer" scheme="https://blog.slks.xyz/tags/Transformer/"/>
     
   </entry>
   
   <entry>
     <title>关于文献综述、开题报告写作逻辑记录</title>
-    <link href="https://blog.slks.xyz/2022/03/21/70cfb7bd8141/"/>
-    <id>https://blog.slks.xyz/2022/03/21/70cfb7bd8141/</id>
+    <link href="https://blog.fantast.top/2022/03/21/70cfb7bd8141/"/>
+    <id>https://blog.fantast.top/2022/03/21/70cfb7bd8141/</id>
     <published>2022-03-21T08:27:23.000Z</published>
     <updated>2022-03-21T06:47:52.000Z</updated>
     
@@ -448,17 +356,13 @@
     
     
     
-    <category term="⓻ 经验整理类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%BB-%E7%BB%8F%E9%AA%8C%E6%95%B4%E7%90%86%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="Methods" scheme="https://blog.slks.xyz/tags/Methods/"/>
     
   </entry>
   
   <entry>
     <title>SCI EI 核心期刊以及计算机领域CCF会议等级分类文件</title>
-    <link href="https://blog.slks.xyz/2022/03/17/58ef9be2b7d9/"/>
-    <id>https://blog.slks.xyz/2022/03/17/58ef9be2b7d9/</id>
+    <link href="https://blog.fantast.top/2022/03/17/58ef9be2b7d9/"/>
+    <id>https://blog.fantast.top/2022/03/17/58ef9be2b7d9/</id>
     <published>2022-03-17T01:27:23.000Z</published>
     <updated>2022-03-17T01:39:18.000Z</updated>
     
@@ -468,8 +372,6 @@
     <summary type="html">SCI EI 核心期刊的区别以及计算机领域CCF会议等级分类文件整理</summary>
     
     
-    
-    <category term="⓻ 经验整理类笔记" scheme="https://blog.slks.xyz/categories/%E2%93%BB-%E7%BB%8F%E9%AA%8C%E6%95%B4%E7%90%86%E7%B1%BB%E7%AC%94%E8%AE%B0/"/>
     
     
   </entry>

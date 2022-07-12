@@ -19,11 +19,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.fantast.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 <meta name="description" content="本篇笔记记录一道LeetCode题目，需要以层为单位计算一颗树的性质，我们可以不需要非常复杂的记录每个节点的层级信息，然后遍历完后再去遍历节点获取level信息，而是可以在层序遍历的过程中将每一层的遍历区分开。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="树系列——当二叉树需要以层为单位计算时层序遍历的优化版本">
-<meta property="og:url" content="https://blog.slks.xyz/2022/02/06/36f0ee63db4b/index.html">
+<meta property="og:url" content="https://blog.fantast.top/2022/02/06/36f0ee63db4b/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="本篇笔记记录一道LeetCode题目，需要以层为单位计算一颗树的性质，我们可以不需要非常复杂的记录每个节点的层级信息，然后遍历完后再去遍历节点获取level信息，而是可以在层序遍历的过程中将每一层的遍历区分开。">
 <meta property="og:locale" content="zh_CN">
@@ -35,11 +35,11 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://blog.slks.xyz/2022/02/06/36f0ee63db4b/">
+<link rel="canonical" href="https://blog.fantast.top/2022/02/06/36f0ee63db4b/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/02/06/36f0ee63db4b/","path":"2022/02/06/36f0ee63db4b/","title":"树系列——当二叉树需要以层为单位计算时层序遍历的优化版本"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.fantast.top/2022/02/06/36f0ee63db4b/","path":"2022/02/06/36f0ee63db4b/","title":"树系列——当二叉树需要以层为单位计算时层序遍历的优化版本"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>树系列——当二叉树需要以层为单位计算时层序遍历的优化版本 | Fantast's Blog</title>
@@ -171,12 +171,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -236,7 +236,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/02/06/36f0ee63db4b/">
+    <link itemprop="mainEntityOfPage" href="https://blog.fantast.top/2022/02/06/36f0ee63db4b/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -268,19 +268,6 @@
       </span>
       <span class="post-meta-item-text">更新于</span>
       <time title="修改时间：2022-02-24 23:35:09" itemprop="dateModified" datetime="2022-02-24T23:35:09+08:00">2022-02-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B7-%E7%AE%97%E6%B3%95%E7%B1%BB%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓷ 算法类笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B7-%E7%AE%97%E6%B3%95%E7%B1%BB%E7%AC%94%E8%AE%B0/%E6%A0%91%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">树系列</span></a>
-        </span>
     </span>
 
   
@@ -349,13 +336,13 @@ target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/LwUNpT/">�
       <div class="popular-posts-title"><a href="\2022\02\03\b62f2c89d90c\" rel="bookmark">LeetCode《剑指Offer》题目情况整理（持续更新）</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\02\02\e7e76d98fb52\" rel="bookmark">LeetCode 算法解题Tricks（持续更新）</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2022\02\26\3e00524469fb\" rel="bookmark">DFS系列——DFS多种形式变体整理</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2022\02\26\16bfad4011e0\" rel="bookmark">图系列——重建序列</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\02\26\994b03ade281\" rel="bookmark">数组系列——值和下标之差都在给定范围内</a></div>
     </li>
   </ul>
 

@@ -19,11 +19,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.fantast.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 <meta name="description" content="Pytorch中，优化模型参数的基本过程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pytorch学习笔记6——优化模型参数">
-<meta property="og:url" content="https://blog.slks.xyz/2021/12/14/81d5ccd11a24/index.html">
+<meta property="og:url" content="https://blog.fantast.top/2021/12/14/81d5ccd11a24/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="Pytorch中，优化模型参数的基本过程">
 <meta property="og:locale" content="zh_CN">
@@ -34,11 +34,11 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://blog.slks.xyz/2021/12/14/81d5ccd11a24/">
+<link rel="canonical" href="https://blog.fantast.top/2021/12/14/81d5ccd11a24/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2021/12/14/81d5ccd11a24/","path":"2021/12/14/81d5ccd11a24/","title":"Pytorch学习笔记6——优化模型参数"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.fantast.top/2021/12/14/81d5ccd11a24/","path":"2021/12/14/81d5ccd11a24/","title":"Pytorch学习笔记6——优化模型参数"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Pytorch学习笔记6——优化模型参数 | Fantast's Blog</title>
@@ -172,12 +172,12 @@ model.eval() 方法，以将 dropout 和批量归一化层设置为评估模式�
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -237,7 +237,7 @@ model.eval() 方法，以将 dropout 和批量归一化层设置为评估模式�
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/12/14/81d5ccd11a24/">
+    <link itemprop="mainEntityOfPage" href="https://blog.fantast.top/2021/12/14/81d5ccd11a24/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -269,19 +269,6 @@ model.eval() 方法，以将 dropout 和批量归一化层设置为评估模式�
       </span>
       <span class="post-meta-item-text">更新于</span>
       <time title="修改时间：2022-02-20 21:34:45" itemprop="dateModified" datetime="2022-02-20T21:34:45+08:00">2022-02-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓵ 深度学习笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Pytorch%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Pytorch系列笔记</span></a>
-        </span>
     </span>
 
   
@@ -720,16 +707,7 @@ model.state_dict()）传递给保存函数：</p>
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\03\29\5a94914aa20a\" rel="bookmark">Pytorch学习笔记12——分布式DDP基本概念</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2022\03\12\6c6b30d1f672\" rel="bookmark">__call__方法</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\03\12\796f9da33963\" rel="bookmark">Pytorch学习笔记11——torchvision图像数据预处理</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\01\18\acaa679c551a\" rel="bookmark">Pytorch学习笔记10——PyTorch 中，nn与nn.functional有什么区别？（搬运）</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2022\01\18\52f2902757db\" rel="bookmark">Torch/Numpy的广播机制介绍</a></div>

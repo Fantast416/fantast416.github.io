@@ -19,27 +19,25 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.fantast.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 <meta name="description" content="过拟合是Deep Neural Networks(DNN)网络存在的问题之一。过拟合的特点是模型对训练数据的拟合非常好，但对测试数据的拟合却非常差，具体表现为loss和在训练集上的错误率非常低，而在验证集或测试集上却都要高很多。针对解决过拟合问题设计出来的方法很多，dropout就是其中一种最简单，也是最有效的方法。在训练DNN网络的过程中，对于每一个神经元，以p的概率被随机的drop out，也">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合">
-<meta property="og:url" content="https://blog.slks.xyz/2022/01/21/788645531548/index.html">
+<meta property="og:url" content="https://blog.fantast.top/2022/01/21/788645531548/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="过拟合是Deep Neural Networks(DNN)网络存在的问题之一。过拟合的特点是模型对训练数据的拟合非常好，但对测试数据的拟合却非常差，具体表现为loss和在训练集上的错误率非常低，而在验证集或测试集上却都要高很多。针对解决过拟合问题设计出来的方法很多，dropout就是其中一种最简单，也是最有效的方法。在训练DNN网络的过程中，对于每一个神经元，以p的概率被随机的drop out，也">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-21T15:25:19.000Z">
 <meta property="article:modified_time" content="2022-02-20T13:31:06.000Z">
 <meta property="article:author" content="Fantast">
-<meta property="article:tag" content="OverFitting">
-<meta property="article:tag" content="DropOut">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://blog.slks.xyz/2022/01/21/788645531548/">
+<link rel="canonical" href="https://blog.fantast.top/2022/01/21/788645531548/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2022/01/21/788645531548/","path":"2022/01/21/788645531548/","title":"机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.fantast.top/2022/01/21/788645531548/","path":"2022/01/21/788645531548/","title":"机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合 | Fantast's Blog</title>
@@ -170,12 +168,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -235,7 +233,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2022/01/21/788645531548/">
+    <link itemprop="mainEntityOfPage" href="https://blog.fantast.top/2022/01/21/788645531548/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -267,19 +265,6 @@
       </span>
       <span class="post-meta-item-text">更新于</span>
       <time title="修改时间：2022-02-20 21:31:06" itemprop="dateModified" datetime="2022-02-20T21:31:06+08:00">2022-02-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓵ 深度学习笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Basic%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Basic系列笔记</span></a>
-        </span>
     </span>
 
   
@@ -372,15 +357,6 @@ Augmentation。比如，对于某一层，dropout一些单元后，形成的结�
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\01\21\22d362e1f563\" rel="bookmark">机器学习基础系列笔记12——BatchNorm详解及为什么能防止过拟合</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\01\21\d692eb11c4b5\" rel="bookmark">机器学习基础系列笔记10——L1、L2正则化以及为什么正则化能够防止过拟合</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -398,10 +374,6 @@ Augmentation。比如，对于某一层，dropout一些单元后，形成的结�
   </div>
 </div>
 
-          <div class="post-tags">
-              <a href="/tags/OverFitting/" rel="tag"># OverFitting</a>
-              <a href="/tags/DropOut/" rel="tag"># DropOut</a>
-          </div>
 
         
 

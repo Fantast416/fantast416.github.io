@@ -19,28 +19,25 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.slks.xyz","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.fantast.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 <meta name="description" content="本文介绍了机器学习中常用的两种编码形式，One-Hot独热向量编码与Word Embedding词嵌入。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习基础系列笔记1——One-Hot编码与Word Embedding">
-<meta property="og:url" content="https://blog.slks.xyz/2021/11/23/3ad8cb19bc7a/index.html">
+<meta property="og:url" content="https://blog.fantast.top/2021/11/23/3ad8cb19bc7a/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
 <meta property="og:description" content="本文介绍了机器学习中常用的两种编码形式，One-Hot独热向量编码与Word Embedding词嵌入。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-23T11:27:19.000Z">
 <meta property="article:modified_time" content="2022-02-20T13:30:29.000Z">
 <meta property="article:author" content="Fantast">
-<meta property="article:tag" content="Machine Learning">
-<meta property="article:tag" content="Basic Concepts">
-<meta property="article:tag" content="Info Encoding">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://blog.slks.xyz/2021/11/23/3ad8cb19bc7a/">
+<link rel="canonical" href="https://blog.fantast.top/2021/11/23/3ad8cb19bc7a/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.slks.xyz/2021/11/23/3ad8cb19bc7a/","path":"2021/11/23/3ad8cb19bc7a/","title":"机器学习基础系列笔记1——One-Hot编码与Word Embedding"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.fantast.top/2021/11/23/3ad8cb19bc7a/","path":"2021/11/23/3ad8cb19bc7a/","title":"机器学习基础系列笔记1——One-Hot编码与Word Embedding"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>机器学习基础系列笔记1——One-Hot编码与Word Embedding | Fantast's Blog</title>
@@ -171,12 +168,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -236,7 +233,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.slks.xyz/2021/11/23/3ad8cb19bc7a/">
+    <link itemprop="mainEntityOfPage" href="https://blog.fantast.top/2021/11/23/3ad8cb19bc7a/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -268,19 +265,6 @@
       </span>
       <span class="post-meta-item-text">更新于</span>
       <time title="修改时间：2022-02-20 21:30:29" itemprop="dateModified" datetime="2022-02-20T21:30:29+08:00">2022-02-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓵ 深度学习笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E2%93%B5-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Basic%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Basic系列笔记</span></a>
-        </span>
     </span>
 
   
@@ -381,24 +365,6 @@ hot为输入、中间层节点为字向量维数的全连接层！而这个全�
     
     
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2021\11\24\379e9f408368\" rel="bookmark">机器学习基础系列笔记2——数据表征与自动编码器</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2021\11\22\6afd3e085246\" rel="bookmark">机器学习基础系列笔记0——常见概念与函数（更新中）</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\01\12\8c9b3da724b3\" rel="bookmark">机器学习基础系列笔记6——全卷积网络FCN & U-Net结构</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\01\07\3664afb64da5\" rel="bookmark">机器学习基础系列笔记5——1x1卷积 & 部分卷积 & 空洞卷积 & 可变形卷积</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2022\01\05\d37a1913ba03\" rel="bookmark">机器学习基础系列笔记4——Depth-wise卷积 & Point-wise卷积</a></div>
-    </li>
-  </ul>
 
 
     <footer class="post-footer">
@@ -416,11 +382,6 @@ hot为输入、中间层节点为字向量维数的全连接层！而这个全�
   </div>
 </div>
 
-          <div class="post-tags">
-              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
-              <a href="/tags/Basic-Concepts/" rel="tag"># Basic Concepts</a>
-              <a href="/tags/Info-Encoding/" rel="tag"># Info Encoding</a>
-          </div>
 
         
 
