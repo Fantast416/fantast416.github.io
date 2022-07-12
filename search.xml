@@ -472,13 +472,213 @@ id="动态接入控制csmaca协议载波监听多址接入碰撞避免使用广�
 </ul>
 <p>​
 1、为何源站检测到信道空闲后，仍然要等待一个DIFS帧间间隔再发送数据帧？</p>
+<p><strong>就是考虑到可能有其他的站有高优先级的帧要发送。若有，就要让高优先级帧先发送。</strong></p>
 <p>​
 2、为何目的站接收到第一帧以后，要等待一个SIFS帧间间隔再发送数据帧？</p>
+<p><strong>SIFS是最短的帧间间隔，用来分隔开属于一次对话的各帧。在这段时间内，一个站点应当能够从发送方式切换到接收方式。</strong></p>
 <p>​
 3、为何其他站再检测到信道忙转为空闲且经过DIFS时间后，还要退避一段随机时间才能使用信道？</p>
+<p><strong>防止多个站点同时发送数据而产生碰撞。</strong></p>
 <ul>
-<li><p><strong>退避算法</strong>：</p></li>
-<li><p><strong>RTS帧和CTS帧</strong>：</p></li>
+<li><p><strong>退避算法</strong>：</p>
+<p>​
+当站点检测到信道是空闲的，并且所发送的数据帧不是成功发送完上一个数据帧之后立即连续发送的数据帧，则不使用退避算法。</p>
+<p><strong>以下情况必须使用退避算法：</strong></p>
+<ul>
+<li>在发送数据帧之前检测到信道处于忙状态时；</li>
+<li>在每一次重传一个数据帧时；</li>
+<li>在每一次成功发送后要连续发送下一个帧时（这是为了避免一个站点长时间占用信道）。</li>
+</ul></li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711133229589.png" /></p>
+<ul>
+<li>CSMA/CA 示例：</li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711133457488.png" /></p>
+<ul>
+<li><p><strong>802.11信道预约机制：RTS帧和CTS帧</strong></p>
+<ul>
+<li><p>（1）源站在发送数据帧之前先发送一个短的控制帧，称为请求发送RTS（Request
+To
+Send），它包括<strong>源地址、目的地址以及这次通信（包括相应的确认帧）所需的持续时间</strong>。</p></li>
+<li><p>（2）若目的站正确收到源站发来的RTS帧，且媒体空闲，就发送一个响应控制帧，称为允许发送CTS（Clear
+To Send），它也包括这次通信所需的
+持续时间（从RTS帧中将此持续时间复制到CTS帧中）。</p></li>
+<li><p>（3）源站收到CTS帧后，再等待一段时间SIFS后，就可发送其数据帧。</p></li>
+<li><p>（4）若目的站正确收到了源站发来的数据帧，在等待时间SIFS后，就向源站发送确认帧ACK。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711133923678.png" /></p></li>
+<li><p><strong>除源站和目的站以外的其他各站，在收到CTS帧（或数据帧）后就推迟接入到无线局域网中。这样就保证了源站和目的站之间的通信不会受到其他站的干扰。</strong>如果RTS帧发生碰撞，源站就收不到CTS帧，需执行退避算法重传RTS帧。</p></li>
+<li><p>由于RTS帧和CTS帧很短，发送碰撞的概率、碰撞产生的开销及本身的开销都很小。而对于一般的数据帧，其<strong>发送时延往往大于传播时延（因为是局域网）</strong>，碰撞的概率很大，且一旦发生碰撞而导致数据帧重发，则浪费的时间就很多，因此用很小的代价对信道进行预约往往是值得的。</p></li>
+</ul></li>
+<li><p><strong>802.11虚拟载波监听机制：数据帧也能携带通信所需时间</strong></p>
+<ul>
+<li>由于利用虚拟载波监听机制，站点只要监听到RTS帧、CTS帧或数据帧中的任何一个，就能知道信道被占用的持续时间，而不需要真正监听到信道上的信号，因此虚拟载波监听机制能减少隐蔽站带来的碰撞问题。</li>
+</ul></li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711134106642.png" style="zoom: 67%;" /></p>
+<h4 id="十mac地址">十、MAC地址 ：</h4>
+<ul>
+<li>当<strong>多个主机连接在同一个广播信道上</strong>，要想实现两个主机之间的通信，则每个主机都必须有一个唯一的标识，即一个数据链路层地址。</li>
+<li>在每个主机发送的帧中必须携带标识发送主机和接收主机的地址。由于这类地址是用于<strong>媒体接入控制MAC（Media
+Access Control）</strong>，因此这类地址被称为MAC地址；</li>
+</ul>
+<p><strong>一般情况下，用户主机会包含两个网络适配器：有线局域网适配器（有线网卡）和无线局域网适配器（无线网卡）。每个网络适配器都有一个全球唯一的MAC地址。而交换机和路由器往往拥有更多的网络接口，所以会拥有更多的MAC地址。综上所述，严格来说，MAC地址是对网络上各接口的唯一标识，而不是对网络上各设备的唯一标识。</strong></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711163330450.png" /></p>
+<h4 id="十一ip地址">十一、IP地址 ：</h4>
+<p><strong>IP地址是因特网（Internet）上的主机和路由器所使用的地址</strong>，用于标识两部分信息：</p>
+<ul>
+<li>网络编号：标识因特网上数以百万计的网络</li>
+<li>主机编号：标识同一网络上不同主机（或路由器各接口）</li>
+</ul>
+<p>​
+<strong>很显然，之前介绍的MAC地址不具备区分不同网络的功能。如果只是一个单独的网络，不接入因特网，可以只使用MAC地址（这不是一般用户的应用方式）。如果主机所在的网络要接入因特网，则IP地址和MAC地址都需要使用。</strong></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711164732641.png" /></p>
+<h4
+id="十二地址解析协议arp协议仅能在一段链路或一个网络下使用">十二、地址解析协议ARP协议：（仅能在一段链路或一个网络下使用）</h4>
+<p>现在面临这样一个问题：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711165421809.png" /></p>
+<p><strong>ARP高速缓存表</strong>：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711165459322.png" style="zoom: 67%;" /></p>
+<p>​
+在主机B想要给主机C发送数据包时，首先会查找自己的ARP高速缓存，发现没有主机C的IP地址和MAC地址的转换记录，此时便会发送如下所示ARP请求报文：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711165839100.png" /></p>
+<p>当广播帧到达C时：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711165949206.png" style="zoom:67%;" /></p>
+<ul>
+<li><p>主机C先将B的IP地址与MAC地址记录到自己的ARP高速缓存表中；</p></li>
+<li><p>随后给B发送ARP响应，以告知自己的MAC地址。</p></li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711170027736.png" style="zoom: 80%;" /></p>
+<p>总线上A、B收到单播帧后：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711170135425.png" /></p>
+<p>​
+主机B的网卡将帧交付上层的ARP解析进程，其将C的IP地址与MAC地址记录到自己的ARP高速缓存表中。</p>
+<ul>
+<li>ARP高速缓存的记录类型有两种</li>
+</ul>
+<figure>
+<img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711170244005.png"
+alt="image-20220711170244005" />
+<figcaption aria-hidden="true">image-20220711170244005</figcaption>
+</figure>
+<h4 id="十三集线器与交换机">十三、集线器与交换机</h4>
+<ul>
+<li><strong>集线器</strong><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711172230039.png"
+alt="image-20220711172230039" /></li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711173900724.png" style="zoom: 67%;" /></p>
+<ul>
+<li><strong>交换机：</strong></li>
+</ul>
+<p>​
+以太网交换机通常都有多个接口。每个接口都可以直接与一台主机或另一个以太网交换机相连。一般都工作在<strong>全双工方式</strong>。</p>
+<p>​
+以太网交换机具有并行性，能同时连通多对接口，使多对主机能同时通信，无碰撞（不使用CSMA/CD协议）。</p>
+<p>​
+以太网交换机工作在数据链路层（也包括物理层），<strong>它收到帧后，在帧交换表中查找帧的目的MAC地址所对应的接口号，然后通过该接口转发帧。</strong></p>
+<p>​
+<strong>以太网交换机是一种即插即用设备，其内部的帧交换表是通过自学习算法自动地逐渐建立起来的。</strong></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711181652815.png" /></p>
+<h4
+id="十四以太网交换机自学习和转发帧流程">十四、以太网交换机自学习和转发帧流程</h4>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711222156764.png" /></p>
+<p>​
+<strong>主机A要给主机B发送一个帧，首先到达以太网交换机1，以太网交换机1首先进行登记，将MAC地址A和对应接口1记录到帧交换表中，然后查找目的地址B，如果找不到，则进行盲目泛洪，将帧转发给其他的所有接口。如果找到了，则转发至对应接口
+</strong>以此类推</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220711223207055.png" alt="image-20220711223207055" style="zoom:67%;" /></p>
+<p>​
+<strong>主机G给主机A发送一个帧，帧沿着总线到达A和交换机接口1，主机A接收该帧，交换机1查找表，发现应当转发至接口1，但此时这个帧就是来源于接口1，故以太网交换机1就会丢弃该帧</strong></p>
+<ul>
+<li><strong>注意：每条记录都有自己的有效时间，到期自动删除！这是因为MAC地址与交换机接口的对应关系并不是永久性的！</strong></li>
+</ul>
+<h4
+id="十五以太网交换机的生成树协议stp">十五、以太网交换机的生成树协议STP</h4>
+<p>​
+如图所示，如果AB的链路或者BC的链路出现问题，则互相之间就无法通信。那么如何提高以太网的可靠性？</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220712094950883.png" alt="image-20220712094950883" style="zoom:67%;" /></p>
+<p>​
+<strong>添加冗余链路可以提高以太网的可靠性</strong>，但是，冗余链路也会带来负面效应——形成网络环路。</p>
+<p>​ <strong>网络环路</strong>会带来以下问题：</p>
+<ul>
+<li><p>广播风暴：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220712095252611.png" /></p>
+<p>广播帧将会在交换机之间反复转发，大量消耗网络资源。</p></li>
+<li><p>主机会收到重复的广播帧</p></li>
+<li><p>交换机的帧交换表震荡漂移</p></li>
+</ul>
+<p>​ <strong>故而以太网交换机使用生成树协议STP（Spanning Tree
+Protocol），可以在增加冗余链路来提高网络可靠性的同时又避免网络环路带来的各种问题。</strong></p>
+<p>​
+不论交换机之间采用怎样的物理连接，交换机都能够自动计算并构建一个逻辑上没有环路的网络，其逻辑拓扑结构必须是树型的（无逻辑环路）；（如下图所示）</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220712095713041.png" style="zoom:50%;" /></p>
+<p>​
+<strong>当首次连接交换机或网络物理拓扑发生变化时（有可能是人为改变或故障），交换机都将进行生成树的重新计算。</strong></p>
+<h4 id="十六虚拟局域网vlan">十六、虚拟局域网VLAN</h4>
+<p>​
+随着交换式以太网规模的扩大，广播域相应扩大。巨大的广播域会带来很多弊端，比如广播风暴，难以管理和维护等。</p>
+<p><strong>分割广播域的方法</strong>：</p>
+<ul>
+<li><p>使用路由器分割广播域（因为路由器默认情况下不对广播帧进行转发）</p></li>
+<li><p>虚拟局域网技术VLAN：</p>
+<p>虚拟局域网VLAN（Virtual Local Area
+Network）是一种将局域网内的设备划分成与物理位置无关的逻辑组的技术，这些逻辑组具有某些共同的需求。</p>
+<p><strong>同一VLAN之间可以广播通信，不同VLAN之间不可以广播通信</strong></p></li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220712134553537.png" /></p>
+<p><strong>VLAN的实现机制</strong>：</p>
+<p>​ VLAN基于交换机实现，需要交换机满足两个条件：</p>
+<ul>
+<li>支持IEEE802.1q帧，其对MAC帧格式进行了扩展，插入了4字节的VLAN标识
+<ul>
+<li>802.1Q帧是由交换机来处理的，而不是用户主机来处理的。</li>
+<li>当交换机收到普通的以太网帧时，会将其插入4字节的VLAN标记转变为802.1Q帧，简称“打标签”</li>
+<li>当交换机转发802.1Q帧时，可能会删除其4字节VLAN标记转变为普通以太网帧，简称“去标签"”。</li>
+</ul></li>
+<li>交换机的端口类型有三种
+<ul>
+<li><strong>Access：</strong>一般用于连接用户计算机，只能属于一个VLAN，Access端口的PVID值与端口所属VLAN的ID相同（默认为1）
+<ul>
+<li>接收处理方法：<strong>一般只接受“未打标签”的普通以太网MAC帧。</strong>根据接收帧的端口的PVID给帧“打标签”，即插入4字节VLAN标记字段，字段中的VID取值与端口的PVID取值相等。</li>
+<li>发送处理方法：<strong>若帧中的VID与端囗的PVID相等，则“去标签”并转发该帧；否则不转发。</strong></li>
+</ul></li>
+<li><strong>Trunk：</strong>一般用于交换机之间或交换机与路由器之间的互联，其可以属于多个VLAN。用户可以设置Trunk端口的PVID值。默认情况下，Trunk端口的PVID值为1。
+<ul>
+<li>接收处理方法：
+<ul>
+<li>接收“未打标签”的帧，<strong>根据接收帧的端口的PVID给帧“打标签”，</strong>即插入4字节VLAN标记字段，字段中的VID取值与端口的PVID取值相等。</li>
+<li>接收”已打标签“的帧，</li>
+</ul></li>
+<li>发送处理方法：
+<ul>
+<li><strong>对VID等于PVID的帧</strong>，“去标签”再转发；</li>
+<li><strong>对VID不等于PVID的帧</strong>，直接转发；</li>
+</ul></li>
+</ul></li>
+<li><strong>Hybrid：</strong>Hybrid端口既可用于交换机之间或交换机与路由器之间的互连（同Trunk端口），也可用于交换机与用户计算机之间的互连（同Access端口）
+<ul>
+<li>接收处理方法：（同Trunk端口）</li>
+<li>发送处理方法：
+<ul>
+<li>查看帧的VID是否在端囗的“去标签”列表中：</li>
+<li>若存在，则“去标签”后再转发；</li>
+<li>若不存在，则直接转发；</li>
+</ul></li>
+</ul></li>
+</ul></li>
 </ul>
 ]]></content>
       <categories>
