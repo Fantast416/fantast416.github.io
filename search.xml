@@ -24,6 +24,55 @@
       </tags>
   </entry>
   <entry>
+    <title>计网微课堂Chap4——网络层原理</title>
+    <url>/2022/07/12/a63746099b02/</url>
+    <content><![CDATA[<p>视频地址：https://www.bilibili.com/video/BV1c4411d7jb?p=41</p>
+<h4 id="一网络层的基本概念">一、网络层的基本概念：</h4>
+<p>​
+网络层的主要任务是实现网络互连，进而实现数据包在各网络之间的传输。</p>
+<p>​ 要实现网络层任务，需要解决以下主要问题：</p>
+<ul>
+<li><p>网络层向运输层提供怎样的服务（“可靠传输”还是“不可靠传输"）</p></li>
+<li><p>网络层寻址问题</p></li>
+<li><p>路由选择问题</p></li>
+</ul>
+<p><strong>因特网（Internet）是目前全世界用户数量最多的互联网，它使用TCP/IP协议栈。由于TCP/IP协议栈的网络层使用网际协议IP，它是整个协议栈的核心协议，因此在TCP/IP协议栈中网络层常称为网际层。</strong></p>
+<h4 id="二网络层提供的两种服务">二、网络层提供的两种服务</h4>
+<ul>
+<li>面向连接的虚电路服务</li>
+</ul>
+<p>​ 可靠通信由网络来保证，必须建立网络层的连接——虚电路VC（Virtual
+Circuit），通信双方沿着已建立的虚电路发送分组。通信结束后，需要释放之前所建立的虚电路。</p>
+<ul>
+<li>无连接的数据报服务
+<ul>
+<li>可靠通信应当由用户主机来保证</li>
+<li>不需要建立网络层连接</li>
+<li>每个分组可走不同的路径</li>
+<li>每个分组的首部必须携带目的主机的完整地址</li>
+<li>这种通信方式所传送的分组可能误码、丢失、重复和失序。</li>
+<li>由于网络本身不提供端到端的可靠传输服务，这就使网络中的路由器可以做得比较简单，而且价格低廉（与电信网的交换机相比较）。</li>
+<li>因特网采用了这种设计思想，也就是将复杂的网络处理功能置于因特网的边缘（用户主机和其内部的运输层），而将相对简单的尽最大努力的分组交付功能置于因特网核心。</li>
+</ul></li>
+</ul>
+<h4 id="三ipv4地址">三、IPV4地址</h4>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220712145410048.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220713152341503.png" /></p>
+<h4 id="四分类编址的ipv4地址">四、分类编址的IPV4地址：</h4>
+<h4 id="五划分子网的ipv4地址">五、划分子网的IPV4地址：</h4>
+<h4 id="六无分类编址的ipv4地址">六、无分类编址的IPV4地址：</h4>
+]]></content>
+      <categories>
+        <category>⓹ 基础类笔记</category>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>Computer Network</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计网微课堂Chap2——物理层原理</title>
     <url>/2022/05/01/81ac33552c19/</url>
     <content><![CDATA[<p>视频地址：https://www.bilibili.com/video/BV1c4411d7jb?p=14</p>
