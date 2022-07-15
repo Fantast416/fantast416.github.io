@@ -20,27 +20,28 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"blog.fantast.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","width":250,"display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="过拟合是Deep Neural Networks(DNN)网络存在的问题之一。过拟合的特点是模型对训练数据的拟合非常好，但对测试数据的拟合却非常差，具体表现为loss和在训练集上的错误率非常低，而在验证集或测试集上却都要高很多。针对解决过拟合问题设计出来的方法很多，dropout就是其中一种最简单，也是最有效的方法。在训练DNN网络的过程中，对于每一个神经元，以p的概率被随机的drop out，也">
+<meta name="description" content="计网微课堂Chap5——运输层原理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合">
-<meta property="og:url" content="https://blog.fantast.top/2022/01/21/788645531548/index.html">
+<meta property="og:title" content="计网微课堂Chap5——运输层原理">
+<meta property="og:url" content="https://blog.fantast.top/2022/07/15/b846bd0fbb3c/index.html">
 <meta property="og:site_name" content="Fantast&#39;s Blog">
-<meta property="og:description" content="过拟合是Deep Neural Networks(DNN)网络存在的问题之一。过拟合的特点是模型对训练数据的拟合非常好，但对测试数据的拟合却非常差，具体表现为loss和在训练集上的错误率非常低，而在验证集或测试集上却都要高很多。针对解决过拟合问题设计出来的方法很多，dropout就是其中一种最简单，也是最有效的方法。在训练DNN网络的过程中，对于每一个神经元，以p的概率被随机的drop out，也">
+<meta property="og:description" content="计网微课堂Chap5——运输层原理">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-21T15:25:19.000Z">
-<meta property="article:modified_time" content="2022-02-20T13:31:06.000Z">
+<meta property="article:published_time" content="2022-07-15T14:00:19.000Z">
+<meta property="article:modified_time" content="2022-07-15T14:16:58.911Z">
 <meta property="article:author" content="Fantast">
+<meta property="article:tag" content="Computer Network">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://blog.fantast.top/2022/01/21/788645531548/">
+<link rel="canonical" href="https://blog.fantast.top/2022/07/15/b846bd0fbb3c/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.fantast.top/2022/01/21/788645531548/","path":"2022/01/21/788645531548/","title":"机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.fantast.top/2022/07/15/b846bd0fbb3c/","path":"2022/07/15/b846bd0fbb3c/","title":"计网微课堂Chap5——运输层原理"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合 | Fantast's Blog</title>
+<title>计网微课堂Chap5——运输层原理 | Fantast's Blog</title>
   
 
 
@@ -147,7 +148,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80dropout%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">一、DropOut是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8Cdropout%E9%98%B6%E6%AE%B5%E5%9C%A8%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5%E5%92%8C%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">二、DropOut阶段在训练阶段和测试阶段的区别：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5"><span class="nav-number">2.1.</span> <span class="nav-text">1、训练阶段：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="nav-number">2.2.</span> <span class="nav-text">2、测试阶段：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89dropout%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2%E8%BF%87%E6%8B%9F%E5%90%88"><span class="nav-number">3.</span> <span class="nav-text">三、DropOut如何防止过拟合？</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%BF%90%E8%BE%93%E5%B1%82%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">一、运输层的基本概念：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E8%BF%90%E8%BE%93%E5%B1%82%E7%AB%AF%E5%8F%A3%E5%8F%B7%E5%A4%8D%E7%94%A8%E4%B8%8E%E5%88%86%E7%94%A8%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">二、运输层端口号、复用与分用的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89udp%E5%92%8Ctcp%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">三、UDP和TCP的区别：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9Btcp%E7%9A%84%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">四、TCP的流量控制：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94tcp%E7%9A%84%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">5.</span> <span class="nav-text">五、TCP的拥塞控制：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AD%E8%B6%85%E6%97%B6%E9%87%8D%E4%BC%A0%E6%97%B6%E9%97%B4%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">6.</span> <span class="nav-text">六、超时重传时间的选择：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%83%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">7.</span> <span class="nav-text">七、可靠传输的实现：</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -233,7 +234,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.fantast.top/2022/01/21/788645531548/">
+    <link itemprop="mainEntityOfPage" href="https://blog.fantast.top/2022/07/15/b846bd0fbb3c/">
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="Fantast">
@@ -245,7 +246,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          机器学习基础系列笔记13——DropOut详解及为什么能够防止过拟合
+          计网微课堂Chap5——运输层原理
         </h1>
 
         <div class="post-meta-container">
@@ -256,15 +257,22 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-01-21 23:25:19" itemprop="dateCreated datePublished" datetime="2022-01-21T23:25:19+08:00">2022-01-21</time>
+      <time title="创建时间：2022-07-15 22:00:19 / 修改时间：22:16:58" itemprop="dateCreated datePublished" datetime="2022-07-15T22:00:19+08:00">2022-07-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
+        <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-20 21:31:06" itemprop="dateModified" datetime="2022-02-20T21:31:06+08:00">2022-02-20</time>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">⓹ 基础类笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E2%93%B9-%E5%9F%BA%E7%A1%80%E7%B1%BB%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+        </span>
     </span>
 
   
@@ -281,18 +289,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
+      <span>767</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">过拟合是Deep Neural Networks(DNN)网络存在的问题之一。过拟合的特点是模型对训练数据的拟合非常好，但对测试数据的拟合却非常差，具体表现为loss和在训练集上的错误率非常低，而在验证集或测试集上却都要高很多。针对解决过拟合问题设计出来的方法很多，dropout就是其中一种最简单，也是最有效的方法。在训练DNN网络的过程中，对于每一个神经元，以p的概率被随机的drop out，也就是将其值置零。这样，在该轮前传和反传的过程中，该神经元将失去作用，相当于不存在，如下图所示。DropOut整体来说，是在训练过程中以一定的概率的使神经元失活，即输出为0，以提高模型的泛化能力，减少过拟合。</div>
+            <div class="post-description">计网微课堂Chap5——运输层原理</div>
             <div class="post-remind">Google Chrome is recommended, otherwise the image size may be wrong</div>
             <div class="post-remind">FireFox is not recommended,Because it does not support the image zoom property</div>
         </div>
@@ -303,53 +311,83 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="一dropout是什么">一、DropOut是什么？</h2>
-<p>​ 过拟合是Deep Neural
-Networks(DNN)网络存在的问题之一。过拟合的特点是模型对训练数据的拟合非常好，但对测试数据的拟合却非常差，具体表现为loss和在训练集上的错误率非常低，而在验证集或测试集上却都要高很多。针对解决过拟合问题设计出来的方法很多，dropout就是其中一种最简单，也是最有效的方法。</p>
-<p>​ 在训练DNN网络的过程中，对于每一个神经元，以p的概率被随机的drop
-out，也就是将其值置零。这样，在该轮前传和反传的过程中，该神经元将失去作用，相当于不存在，如下图所示。DropOut整体来说，是在训练过程中以一定的概率的使神经元失活，即输出为0，以提高模型的泛化能力，减少过拟合。</p>
-<p><img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/dropout.jpeg" /></p>
-<h2
-id="二dropout阶段在训练阶段和测试阶段的区别">二、DropOut阶段在训练阶段和测试阶段的区别：</h2>
-<h3 id="训练阶段">1、训练阶段：</h3>
+        <p>视频地址：https://www.bilibili.com/video/BV1c4411d7jb?p=58</p>
+<h4 id="一运输层的基本概念">一、运输层的基本概念：</h4>
+<p>​ 先前的所有层共同解决了<strong>主机到主机的通信</strong></p>
 <p>​
-在前向传播时，假设有这一层n个神经元，则我们可以假设每个神经元的概率都是0~1(可以通过python得到随机的值)，然后小于p的就失活，即不参与训练。</p>
-<p>​ 在反向传播时，也只对参与训练的神经元进行参数更新。</p>
-<p>​ 每次训练的时候，又是n个神经元，重新进行dropout</p>
-<p>​ <strong>Dropout
-在训练时采用，是为了减少神经元对部分上层神经元的依赖，类似将多个不同网络结构的模型集成起来，减少过拟合的风险。</strong></p>
-<h3 id="测试阶段">2、测试阶段：</h3>
-<p>​ 在测试时，应该用整个训练好的模型，不需要进行dropout。</p>
+实际上计算机网络中进行<strong>通信的真正实体是位于通信两端主机中的进程</strong></p>
 <p>​
-参与学习的节点和那些被隐藏的节点需要以一定的概率p加权求和，综合计算得到网络的输出。</p>
-<p>​ 即预测的时候，每一个单元的参数要预乘以p。为什么要预乘以p呢？</p>
+<strong>如何为运行在不同主机上的应用进程提供直接的通信服务是运输层的任务，运输层协议又称为端到端协议。</strong></p>
 <p>​
-因为我们训练的时候会随机的丢弃一些神经元，但是预测的时候就没办法随机丢弃了。<strong>如果丢弃一些神经元，这会带来结果不稳定的问题，也就是给定一个测试数据，有时候输出a有时候输出b，结果不稳定，这是实际系统不能接受的</strong>，用户可能认为模型预测不准。那么<strong>一种”补偿“的方案就是每个神经元的权重都乘以一个p，这样在“总体上”使得测试数据和训练数据是大致一样的</strong>。</p>
+运输层向高层用户屏蔽了下面网络核心的细节（如网络拓扑、所采用的路由选择协议等），它使应用进程看见的就好像是在两个运输层实体之间有一条端到端的逻辑通信信道。</p>
 <p>​
-<strong>比如一个神经元的输出是x，那么在训练的时候它有p的概率参与训练，(1-p)的概率丢弃，那么它输出的期望是<span
-class="math inline">\(p \times x+(1-p) \times 0 = p \times
-x\)</span>。因此测试的时候把这个神经元的权重乘以p可以得到同样的期望。</strong></p>
-<p><img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220121204115930.png" /></p>
-<h2 id="三dropout如何防止过拟合">三、DropOut如何防止过拟合？</h2>
-<p><strong>（1）数据层面</strong></p>
-<p>​ 对于每一个dropout后的网络，进行训练时，相当于做了Data
-Augmentation。比如，对于某一层，dropout一些单元后，形成的结果是(1.5，0，2.5，0，1，2，0)，其中0是被drop的单元，那么总能找到一个样本，使得结果也是如此。这样每一次dropout其实都相当于增加了样本。</p>
-<p><strong>（2）模型层面</strong></p>
+根据应用需求的不同，因特网的运输层为应用层提供了两种不同的运输协议，即面向连接的TCP和无连接的UDP，这两种协议就是本章要讨论的主要内容。</p>
+<h4
+id="二运输层端口号复用与分用的概念">二、运输层端口号、复用与分用的概念</h4>
 <ul>
-<li><p><strong>在较大程度上减小了网络的大小：</strong>在这个“残缺”的网络中，让神经网络学习数据中的局部特征（即部分分布式特征），但这些特征也足以进行输出正确的结果。</p></li>
-<li><p><strong>取平均的作用：</strong>
-如果正常的模型（没有dropout），我们用相同的训练数据去训练5个不同的神经网络，一般会得到5个不同的结果，此时我们可以采用
-“5个结果取均值”或者“多数取胜的投票策略”去决定最终结果。（例如
-3个网络判断结果为数字9,那么很有可能真正的结果就是数字9，其它两个网络给出了错误结果）。<strong>这种“综合起来取平均”的策略通常可以有效防止过拟合问题。因为不同的网络可能产生不同的过拟合，取平均则有可能让一些“相反的”拟合互相抵消。每次训练随机dropout掉不同的隐藏神经元，网络结构已经不同，这就类似在训练不同的网络，整个dropout过程就相当于对很多个不同的神经网络取平均。而不同的网络产生不同的过拟合，一些互为“反向”的拟合相互抵消就可以达到整体上减少过拟合。</strong></p></li>
-<li><p><strong>减少神经元之间共适应关系：</strong>
-因为dropout导致两个神经元不一定每次都在一个网络中出现，这样权值的更新不再依赖于有固定关系的隐含节点的共同作用，阻止了某些特征仅仅在其它特定特征下才有效果的情况，
-迫使网络去学习更加鲁棒的特征。换句话说，假如神经网络是在做出某种预测，<strong>它不应该对一些特定的线索片段太过敏感</strong>，即使丢失特定的线索，它也应该可以从众多其它线索中学习一些共同的模式（鲁棒性）。</p></li>
+<li>​ 端口号：</li>
 </ul>
-<p>引用：</p>
-<p>https://zhuanlan.zhihu.com/p/175142160</p>
-<p>https://www.zhihu.com/question/402485242/answer/1553947864</p>
+<p>​ 运行在计算机上的进程使用进程标识符PID来标志。</p>
+<p>​
+因特网上的计算机<strong>并不是使用统一的操作系统</strong>，不同的操作系统（windows，Linux，Mac
+OS）又使用不同格式的进程标识符。</p>
+<p>​
+为了使运行不同操作系统的计算机的应用进程之间能够进行网络通信，就必须使用统一的方法对TCP/IP体系的应用进程进行标识。<strong>TCP/IP体系的运输层使用端口号来区分应用层的不同应用进程。</strong></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220715215440625.png" /></p>
+<ul>
+<li>发送方的复用和接收方的分用</li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220715215959063.png" /></p>
+<ul>
+<li>常用的应用层协议使用的运输层端口号</li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220715220025060.png" /></p>
+<h4 id="三udp和tcp的区别">三、UDP和TCP的区别：</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>UDP</th>
+<th>TCP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>无连接，随时传输数据</td>
+<td>面向连接，需要建立连接、释放连接</td>
+</tr>
+<tr class="even">
+<td>支持单播、多播、广播</td>
+<td>仅支持单播</td>
+</tr>
+<tr class="odd">
+<td>面向应用报文的</td>
+<td>面向字节流的</td>
+</tr>
+<tr class="even">
+<td>向上层提供无连接不可靠传输服务（适用于IP电话、视频会议等实时应用）。</td>
+<td>向上层提供面向连接的可靠传输服务（适用于要求可靠传输的应用，例如文件传输）</td>
+</tr>
+<tr class="odd">
+<td>首部仅8字节</td>
+<td>首部更为复杂，因为要实现可靠传输、流量控制、拥塞控制</td>
+</tr>
+</tbody>
+</table>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220715221236586.png" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220715221534600.png" /></p>
+<h4 id="四tcp的流量控制">四、TCP的流量控制：</h4>
+<h4 id="五tcp的拥塞控制">五、TCP的拥塞控制：</h4>
+<h4 id="六超时重传时间的选择">六、超时重传时间的选择：</h4>
+<h4 id="七可靠传输的实现">七、可靠传输的实现：</h4>
 
     </div>
 
@@ -357,6 +395,21 @@ Augmentation。比如，对于某一层，dropout一些单元后，形成的结�
     
     
       
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\07\12\a63746099b02\" rel="bookmark">计网微课堂Chap4——网络层原理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\05\01\81ac33552c19\" rel="bookmark">计网微课堂Chap2——物理层原理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\05\01\cb7d0a0dd4f3\" rel="bookmark">计网微课堂Chap3——数据链路层原理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2022\04\27\dcdee696a9ce\" rel="bookmark">计网微课堂Chap1——计网基础知识与概述</a></div>
+    </li>
+  </ul>
 
 
     <footer class="post-footer">
@@ -374,19 +427,19 @@ Augmentation。比如，对于某一层，dropout一些单元后，形成的结�
   </div>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/Computer-Network/" rel="tag"># Computer Network</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/01/21/22d362e1f563/" rel="prev" title="机器学习基础系列笔记12——BatchNorm详解及为什么能防止过拟合">
-                  <i class="fa fa-chevron-left"></i> 机器学习基础系列笔记12——BatchNorm详解及为什么能防止过拟合
+                <a href="/2022/07/12/a63746099b02/" rel="prev" title="计网微课堂Chap4——网络层原理">
+                  <i class="fa fa-chevron-left"></i> 计网微课堂Chap4——网络层原理
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/01/23/4be37de340a1/" rel="next" title="机器学习基础系列笔记14——ResNet详解及为什么能解决深度网络退化问题">
-                  机器学习基础系列笔记14——ResNet详解及为什么能解决深度网络退化问题 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -476,7 +529,7 @@ Augmentation。比如，对于某一层，dropout一些单元后，形成的结�
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"05974640ee139957021e575f0b411b50"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"fantast416","repo":"myblog-comment","client_id":"5889deaac4d791879f9a","client_secret":"ab0fce7b7a7466f56f12be1dff5b4def256ea772","admin_user":"fantast416","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"86fb34053642514e4588c2f45cc36f11"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
