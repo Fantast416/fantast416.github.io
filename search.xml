@@ -24,6 +24,176 @@
       </tags>
   </entry>
   <entry>
+    <title>计网微课堂Chap6——应用层原理</title>
+    <url>/2022/07/17/78c11b2eddea/</url>
+    <content><![CDATA[<p>视频地址：https://www.bilibili.com/video/BV1c4411d7jb?p=67</p>
+<h4 id="一客户服务器方式-和-对等方式">一、客户/服务器方式 和
+对等方式：</h4>
+<ul>
+<li><strong>C/S方式（包括万维网、电子邮件、文件传输FTP等）</strong>
+<ul>
+<li>客户是服务请求方，服务器是服务提供方。服务器总是处于运行状态，并等待客户的服务请求。服务器具有固定端口号（例如HTTP服务器的默认端口号为80），而运行服务器的主机也具有固定的IP地址。</li>
+</ul></li>
+<li><strong>P2P方式（包括文件共享、即时通信、P2P流媒体、分布式存储）</strong>：
+<ul>
+<li>在P2P方式中，没有固定的服务请求者和服务提供者，分布在网络边缘各端系统中的应用进程是对等的，被称为对等方。</li>
+<li>对等方相互之间直接通信，每个对等方既是服务的请求者，又是服务的提供者。</li>
+</ul></li>
+</ul>
+<h4 id="二dhcp协议">二、DHCP协议：</h4>
+<ul>
+<li><p>DHCP的作用：</p>
+<ul>
+<li><p><strong>可以为局域网中各主机配置以下信息：</strong></p>
+<ul>
+<li>IP地址、子网掩码、默认网关、DNS服务器</li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717094843438.png" /></p></li>
+</ul></li>
+<li><p><strong>DHCP的工作过程：</strong></p></li>
+</ul>
+<p>​
+在DHCP服务器上运行DHCP服务器进程，在用户主机上运行DHCP客户端进程，其基于UDP协议。主机启动后，主机首先会广播<strong>DHCP发现报文</strong>，源IP地址为0.0.0.0，因为此时主机还没有IP地址。对于DHCP服务器，接收该报文，根据其中封装的客户端MAC地址来查找自己的数据库，并根据相应信息发送DHCP提供报文。该报文的目的地址为广播地址，因为用户主机还没有IP地址。对于DHCP客户而言，根据DHCP提供报文中的<strong>事务ID</strong>来判断该报文是不是自己请求的报文，如果是，则接收该DHCP提供报文，并根据其内封装的信息配置自己的默认信息。</p>
+<p>​
+此时DHCP客户从多个DHCP服务器中返回的信息中挑选一个（一般是先到的），然后发送广播DHCP请求报文，向该DHCP服务器请求使用该IP地址。随后对应DHCP服务器发送<strong>DHCP确认报文</strong>，客户机接收到以后，使用ARP检测所分配到的IP地址是否已被网络中其他主机占用：若被占用：给DHCP服务器发送“DHCP若被占用：给DHCP服务器发送“DHCPDECLINE"报文撤销lP地址租约，并重新发送“DHCP
+DISCOVER"报文；若未被占用：可以使用租约中的IP地址与网络中其他主机通信了。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717095933859.png" /></p>
+<ul>
+<li><p>DHCP中继代理：</p></li>
+<li><p>使用中继代理的原因是，我们并不愿意在每个网络中都设置一个DHCP服务器，所以需要中继代理。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717100100162.png" /></p></li>
+</ul>
+<h4 id="三dns协议">三、DNS协议：</h4>
+<p>​ 因特网采用层次树状结构的域名结构<img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717104938232.png" /></p>
+<ul>
+<li><p>顶级域名包含三类：</p>
+<ul>
+<li><p>国家顶级域名</p></li>
+<li><p>通用顶级域名</p></li>
+<li><p>反向域</p>
+<p>在国家顶级域名下注册的二级域名均由该国家自行确定。例如，顶级域名为jp的日本，将其教育和企业机构的二级域名定为ac和co，而不用edu和com。</p></li>
+</ul></li>
+<li><p>域名空间</p></li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717105639917.png" /></p>
+<ul>
+<li><p>DNS使用分布在各地的域名服务器来实现域名到IP的转换</p></li>
+<li><p>域名服务器可以划分为以下四种类型：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717105930441.png" /></p></li>
+<li><p>域名解析的过程</p>
+<ul>
+<li>递归查询：
+<ul>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717110034788.png" style="zoom:67%;" /></li>
+</ul></li>
+<li>迭代查询：
+<ul>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717110127143.png" style="zoom:67%;" /></li>
+</ul></li>
+</ul></li>
+<li><p>为了提高DNS的查询效率，并减轻根域名服务器的负荷和减少因特网上的DNS查询报文数量，在域名服务器中广泛地使用了高速缓存。高速缓存用来存放最近查询过的域名以及从何处获得域名映射信息的记录。</p></li>
+<li><p>由于域名到IP地址的映射关系并不是永久不变，为保持高速缓存中的内容正确，域名服务器应为每项内容设置计时器并删除超过合理时间的项（例如，每个项目只存放两天）。</p></li>
+<li><p>不但在本地域名服务器中需要高速缓存，在用户主机中也很需要。许多用户主机在启动时从本地域名服务器下载域名和IP地址的全部数据库，维护存放自己最近使用的域名的高速缓存，并且只在从缓存中找不到域名时才向域名服务器查询。同理，主机也需要保持高速缓存中内容的正确性。</p></li>
+</ul>
+<h4 id="四ftp协议">四、FTP协议：</h4>
+<ul>
+<li><p>FTP的基本工作原理：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717110619535.png" /></p></li>
+</ul>
+<p>​
+总共会开通两个TCP连接，用于传送控制命令的TCP连接一直保持打开状态，二用于传送数据的TCP连接每次传送完数据后都会关闭。</p>
+<h4 id="五电子邮件">五、电子邮件：</h4>
+<ul>
+<li>三个步骤：</li>
+</ul>
+<p><img
+src="C:\Users\14012\AppData\Roaming\Typora\typora-user-images\image-20220717110817694.png" /></p>
+<ul>
+<li><p>三个主要构件：</p>
+<ul>
+<li>用户代理、邮件服务器、电子邮件所需要的协议</li>
+<li><strong>用户代理</strong>是用户与电子邮件系统的接口，又称为电子邮件客户端软件。</li>
+<li><strong>邮件服务器</strong>是电子邮件系统的基础设施。因特网上所有的ISP都有邮件服务器，其功能是发送和接收邮件，同时还要负责维护用户的邮箱。</li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717111014969.png" /></p></li>
+<li><p>邮件发送和接收过程：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717111159217.png" /></p></li>
+<li><p>SMTP协议基本工作原理：</p>
+<ul>
+<li>注意：1.为了简单起见，省略了认证过程；2.应答代码后面一般都跟有简单的描述信息3.不同的SMTP服务器给出的相同应答代码的描述信息可能不同</li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717111351617.png" /></p></li>
+<li><p>电子邮件的定义：</p>
+<ul>
+<li>一个电子邮件有信封和内容两部分。而内容又由首部和主体两部分构成。</li>
+</ul></li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717111501861.png" /></p>
+<ul>
+<li>MIME：
+<ul>
+<li>SMTP协议只能传送ASCII码文本数据，不能传送可执行文件或其他的二进制对象。SMTP不能满足传送多媒体邮件（例如带有图片、音频或视频数据）的需要。并且许多其他非英语国家的文字（例如中文、俄文、甚至带有重音符号的法文或德文）也无法用SMTP传送。</li>
+<li>为解决SMTP传送非ASCI码文本的问题，提出了<strong>多用途因特网邮件扩展MIME（Mulipurpose
+Internet Mail Extensions）</strong></li>
+<li><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717111557311.png" style="zoom:67%;" /></li>
+</ul></li>
+<li>常用的邮件读取协议：
+<ul>
+<li>邮局协议POP
+<ul>
+<li>非常简单、功能有限的邮件读取协议。用户只能以下载并删除方式或下载并保留方式从邮件服务器下载邮件到用户方计算机。<strong>不允许用户在邮件服务器上管理自己的邮件。</strong>（例如创建文件夹，对邮件进行分类管理等）。</li>
+</ul></li>
+<li>因特网邮件访问协议IMAP
+<ul>
+<li>功能比POP3强大的邮件读取协议。<strong>用户在自己的计算机上就可以操控邮件服务器中的邮箱，就像在本地操控一样，因此IMAP是一个联机协议。</strong></li>
+</ul></li>
+<li>POP3和IMAP4都采用基于TCP连接的客户/服务器方式。POP3使用熟知端口110，IMAP4使用熟知端口143。</li>
+</ul></li>
+</ul>
+<h4 id="六万维网www">六、万维网WWW</h4>
+<ul>
+<li>浏览器最重要的部分是渲染引擎，也就是浏览器内核。负责对网页内容进行解析和显示。</li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717112048715.png" /></p>
+<ul>
+<li>HTTP/1.0
+<ul>
+<li>HTTP/1.0采用非持续连接方式。在该方式下，每次浏览器要请求一个文件都要与服务器建立TCP连接，当收到响应后就立即关闭连接。</li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717132023000.png" /></li>
+</ul></li>
+<li>HTTP1.1
+<ul>
+<li>HTTP/1.1采用持续连接方式。在该方式下，万维网服务器在发送响应后仍然保持这条连接，使同一个客户（浏览器）和该服务器可以继续在这条连接上传送后续的HTTP请求报文和响应报文。这并不局限于传送同一个页面上引用的对象，而是只要这些文档都在同一个服务器上就行。</li>
+</ul></li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717132217029.png" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717132242334.png" style="zoom:67%;" /></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220717132321231.png" /></p>
+]]></content>
+      <categories>
+        <category>⓹ 基础类笔记</category>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>Computer Network</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计网微课堂Chap5——运输层原理</title>
     <url>/2022/07/15/b846bd0fbb3c/</url>
     <content><![CDATA[<p>视频地址：https://www.bilibili.com/video/BV1c4411d7jb?p=58</p>
@@ -100,9 +270,185 @@ src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-202207152212365
 <p><img
 src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220715221534600.png" /></p>
 <h4 id="四tcp的流量控制">四、TCP的流量控制：</h4>
+<p>​ 所谓流量控制（flow
+control）就是让发送方的发送速率不要太快，要让接收方来得及接收。</p>
+<ul>
+<li><p>可以使用滑动窗口机制实现，示例如下：</p></li>
+<li><p><strong>主机A根据主机B的ACK帧中的接收窗口大小来调整自己的发送窗口大小。</strong></p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716111424822.png" /></p></li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716111513511.png" /></p>
+<p>​
+为避免上述情况发生，每个主机当收到零窗口通知时，会启动一个持续计时器，当该计时器超时，则主机会发送一个<strong>零窗口探测报文</strong>，仅携带1字节数据，询问接收窗口大小。如下所示：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716111638398.png" /></p>
 <h4 id="五tcp的拥塞控制">五、TCP的拥塞控制：</h4>
-<h4 id="六超时重传时间的选择">六、超时重传时间的选择：</h4>
+<p>​
+在某段时间，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络性能就要变坏。这种情况就叫做拥塞（congestion）。</p>
+<ul>
+<li>在计算机网络中的链路容量（即带宽）、交换结点中的缓存和处理机等，都是网络的资源。若出现拥塞而不进行控制，整个网络的吞吐量将随输入负荷的增大而下降。</li>
+</ul>
+<p><strong>TCP共有以下四种拥塞控制算法</strong>：</p>
+<ul>
+<li><p>假设：</p>
+<ul>
+<li>数据是单方向传送，而另一个方向只传送确认。</li>
+<li>接收方总是有足够大的缓存空间，因而发送方发送窗口的大小由网络的拥塞程度来决定。</li>
+<li>以最大报文段MSS的个数为讨论问题的单位，而不是以字节为单位。</li>
+</ul></li>
+<li><p><strong>TCP使用拥塞避免算法的基本过程：</strong></p></li>
+<li><p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716112248505.png" /></p></li>
+<li><p>慢开始算法：</p></li>
+</ul>
+<p>​ 每收到一个确认报文，拥塞窗口大小增加1.
+每个传输轮次结束后，按照<strong>指数速度</strong>增长拥塞窗口。</p>
+<ul>
+<li>拥塞避免算法：</li>
+</ul>
+<p>​
+每个传输轮次结束后，拥塞窗口大小增加1.每个传输轮次结束后，按照<strong>线性速度</strong>增长拥塞窗口。</p>
+<p>​
+当某一次，重传计时器超时，则<strong>网络很可能出现了拥塞，进行以下工作</strong>：</p>
+<p>​ 1、将ssthresh值更新为发生拥塞时cwnd值的一半；</p>
+<p>​ 2、将cwnd值减少为1，并重新开始执行慢开始算法。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716112813706.png" /></p>
+<ul>
+<li><p>快重传和快恢复：</p>
+<ul>
+<li>有时，个别报文段会在网络中丢失，但实际上网络并未发生拥塞。这将导致发送方超时重传，并误认为网络发生了拥塞；这两个算法将会<strong>改进TCP的性能</strong></li>
+</ul></li>
+<li><p>快重传算法：</p>
+<p>​ 采用快重传算法可以让发送方尽早知道发生了个别报文段的丢失。</p>
+<p>​
+所谓快重传，就是使发送方尽快进行重传，而不是等超时重传计时器超时再重传。</p>
+<p>​
+口要求接收方不要等待自己发送数据时才进行捎带确认，而是要立即发送确认；</p>
+<p>​ 囗即使收到了失序的报文段也要立即发出对已收到的报文段的重复确认。</p>
+<p>​
+口发送方一旦收到3个连续的重复确认，就将相应的报文段立即重传，而不是等该报文段的超时重传计时器超时再重传。</p></li>
+</ul>
+<p>​
+口对于个别丢失的报文段，发送方不会出现超时重传，也就不会误认为出现了拥塞（进而降低拥塞窗口cwnd为1）。使用快重传可以使整个网络的吞叶量提高约20%。.</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716122753536.png" /></p>
+<ul>
+<li><p>快恢复算法：</p>
+<p>​
+发送方一旦收到3个重复确认，就知道现在只是丢失了个别的报文段。于是不启动慢开始算法，而执行快恢复算法；</p>
+<p>​
+<strong>发送方将慢开始门限ssthresh值和拥塞窗口cwnd值调整为当前窗口的一半；开始执行拥塞避免算法。</strong></p></li>
+<li><p>综合总结</p></li>
+</ul>
+<figure>
+<img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716122929537.png"
+alt="image-20220716122929537" />
+<figcaption aria-hidden="true">image-20220716122929537</figcaption>
+</figure>
+<h4 id="六tcp超时重传时间的选择">六、TCP超时重传时间的选择：</h4>
+<p>​ 不能直接使用某次测量得到的RTT样本来计算超时重传时间RTO。</p>
+<p>​
+利用每次测量得到的RTT样本，计算加权平均往返时间RTTs利用每次测量得到的RTT样本，计算加权平均往返时间RTTs（又称为平滑的往返时间）。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716123516884.png" style="zoom:67%;" /></p>
+<ul>
+<li>往返时间RTT的测量比较复杂：</li>
+</ul>
+<p>​
+针对出现超时重传时无法测准往返时间RTT的问题，Karn提出了一个算法：在计算加权平均往返时间RTTs时，只要报文段重传了，就不采用其往返时间RTT样本。也就是出现重传时，不重新计算RTTs，进而超时重传时间RTO也不会重新计算。</p>
+<p>​
+因此，Karn算法也需要修正。方法是：<strong>报文段每重传一次，就把超时重传时间RTO增大一些。</strong>典型的做法是将新RTO的值取为旧RTO值的2倍。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716123844458.png" /></p>
 <h4 id="七可靠传输的实现">七、可靠传输的实现：</h4>
+<ul>
+<li><p>TCP基于<strong>以字节为单位的滑动窗口</strong>来实现可靠传输</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716132341532.png" /></p></li>
+<li><p>如何描述发送窗口的状态：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716132527433.png" /></p></li>
+<li><p>接收窗口：</p>
+<ul>
+<li>接收方只能应答已收到报文的最高序号</li>
+<li>对于不按需到达的数据应如何处理，TCP无明确规定：
+<ul>
+<li>TCP通常对不按序到达的数据是先临时存放在接收窗口中，等到字节流中所缺少的字节收到后，再按序交付上层的应用进程。</li>
+</ul></li>
+<li>TCP要求接收方必须有累积确认和捎带确认机制，这样可以减小传输开销。接收方可以在合适的时候发送确认，也可以在自己有数据要发送时把确认信息顺便捎带上。</li>
+</ul></li>
+<li><p>TCP是全双工通信。每一方都有自己的接收窗口和发送窗口</p></li>
+</ul>
+<h4 id="八tcp的连接建立三次握手">八、TCP的连接建立——三次握手</h4>
+<p>TCP运输连接有以下三个阶段：</p>
+<ul>
+<li>建立TCP连接</li>
+<li>数据传送</li>
+<li>释放TCP连接</li>
+</ul>
+<p>TCP的连接建立要解决以下问题：</p>
+<ul>
+<li>使TCP双方能够确知对方的存在；</li>
+<li>使TCP双方能够协商一些参数（如最大窗口值、是否使用窗口扩大选项和时间戳选项以及服务质量等）；</li>
+<li>使TCP双方能够对运输实体资源（如缓存大小、连接表中的项目等）进行分配。</li>
+</ul>
+<p><strong>TCP连接建立的过程：</strong></p>
+<p>​ <img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716133727985.png" /></p>
+<ul>
+<li><p>x是客户端选择的初始序号</p></li>
+<li><p>y是服务器选择的初始序号</p></li>
+<li><p>TCP连接请求帧和TCP连接请求确认帧不能携带其他数据</p></li>
+<li><p>为什么最后要发送确认报文？</p>
+<ul>
+<li>如果有TCP连接请求滞留在网络中，那么当该连接请求到达服务器后，服务器又会处于连接建立状态，而客户端已经处于关闭状态，故而会浪费服务器资源。</li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716134101110.png" /></li>
+</ul></li>
+</ul>
+<h4 id="九tcp的连接释放四次挥手">九、TCP的连接释放——四次挥手</h4>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716140346765.png" /></p>
+<ul>
+<li>客户端为什么要有TIME-WAIT阶段？
+<ul>
+<li>如果最后一个客户端的确认数据报文丢失，则：</li>
+<li><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716140540038.png" /></li>
+</ul></li>
+<li>如果TCP客户端出现故障，TCP服务器进程如何发现呢？
+<ul>
+<li>TCP服务器进程每收到一次TCP客户进程的数据，就重新设置并启动保活计时器（2小时定时）。</li>
+<li>若保活计时器定时周期内未收到TCP客户进程发来的数据，则当保活计时器到时后，TCP服务器进程就向TCP客户进程发送一个探测报文段，以后则每隔75秒钟发送一次。</li>
+<li>若一连发送10个探测报文段后仍无TCP客户进程的响应，TCP服务器进程就认为TCP客户进程所在主机出了故障，接着就关闭这个连接。</li>
+</ul></li>
+</ul>
+<h4 id="十tcp报文段的首部格式">十、TCP报文段的首部格式</h4>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220716140957849.png" /></p>
+<ul>
+<li><p>源端口：占16比特，写入源端口号，用来标识发送该TCP报文段的应用进程。</p></li>
+<li><p>目的端口：占16比特，写入目的端口号，用来标识接收该TCP报文段的应用进程。</p></li>
+<li><p>序号：占32比特，取值范围[0，<span class="math inline">\(2^{32} -
+1\)</span>]，序号增加到最后一个后，下一个序号就又回到0。指出本TCP报文段数据载荷的第一个字节的序号。</p></li>
+<li><p>确认号：占32比特，取值范围[0，<span class="math inline">\(2^{32}
+-
+1\)</span>]，确认号增加到最后一个后，下一个确认号就又回到0。指出期望收到对方下一个TCP报文段的数据载荷的第一个字节的序号，同时也是对之前收到的所有数据的确认。</p></li>
+<li><p>确认标志位ACK：取值为1时确认号字段才有效；取值为0时确认号字段无效。TCP规定，在连接建立后所有传送的TCP报文段都必须把ACK置1。</p></li>
+<li><p>数据偏移：占4比特，并以4字节为单位。用来指出TCP报文段的数据载荷部分的起始处距离TCP报文段的起始处有多远。这个字段实际上是指出了TCP报文段的首部长度。</p></li>
+<li><p>窗口：占16比特，以字节为单位。指出发送本报文段的一方的接收窗口。窗口值作为接收方让发送方设置其发送窗口的依据。这是以接收方的接收能力来控制发送方的发送能力，称为流量控制。</p></li>
+<li><p>校验和：占16比特，检查范围包括TCP报文段的首部和数据载荷两部分。在计算校验和时，要在TCP报文段的前面加上12字节的伪首部。</p></li>
+<li><p>同步标志位SYN：在TCP连接建立时用来同步序号。</p></li>
+<li><p>终止标志位FIN：用来释放TCP连接。</p></li>
+<li><p>复位标志位RST：用来复位TCP连接。当RST=1时，表明TCP连接出现了异常，必须释放连接，然后再重新建立连接。RST置1还用来拒绝一个非法的报文段或拒绝打开一个TCP连接。</p></li>
+<li><p>推送标志位PSH：接收方的TCP收到该标志位为1的报文段会尽快上交应用进程，而不必等到接收缓存都填满后再向上交付。</p></li>
+<li><p>紧急标志位URG：取值为1时紧急指针字段有效；取值为0时紧急指针字段无效。</p></li>
+<li><p>紧急指针：占16比特，以字节为单位，用来指明紧急数据的长度。</p></li>
+<li><p>填充：由于选项的长度可变，因此使用填充来确保报文段首部能被4整除（因为数据偏移字段，也就是首部长度字段，是以4字节为单位的）。</p></li>
+</ul>
 ]]></content>
       <categories>
         <category>⓹ 基础类笔记</category>
@@ -651,173 +997,8 @@ alt="image-20220715161612437" />
       </tags>
   </entry>
   <entry>
-    <title>计网微课堂Chap2——物理层原理</title>
-    <url>/2022/05/01/81ac33552c19/</url>
-    <content><![CDATA[<p>视频地址：https://www.bilibili.com/video/BV1c4411d7jb?p=14</p>
-<h4 id="一物理层的基本概念">一、物理层的基本概念：</h4>
-<p>​
-解决在各种传输媒体上传输比特0和1流的问题，从而给数据链路层提供透明的传输比特流的服务。</p>
-<p>​ <strong>物理层为数据链路层屏蔽了各种传输媒体的差异。</strong></p>
-<p>物理层协议的主要任务：</p>
-<ul>
-<li>机械特性：指明接口所用接线器的形状和尺寸、引脚数目和排列、固定和锁定装置。</li>
-<li>电气特性：指明在接口电缆的各条线上出现的电压的范围。</li>
-<li>功能特性：指明某条线上出现的某一国平的电压表示何种意义。</li>
-<li>过程特性：指明对于不同功能的各种可能事件的出现顺序。</li>
-</ul>
-<p>由于物理层传输媒体众多，物理层协议众多，主要需要把握以上四个任务。</p>
-<h4 id="二物理层下面的传输媒体">二、物理层下面的传输媒体：</h4>
-<h5 id="导引型传输媒体固体线缆">1、导引型传输媒体（固体线缆）</h5>
-<ul>
-<li>同轴电缆：</li>
-</ul>
-<p><img src="C:\Users\14012\AppData\Roaming\Typora\typora-user-images\image-20220501094821175.png" style="zoom:50%;" /></p>
-<ul>
-<li>双绞线：
-<ul>
-<li>常用于局域网传输</li>
-</ul></li>
-</ul>
-<p>​ <img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501094949365.png" /></p>
-<ul>
-<li><p>光纤：</p>
-<p><img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501095410880.png" /></p>
-<ul>
-<li>通信容量大（25000~30000GHz的带宽）</li>
-<li>传输损耗小，远距离传输时更加经济。</li>
-<li>抗雷电和电磁干扰性能好。这在大电流脉冲干扰的环境下尤为重要。</li>
-<li>无串音干扰，保密性好，不易被窃听。</li>
-<li>体积小，重量轻。</li>
-<li>割接需要专用设备</li>
-<li>接口价格较贵</li>
-</ul></li>
-<li><p>电力线</p></li>
-</ul>
-<h5
-id="非导引型传输媒体自由空间电磁波">2、非导引型传输媒体（自由空间，电磁波）</h5>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501095538393.png" style="zoom: 67%;" /></p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501095701647.png" style="zoom:67%;" /></p>
-<ul>
-<li>无线电波：</li>
-</ul>
-<p><img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501095636403.png" /></p>
-<ul>
-<li><p>微波：</p>
-<p><img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501095750323.png" /></p></li>
-<li><p>红外线：</p>
-<ul>
-<li>电视、空调等遥控器</li>
-<li>点对点无线传输，</li>
-<li>直线传输，中间不能有障碍物，</li>
-<li>传输距离短传输速率低（4Mb/s~16Mb/s）</li>
-</ul></li>
-</ul>
-<h4 id="三传输方式">三、传输方式：</h4>
-<h5 id="串行传输和并行传输">1、串行传输和并行传输：</h5>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501100428195.png" style="zoom:67%;" /></p>
-<h5 id="同步传输与异步传输">2、同步传输与异步传输：</h5>
-<p><img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501100542991.png" /></p>
-<ul>
-<li><p>同步传输比特流逐一发送，接收方在比特信号的中间时刻进行检测，由于不同设备的时钟频率不一样，容易产生时钟误差累积，导致比特信号的误检测。所以我们需要一种方法实现收发双方时钟同步：</p>
-<ul>
-<li><p>外同步：在收发双方之间添加一条单独的时钟信号线</p></li>
-<li><p>内同步：发送端将时钟同步信号编码到发送数据中一起传输（例如传统以太网采用的曼彻斯特编码）</p></li>
-</ul></li>
-</ul>
-<p><img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501100823960.png" /></p>
-<ul>
-<li>异步传输以字节为单位，接收端仅在每个字节的起始处对字节内的比特实现同步，故而需要在字节前后加上起始位和结束位。</li>
-</ul>
-<h5 id="单工半双工全双工">3、单工、半双工、全双工：</h5>
-<ul>
-<li>单工示例：广播</li>
-<li>半双工示例：对讲机</li>
-<li>全双工示例：电话</li>
-</ul>
-<p><img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501101002739.png" /></p>
-<h4 id="四编码与调制">四、编码与调制：</h4>
-<p>​
-<strong>计算机中二进制数据是运送消息的实体，计算机的网卡会将二进制的数据调制成电信号，</strong>通过网线发送出去。信源发送的原始电信号成为基带信号，其又分为数字基带信号与模拟基带信号。</p>
-<p>​ 信号需要在信道中进行传输，信道又分数字信道和模拟信道。</p>
-<p><img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501134907767.png" /></p>
-<ul>
-<li><p>码元：代表不同离散数值的基本波形。</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501135008970.png" style="zoom:50%;" /></p></li>
-<li><p>计算机网络中，常用的是将数字信号编码或调制后在信道中进行传输</p></li>
-</ul>
-<h4 id="五常用编码">五、常用编码：</h4>
-<ul>
-<li>归零编码：自同步，但编码效率低。</li>
-</ul>
-<p><img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501135231432.png" /></p>
-<ul>
-<li><p>曼彻斯特编码：</p>
-<p><img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501135335053.png" /></p></li>
-<li><p>曼彻斯特差分编码：</p>
-<p><img
-src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501135411267.png" /></p></li>
-</ul>
-<h4 id="六常用调制方法">六、常用调制方法：</h4>
-<ul>
-<li>基本调制方法，1个码元只能包含1个比特信息</li>
-</ul>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501135556799.png" style="zoom:50%;" /></p>
-<ul>
-<li><p>混合调制：</p>
-<p>正交振幅调制QAM:</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501135724678.png" style="zoom:50%;" /></p></li>
-<li><p>12种相位</p></li>
-<li><p>每种相位有1或2种振幅可选,故可以调制出16种码元（波形）</p></li>
-<li><p>每种码元可以对应表示4个比特</p></li>
-<li><p>码元与4个比特的对应关系采用格雷码，即任意两个码元只有一个比特不同</p></li>
-</ul>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501155644426.png" style="zoom:50%;" /></p>
-<h4 id="七信道的极限容量">七、信道的极限容量：</h4>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501155815683.png" style="zoom: 50%;" /></p>
-<h5 id="奈氏准则"><strong>1、奈氏准则：</strong></h5>
-<h5
-id="在假定的理想条件下为了避免码间串扰码元的传输速率是有上限的"><strong>在假定的理想条件下，为了避免码间串扰，码元的传输速率是有上限的。</strong></h5>
-<ul>
-<li><p>理想低通信道的最高码元传输速率=2W Baud=2W码元/秒</p></li>
-<li><p>理想带通信道的最高码元传输速率=W Baud =W码元/秒</p></li>
-<li><p>W：信道带宽（单位为Hz）</p></li>
-<li><p>Baud：波特，即码元/秒</p></li>
-</ul>
-<p><strong>码元传输速率又称为波特率</strong>：</p>
-<ul>
-<li>当1个码元只携带一比特的信息量时，波特率 = 比特率</li>
-<li>当1个码元携带 N 比特的信息量时，波特率 = 比特率 / N</li>
-</ul>
-<p><strong>要提高信息传输速率（比特率），就必须设法使每一个码元能携带更多个比特的信息量。</strong></p>
-<p><strong>实际的信道所能传输的最高码元速率，要明显低于奈氏准则给出的这个上限数值。</strong></p>
-<h5 id="香农公式">2、香农公式：</h5>
-<p>​
-按照上述公式所说，难道只要采用更好的调制方法，使得码元可以携带更多的比特，就能无限制地提高信息的传输速率？</p>
-<p>​
-答案是否定的。因为<strong>信道的极限信息传输速率还要受限于实际的信号在信道中传输时的信噪比。</strong></p>
-<p><strong>香农公式</strong>：</p>
-<p>​
-带宽受限且有高斯白噪声干扰的信道的<strong>极限信息传输速率如下</strong>：</p>
-<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501160421428.png" style="zoom: 67%;" /></p>
-<p><strong>信道带宽或信道中信噪比越大，信息的极限传输速率越高。</strong></p>
-]]></content>
-      <tags>
-        <tag>Computer Network</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>计网微课堂Chap3——数据链路层原理</title>
-    <url>/2022/05/01/cb7d0a0dd4f3/</url>
+    <url>/2022/05/12/feb80abbdc95/</url>
     <content><![CDATA[<p>视频地址：https://www.bilibili.com/video/BV1c4411d7jb?p=21</p>
 <h4 id="一数据链路层概述">一、数据链路层概述:</h4>
 <p><strong>链路</strong>：
@@ -1281,17 +1462,177 @@ src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-202207121345535
 </ul></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>⓹ 基础类笔记</category>
+        <category>计算机网络</category>
+      </categories>
       <tags>
         <tag>Computer Network</tag>
       </tags>
   </entry>
   <entry>
-    <title>清华操作系统课程Chapter1—操作系统概述</title>
-    <url>/2022/04/28/7c4029518fb7/</url>
-    <content><![CDATA[<h3 id="section"></h3>
+    <title>计网微课堂Chap2——物理层原理</title>
+    <url>/2022/05/01/81ac33552c19/</url>
+    <content><![CDATA[<p>视频地址：https://www.bilibili.com/video/BV1c4411d7jb?p=14</p>
+<h4 id="一物理层的基本概念">一、物理层的基本概念：</h4>
+<p>​
+解决在各种传输媒体上传输比特0和1流的问题，从而给数据链路层提供透明的传输比特流的服务。</p>
+<p>​ <strong>物理层为数据链路层屏蔽了各种传输媒体的差异。</strong></p>
+<p>物理层协议的主要任务：</p>
+<ul>
+<li>机械特性：指明接口所用接线器的形状和尺寸、引脚数目和排列、固定和锁定装置。</li>
+<li>电气特性：指明在接口电缆的各条线上出现的电压的范围。</li>
+<li>功能特性：指明某条线上出现的某一国平的电压表示何种意义。</li>
+<li>过程特性：指明对于不同功能的各种可能事件的出现顺序。</li>
+</ul>
+<p>由于物理层传输媒体众多，物理层协议众多，主要需要把握以上四个任务。</p>
+<h4 id="二物理层下面的传输媒体">二、物理层下面的传输媒体：</h4>
+<h5 id="导引型传输媒体固体线缆">1、导引型传输媒体（固体线缆）</h5>
+<ul>
+<li>同轴电缆：</li>
+</ul>
+<p><img src="C:\Users\14012\AppData\Roaming\Typora\typora-user-images\image-20220501094821175.png" style="zoom:50%;" /></p>
+<ul>
+<li>双绞线：
+<ul>
+<li>常用于局域网传输</li>
+</ul></li>
+</ul>
+<p>​ <img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501094949365.png" /></p>
+<ul>
+<li><p>光纤：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501095410880.png" /></p>
+<ul>
+<li>通信容量大（25000~30000GHz的带宽）</li>
+<li>传输损耗小，远距离传输时更加经济。</li>
+<li>抗雷电和电磁干扰性能好。这在大电流脉冲干扰的环境下尤为重要。</li>
+<li>无串音干扰，保密性好，不易被窃听。</li>
+<li>体积小，重量轻。</li>
+<li>割接需要专用设备</li>
+<li>接口价格较贵</li>
+</ul></li>
+<li><p>电力线</p></li>
+</ul>
+<h5
+id="非导引型传输媒体自由空间电磁波">2、非导引型传输媒体（自由空间，电磁波）</h5>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501095538393.png" style="zoom: 67%;" /></p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501095701647.png" style="zoom:67%;" /></p>
+<ul>
+<li>无线电波：</li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501095636403.png" /></p>
+<ul>
+<li><p>微波：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501095750323.png" /></p></li>
+<li><p>红外线：</p>
+<ul>
+<li>电视、空调等遥控器</li>
+<li>点对点无线传输，</li>
+<li>直线传输，中间不能有障碍物，</li>
+<li>传输距离短传输速率低（4Mb/s~16Mb/s）</li>
+</ul></li>
+</ul>
+<h4 id="三传输方式">三、传输方式：</h4>
+<h5 id="串行传输和并行传输">1、串行传输和并行传输：</h5>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501100428195.png" style="zoom:67%;" /></p>
+<h5 id="同步传输与异步传输">2、同步传输与异步传输：</h5>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501100542991.png" /></p>
+<ul>
+<li><p>同步传输比特流逐一发送，接收方在比特信号的中间时刻进行检测，由于不同设备的时钟频率不一样，容易产生时钟误差累积，导致比特信号的误检测。所以我们需要一种方法实现收发双方时钟同步：</p>
+<ul>
+<li><p>外同步：在收发双方之间添加一条单独的时钟信号线</p></li>
+<li><p>内同步：发送端将时钟同步信号编码到发送数据中一起传输（例如传统以太网采用的曼彻斯特编码）</p></li>
+</ul></li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501100823960.png" /></p>
+<ul>
+<li>异步传输以字节为单位，接收端仅在每个字节的起始处对字节内的比特实现同步，故而需要在字节前后加上起始位和结束位。</li>
+</ul>
+<h5 id="单工半双工全双工">3、单工、半双工、全双工：</h5>
+<ul>
+<li>单工示例：广播</li>
+<li>半双工示例：对讲机</li>
+<li>全双工示例：电话</li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501101002739.png" /></p>
+<h4 id="四编码与调制">四、编码与调制：</h4>
+<p>​
+<strong>计算机中二进制数据是运送消息的实体，计算机的网卡会将二进制的数据调制成电信号，</strong>通过网线发送出去。信源发送的原始电信号成为基带信号，其又分为数字基带信号与模拟基带信号。</p>
+<p>​ 信号需要在信道中进行传输，信道又分数字信道和模拟信道。</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501134907767.png" /></p>
+<ul>
+<li><p>码元：代表不同离散数值的基本波形。</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501135008970.png" style="zoom:50%;" /></p></li>
+<li><p>计算机网络中，常用的是将数字信号编码或调制后在信道中进行传输</p></li>
+</ul>
+<h4 id="五常用编码">五、常用编码：</h4>
+<ul>
+<li>归零编码：自同步，但编码效率低。</li>
+</ul>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501135231432.png" /></p>
+<ul>
+<li><p>曼彻斯特编码：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501135335053.png" /></p></li>
+<li><p>曼彻斯特差分编码：</p>
+<p><img
+src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501135411267.png" /></p></li>
+</ul>
+<h4 id="六常用调制方法">六、常用调制方法：</h4>
+<ul>
+<li>基本调制方法，1个码元只能包含1个比特信息</li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501135556799.png" style="zoom:50%;" /></p>
+<ul>
+<li><p>混合调制：</p>
+<p>正交振幅调制QAM:</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501135724678.png" style="zoom:50%;" /></p></li>
+<li><p>12种相位</p></li>
+<li><p>每种相位有1或2种振幅可选,故可以调制出16种码元（波形）</p></li>
+<li><p>每种码元可以对应表示4个比特</p></li>
+<li><p>码元与4个比特的对应关系采用格雷码，即任意两个码元只有一个比特不同</p></li>
+</ul>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501155644426.png" style="zoom:50%;" /></p>
+<h4 id="七信道的极限容量">七、信道的极限容量：</h4>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501155815683.png" style="zoom: 50%;" /></p>
+<h5 id="奈氏准则"><strong>1、奈氏准则：</strong></h5>
+<h5
+id="在假定的理想条件下为了避免码间串扰码元的传输速率是有上限的"><strong>在假定的理想条件下，为了避免码间串扰，码元的传输速率是有上限的。</strong></h5>
+<ul>
+<li><p>理想低通信道的最高码元传输速率=2W Baud=2W码元/秒</p></li>
+<li><p>理想带通信道的最高码元传输速率=W Baud =W码元/秒</p></li>
+<li><p>W：信道带宽（单位为Hz）</p></li>
+<li><p>Baud：波特，即码元/秒</p></li>
+</ul>
+<p><strong>码元传输速率又称为波特率</strong>：</p>
+<ul>
+<li>当1个码元只携带一比特的信息量时，波特率 = 比特率</li>
+<li>当1个码元携带 N 比特的信息量时，波特率 = 比特率 / N</li>
+</ul>
+<p><strong>要提高信息传输速率（比特率），就必须设法使每一个码元能携带更多个比特的信息量。</strong></p>
+<p><strong>实际的信道所能传输的最高码元速率，要明显低于奈氏准则给出的这个上限数值。</strong></p>
+<h5 id="香农公式">2、香农公式：</h5>
+<p>​
+按照上述公式所说，难道只要采用更好的调制方法，使得码元可以携带更多的比特，就能无限制地提高信息的传输速率？</p>
+<p>​
+答案是否定的。因为<strong>信道的极限信息传输速率还要受限于实际的信号在信道中传输时的信噪比。</strong></p>
+<p><strong>香农公式</strong>：</p>
+<p>​
+带宽受限且有高斯白噪声干扰的信道的<strong>极限信息传输速率如下</strong>：</p>
+<p><img src="https://mypic416.oss-cn-hangzhou.aliyuncs.com/windows/image-20220501160421428.png" style="zoom: 67%;" /></p>
+<p><strong>信道带宽或信道中信噪比越大，信息的极限传输速率越高。</strong></p>
 ]]></content>
       <tags>
-        <tag>Operating System</tag>
+        <tag>Computer Network</tag>
       </tags>
   </entry>
   <entry>
